@@ -1,0 +1,2 @@
+[11-Mar-2024 05:30:01 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 24576 bytes) in /home/admin/public_html/247tutors.smarttechnologyhouse.net/app/Http/Controllers/StudentController.php on line 67
+[11-Mar-2024 05:30:16 UTC] PHP Fatal error:  Allowed memory size of 134217728 bytes exhausted (tried to allocate 24576 bytes) in /home/admin/public_html/247tutors.smarttechnologyhouse.net/app/Http/Controllers/StudentController.php on line 67
