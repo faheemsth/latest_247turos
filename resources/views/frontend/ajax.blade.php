@@ -1,7 +1,7 @@
  @if (!empty($TutorSubjectOffers))
                             @foreach ($TutorSubjectOffers->unique('id') as $tutor)
                                 <input type="hidden"
-                                    value="{{ !empty($TutorSubjectOffers->total()) ? $TutorSubjectOffers->total() : '0' }}"
+                                    value="{{ !empty($TutorSubjectOffers->unique('id')->count()) ? $TutorSubjectOffers->unique('id')->count() : '0' }}"
                                     id="checkcount">
                                 <div class="row py-3 ms-1 me-3 m-md-1" style="border-bottom: 1px  dotted #d5d4d4; ">
                                     <div class="col-md-12">

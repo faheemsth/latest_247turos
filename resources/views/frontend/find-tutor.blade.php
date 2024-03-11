@@ -26,55 +26,23 @@
             </div>
             <div class="col-md-6 col-12">
                 <div class="d-flex gap-2 gap-md-2 justify-content-md-end align-items-baseline">
-                    <small>Sort by: </small>
-                    <ul class="navbar-nav px-2">
-                        <li class="nav-item dropdown">
-                            <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDarkDropdownMenuLink"
-                                role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                <strong>Price </strong>
-                            </a>
-                            <ul class="dropdown-menu " aria-labelledby="navbarDarkDropdownMenuLink">
-                                <li><a class="dropdown-item" id="dropdown-item" href="javascript:void(0)">Low to High</a>
-                                </li>
-                                <li><a class="dropdown-item" id="dropdown-item" href="javascript:void(0)">High to Low</a>
-                                </li>
-                            </ul>
-                        </li>
-                    </ul>
-
-
-                    <div class="btn p-0">
-                        <ul class="navbar-nav">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link text-dark" href="#" id="navbarDarkDropdownMenuLink" role="button"
-                                    data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="./assets/images/menu-bar.png">
-
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
-                                    <li><a class="dropdown-item" id="dropdown-item" href="javascript:void(0)">Online</a>
-                                    </li>
-                                    <li><a class="dropdown-item" id="dropdown-item" href="javascript:void(0)">In Person</a>
-                                    </li>
-                                    <li><a class="dropdown-item" id="dropdown-item" href="javascript:void(0)">Both</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                    <div class="form-group">
+                        <label for="priceSort">Sort by:</label>
+                        <select class="form-control" id="priceSort" name="priceSort">
+                            <option value="">Select Option</option>
+                            <option value="asc" data-sort="Low to High">Low to High</option>
+                            <option value="desc" data-sort="High to Low">High to Low</option>
+                        </select>
                     </div>
-
-
-
-
-
-
-
-
-
-
-                    {{-- <div>
-                        <img src="./assets/images/menu.png">
-                    </div> --}}
+                    <div class="form-group">
+                        <label for="deliveryMethod">Type:</label>
+                        <select class="form-control" id="deliveryMethod" name="deliveryMethod">
+                            <option value="">Select Option</option>
+                            <option value="1" data-method="Online">Online</option>
+                            <option value="2" data-method="In Person">In Person</option>
+                            <option value="3" data-method="Both">Both</option>
+                        </select>
+                    </div>
                 </div>
             </div>
         </div>
@@ -88,22 +56,12 @@
                             placeholder="What do you want to explore?">
                     </div>
                     <div class="col-xl-3 col-md-3 col-12 py-2 d-flex justify-content-md-end">
-                        <ul class="navbar-nav px-2 ">
-                            <li class="nav-item dropdown">
-                                <a class="nav-link dropdown-toggle text-dark" href="#" id="navbarDarkDropdownMenuLink"
-                                    role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                    <img src="./assets/images/logo.png">
-                                    <strong class="pe-2">Select Gender</strong>
-                                </a>
-                                <ul class="dropdown-menu" aria-labelledby="navbarDarkDropdownMenuLink">
-                                    <li><a class="dropdown-item" id="dropdown-item" href="javascript:void(0)">Male</a></li>
-                                    <li><a class="dropdown-item" id="dropdown-item" href="javascript:void(0)">Female</a>
-                                    </li>
-                                    <li><a class="dropdown-item" id="dropdown-item" href="javascript:void(0)">Any</a>
-                                    </li>
-                                </ul>
-                            </li>
-                        </ul>
+                        <select class="form-control" id="genderSelect" name="genderSelect">
+                            <option value="">Select Option</option>
+                            <option value="Male" data-gender="Male">Male</option>
+                            <option value="Female" data-gender="Female">Female</option>
+                            <option value="Other" data-gender="Any">Any</option>
+                          </select>
                     </div>
                     <div class="col-xl-2 col-md-3 col-12 py-2 d-none">
                         <button class="btn filter-search-btn  rounded-0">
@@ -144,7 +102,7 @@
 
                                     <select name="" id="outline-remove"
                                         class="form form-control form-select Education_level">
-                                        <option value="" selected>All Levels</option>
+                                        <option value="" selected>Levels</option>
                                         <option value="KS1 (Primary)" data-level="KS1 (Primary)">KS1 (Primary)</option>
                                         <option value="KS2 (Primary)" data-level="KS2 (Primary)">KS2 (Primary)</option>
                                         <option value="KS3 (GCSE)" data-level="KS3 (GCSE)">KS3 (GCSE)</option>
@@ -155,7 +113,7 @@
                                 <div class="education-level py-2 my-2">
                                     <div class="availabilityWrapper css-lod8fa"><button class="dropdownTriggerButton">
                                             <div class="triggerButtonText" data-cy="availabilityFilter">
-                                                All Availability
+                                                Choose Availability
                                             </div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12"
                                                 style="margin-left: 10px;" height="8" viewBox="0 0 16 8"
@@ -774,6 +732,11 @@
                     var query = $('#search').val();
                     var zipcode = $('.zipcode').val();
                     var level = $('.Education_level').val();
+                    var priceSort = $('#priceSort').val();
+                    var deliveryMethod = $('#deliveryMethod').val();
+                    var genderSelect = $('#genderSelect').val();
+
+
                     var selectedSubjects = $('.checkbox1:checked').map(function() {
                         return this.value;
                     }).get();
@@ -798,6 +761,9 @@
                         data: {
                             query: query,
                             level: level,
+                            priceSort: priceSort,
+                            deliveryMethod:deliveryMethod,
+                            genderSelect:genderSelect,
                             subjects: selectedSubjects,
                             max_price: max_price,
                             min_price: min_price,
@@ -811,6 +777,10 @@
                             $('#TutorSubjectOffer').html(data);
                             $('#search').val(query);
                             $('.Education_level').val(level);
+                            $('#priceSort').val(priceSort);
+                            $('#deliveryMethod').val(deliveryMethod);
+
+
                             $('.zipcode').val(zipcode);
 
                             var checkcountValue = $('#checkcount').val();
@@ -828,7 +798,7 @@
                                 qcomashow + gender1 + '</strong> Tutors';
                             $('#appendcount').html(searchResultText);
 
-                            getPaginatedData(page, query, level, selectedSubjects, max_price,
+                            getPaginatedData(page, query, level,priceSort,deliveryMethod,genderSelect, selectedSubjects, max_price,
                                 min_price, sort, zipcode, gender);
                         }
                     });
@@ -837,13 +807,13 @@
 
             var subject = {!! json_encode(!empty($_GET['subject']) ? $_GET['subject'] : '') !!};
 
-            $('#search, .zipcode, .Education_level, .checkbox1, input[name="only"], #max_price, #min_price, #dropdown-item, .applyButton')
+            $('#search, .zipcode, .Education_level, #priceSort, #deliveryMethod, #genderSelect, .checkbox1, input[name="only"], #max_price, #min_price, #dropdown-item, .applyButton')
                 .on('keyup change click', function() {
                     var sort = $(this).text().trim();
 
-                    var firstTen = sort.substring(0, 10);
+                    var firstTen = sort.substring(0, 5);
 
-                    if (firstTen === 'All Levels' || firstTen === 'Apply filt') {
+                    if (firstTen === 'Level' || firstTen === 'Apply' || firstTen === 'Selec') {
                             sort = '';
                         }
                     debounceAjax(sort);
@@ -857,6 +827,13 @@
                 var page = $(this).attr('href').split('page=')[1];
                 var query = $('#search').val();
                 var level = $('.Education_level').val();
+                var priceSort = $('#priceSort').val();
+                var genderSelect = $('#genderSelect').val();
+
+                var deliveryMethod = $('#deliveryMethod').val();
+
+
+
                 var selectedSubjects = $('.checkbox1:checked').map(function() {
                     return this.value;
                 }).get();
@@ -873,12 +850,12 @@
                     });
                 });
                 updateSelectedCriteria();
-                getPaginatedData(page, query, level, selectedSubjects, max_price, min_price, sort, zipcode,
+                getPaginatedData(page, query, level, priceSort,deliveryMethod,genderSelect, selectedSubjects, max_price, min_price, sort, zipcode,
                     gender, selectedValues);
             });
             // Rest of your code...
 
-            function getPaginatedData(page, query, level, selectedSubjects, max_price, min_price, sort, zipcode,
+            function getPaginatedData(page, query, level, priceSort,deliveryMethod,genderSelect, selectedSubjects, max_price, min_price, sort, zipcode,
                 gender, selectedValues) {
                 $.ajax({
                     url: '{{ url('find-tutor') }}?page=' + page,
@@ -886,6 +863,9 @@
                     data: {
                         query: query,
                         level: level,
+                        priceSort: priceSort,
+                        deliveryMethod:deliveryMethod,
+                        genderSelect:genderSelect,
                         subjects: selectedSubjects,
                         max_price: max_price,
                         min_price: min_price,
@@ -898,6 +878,12 @@
                         $('#TutorSubjectOffer').html(data);
                         $('#search').val(query);
                         $('.Education_level').val(level);
+                        $('#priceSort').val(priceSort);
+                        $('#deliveryMethod').val(deliveryMethod);
+                        $('#genderSelect').val(genderSelect);
+
+
+
                         $('.zipcode').val(zipcode);
                         var checkcountValue = $('#checkcount').val();
                         var searchResultText = (typeof checkcountValue === 'undefined') ?
@@ -926,6 +912,19 @@
                 var selectedLevel = $('.Education_level option:selected').val();
                 var selectedLevel1 = $('.Education_level option:selected').text();
 
+
+                var priceSort = $('#priceSort option:selected').val();
+                var priceSort1 = $('#priceSort option:selected').text();
+
+                var deliveryMethod = $('#deliveryMethod option:selected').val();
+                var deliveryMethod1 = $('#deliveryMethod option:selected').text();
+
+                var genderSelect = $('#genderSelect option:selected').val();
+                var genderSelect1 = $('#genderSelect option:selected').text();
+
+
+
+
                 if (searchQuery !== '') {
                     selectedCriteria.push(
                         '<a class="py-1 px-3 border-muted border fw-bold rounded-2 text-dark" style="text-decoration: none;">' +
@@ -937,11 +936,30 @@
                         '<small>zipcode: ' + zipcode + '</small> <img src="./assets/images/cross.png"></a>');
                 }
 
-                if (selectedLevel1 !== 'All Levels') {
+                if (selectedLevel1 !== 'Levels') {
                     selectedCriteria.push(
                         '<a class="py-1 px-3 border-muted border fw-bold rounded-2 text-dark" style="text-decoration: none;">' +
                         '<small>' + selectedLevel1 + '</small> <img src="./assets/images/cross.png"></a>');
                 }
+
+                if (priceSort1 !== 'Select Option') {
+                    selectedCriteria.push(
+                        '<a class="py-1 px-3 border-muted border fw-bold rounded-2 text-dark" style="text-decoration: none;">' +
+                        '<small>' + priceSort1 + '</small> <img src="./assets/images/cross.png"></a>');
+                }
+
+                if (deliveryMethod1 !== 'Select Option') {
+                    selectedCriteria.push(
+                        '<a class="py-1 px-3 border-muted border fw-bold rounded-2 text-dark" style="text-decoration: none;">' +
+                        '<small>' + deliveryMethod1 + '</small> <img src="./assets/images/cross.png"></a>');
+                }
+                if (genderSelect1 !== 'Select Option') {
+                    selectedCriteria.push(
+                        '<a class="py-1 px-3 border-muted border fw-bold rounded-2 text-dark" style="text-decoration: none;">' +
+                        '<small>' + genderSelect1 + '</small> <img src="./assets/images/cross.png"></a>');
+                }
+
+
 
                 var minPrice = $('#min_price').val();
                 var maxPrice = $('#max_price').val();
@@ -1007,6 +1025,25 @@
                         this.selected = false;
                     }
                 });
+
+                $('#priceSort option:selected').each(function() {
+                    if ($(this).data("sort") === remover) {
+                        this.selected = false;
+                    }
+                });
+
+
+                $('#deliveryMethod option:selected').each(function() {
+                    if ($(this).data("method") === remover) {
+                        this.selected = false;
+                    }
+                });
+                $('#genderSelect option:selected').each(function() {
+                    if ($(this).data("gender") === remover) {
+                        this.selected = false;
+                    }
+                });
+
 
                 $('.checkbox1:checked').each(function() {
                     if ($(this).data("name") === remover) {

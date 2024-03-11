@@ -36,6 +36,12 @@ class TutorSubjectOffer extends Model
         $query = $request->input('query');
         $level = $request->input('level');
         $sort = $request->input('sort');
+        $priceSort = $request->input('priceSort');
+        $genderSelect = $request->input('genderSelect');
+
+        $deliveryMethod = $request->input('deliveryMethod');
+
+
         $gender = $request->input('gender');
         $selectedSubjects = $request->input('subjects');
         $subject = $request->input('subject');
@@ -114,34 +120,51 @@ class TutorSubjectOffer extends Model
             });
         }
         // sort my min and max price
-        if (!empty($gender) && ($gender == 'low to high' || $gender == 'high to low')) {
-            $direction = ($gender == 'low to high') ? 'asc' : (($gender == 'high to low') ? 'desc' : 'asc');
+        if (!empty($priceSort)) {
             $tutor->join('tutor_subject_offers', 'users.id', '=', 'tutor_subject_offers.tutor_id')
-                  ->orderByRaw('CAST(tutor_subject_offers.fee AS DECIMAL) ' . $direction)
+                  ->orderByRaw('CAST(tutor_subject_offers.fee AS DECIMAL) ' . $priceSort)
                   ->select('users.*');
         }
 
 
-        if (!empty($gender) && ($gender == 'Online' || $gender == 'In Person' || $gender == 'Both')) {
-            $direction = ($gender == 'Online') ? 1 : (($gender == 'In Person') ? 2 : (($gender == 'Both') ? 3 : ''));
-            $tutor->join('tutor_applications', 'users.id', '=', 'tutor_applications.tutor_id')
-                  ->where('tutor_applications.tutor_type', $direction)
-                  ->select('users.*');
+        if (!empty($deliveryMethod)) {
+            if ($deliveryMethod == 3) {
+                $tutor->join('tutor_applications', 'users.id', '=', 'tutor_applications.tutor_id')
+                    ->whereIn('tutor_applications.tutor_type', [1, 2])
+                    ->select('users.*');
+            } else if ($deliveryMethod == 1) {
+                $tutor->join('tutor_applications', 'users.id', '=', 'tutor_applications.tutor_id')
+                    ->whereIn('tutor_applications.tutor_type', [1])
+                    ->select('users.*');
+            } else if ($deliveryMethod == 2) {
+                $tutor->join('tutor_applications', 'users.id', '=', 'tutor_applications.tutor_id')
+                    ->whereIn('tutor_applications.tutor_type', [2])
+                    ->select('users.*');
+            }
         }
 
 
+      if(!empty($genderSelect)){
+        if($genderSelect == 'Other')
+        {
+            $tutor->whereIn('users.gender', ['Female', 'Male']);
+        }else{
+            $tutor->where('users.gender', $genderSelect);
+        }
+
+      }
 
         // search gender
         if ($gender == 'Male') {
-            $tutor->where('gender', 'Male');
+            $tutor->where('users.gender', 'Male');
         }
         // search gender
         if ($gender == 'Female') {
-            $tutor->where('gender', 'Female');
+            $tutor->where('users.gender', 'Female');
         }
 
         if ($gender == 'Any') {
-            $tutor->whereIn('gender', ['Female', 'Male']);
+            $tutor->whereIn('users.gender', ['Female', 'Male']);
         }
 
         // search query for name

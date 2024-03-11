@@ -66,7 +66,7 @@ public function update_tutor_post(Request $request)
     try {
         // Create or retrieve the current user
         $user = User::find(Auth::id());
-        
+
         $request->validate([
             'email' => 'required|email|unique:users,email,' . Auth::id(),
             // Add other validation rules as needed
@@ -130,11 +130,11 @@ public function update_tutor_post(Request $request)
     }
     public function tutor_profile()
     {
-        
+
         if(Auth::user()->role_id != 3){
                 return  redirect('/dashboard');
             }
-            
+
         $subject_ids = Auth::user()->subjects;
         $subject_ids = explode(',', $subject_ids);
 
@@ -293,7 +293,7 @@ public function update_tutor_post(Request $request)
             $tutor->is_criminal = $request->is_criminal;
             $tutor->is_criminal = $request->is_criminal;
             $tutor->criminal_description = $request->criminal_description;
-            $tutor->tutor_type = $request->tutortype;
+            $tutor->tutor_type = $request->tutortype == '3' ? '1,2':$request->tutortype;
             $tutor->week_hours = $request->week_hours;
             $tutor->licence_number = $request->licence_number;
             // $tutor->tutoring_slot = $request->tutoring_slot;
@@ -443,7 +443,7 @@ public function update_tutor_post(Request $request)
         if(Auth::user()->role_id != 3){
                 return  redirect('/dashboard');
         }
-        
+
         $bookings = Booking::with(['student', 'tutor', 'subjects'])
             ->where('tutor_id', Auth::id())
             ->get();
