@@ -43,11 +43,11 @@
                 </li>
                 <li class="nav-item dropdown">
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
-                        data-bs-toggle="dropdown" aria-expanded="false">How it's Work</a>
+                        data-bs-toggle="dropdown" aria-expanded="false">How it Works</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href='{{ route('studentApplySteps') }}'>Become a Student</a></li>
                         <li><a class="dropdown-item" href='{{ route('tutorApplySteps') }}'>Become a Tutor</a></li>
-                        <li><a class="dropdown-item" href='{{ route('organizationApplySteps') }}'>For Organization</a>
+                        <li><a class="dropdown-item" href='{{ route('organizationApplySteps') }}'>Become an Organization</a>
                         </li>
                     </ul>
                 </li>
@@ -168,27 +168,27 @@
                         <!--    <li><a class="dropdown-item" href="{{ route('locale', ['locale' => 'urd']) }}" {{ Session::get('locale') == 'urd' ? 'active' : ''}}>Urdu</a></li>-->
                         <!--    <li><a class="dropdown-item" href="{{ route('locale', ['locale' => 'chi']) }}" {{ Session::get('locale') == 'chi' ? 'active' : ''}}>Chinese</a></li>-->
                         <!--</ul>-->
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
-                        
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
                          <div id="google_element"></div>
-                         
-                         
-                         
-                         
-                         
+
+
+
+
+
                     </div>
                     <a href='{{ route('login-roles') }}' class="header-login px-3 py-2 mx-1 btn fw-bold"
                         id="btn-bg" type="submit">Login</a>
