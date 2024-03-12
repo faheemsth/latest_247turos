@@ -44,7 +44,21 @@
                             </h2>
                             <div id="flush-collapseOne" class="accordion-collapse collapse"
                                 aria-labelledby="flush-headingOne" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">@isset($web_settings['accfirst_desc']) {{ $web_settings['accfirst_desc'] ?? '' }} @endisset</div>
+                                <div class="accordion-body " style="text-align: justify;">
+                                    <p class="text-dark" style="font-size: 15px;">
+                                        @isset($web_settings['accfirst_desc'])
+                                            {{-- Display the truncated content --}}
+                                            {{ \Illuminate\Support\Str::limit($web_settings['accfirst_desc'], 599, $end='...') }}
+                                        @endisset
+                                            @if (strlen($web_settings['accfirst_desc']) > 599)
+                                                <span id="more" style="display: none;">{{ substr($web_settings['accfirst_desc'], 599) }}</span>
+                                                <button id="read-more-btn" class="btn bg-transparent" style="color:blue;">Read More</button>
+                                            @endif
+                                        </p>
+
+
+
+                                </div>
                             </div>
                         </div>
                         <div class="accordion-item">
@@ -57,7 +71,21 @@
                             </h2>
                             <div id="flush-collapseTwo" class="accordion-collapse collapse"
                                 aria-labelledby="flush-headingTwo" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">@isset($web_settings['accsec_desc']) {{ $web_settings['accsec_desc'] ?? '' }} @endisset</div>
+                                <div class="accordion-body " style="text-align: justify;">
+                                    {{-- @isset($web_settings['accsec_desc']) {{ $web_settings['accsec_desc'] ?? '' }} @endisset --}}
+
+                                    <p class="text-dark" style="font-size: 15px;">
+                                        @isset($web_settings['accsec_desc'])
+                                            {{-- Display the truncated content --}}
+                                            {{ \Illuminate\Support\Str::limit($web_settings['accsec_desc'], 609, $end='...') }}
+                                        @endisset
+                                            @if (strlen($web_settings['accsec_desc']) > 609)
+                                                <span id="moret" style="display: none;">{{ substr($web_settings['accsec_desc'], 609) }}</span>
+                                                <button id="read-moret-btn" class="btn bg-transparent" style="color:blue;">Read More</button>
+                                            @endif
+                                        </p>
+
+                                </div>
                             </div>
                         </div>
                         <div class="accordion-item">
@@ -70,8 +98,17 @@
                             </h2>
                             <div id="flush-collapseThree" class="accordion-collapse collapse"
                                 aria-labelledby="flush-headingThree" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">
-                                    @isset($web_settings['accthird_desc']) {{ $web_settings['accthird_desc'] ?? '' }} @endisset
+                                <div class="accordion-body " style="text-align: justify;">
+                                    <p class="text-dark" style="font-size: 15px;">
+                                        @isset($web_settings['accthird_desc'])
+                                            {{-- Display the truncated content --}}
+                                            {{ \Illuminate\Support\Str::limit($web_settings['accthird_desc'], 600, $end='...') }}
+                                        @endisset
+                                            @if (strlen($web_settings['accthird_desc']) > 600)
+                                                <span id="moreth" style="display: none;">{{ substr($web_settings['accthird_desc'], 600) }}</span>
+                                                <button id="read-moreth-btn" class="btn bg-transparent" style="color:blue;">Read More</button>
+                                            @endif
+                                        </p>
                                 </div>
                             </div>
                         </div>
@@ -85,7 +122,18 @@
                             </h2>
                             <div id="flush-collapsefour" class="accordion-collapse collapse"
                                 aria-labelledby="flush-headingfour" data-bs-parent="#accordionFlushExample">
-                                <div class="accordion-body">@isset($web_settings['accfour_desc']) {{$web_settings['accfour_desc'] ?? '' }} @endisset </div>
+                                <div class="accordion-body " style="text-align: justify;">
+                                    <p class="text-dark" style="font-size: 15px;">
+                                        @isset($web_settings['accfour_desc'])
+                                            {{-- Display the truncated content --}}
+                                            {{ \Illuminate\Support\Str::limit($web_settings['accfour_desc'], 601, $end='...') }}
+                                        @endisset
+                                            @if (strlen($web_settings['accfour_desc']) > 601)
+                                                <span id="moref" style="display: none;">{{ substr($web_settings['accfour_desc'], 601) }}</span>
+                                                <button id="read-moref-btn" class="btn bg-transparent" style="color:blue;">Read More</button>
+                                            @endif
+                                        </p>
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -114,6 +162,23 @@
             introMessage: "✋ Hi! I'm from 247tutors.co.uk"
         };
        </script>
-
+<script>
+    document.getElementById('read-more-btn').addEventListener('click', function() {
+        document.getElementById('more').style.display = 'inline';
+        document.getElementById('read-more-btn').style.display = 'none';
+    });
+    document.getElementById('read-moret-btn').addEventListener('click', function() {
+        document.getElementById('moret').style.display = 'inline';
+        document.getElementById('read-moret-btn').style.display = 'none';
+    });
+    document.getElementById('read-moreth-btn').addEventListener('click', function() {
+        document.getElementById('moreth').style.display = 'inline';
+        document.getElementById('read-moreth-btn').style.display = 'none';
+    });
+    document.getElementById('read-moref-btn').addEventListener('click', function() {
+        document.getElementById('moref').style.display = 'inline';
+        document.getElementById('read-moref-btn').style.display = 'none';
+    });
+</script>
        <script src='https://cdn.jsdelivr.net/npm/botman-web-widget@0/build/js/widget.js'></script>
 @endsection

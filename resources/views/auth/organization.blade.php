@@ -194,7 +194,7 @@
                 <!--<img src="{{ asset('assets/images/247 NEW Logo 2.png') }}" alt="Logo" width="15%" height="auto">-->
                 <h3 class="fw-bold mb-0" style="font-size:1.6rem">
                   <span id="text-color">
-                      ORGANISATION
+                      ORGANIZATION
                   </span>   REGISTRATION
                 </h3>
                 <div class="col-md-1 text-center">
@@ -234,7 +234,7 @@
            {{-- //// --}}
            <fieldset id="account">
             <div class="panel-body mt-5 text-center">
-                <h2 class=" fs-1" id="text-color"><strong>Reduced Online Tutoring Rates For Organisations</strong>
+                <h2 class=" fs-1" id="text-color"><strong>Reduced Online Tutoring Rates For Organizations</strong>
                 </h2><br>
             </div>
             <div class="d-flex flex-column flex-md-row ">
@@ -611,8 +611,8 @@
                     showCloseButton: true
                 });
             }else{
-            
-            
+
+
             $.ajax({
                 url: '/register',
                 method: 'POST',
@@ -650,7 +650,7 @@
                     }
                 },
             });
-            
+
         }
         });
     });

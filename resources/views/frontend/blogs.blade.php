@@ -78,11 +78,11 @@
 
                         <div class="card-box-content">
                             <h5 class=" fs-2">For Parents</h5>
-                            <p>Find up-to-date expert advice for supporting your teen's studies & wellbeing.</p>
+                            <p>Discover current expert guidance for aiding your teenager's studies and wellbeing.</p>
                         </div>
 
                         <div class="card-box-btn">
-                            <a href="{{ url('blogs?category=parent') }}" class="button btn fw-bold fs-5">Go to Parents Blog</a>
+                            <a href="{{ url('blogs?category=parent') }}" class="button btn fw-bold ">Visit the Parents Blog</a>
                         </div>
 
                     </div>
@@ -98,13 +98,12 @@
 
                         <div class="card-box-content ">
                             <h5 class="fs-2">For Students</h5>
-                            <p>Get study tips, revision hacks & careers advice to help you achieve your best at school and
-                                beyond.
+                            <p>Receive study tips, revision hacks, and careers advice to aid you in achieving your utmost potential at school and beyond.
                             </p>
                         </div>
 
                         <div class="card-box-btn">
-                            <a href="{{ url('blogs?category=students') }}" class="button btn mt-3   fw-bold fs-5" >Go to Students Blog</a>
+                            <a href="{{ url('blogs?category=students') }}" class="button btn mt-3 mt-md-0   fw-bold " >Visit the Students Blog</a>
                         </div>
 
                     </div>
@@ -117,13 +116,11 @@
                         </div>
                         <div class="card-box-content">
                             <h5 class="fs-2">For Tutors</h5>
-                            <p>Read up on the latest news from 247Tutors, plus top tips from other tutors on how to support
-                                your
-                                students.</p>
+                            <p>Keep informed with 247Tutors' latest news and valuable tips from fellow tutors to support your students effectively.</p>
                         </div>
 
                         <div class="card-box-btn">
-                            <a href="{{ url('blogs?category=tutors') }}" class="button btn mt-3 fw-bold fs-5">Go to Tutor Blog</a>
+                            <a href="{{ url('blogs?category=tutors') }}" class="button btn mt-3 mt-md-0 fw-bold ">Visit the Tutor Blog</a>
                         </div>
                     </div>
                 </div>
@@ -146,9 +143,18 @@
                     <div class="card border-0  mx-3 mx-md-0 ">
                         <img src="{{ asset($blog->image) }}" alt="">
                         <div class="card-body ps-0 blogcont">
-                            <p class="my-1 text-secondary">{{ $blog->slug }}</p>
+                            <p class="my-1 text-secondary">
+                                @isset($blog->slug)
+                                {{-- Display the truncated content --}}
+                                {{ \Illuminate\Support\Str::limit($blog->slug, 40, $end='...') }}
+                            @endisset
+                            </p>
                             <p class="p3 fw-bold fs-5">
-                                {{ $blog->title }}
+
+                                @isset($blog->title)
+                                {{-- Display the truncated content --}}
+                                {{ \Illuminate\Support\Str::limit($blog->title, 55, $end='...') }}
+                            @endisset
                             </p>
                             <p class="my-1 blogpara">
                                 <small>
