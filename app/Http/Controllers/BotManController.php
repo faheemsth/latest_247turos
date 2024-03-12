@@ -25,6 +25,7 @@ class BotManController extends Controller
                 $botman->types();
                 $mail = $message;
                 $this->sayBye($botman, $message);
+                $botman->reply('This ChatBot has been disabled. ');
             } elseif ($message == 'hi' || $message == 'Hi' || $message == 'Hello' || $message == 'Hey') {
                 $botman->types();
                 $this->askName($botman);
@@ -55,105 +56,63 @@ class BotManController extends Controller
     {
         $botman->types();
         $imagePath = public_path('assets/images/247 NEW Logo 1.png');
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
         // user
-        //     $data1 = [
-        //         'newMessage' => 'Successfully Send Your Issue To 247Tutors Support Team',
-        //         'email' => $message,
-        //         'name' => Session::get('name'),
-        //         'question' => Session::get('question'),
+        $data1 = [
+            'newMessage' => 'Successfully Send Your Issue To 247Tutors Support Team',
+            'email' => $message,
+            'name' => Session::get('name'),
+            'question' => Session::get('question'),
 
-        //     ];
-        //     $view = \view('pages.mails.chatbotemailUser', $data1);
-        //     $view = $view->render();
-        //     $mail = new PHPMailer();
-        //     $mail->CharSet = "UTF-8";
-        //     $mail->setfrom('support@247tutors.com', '247 Tutors');
-        //     $mail->AddEmbeddedImage($imagePath, 'logo');
-        //     $mail->isHTML(true);
-        //     $mail->Subject = 'Successfully Send Your Issue To 247Tutors Support Team';
-        //     $mail->Body = $view;
-        //     $mail->AltBody = '';
-        //     $mail->addaddress($message,Session::get('name'));
-        //     $mail->isHTML(true);
-        //     $mail->msgHTML($view);
-
-
-
-        //     if (!$mail->send())
-        //         throw new \Exception('Failed to send mail');
-
-        //    $data = [
-        //         'newMessage' => 'You have a new query from',
-        //          'email' => $message,
-        //         'name' => Session::get('name'),
-        //         'question' => Session::get('question'),
-
-        //     ];
-        //     $view = \view('pages.mails.chatbotemailAdmin', $data);
-        //     $view = $view->render();
-        //     $mail = new PHPMailer();
-        //     $mail->CharSet = "UTF-8";
-        //     $mail->setfrom('support@247tutors.com', '247 Tutors');
-        //     $mail->AddEmbeddedImage($imagePath, 'logo');
-        //     $mail->isHTML(true);
-        //     $mail->Subject = 'Support Query';
-        //     $mail->Body = $view;
-        //     $mail->AltBody = '';
-        //     $mail->addaddress(optional(\App\Models\WebSetting::find(1))->field_value,'Admin');
-        //     $mail->isHTML(true);
-        //     $mail->msgHTML($view);
-        //     if (!$mail->send())
-        //         throw new \Exception('Failed to send mail');
+        ];
+        $view = \view('pages.mails.chatbotemailUser', $data1);
+        $view = $view->render();
+        $mail = new PHPMailer();
+        $mail->CharSet = "UTF-8";
+        $mail->setfrom('support@247tutors.com', '247 Tutors');
+        $mail->AddEmbeddedImage($imagePath, 'logo');
+        $mail->isHTML(true);
+        $mail->Subject = 'Successfully Send Your Issue To 247Tutors Support Team';
+        $mail->Body = $view;
+        $mail->AltBody = '';
+        $mail->addaddress($message, Session::get('name'));
+        $mail->isHTML(true);
+        $mail->msgHTML($view);
 
 
 
+        if (!$mail->send())
+            throw new \Exception('Failed to send mail');
 
+        $data = [
+            'newMessage' => 'You have a new query from',
+            'email' => $message,
+            'name' => Session::get('name'),
+            'question' => Session::get('question'),
 
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+        ];
+        $view = \view('pages.mails.chatbotemailAdmin', $data);
+        $view = $view->render();
+        $mail = new PHPMailer();
+        $mail->CharSet = "UTF-8";
+        $mail->setfrom('support@247tutors.com', '247 Tutors');
+        $mail->AddEmbeddedImage($imagePath, 'logo');
+        $mail->isHTML(true);
+        $mail->Subject = 'Support Query';
+        $mail->Body = $view;
+        $mail->AltBody = '';
+        $mail->addaddress(optional(\App\Models\WebSetting::find(1))->field_value, 'Admin');
+        $mail->isHTML(true);
+        $mail->msgHTML($view);
+        if (!$mail->send())
+            throw new \Exception('Failed to send mail');
 
         Session::forget('name');
         Session::put('name');
         Session::put('question');
         $botman->types();
-        $botman->ask("Okay, it's a pleasure to meet you. We've received your email details, so I'll be contacting you shortly. If you have any urgent questions, feel free to reach out." . optional(\App\Models\WebSetting::find(1))->field_value, function (Answer $answer) {
-            $name = $answer->getText();
-            $this->say('Bye ' . $name);
+        $botman->ask("Thanks, nice to meet you! We will contact you shortly. If you have an urgent inquiry then please contact " . optional(\App\Models\WebSetting::find(1))->field_value, function ($answer, $botman) {
+            $botman->stopConversation();
+            echo "<script>document.getElementById('userText').style.display = 'none';</script>";
         });
     }
 }
