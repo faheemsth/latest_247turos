@@ -59,7 +59,7 @@
                                 <option value="5"
                                     {{ !empty($_GET['status']) && $_GET['status'] == 5 ? 'selected' : '' }}>Parent</option>
                             </select>
-                            <input type="text" id="search" name="search" value="{{ $_GET['search'] ?? '' }}"
+                            <input type="text" id="serach" name="serach" value="{{ $_GET['serach'] ?? '' }}"
                                 class="form-control" placeholder="Search">
 
                         </div>
@@ -79,7 +79,7 @@
                                         <th>Date</th>
                                     </tr>
                                 </thead>
-                                <tbody id="complaints">
+                                <tbody>
                                     @if ($Complaints->count() > 0)
                                         @foreach ($Complaints as $Complaint)
                                             <tr>
@@ -112,6 +112,11 @@
                                                 </td>
                                             </tr>
                                         @endforeach
+                                        <tr style="border: none;">
+                                            <td class="text-end" colspan="6" style="border: none;">
+                                                {!! $Complaints->links('pagination.custom') !!}
+                                            </td>
+                                        </tr>
                                     @else
                                         <tr>
                                             <td class="text-center" colspan="6">Record not found</td>
@@ -119,7 +124,7 @@
                                     @endif
                                 </tbody>
                             </table>
-                            <div class="d-flex justify-center">{{ $Complaints->links() }}</div>
+                            <input type="hidden" name="hidden_page" id="hidden_page" value="1" />
                         </div>
                     </div>
                 </div>
@@ -188,32 +193,47 @@
                 });
             }
         </script>
+
         <script>
             $(document).ready(function() {
-                function performSearch(page = 1) {
+                const fetch_data = (page, status, seach_term) => {
+                    if (status === undefined) {
+                        status = "";
+                    }
+                    if (seach_term === undefined) {
+                        seach_term = "";
+                    }
                     $.ajax({
-                        type: 'GET',
-                        url: '{{ url('Complaintlogs') }}',
-                        data: {
-                            search: $('#search').val(),
-                            status: $('#status').val(),
-                            page: page
-                        },
-                        success: function(response) {
-                            $('#complaints').html(response);
+                        url: "Complaintlogs/?page=" + page + "&status=" + status + "&seach_term=" +
+                            seach_term,
+                        success: function(data) {
+                            $('tbody').html('');
+                            $('tbody').html(data);
                         }
-                    });
+                    })
                 }
-                $('#search').on('keyup', function() {
-                    performSearch();
+
+                $('body').on('keyup', '#serach', function() {
+                    var status = $('#status').val();
+                    var seach_term = $('#serach').val();
+                    var page = $('#hidden_page').val();
+                    fetch_data(page, status, seach_term);
                 });
-                $('#status').on('change', function() {
-                    performSearch();
+
+                $('body').on('change', '#status', function() {
+                    var status = $('#status').val();
+                    var seach_term = $('#serach').val();
+                    var page = $('#hidden_page').val();
+                    fetch_data(page, status, seach_term);
                 });
-                $(document).on('click', '.pagination a', function(event) {
+
+                $('body').on('click', '.pager a', function(event) {
                     event.preventDefault();
                     var page = $(this).attr('href').split('page=')[1];
-                    performSearch(page);
+                    $('#hidden_page').val(page);
+                    var serach = $('#serach').val();
+                    var seach_term = $('#status').val();
+                    fetch_data(page, status, seach_term);
                 });
             });
         </script>

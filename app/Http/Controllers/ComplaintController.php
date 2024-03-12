@@ -11,14 +11,16 @@ use Illuminate\Support\Facades\Auth;
 use PHPMailer\PHPMailer\PHPMailer;
 use PHPMailer\PHPMailer\Exception;
 use Illuminate\Support\Facades\Mail;
+
 class ComplaintController extends Controller
 {
 
 
-    public function index(){
+    public function index()
+    {
 
-        $Complaints = Complaint::where('user_id',Auth::id());
-        if(!empty($_GET['search'])){
+        $Complaints = Complaint::where('user_id', Auth::id());
+        if (!empty($_GET['search'])) {
             $Complaints->where('TicketID', $_GET['search']);
         }
         $Complaints = $Complaints->paginate(10);
@@ -26,27 +28,23 @@ class ComplaintController extends Controller
     }
 
 
-    public function complaintlog(Request $request){
+    public function complaintlog(Request $request)
+    {
         if (Auth::user()->role_id != 1) {
             return redirect('dashboard');
         }
 
-        $Complaints = Complaint::query();
-
-        if(!empty($request->search)){
-            $Complaints->where(function($query) use ($request) {
-                $query->where('issues_detail', 'like', '%' . $request->search . '%')
-                      ->orWhere('booking_id', 'like', '%' . $request->search . '%');
-            });
-        }
-
-        if(!empty($request->status)){
-            $Complaints->where('role_id', $request->status);
-        }
-
-        $Complaints = $Complaints->paginate(5);
-
+        $Complaints = Complaint::query()->paginate(3);
         if ($request->ajax()) {
+            $Complaints = Complaint::query()
+                ->when($request->seach_term, function ($q) use ($request) {
+                    $q->where('issues_detail', 'like', '%' . $request->seach_term . '%')
+                        ->orWhere('booking_id', 'like', '%' . $request->seach_term . '%');
+                })
+                ->when($request->status, function ($q) use ($request) {
+                    $q->where('role_id', $request->status);
+                })
+                ->paginate(3);
             return view('pages.dashboard.complaintlog.ajax', compact('Complaints'))->render();
         }
 
@@ -57,8 +55,8 @@ class ComplaintController extends Controller
     public function SubmitComptaint(Request $request)
     {
         $imagePath = public_path('assets/images/247 NEW Logo 1.png');
-        $booking=Complaint::where('booking_id',$request->booking_id)->first();
-        if(!empty($booking)){
+        $booking = Complaint::where('booking_id', $request->booking_id)->first();
+        if (!empty($booking)) {
             return back()->with('error', 'This Complaint Already Exist');
         }
         $data = $request->all();
@@ -69,34 +67,34 @@ class ComplaintController extends Controller
             $imageName = time() . '_' . $file->getClientOriginalName();
             $file->move(public_path('images'), $imageName);
         }
-        $data['file']=$imageName;
-        $data['user_id']=Auth::id();
-        $data['role_id']=Auth::user()->role_id;
+        $data['file'] = $imageName;
+        $data['user_id'] = Auth::id();
+        $data['role_id'] = Auth::user()->role_id;
 
-        $complant=Complaint::create($data);
+        $complant = Complaint::create($data);
 
         $ActivityLogs = new ActivityLog;
         $ActivityLogs->user_id = Auth::id();
         $ActivityLogs->title = "Complaint Created";
-        $ActivityLogs->description = "#".$complant->TicketID." This Ticket Id Created By ".Auth::user()->first_name."  ".Auth::user()->last_name;
+        $ActivityLogs->description = "#" . $complant->TicketID . " This Ticket Id Created By " . Auth::user()->first_name . "  " . Auth::user()->last_name;
         $ActivityLogs->save();
 
 
         $tutor = User::find(optional($booking)->tutor_id);
-        if(Auth::user()->role_id == 5){
+        if (Auth::user()->role_id == 5) {
             $student = User::find(optional($booking)->parent_id);
-        }else{
-           $student = User::find(optional($booking)->student_id);
+        } else {
+            $student = User::find(optional($booking)->student_id);
         }
-        if(!empty($tutor) && !empty($student)){
-           $data = [
-            'tutorMessage' => 'Your Complaint Has Successfully Submited',
-            'student' => $student->first_name . ' ' . $student->last_name,
-            'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
-            'complant' => $data['issues_detail']
-         ];
+        if (!empty($tutor) && !empty($student)) {
+            $data = [
+                'tutorMessage' => 'Your Complaint Has Successfully Submited',
+                'student' => $student->first_name . ' ' . $student->last_name,
+                'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
+                'complant' => $data['issues_detail']
+            ];
 
-           // Student
+            // Student
 
             $view = \view('pages.mails.ComplaintByStudent', $data);
             $view = $view->render();
@@ -107,7 +105,7 @@ class ComplaintController extends Controller
             $mail->setfrom('support@247tutors.com', '247 Tutors');
 
             $mail->isHTML(true);
-            $mail->Subject = Auth::user()->first_name . ' ' . Auth::user()->last_name.' Student Complaint Submission on 247Tutor';
+            $mail->Subject = Auth::user()->first_name . ' ' . Auth::user()->last_name . ' Student Complaint Submission on 247Tutor';
             $mail->Body = $view;
             $mail->AddEmbeddedImage($imagePath, 'logo');
             $mail->AltBody = '';
@@ -140,14 +138,13 @@ class ComplaintController extends Controller
 
             if (!$mail->send())
                 throw new \Exception('Failed to send mail');
-
-        }else{
+        } else {
 
             $data = [
-            'tutorMessage' => 'Your Complaint Has Successfully Submited',
-            'student' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
-            'tutor' => '',
-            'complant' => $data['issues_detail']
+                'tutorMessage' => 'Your Complaint Has Successfully Submited',
+                'student' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+                'tutor' => '',
+                'complant' => $data['issues_detail']
             ];
 
             // Tutor
@@ -170,11 +167,9 @@ class ComplaintController extends Controller
 
             if (!$mail->send())
                 throw new \Exception('Failed to send mail');
-
-
         }
 
-        createNotification(Auth::user()->role_id,Auth::id(),'Comptaint','Comptaint By ' .Auth::user()->username);
+        createNotification(Auth::user()->role_id, Auth::id(), 'Comptaint', 'Comptaint By ' . Auth::user()->username);
         return back()->with('success', 'Complaint submitted successfully');
     }
 
@@ -185,7 +180,7 @@ class ComplaintController extends Controller
         $ActivityLogs = new ActivityLog;
         $ActivityLogs->user_id = Auth::id();
         $ActivityLogs->title = "Complaint MarkAsRead";
-        $ActivityLogs->description = "#".Complaint::find($id)->TicketID." This Ticket Id Mark As Read By ".Auth::user()->first_name."  ".Auth::user()->last_name;
+        $ActivityLogs->description = "#" . Complaint::find($id)->TicketID . " This Ticket Id Mark As Read By " . Auth::user()->first_name . "  " . Auth::user()->last_name;
         $ActivityLogs->save();
 
         return back()->with('success', 'Complaint Update successfully');
@@ -205,14 +200,13 @@ class ComplaintController extends Controller
                     <td>' . optional(User::find($complaint->user_id))->username . '</td>
                 </tr>';
 
-        if(!empty(User::find(optional(Booking::where('uuid', $complaint->booking_id)->first())->tutor_id))){
+        if (!empty(User::find(optional(Booking::where('uuid', $complaint->booking_id)->first())->tutor_id))) {
 
-             $html .= '<tr class="pb-3 m-4">
+            $html .= '<tr class="pb-3 m-4">
                     <td class="pe-5">Tutor Name :</td>
                     <td>' . User::find(Booking::where('uuid', $complaint->booking_id)->first()->tutor_id)->username . '</td>
                 </tr>';
-
-           }
+        }
         $html .= '<tr class="pb-3 m-4">
                     <td class="pe-5">Booking Id :</td>
                    <td>' .  ($complaint->booking_id ?  $complaint->booking_id : 'N/A') . '</td>
@@ -227,16 +221,16 @@ class ComplaintController extends Controller
                     <td class="pe-5">Details :</td>
                    <td>' . $complaint->issues_detail . '</td>
                 </tr>';
-        if (!empty($complaint->file) && file_exists(public_path('images/'.$complaint->file))) {
-                    $html .= '<tr class="pb-3 m-4">
+        if (!empty($complaint->file) && file_exists(public_path('images/' . $complaint->file))) {
+            $html .= '<tr class="pb-3 m-4">
                                 <td class="pe-5">Image :</td>
                                 <td>
-                                <a download="' . asset('images/'.$complaint->file) . '" href="' . asset('images/'.$complaint->file) . '" target="_blank">
-                                  <img src="' . asset('images/'.$complaint->file) . '" width="100" height="50">
+                                <a download="' . asset('images/' . $complaint->file) . '" href="' . asset('images/' . $complaint->file) . '" target="_blank">
+                                  <img src="' . asset('images/' . $complaint->file) . '" width="100" height="50">
                                 </a>
                                 </td>
                             </tr>';
-                }
+        }
 
         return $html;
     }
@@ -271,31 +265,30 @@ class ComplaintController extends Controller
 
 
 
-public function complaintUpdate(Request $request)
-{
-    $complaint = Complaint::find($request->Tutorid);
+    public function complaintUpdate(Request $request)
+    {
+        $complaint = Complaint::find($request->Tutorid);
 
-    if (!$complaint) {
-        return back()->with('error', 'Complaint not found.');
-    }
+        if (!$complaint) {
+            return back()->with('error', 'Complaint not found.');
+        }
 
-    $student = User::find($complaint->user_id);
-    $imagePath = public_path('assets/images/247 NEW Logo 1.png');
-    if (!$student) {
-        return back()->with('error', 'Student not found.');
-    }
+        $student = User::find($complaint->user_id);
+        $imagePath = public_path('assets/images/247 NEW Logo 1.png');
+        if (!$student) {
+            return back()->with('error', 'Student not found.');
+        }
 
-    // tutor for processing
+        // tutor for processing
 
-       if($request->status == 'Processing'){
-        $Booking=Booking::where('uuid',$complaint->booking_id)->first();
-            if(!empty($Booking))
-            {
-                $tutor=User::find($Booking->tutor_id);
+        if ($request->status == 'Processing') {
+            $Booking = Booking::where('uuid', $complaint->booking_id)->first();
+            if (!empty($Booking)) {
+                $tutor = User::find($Booking->tutor_id);
                 $data = [
-                'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
-                'student' => $student->first_name . ' ' . $student->last_name,
-                'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
+                    'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
+                    'student' => $student->first_name . ' ' . $student->last_name,
+                    'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
                 ];
 
                 // student
@@ -327,11 +320,11 @@ public function complaintUpdate(Request $request)
                 $mail->isHTML(true);
                 $mail->msgHTML($view);
                 $mail->send();
-            }else{
+            } else {
 
                 $data = [
-                'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
-                'student' => $student->first_name . ' ' . $student->last_name,
+                    'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
+                    'student' => $student->first_name . ' ' . $student->last_name,
                 ];
 
                 // student
@@ -348,20 +341,17 @@ public function complaintUpdate(Request $request)
                 $mail->isHTML(true);
                 $mail->msgHTML($view);
                 $mail->send();
-
             }
+        } else {
 
-        }else{
 
-
-            $Booking=Booking::where('uuid',$complaint->booking_id)->first();
-            if(!empty($Booking))
-            {
-                $tutor=User::find($Booking->tutor_id);
+            $Booking = Booking::where('uuid', $complaint->booking_id)->first();
+            if (!empty($Booking)) {
+                $tutor = User::find($Booking->tutor_id);
                 $data = [
-                'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
-                'student' => $student->first_name . ' ' . $student->last_name,
-                'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
+                    'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
+                    'student' => $student->first_name . ' ' . $student->last_name,
+                    'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
                 ];
 
                 // student
@@ -393,11 +383,11 @@ public function complaintUpdate(Request $request)
                 $mail->isHTML(true);
                 $mail->msgHTML($view);
                 $mail->send();
-            }else{
+            } else {
 
                 $data = [
-                'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
-                'student' => $student->first_name . ' ' . $student->last_name,
+                    'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
+                    'student' => $student->first_name . ' ' . $student->last_name,
                 ];
 
                 // student
@@ -414,44 +404,10 @@ public function complaintUpdate(Request $request)
                 $mail->isHTML(true);
                 $mail->msgHTML($view);
                 $mail->send();
-
             }
-
-
-
-
-
         }
         $complaint->status = $request->status;
         $complaint->save();
         return back()->with('success', 'Complaint updated and email sent successfully.');
-
-}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
+    }
 }
