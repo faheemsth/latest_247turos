@@ -26,23 +26,33 @@ class ComplaintController extends Controller
     }
 
 
-    public function complaintlog(){
-if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
+    public function complaintlog(Request $request){
+        if (Auth::user()->role_id != 1) {
+            return redirect('dashboard');
+        }
+
         $Complaints = Complaint::query();
-        if(!empty($_GET['search'])){
-            $Complaints->where('issues_detail', 'like', '%' . $_GET['search'] . '%')
-                ->orWhere('subject', $_GET['search'])
-                ->orWhere('booking_id', $_GET['search'])
-                ->orWhere('TicketID', $_GET['search']);
+
+        if(!empty($request->search)){
+            $Complaints->where(function($query) use ($request) {
+                $query->where('issues_detail', 'like', '%' . $request->search . '%')
+                      ->orWhere('booking_id', 'like', '%' . $request->search . '%');
+            });
         }
 
-        if(!empty($_GET['status'])){
-            $Complaints->where('role_id',$_GET['status']);
+        if(!empty($request->status)){
+            $Complaints->where('role_id', $request->status);
         }
 
-        $Complaints = $Complaints->paginate(10);
+        $Complaints = $Complaints->paginate(5);
+
+        if ($request->ajax()) {
+            return view('pages.dashboard.complaintlog.ajax', compact('Complaints'))->render();
+        }
+
         return view('pages.dashboard.complaintlog.logcomplaint', compact('Complaints'));
     }
+
 
     public function SubmitComptaint(Request $request)
     {
@@ -76,7 +86,7 @@ if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
         if(Auth::user()->role_id == 5){
             $student = User::find(optional($booking)->parent_id);
         }else{
-           $student = User::find(optional($booking)->student_id); 
+           $student = User::find(optional($booking)->student_id);
         }
         if(!empty($tutor) && !empty($student)){
            $data = [
@@ -84,10 +94,10 @@ if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
             'student' => $student->first_name . ' ' . $student->last_name,
             'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
             'complant' => $data['issues_detail']
-         ]; 
-         
+         ];
+
            // Student
-        
+
             $view = \view('pages.mails.ComplaintByStudent', $data);
             $view = $view->render();
 
@@ -130,16 +140,16 @@ if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
 
             if (!$mail->send())
                 throw new \Exception('Failed to send mail');
-                
+
         }else{
-            
+
             $data = [
             'tutorMessage' => 'Your Complaint Has Successfully Submited',
             'student' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
             'tutor' => '',
             'complant' => $data['issues_detail']
             ];
-         
+
             // Tutor
             $view = \view('pages.mails.ComplaintByTutor', $data);
             $view = $view->render();
@@ -159,9 +169,9 @@ if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
             $mail->msgHTML($view);
 
             if (!$mail->send())
-                throw new \Exception('Failed to send mail');  
-            
-            
+                throw new \Exception('Failed to send mail');
+
+
         }
 
         createNotification(Auth::user()->role_id,Auth::id(),'Comptaint','Comptaint By ' .Auth::user()->username);
@@ -196,12 +206,12 @@ if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
                 </tr>';
 
         if(!empty(User::find(optional(Booking::where('uuid', $complaint->booking_id)->first())->tutor_id))){
-            
+
              $html .= '<tr class="pb-3 m-4">
                     <td class="pe-5">Tutor Name :</td>
                     <td>' . User::find(Booking::where('uuid', $complaint->booking_id)->first()->tutor_id)->username . '</td>
                 </tr>';
-            
+
            }
         $html .= '<tr class="pb-3 m-4">
                     <td class="pe-5">Booking Id :</td>
@@ -230,7 +240,7 @@ if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
 
         return $html;
     }
-    
+
 
 
 
@@ -274,8 +284,8 @@ public function complaintUpdate(Request $request)
     if (!$student) {
         return back()->with('error', 'Student not found.');
     }
-    
-    // tutor for processing 
+
+    // tutor for processing
 
        if($request->status == 'Processing'){
         $Booking=Booking::where('uuid',$complaint->booking_id)->first();
@@ -287,7 +297,7 @@ public function complaintUpdate(Request $request)
                 'student' => $student->first_name . ' ' . $student->last_name,
                 'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
                 ];
-                
+
                 // student
                 $view = view('pages.mails.ComplaintProcessingStudent', $data)->render();
                 $mail = new PHPMailer(true);
@@ -302,7 +312,7 @@ public function complaintUpdate(Request $request)
                 $mail->isHTML(true);
                 $mail->msgHTML($view);
                 $mail->send();
-                
+
                 // tutor
                 $view = view('pages.mails.ComplaintProcessingTutor', $data)->render();
                 $mail = new PHPMailer(true);
@@ -318,12 +328,12 @@ public function complaintUpdate(Request $request)
                 $mail->msgHTML($view);
                 $mail->send();
             }else{
-                
+
                 $data = [
                 'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
                 'student' => $student->first_name . ' ' . $student->last_name,
                 ];
-                
+
                 // student
                 $view = view('pages.mails.ComplaintProcessingStudent', $data)->render();
                 $mail = new PHPMailer(true);
@@ -338,12 +348,12 @@ public function complaintUpdate(Request $request)
                 $mail->isHTML(true);
                 $mail->msgHTML($view);
                 $mail->send();
-                
+
             }
-           
+
         }else{
-            
-            
+
+
             $Booking=Booking::where('uuid',$complaint->booking_id)->first();
             if(!empty($Booking))
             {
@@ -353,7 +363,7 @@ public function complaintUpdate(Request $request)
                 'student' => $student->first_name . ' ' . $student->last_name,
                 'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
                 ];
-                
+
                 // student
                 $view = view('pages.mails.ComplaintCompleteStudent', $data)->render();
                 $mail = new PHPMailer(true);
@@ -368,7 +378,7 @@ public function complaintUpdate(Request $request)
                 $mail->isHTML(true);
                 $mail->msgHTML($view);
                 $mail->send();
-                
+
                 // tutor
                 $view = view('pages.mails.ComplaintCompleteTutor', $data)->render();
                 $mail = new PHPMailer(true);
@@ -384,12 +394,12 @@ public function complaintUpdate(Request $request)
                 $mail->msgHTML($view);
                 $mail->send();
             }else{
-                
+
                 $data = [
                 'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
                 'student' => $student->first_name . ' ' . $student->last_name,
                 ];
-                
+
                 // student
                 $view = view('pages.mails.ComplaintProcessingStudent', $data)->render();
                 $mail = new PHPMailer(true);
@@ -404,13 +414,13 @@ public function complaintUpdate(Request $request)
                 $mail->isHTML(true);
                 $mail->msgHTML($view);
                 $mail->send();
-                
+
             }
-            
-            
-            
-            
-            
+
+
+
+
+
         }
         $complaint->status = $request->status;
         $complaint->save();

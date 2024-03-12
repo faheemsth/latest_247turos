@@ -69,6 +69,7 @@
                                     <th>{{ __('Parent') }}</th>
                                     <th>{{ __('Parent Rating') }}</th>
                                     <th>{{ __('Parent Feedback') }}</th>
+                                    <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -83,6 +84,10 @@
                                             @endfor
                                         </td>
                                         <td style="border-bottom: .5px solid black;">{{ $Parent->parent_feedback }}</td>
+                                        <td style="border-bottom: .5px solid black;">
+                                            <a href="{{ url('reviews/delete/parent/').'/'. $Parent->id }}" class="btn btn-danger p-2 ">
+                                                <i class="fa-solid fa-trash" style="font-size: 14px;"></i></a>
+                                        </td>
                                     </tr>
                                  @endif
                                 @empty

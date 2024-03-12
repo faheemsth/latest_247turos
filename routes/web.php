@@ -466,9 +466,9 @@ Route::group(['middleware' => 'auth'], function(){
 
         Route::get('admin/bookings', [BookingController::class, 'index']);
         Route::get('ActivityLogs', [BookingController::class, 'ActivityLog']);
-        
+
         Route::get('download', [BookingController::class, 'download']);
-        
+
         Route::get('booking/update/{id}', [BookingController::class, 'booking_update']);
         Route::post('get-booking-details', [BookingController::class, 'booking_details']);
         Route::get('Complaintlogs', [ComplaintController::class, 'complaintlog']);
@@ -490,11 +490,11 @@ Route::group(['middleware' => 'auth'], function(){
 
         //  tutor profile
         Route::get('/tutor/home', function () {
-            
+
             if(Auth::user()->role_id != 3){
                 return  redirect('/dashboard');
             }
-            
+
             $disclaimer=Disclaimer::where('user_id',Auth::id())->first();
             $booking=Booking::where('tutor_id',Auth::id())->count();
             $student=Booking::where('tutor_id',Auth::id())->distinct('student_id')->count();
@@ -510,8 +510,8 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/profile_verification', [TutorExperienceController::class, 'profileVerification'])->name('profile.verification');
         Route::get('/tutor/payments', [TutorExperienceController::class, 'tutor_payments']);
         Route::get('/tutor/payout', [PayoutController::class,'payout']);
-        
-        
+
+
         Route::get('/tutor/check', [PayoutController::class,'check']);
         Route::post('/Upload/Profile', [TutorExperienceController::class, 'upload_profile_img']);
         Route::post('/update_tutor_post', [TutorExperienceController::class, 'update_tutor_post']);
@@ -544,6 +544,11 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/reviews/parent', [ReviewsController::class, 'ReviewParent']);
 
 
+        Route::get('/reviews/delete/tutor/{id}', [ReviewsController::class, 'TutorReviewDelete']);
+
+        Route::get('/reviews/delete/parent/{id}', [ReviewsController::class, 'ParentReviewDelete']);
+
+        Route::get('/reviews/delete/student/{id}', [ReviewsController::class, 'StudentDelete']);
 
         // subject offer store
         Route::post('/subject/offer/store', [SubjectOfferController::class, 'store']);
@@ -551,13 +556,13 @@ Route::group(['middleware' => 'auth'], function(){
         Route::post('/subject/offer/update/{id}', [SubjectOfferController::class, 'update']);
 
         // students
-        Route::get('student/profile', function () { 
-            
+        Route::get('student/profile', function () {
+
         if(Auth::user()->role_id != 4){
                 return  redirect('/dashboard');
         }
             return view('pages.dashboard.profiledetailstudent');
-            
+
         });
         Route::post('/Upload/Image', [StudentController::class, 'upload_profile_img']);
         Route::post('/update_student_post', [StudentController::class, 'update_student_post']);
@@ -644,7 +649,7 @@ Route::group(['middleware' => 'auth'], function(){
            // Basic demo routes
 
     });
-    
+
            /////////////////////////////Start Recording
            Route::get('/start-recording', [BookingController::class, 'startRecording']);
            Route::get('/stop-recording', [BookingController::class, 'stopRecording']);

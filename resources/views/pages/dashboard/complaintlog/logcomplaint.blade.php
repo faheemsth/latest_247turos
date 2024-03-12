@@ -35,39 +35,38 @@
             </div>
         </div>
         <div class="row">
-             <!-- start message area-->
+            <!-- start message area-->
             @include('include.message')
             <!-- end message area-->
             <div class="col-md-12 user-table-data  col-12 pe-0 pe-md-2">
-                
+
                 <div class="card p-md-3 p-2">
                     <div class="card-header justify-content-between">
                         <h3>{{ __('Complaint') }}</h3>
-                    </div>      
-                            
+                    </div>
+
                     <div class=" mt-4  px-0 pe-md-4 d-flex justify-content-between">
                         <h3 class="col-auto  d-none d-md-inline-block">{{ __('') }}</h3>
-                            <form method="GET" action="" class="col-12 col-md-6 col-lg-6 col-xl-5 d-flex px-0 justify-content-between align-items-center gap-2">
-                                
-                                <select name="status" id="status" class="col-md-6 select2 form-select">
-                                    <option value="">All Search</option>
-                                    <option value="3"
-                                        {{ !empty($_GET['status']) && $_GET['status'] == 3 ? 'selected' : '' }}>Tutor</option>
-                                    <option value="4"
-                                        {{ !empty($_GET['status']) && $_GET['status'] == 4 ? 'selected' : '' }}>Student
-                                    </option>
-                                    <option value="5"
-                                        {{ !empty($_GET['status']) && $_GET['status'] == 5 ? 'selected' : '' }}>Parent
-                                    </option>
+                        <div
+                            class="col-12 col-md-6 col-lg-6 col-xl-5 d-flex px-0 justify-content-between align-items-center gap-2">
+                            <select name="status" id="status" class="col-md-6 select2 form-select">
+                                <option value="">All Search</option>
+                                <option value="3"
+                                    {{ !empty($_GET['status']) && $_GET['status'] == 3 ? 'selected' : '' }}>Tutor</option>
+                                <option value="4"
+                                    {{ !empty($_GET['status']) && $_GET['status'] == 4 ? 'selected' : '' }}>Student
+                                </option>
+                                <option value="5"
+                                    {{ !empty($_GET['status']) && $_GET['status'] == 5 ? 'selected' : '' }}>Parent</option>
+                            </select>
+                            <input type="text" id="search" name="search" value="{{ $_GET['search'] ?? '' }}"
+                                class="form-control" placeholder="Search">
 
-                                </select>
-                                <input type="text" name="search" value="{{ $_GET['search'] ?? '' }}" class="form-control " placeholder="Search">
-                                <button type="submit" class="btn btn-primary">Search</button>
-                                
-                            </form>
                         </div>
+
+                    </div>
                     <div class="card-body" style="overflow: scroll;">
-                        
+
                         <div class="container mt-2  custom-table px-1 ">
                             <table id="user_table" class="table table-bordered">
                                 <thead class="student-table-details">
@@ -80,7 +79,7 @@
                                         <th>Date</th>
                                     </tr>
                                 </thead>
-                                <tbody>
+                                <tbody id="complaints">
                                     @if ($Complaints->count() > 0)
                                         @foreach ($Complaints as $Complaint)
                                             <tr>
@@ -90,26 +89,30 @@
                                                 <td>{{ optional(App\Models\User::find($Complaint->user_id))->username }}
                                                 </td>
                                                 <td>{{ $Complaint->subject }}</td>
-                                                <td>@if(empty($Complaint->booking_id))
+                                                <td>
+                                                    @if (empty($Complaint->booking_id))
                                                         N/A
                                                     @else
                                                         {{ $Complaint->booking_id }}
                                                     @endif
                                                 </td>
                                                 <td>
-                                                    @if($Complaint->status == 'Pending')
-                                                    <span class="badge badge-warning px-3">{{ $Complaint->status }}</span>
+                                                    @if ($Complaint->status == 'Pending')
+                                                        <span
+                                                            class="badge badge-warning px-3">{{ $Complaint->status }}</span>
                                                     @elseif($Complaint->status == 'Processing')
-                                                    <span class="badge badge-danger px-2">{{ $Complaint->status }}</span>
+                                                        <span
+                                                            class="badge badge-danger px-2">{{ $Complaint->status }}</span>
                                                     @else
-                                                    <span class="badge badge-success px-2">{{ $Complaint->status }}</span>
+                                                        <span
+                                                            class="badge badge-success px-2">{{ $Complaint->status }}</span>
                                                     @endif
                                                 </td>
                                                 <td>{{ \Carbon\Carbon::parse($Complaint->created_at)->format('F j, Y \a\t g:i A') }}
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        @else
+                                    @else
                                         <tr>
                                             <td class="text-center" colspan="6">Record not found</td>
                                         </tr>
@@ -147,16 +150,17 @@
                     </div>
                 </div>
                 <div class="modal-footer">
-                   <form action="{{ url('complaint/Update') }}" method="POST" class="hstack gap-2 justify-content-end d-flex">
+                    <form action="{{ url('complaint/Update') }}" method="POST"
+                        class="hstack gap-2 justify-content-end d-flex">
                         @csrf
                         <input type="hidden" id="Tutorid" name="Tutorid">
-                                    <select class="form-select " name="status" id="updated_user_status">
-                                        <option value="Pending" selected>Pending</option>
-                                        <option value="Processing">Processing</option>
-                                        <option value="Completed">Completed</option>
-                                    </select>
+                        <select class="form-select " name="status" id="updated_user_status">
+                            <option value="Pending" selected>Pending</option>
+                            <option value="Processing">Processing</option>
+                            <option value="Completed">Completed</option>
+                        </select>
 
-                                   <button type="submit" class="btn btn-success" id="add-btn">Save</button>
+                        <button type="submit" class="btn btn-success" id="add-btn">Save</button>
                     </form>
                 </div>
             </div>
@@ -166,7 +170,7 @@
         <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
         <script src="{{ asset('js/custom.js') }}"></script>
         <script>
-            function freeMeetmodal(id,status) {
+            function freeMeetmodal(id, status) {
                 $('#Tutorid').val(id)
                 $('#updated_user_status').val(status);
                 $.ajax({
@@ -177,12 +181,41 @@
                     },
                     success: function(html) {
                         $("#AppendData").html(html);
-                       $('#demo_meeting_modal').modal('show');
+                        $('#demo_meeting_modal').modal('show');
 
                     },
 
                 });
             }
+        </script>
+        <script>
+            $(document).ready(function() {
+                function performSearch(page = 1) {
+                    $.ajax({
+                        type: 'GET',
+                        url: '{{ url('Complaintlogs') }}',
+                        data: {
+                            search: $('#search').val(),
+                            status: $('#status').val(),
+                            page: page
+                        },
+                        success: function(response) {
+                            $('#complaints').html(response);
+                        }
+                    });
+                }
+                $('#search').on('keyup', function() {
+                    performSearch();
+                });
+                $('#status').on('change', function() {
+                    performSearch();
+                });
+                $(document).on('click', '.pagination a', function(event) {
+                    event.preventDefault();
+                    var page = $(this).attr('href').split('page=')[1];
+                    performSearch(page);
+                });
+            });
         </script>
     @endpush
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
