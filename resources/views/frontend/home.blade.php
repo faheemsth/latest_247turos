@@ -57,7 +57,7 @@ and (max-width : 768px){
 
 @media only screen
 and (max-width : 430px){
-   
+
 .padd{
     padding:8px 41px !important;
 }
@@ -81,11 +81,11 @@ and (max-width : 430px){
 
 }
  #subjectcard{
-        border: 2px solid rgb(226, 226, 226); 
-    border-radius: 35px; 
+        border: 2px solid rgb(226, 226, 226);
+    border-radius: 35px;
     max-height: 100%;
     /*min-height: 255px; */
-    
+
     color: white;
   }
 
@@ -93,37 +93,37 @@ and (max-width : 430px){
 @media screen and (max-width: 320px) {
   #subjectcard{
     max-height: 100%;
-    min-height: 170px; 
+    min-height: 170px;
   }
 }
 @media screen and (max-width: 425px) {
   #subjectcard{
     max-height: 100%;
-    min-height: 202px; 
+    min-height: 202px;
   }
 }
 @media screen and (max-width: 1024px) {
   #subjectcard{
     max-height: 100%;
-    min-height: 205px; 
+    min-height: 205px;
   }
 }
 @media screen and (max-width: 1440px) {
   #subjectcard{
     max-height: 100%;
-    min-height: 245px; 
+    min-height: 245px;
   }
 }
 @media screen and (min-width: 1440px) {
   #subjectcard{
     max-height: 100%;
-    min-height: 283px; 
+    min-height: 283px;
   }
 }
 @media screen and (min-width: 2560px) {
   #subjectcard{
     max-height: 100%;
-    min-height: 339px; 
+    min-height: 339px;
   }
 }
 </style>
@@ -140,8 +140,16 @@ and (max-width : 430px){
                         <div id="hero-focus">
                             <p class="px-2  fw-bold  hero-focus-btn">@isset($web_settings['highlight_text']) {{ $web_settings['highlight_text'] ?? '' }} @endisset</p>
                         </div>
-                        <p class="py-2">@isset($web_settings['hero_desc']) {{$web_settings['hero_desc'] ?? '' }} @endisset</p>
+                        <p class="py-2">
+                            {{-- @isset($web_settings['hero_desc']) {{$web_settings['hero_desc'] ?? '' }} @endisset --}}
 
+
+                         @isset($web_settings['hero_desc'])
+                         {{-- Display the truncated content --}}
+                         {{ \Illuminate\Support\Str::limit($web_settings['hero_desc'], 135, $end='...') }}
+                     @endisset
+
+                        </p>
                         <div class="mb-5 pt-2 pb-4">
                             <a type="button" href='{{ route('studentApplySteps') }}' class="padd btn px-4 py-2 mb-2"
                                 style="background:linear-gradient(93.86deg, #063B00 9.41%, #000000 98.3%);
@@ -459,45 +467,45 @@ and (max-width : 430px){
                 <div class="col-12 col-md-6 col-lg-3 my-3 d-flex justify-content-center">
                     <div
                         class="card choose-card-blue p-3 d-flex flex-column align-items-center text-center justify-content-center" style="width:20rem;">
-                        <img src="{{ asset('assets/images/Layer_1.png') }}" alt="" style="width: 150px;height:120px;">
+                        <img src="{{ asset('assets/images/Artboard 1.png') }}" alt="" style="width: 120px;height:120px;">
                         <h1 class="mb-0 pb-0 card-title">@isset($web_settings['card1_title']) {{ $web_settings['card1_title'] ?? '' }} @endisset</h1>
                         <hr class="w-75">
                         <div class=>
-                            <p class="mb-0 card-text">@isset($web_settings['card1_desc']) {{$web_settings['card1_desc'] ?? '' }} @endisset  </p>
+                            <p class="mb-0 card-text text-white">@isset($web_settings['card1_desc']) {{$web_settings['card1_desc'] ?? '' }} @endisset  </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 my-3 d-flex justify-content-center">
                     <div
                         class="card  choose-card-green p-3 d-flex flex-column align-items-center text-center justify-content-center"style="width:20rem;">
-                        <img src="{{ asset('assets/images/verified 1.png') }}" alt="" style="width: 120px;height:120px;">
-                        <h1 class="mb-0 pb-0 card-title">@isset($web_settings['card2_title']) {{ $web_settings['card2_title'] ?? '' }} @endisset</h1>
+                        <img src="{{ asset('assets/images/Artboard 2.png') }}" alt="" style="width: 120px;height:120px;">
+                        <h1 class="mb-0 pb-0 card-title text-white">@isset($web_settings['card2_title']) {{ $web_settings['card2_title'] ?? '' }} @endisset</h1>
                         <hr class="w-75">
                         <div class=>
-                            <p class="mb-0 card-text">@isset($web_settings['card2_desc']) {{$web_settings['card2_desc'] ?? '' }} @endisset</p>
+                            <p class="mb-0 card-text text-white">@isset($web_settings['card2_desc']) {{$web_settings['card2_desc'] ?? '' }} @endisset</p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 my-3 d-flex justify-content-center">
                     <div
                         class="card  choose-card-blue p-3 d-flex flex-column align-items-center text-center justify-content-center"style="width:20rem;">
-                        <img src="{{ asset('assets/images/Layer_1 (1).png') }}" alt="" style="width: 120px;height:120px;">
-                        <h1 class="mb-0 pb-0 card-title">@isset($web_settings['card3_title']) {{ $web_settings['card3_title'] ?? '' }} @endisset</h1>
+                        <img src="{{ asset('assets/images/Artboard 3.png') }}" alt="" style="width: 120px;height:120px;">
+                        <h1 class="mb-0 pb-0 card-title text-white">@isset($web_settings['card3_title']) {{ $web_settings['card3_title'] ?? '' }} @endisset</h1>
                         <hr class="w-75">
                         <div class=>
-                            <p class="mb-0 card-text">@isset($web_settings['card3_desc']) {{$web_settings['card3_desc'] ?? '' }} @endisset </p>
+                            <p class="mb-0 card-text text-white">@isset($web_settings['card3_desc']) {{$web_settings['card3_desc'] ?? '' }} @endisset </p>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 my-3 d-flex justify-content-center">
                     <div
                         class="card choose-card-green p-3 d-flex flex-column align-items-center text-center justify-content-center"style="width:20rem;">
-                        <img src="{{ asset('assets/images/online-learning 2.png') }}" alt="" style="width: 120px;height:120px;">
-                        <h1 class="mb-0 pb-0 card-title">@isset($web_settings['card4_title']) {{ $web_settings['card4_title'] ?? '' }} @endisset <br>
+                        <img src="{{ asset('assets/images/Artboard 4.png') }}" alt="" style="width: 120px;height:120px;">
+                        <h1 class="mb-0 pb-0 card-title text-white">@isset($web_settings['card4_title']) {{ $web_settings['card4_title'] ?? '' }} @endisset <br>
                             </h1>
                         <hr class="w-75 ">
                         <div class=>
-                            <p class="mb-0 card-text">@isset($web_settings['card4_desc']) {{$web_settings['card4_desc'] ?? '' }} @endisset </p>
+                            <p class="mb-0 card-text text-white">@isset($web_settings['card4_desc']) {{$web_settings['card4_desc'] ?? '' }} @endisset </p>
                         </div>
                     </div>
                 </div>
@@ -512,9 +520,7 @@ and (max-width : 430px){
         <div class="row mb-2 py-md-5" id="review-section-head">
             <div class="col-12 text-center">
                 <h1 class="review-link" id="text-color">4.5/5 Review
-                    <a href=""><img src="{{ asset ('assets/images/Vector-1.png') }}"
-                            style="margin-top: -10px; margin-right: 5px;" alt="" srcset=""
-                            width="35px">Trustpilot</a>
+                    <a href="">Trustpilot</a>
                 </h1>
 
             </div>

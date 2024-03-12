@@ -38,14 +38,14 @@
                             id="bg-color" srcset="">
 
                     </a>
-                   
+
                 </div>
             </div>
             <div class="col-12 col-md-5">
                 <h5 class="text-white">Contact Us <span
                         style="color: rgba(180, 178, 178, 0.267);
                     font-size: 18px; margin-left: 5px;">(Expect
-                        Response in 24 Working Hours)</span></h5>
+                        Response in 24 Hour's)</span></h5>
                 <div class="contact-info pt-3 ">
                     <p> <a href="tel:@isset($web_settings['Ph_num']) {{ $web_settings['Ph_num'] ?? '' }} @endisset"
                             class="text-decoration-none">
@@ -119,12 +119,12 @@
     <!-- Middle-Footer -->
     <div class="container border-top p-md-3 py-3">
         <div class="row">
-            <div class="col col-md-7">
+            <div class="col col-md-12">
                 <h5>Tutor by subjects</h5>
                 @if (!empty($Subjects))
-                    <div class="row">
-                        <div class="col col-md-3">
-                            <ul>
+                    <div class="row ">
+                        <div class="col col-md-12">
+                            <ul style="display: flex;flex-wrap: wrap;gap:40px;" class="mt-3">
                                 @php
                                     $subjectCount = 0;
                                 @endphp
@@ -132,23 +132,20 @@
                                     <li class="text-capitalize"><a
                                             href="{{ url('find-tutor?subject=') . $Subject }}">{{ $Subject }}</a>
                                     </li>
-                                    @php $subjectCount++; @endphp
-                                    @if ($subjectCount == 5)
-                                    @break
-                                @endif
+
                             @endforeach
                         </ul>
                     </div>
-                    <div class="col-12 col-md-4">
-                        <ul>
+                    <div class="col-12 col-md-12 d-none">
+                        <ul style="display: flex;gap:100px;">
                             @php
-                                $extraSubjects = $subjectCount - 5;
+                                $extraSubjects = $subjectCount - 6;
                                 $subjectCount = 0;
                             @endphp
                             @foreach ($Subjects as $Subject)
-                                @if ($subjectCount >= 5)
+                                @if ($subjectCount >= 6)
                                     <!-- Limit to 15 records -->
-                                    @if ($subjectCount == 5)
+                                    @if ($subjectCount == 6)
                                         <li><a href="{{ url('find-tutor?subject=') . $Subject }}">{{ $Subject }}</a>
                                         </li>
                                     @else
@@ -157,14 +154,14 @@
                                 @endif
                                 @php $subjectCount++; @endphp
                             @endforeach
-                            <a href="{{ url('find-tutor') }}" class="text-primary d-inline-block py-2">Explore
-                                all</a>
+                            {{-- <a href="{{ url('find-tutor') }}" class="text-primary d-inline-block py-2">Explore
+                                all</a> --}}
                         </ul>
                     </div>
                 </div>
             @endif
         </div>
-        <div class="col-12 col-md-5">
+        <div class="col-12 col-md-5 d-none">
             <h5>Online classes</h5>
             @if (!empty($Subjects))
                 <div class="row">
@@ -221,7 +218,7 @@
                 <ul>
                     <li><a href="">Careers</a></li>
                     <li><a href="{{ url('blogs') }}">Blog</a></li>
-                    <li><a href="">Subject answers</a></li>
+                    <li><a href="{{ route('faq') }}">F.A.Q</a></li>
                     <li><a href="{{ url('/privacypolicy') }}">Safegeuarding policy</a></li>
                 </ul>
             </div>
@@ -230,7 +227,6 @@
                     <li><a href="{{ url('tutor-apply-steps') }}">Become a tutor</a></li>
                     <li><a href="">Testimonials & press</a></li>
                     <li><a href="{{ url('/videos-guides') }}">Using the Online Lesson Space</a></li>
-                    <li><a href="{{ route('faq') }}">F.A.Q</a></li>
                     <li><a href="{{ url('/sitemap') }}">Sitemap</a></li>
                 </ul>
             </div>

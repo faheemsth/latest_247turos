@@ -46,7 +46,7 @@
             <h2><b>£20 - £29</b></h2>
             <p>@isset($web_settings['pricecard1_desc']) {{$web_settings['pricecard1_desc'] ?? '' }} @endisset</p>
           </a>
-          <a href="{{ url('find-tutor?min_price=40&max_price=87') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3" id="box2">
+          <a href="{{ url('find-tutor?min_price=40&max_price=87') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3" id="box2" style="color: white;">
             <h2><b>£40 - £87</b></h2>
             <p>@isset($web_settings['pricecard2_desc']) {{$web_settings['pricecard2_desc'] ?? '' }} @endisset</p>
           </a>
@@ -106,7 +106,7 @@
   <div class="container-fluid py-5">
     <div class="row py-md-5" id="review-section-head">
       <div class="review-trustpilot col-12 text-center">
-        <h1><text>4.5/5 Review <a href="#">on Trustpilot</a></text></h1>
+        <h1><text>4.5/5 Review on<a href="#" class="text-decoration-none">Trustpilot</a></text></h1>
       </div>
     </div>
     <div class="row py-3 justify-content-center mt-5">
@@ -239,7 +239,7 @@
   <!-- Review Section end  -->
   <div class="container my-5">
     <div class="speak-tutor d-flex justify-content-center mt-3">
-      <h1>Speak to a Tutor and get Tuition Sorted Today</h1>
+      <h1> Speak to a Tutor and get Tuition Sorted Today!</h1>
     </div>
 
     <div class="findtutor d-flex justify-content-center mt-5">
