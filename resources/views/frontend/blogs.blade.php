@@ -40,16 +40,16 @@
     .blogimg{
         width:35%;
     }
-   
+
         }
-        @media only screen 
+        @media only screen
        and (max-width : 430px){
     .blogimg{
         width:55%;
     }
     .blog-title-heading{
         font-size: 1.8rem !important;
-        
+
     }
     .card-box-btn a {
     width: 85%;
@@ -158,7 +158,7 @@
                                             // truncate string
                                             $stringCut = substr($string, 0, 200);
                                             $endPoint = strrpos($stringCut, ' ');
-                                    
+
                                             // if the string doesn't contain any space then it will cut without word basis.
                                             $string = $endPoint ? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
                                             $string .= '... <a href="' . url('single-post') . '/' . $blog->id . '">Read More</a>';
@@ -191,7 +191,7 @@
             title:'Chat Support',
             mainColor:'#0096FF',
             bubbleBackground:'#0096FF',
-            introMessage: "✋ Hi! I'm from 247tutors.com"
+            introMessage: "✋ Hi! I'm from 247tutors.co.uk"
         };
        </script>
 

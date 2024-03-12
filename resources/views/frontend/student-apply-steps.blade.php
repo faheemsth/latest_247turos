@@ -50,7 +50,7 @@
         .first-card{
             margin-top: 3% !important;
         }
-       
+
     }
     @media only screen and (max-width:1024px){
         .fourth-card{
@@ -167,7 +167,7 @@
             title: 'Chat Support',
             mainColor: '#0096FF',
             bubbleBackground: '#0096FF',
-            introMessage: "✋ Hi! I'm from 247tutors.com"
+            introMessage: "✋ Hi! I'm from 247tutors.co.uk"
         };
     </script>
 

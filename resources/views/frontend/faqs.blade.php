@@ -20,7 +20,7 @@
 @media only screen and (max-width:425px){
     .faq-wrapper .faq-design{
         border-radius: 80px 0px 80px 0px;
-    
+
     }
 }
 </style>
@@ -111,7 +111,7 @@
             title:'Chat Support',
             mainColor:'#0096FF',
             bubbleBackground:'#0096FF',
-            introMessage: "✋ Hi! I'm from 247tutors.com"
+            introMessage: "✋ Hi! I'm from 247tutors.co.uk"
         };
        </script>
 

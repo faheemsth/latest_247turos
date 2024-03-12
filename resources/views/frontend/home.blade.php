@@ -57,7 +57,7 @@ and (max-width : 768px){
 
 @media only screen
 and (max-width : 430px){
-   
+
 .padd{
     padding:8px 41px !important;
 }
@@ -81,11 +81,11 @@ and (max-width : 430px){
 
 }
  #subjectcard{
-        border: 2px solid rgb(226, 226, 226); 
-    border-radius: 35px; 
+        border: 2px solid rgb(226, 226, 226);
+    border-radius: 35px;
     max-height: 100%;
     /*min-height: 255px; */
-    
+
     color: white;
   }
 
@@ -93,37 +93,37 @@ and (max-width : 430px){
 @media screen and (max-width: 320px) {
   #subjectcard{
     max-height: 100%;
-    min-height: 170px; 
+    min-height: 170px;
   }
 }
 @media screen and (max-width: 425px) {
   #subjectcard{
     max-height: 100%;
-    min-height: 202px; 
+    min-height: 202px;
   }
 }
 @media screen and (max-width: 1024px) {
   #subjectcard{
     max-height: 100%;
-    min-height: 205px; 
+    min-height: 205px;
   }
 }
 @media screen and (max-width: 1440px) {
   #subjectcard{
     max-height: 100%;
-    min-height: 245px; 
+    min-height: 245px;
   }
 }
 @media screen and (min-width: 1440px) {
   #subjectcard{
     max-height: 100%;
-    min-height: 283px; 
+    min-height: 283px;
   }
 }
 @media screen and (min-width: 2560px) {
   #subjectcard{
     max-height: 100%;
-    min-height: 339px; 
+    min-height: 339px;
   }
 }
 </style>
@@ -692,7 +692,7 @@ and (max-width : 430px){
                     icon: 'd',
                     mainColor:'#0096FF',
                     bubbleBackground:'#0096FF',
-                    introMessage: "✋ Hi! I'm from 247tutors.com"
+                    introMessage: "✋ Hi! I'm from 247tutors.co.uk"
                 };
                 setTimeout(function() {
         document.getElementById('avatar').classList.add('tilt-animation');
