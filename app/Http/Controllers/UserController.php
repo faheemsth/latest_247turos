@@ -628,7 +628,7 @@ class UserController extends Controller
 
     public function dowunloadPdf()
     {
-        $recents = User::orderBy('id', 'desc')->get();
+        $recents = User::where('role_id', '!=', 1)->orderBy('id', 'desc')->get();
         $html = view('pdf')->with('recents', $recents)->render();
         $pdf = PDF::loadHTML($html);
 

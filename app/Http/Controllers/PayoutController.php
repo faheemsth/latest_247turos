@@ -129,7 +129,7 @@ class PayoutController extends Controller
             $currentTime = time();
             // $twentyFourHoursAgo = $currentTime - (7 * 24 * 3600);
 
-            $twentyFourHoursAgo = $currentTime - (1 * 60);
+            $twentyFourHoursAgo = $currentTime - (1 * 24 * 3600);
             if ($updatedTime <= $twentyFourHoursAgo) {
                 $user = User::find($wallet->user_id);
                 $data = [

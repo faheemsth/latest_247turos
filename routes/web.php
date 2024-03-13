@@ -406,6 +406,7 @@ Route::group(['middleware' => 'auth'], function(){
         // coupons
 
         Route::get('/coupons', [CouponController::class,'index']);
+        Route::get('/coupons/delete/{id}', [CouponController::class,'delete']);
         Route::post('/get-coupon', [CouponController::class,'get_coupon']);
         Route::post('/tutor/update/{id}', [UserController::class,'update_tutor']);
 

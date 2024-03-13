@@ -57,9 +57,12 @@
                                     <th>{{ __('Description') }}</th>
                                     <th>{{ __('Discount Type') }}</th>
                                     <th>{{ __('Price') }}</th>
+                                    <th>{{ __('Using Limit') }}</th>
+                                    <th>{{ __('Used') }}</th>
                                     <th>{{ __('Valid From') }}</th>
                                     <th>{{ __('Valid To') }}</th>
                                     <th>{{ __('Status') }}</th>
+                                    <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,6 +85,11 @@
                                         <td style="border-bottom: .5px solid black;">{{ $coupon->description }}</td>
                                         <td style="border-bottom: .5px solid black;">{{ $coupon->discount_type }}</td>
                                         <td style="border-bottom: .5px solid black;">£{{ $coupon->price }}</td>
+
+
+                                        <td style="border-bottom: .5px solid black;">{{ $coupon->usage_limit }}</td>
+                                        <td style="border-bottom: .5px solid black;">{{ $coupon->used_count }}</td>
+
                                         <td style="border-bottom: .5px solid black;">{{ $coupon->valid_from }}</td>
                                         <td style="border-bottom: .5px solid black;">{{ $coupon->valid_to }}</td>
                                         <td style="border-bottom: .5px solid black;" class="text-center">
@@ -90,6 +98,11 @@
                                             @else
                                                 <p class="alert alert-success p-1">Valid</p>
                                             @endif
+                                        </td>
+
+                                        <td style="border-bottom: .5px solid black;">
+                                            <a href="{{ url('coupons/delete').'/'.$coupon->id }}" class="btn btn-danger p-2 ">
+                                                <i class="fa-solid fa-trash" style="font-size: 14px;"></i></a>
                                         </td>
                                     </tr>
                                 @empty

@@ -247,7 +247,7 @@
                                                 </span>
                                             @endif
                                         </td>
-                                        <td>{!! $booking->booking_date . '<br>' . $booking->booking_time !!}</td>
+                                        <td>{!! date('d-m-Y', strtotime($booking->booking_date)) . '<br>' . date('h:i a', strtotime($booking->booking_time)) !!}</td>
                                         <th class="dropdown">
 
 
