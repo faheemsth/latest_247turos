@@ -94,9 +94,9 @@
                                         <td style="border-bottom: .5px solid black;">{{ $coupon->valid_to }}</td>
                                         <td style="border-bottom: .5px solid black;" class="text-center">
                                             @if ($coupon->isExpired)
-                                                <p class="alert alert-danger p-1">Expired</p>
+                                                <p class="alert <?php echo $coupon->expireMessage === 'Future' ? 'alert-warning' : 'alert-danger'; ?> p-1"><?php echo $coupon->expireMessage; ?></p>
                                             @else
-                                                <p class="alert alert-success p-1">Valid</p>
+                                                <p class="alert alert-success p-1"><?php echo $coupon->expireMessage; ?></p>
                                             @endif
                                         </td>
 

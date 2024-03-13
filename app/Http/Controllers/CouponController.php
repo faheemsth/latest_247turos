@@ -22,16 +22,22 @@ class CouponController extends Controller
         $coupons = ModelsCoupon::with('user')->get();
 
         foreach ($coupons as $coupon) {
-            $diffInSeconds=strtotime($coupon->valid_from) - strtotime('now');
-
+            $diffInSeconds = strtotime($coupon->valid_from) - strtotime('now');
             $diffInDays = floor($diffInSeconds / (60 * 60 * 24));
 
-            if (strtotime($coupon->valid_to) < strtotime($coupon->valid_from) || strtotime($coupon->valid_to) == strtotime($coupon->valid_from) || $diffInDays > '0') {
+            if (strtotime($coupon->valid_to) < strtotime($coupon->valid_from) || strtotime($coupon->valid_to) == strtotime($coupon->valid_from) || $diffInDays > 0) {
                 $coupon->isExpired = true;
+                if ($diffInDays > 0) {
+                    $coupon->expireMessage = "Future";
+                } else {
+                    $coupon->expireMessage = "Expired";
+                }
             } else {
                 $coupon->isExpired = false;
+                $coupon->expireMessage = "Valid";
             }
         }
+
 
         return view('super-admin.coupon.index', compact('coupons'));
     }
