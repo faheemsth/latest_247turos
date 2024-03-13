@@ -67,7 +67,7 @@
                                 <tr>
                                     <th>{{ __('Sr.No') }}</th>
                                     <th>{{ __('First Name') }}</th>
-                                    <th>{{ __('Last Name') }}</th>
+                                    <th>{{ __('Surname') }}</th>
                                     <th>{{ __('Email') }}</th>
                                     <th>{{ __('Verify Email') }}</th>
                                     <th>{{ __('Status') }}</th>

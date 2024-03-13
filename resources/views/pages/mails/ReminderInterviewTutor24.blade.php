@@ -191,7 +191,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">© 2023 247Tutor. All rights reserved.</p>
+                            <p style="margin: 0;">© 2024 247tutors. All rights reserved.</p>
                         </td>
                     </tr>
 

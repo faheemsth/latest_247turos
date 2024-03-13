@@ -43,6 +43,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'parent_authority',
         'email_verified_at',
         'tutor_reschedule_warning',
+        'relation'
     ];
     protected $casts = [
         'email_verified_at' => 'datetime',

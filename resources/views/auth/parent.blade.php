@@ -241,7 +241,7 @@
                             <div class="col-md-12 col-12 ">
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Parent First Name<span  style="color: red;">*</span></label><br>
+                                        <label class="text-secondary">First Name<span  style="color: red;">*</span></label><br>
                                         <input type="text" id="parentfname" placeholder="Enter First Name" name="fname"
                                             class="w-100 p-2">
                                     </div>
@@ -249,24 +249,39 @@
 
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Parent Last Name<span  style="color: red;">*</span></label><br>
-                                        <input type="text" id="parentlname" placeholder="Enter Last Name" name="lname"
+                                        <label class="text-secondary">Surname<span  style="color: red;">*</span></label><br>
+                                        <input type="text" id="parentlname" placeholder="Enter Surname" name="lname"
                                             class="w-100 p-2">
                                     </div>
                                 </div>
 
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Parent Email<span  style="color: red;">*</span></label><br>
+                                        <label class="text-secondary">Relation <span  style="color: red;">*</span></label><br>
+                                        <span class="d-flex">
+                                            <select class="w-100 p-2" id="relation" name="relation">
+                                                <option value="parent">Parent</option>
+                                                <option value="brother">Brother</option>
+                                                <option value="other">Other</option>
+                                            </select>
+                                        </span>
+                                    </div>
+                                </div>
+
+
+
+
+                                <div class="row mt-4 justify-content-center">
+                                    <div class="col-md-5">
+                                        <label class="text-secondary">Email<span  style="color: red;">*</span></label><br>
                                         <input type="email" id="parentemail" name="email"
                                             placeholder="Enter Email Address" class="w-100 p-2">
                                         <span id="email-validation-message" style="color: red;"></span>
                                     </div>
                                 </div>
-                                <div class="row mt-4 justify-content-center"></div>
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Parent Phone <span  style="color: red;">*</span></label><br>
+                                        <label class="text-secondary">Phone <span  style="color: red;">*</span></label><br>
                                         <span class="d-flex">
                                             <select class="w-10 p-2" name="code">
                                                 <option value="+1">+1</option>
@@ -339,7 +354,7 @@
                                     <div class="col-md-12 col-12 ">
                                         <div class="row mt-4 justify-content-center">
                                             <div class="col-md-5">
-                                                <label class="text-secondary">Student First Name<span  style="color: red;">*</span></label><br>
+                                                <label class="text-secondary">Student First Name</label><br>
                                                 <input type="text" id="fname"
                                                     placeholder="Enter Student First Name" name="stufname"
                                                     class="w-100 p-2">
@@ -348,9 +363,9 @@
 
                                         <div class="row mt-4 justify-content-center">
                                             <div class="col-md-5">
-                                                <label class="text-secondary">Student Last Name<span  style="color: red;">*</span></label><br>
+                                                <label class="text-secondary">Student Surname</label><br>
                                                 <input type="text" id="lname"
-                                                    placeholder="Enter Student Last Name" name="stulname"
+                                                    placeholder="Enter Student Surname" name="stulname"
                                                     class="w-100 p-2">
                                             </div>
                                         </div>
@@ -358,14 +373,14 @@
 
                                         <div class="row mt-4 justify-content-center">
                                             <div class="col-md-5">
-                                                <label class="text-secondary">Date Of Birth<span  style="color: red;">*</span></label><br>
+                                                <label class="text-secondary">Date Of Birth</label><br>
                                                 <input type="date" id="dob" name="dob" class="w-100 p-2" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                             </div>
                                         </div>
 
                                         <div class="row mt-4 justify-content-center">
                                             <div class="col-md-5">
-                                                <label class="text-secondary">Student Email<span  style="color: red;">*</span></label><br>
+                                                <label class="text-secondary">Student Email</label><br>
                                                 <input type="email" id="stuemail" name="stuemail"
                                                     placeholder="Enter Student Email Address" class="w-100 p-2">
                                                 <span id="email-validation-message-stuemail" style="color: red;"></span>
@@ -374,7 +389,7 @@
 
                                         <div class="row mt-4 justify-content-center">
                                             <div class="col-md-5">
-                                                <label class="text-secondary">Student Phone<span  style="color: red;">*</span></label><br>
+                                                <label class="text-secondary">Student Phone</label><br>
                                                 <span class="d-flex">
                                                     <select class="w-10 p-2" name="stucode">
                                                         <option value="+1">+1</option>
@@ -494,7 +509,7 @@
 
                                     <div class="row mt-4 justify-content-center">
                                         <div class="col-md-5">
-                                            <label class="text-secondary mb-1" style="font-size: 1.6rem;">Subjects<span  style="color: red;">*</span></label><br>
+                                            <label class="text-secondary mb-1" style="font-size: 1.6rem;">Subjects</label><br>
                                             <span class="d-flex">
                                                 @if (!empty($subjects))
                                                     <select class="w-10 p-3 select2" id="subject" name="subject[]"
@@ -535,8 +550,7 @@
                                         <div class="col-md-5">
                                             <label class="text-secondary">Username</label><br>
                                             <input type="text" id="parentusername" name="username"
-                                                placeholder="Enter Username" class="w-100 p-2">
-                                            <span id="username-validation-message" style="color: red;"></span>
+                                                placeholder="Enter Username" class="w-100 p-2" style="background-color: #f8f8f8;color: gray;border: 1px solid #4F4F4F">
                                         </div>
                                     </div>
 

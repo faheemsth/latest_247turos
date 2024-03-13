@@ -136,36 +136,36 @@
                     </tr>
                 </table>
             </td>
-           
+
             </tr>
             <tr>
-            
+
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td align="left" bgcolor="#ffffff"
                             style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;border-top: 3px solid #d4dadf">
-                           
+
                             <h3 style="font-size:1.2rem;font-weight:500;">
-                            I hope this message finds you well. Unfortunately, I must inform you that the 247Tutor team has taken the decision to block your profile as a result of a recent student complaint.
+                            I hope this message finds you well. Unfortunately, I must inform you that the 247Tutors team has taken the decision to block your profile as a result of a recent student complaint.
                             </h3>
-                             
+
                              <h3 style="font-size:1.2rem;font-weight:500;">
                             We understand that this news may come as a disappointment, and we regret having to take such action. However, it is essential for us to maintain the trust and integrity of our tutoring platform by addressing complaints seriously and ensuring a safe learning environment for all students.
                             </h3>
-                             
+
                              <h3 style="font-size:1.2rem;font-weight:500;">
                             This final warning serves as a reminder of the importance of adhering to our guidelines and policies regarding conduct and professionalism. Every interaction with our students must uphold the highest standards of integrity and respect.
                             </h3>
-                             
+
                         </td>
                     </tr>
                 </table>
             </td>
-            
-            
+
+
             </tr>
-           
+
         <tr>
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
@@ -184,7 +184,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">© 2023 247Tutor. All rights reserved.</p>
+                            <p style="margin: 0;">© 2024 247tutors. All rights reserved.</p>
                         </td>
                     </tr>
 

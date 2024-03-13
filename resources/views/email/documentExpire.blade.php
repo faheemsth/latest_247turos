@@ -5,7 +5,7 @@
 
     <meta charset="utf-8">
     <meta http-equiv="x-ua-compatible" content="ie=edge">
-    <title>Email Confirmation</title>
+    <title>Expire Documents</title>
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <style type="text/css">
         /**
@@ -108,7 +108,7 @@
 <body style="background-color: #e9ecef;">
     <div class="preheader"
         style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-        A preheader is the short summary text that follows the subject line when an email is viewed in the inbox.
+    247tutors
     </div>
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
@@ -161,7 +161,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">© 2023 247Tutor. All rights reserved.</p>
+                            <p style="margin: 0;">© 2023 247Tutors. All rights reserved.</p>
                         </td>
                     </tr>
 

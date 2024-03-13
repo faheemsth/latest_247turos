@@ -558,7 +558,7 @@
 
                             <img src="/assets/images/chat 1.png" alt="">
                             <h5>Let’s Chat with 247tutor</h5>
-                            <p>Have a Chat with 247tutor and see how (and when!) they can Help</p>
+                            <p>Have a Chat with 247tutors and see how (and when!) they can Help</p>
                             <a
                                 href="mailto:@isset($web_settings['Maintopbaremail']) {{ $web_settings['Maintopbaremail'] ?? '' }} @endisset">Let's
                                 Chat</a>

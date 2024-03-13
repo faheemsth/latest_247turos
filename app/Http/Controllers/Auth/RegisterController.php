@@ -153,7 +153,6 @@ class RegisterController extends Controller
         $data = $request->all();
 
 
-
         if ($data['role_id'] == 3) {
             $user = User::create([
                 'first_name' => ucfirst(strtolower($data['fname'])),
@@ -202,6 +201,7 @@ class RegisterController extends Controller
                 'last_name' => ucfirst(strtolower($data['lname'])),
                 'phone' => $data['code'] . $data['phone'],
                 'email' => $data['email'],
+                'relation' => $data['relation'],
                 'status' => 'Pending',
                 'role_id' => $data['role_id'],
                 'username' => ucfirst(strtolower($data['username'])),

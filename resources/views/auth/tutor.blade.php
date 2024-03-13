@@ -227,7 +227,7 @@
                     <input id="role_id" name="role_id" value="3" type="hidden">
                     <fieldset id="account">
                         <div class="panel-body mt-5 text-center">
-                            <h2 class="text-center fs-1" id="text-color"><strong>Your First Name and Last Name?</strong>
+                            <h2 class="text-center fs-1" id="text-color"><strong>Your First Name and Surname?</strong>
                             </h2><br>
                         </div>
                         <div class="d-flex flex-column flex-md-row ">
@@ -242,8 +242,8 @@
 
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Last Name<span style="color:red">*</span></label><br>
-                                        <input type="text" id="parentlname" placeholder="Enter Last Name" name="lname"
+                                        <label class="text-secondary">Surname<span style="color:red">*</span></label><br>
+                                        <input type="text" id="parentlname" placeholder="Enter Surname" name="lname"
                                             class="w-100 p-2">
                                     </div>
                                 </div>

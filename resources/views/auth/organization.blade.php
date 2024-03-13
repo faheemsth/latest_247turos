@@ -312,8 +312,8 @@
                                 </div>
                                 {{-- <div class="row mt-4 justify-content-center">
                                     <div class="col-md-6">
-                                        <label class="text-secondary">Organization Last Name</label><br>
-                                        <input type="text" id="parentlname" placeholder="Enter Last Name" name="lname"
+                                        <label class="text-secondary">Organization Surname</label><br>
+                                        <input type="text" id="parentlname" placeholder="Enter Surname" name="lname"
                                             class="w-100 p-3">
                                     </div>
                                 </div> --}}
@@ -421,9 +421,9 @@
 
                                     <div class="row mt-4 justify-content-center">
                                         <div class="col-md-5">
-                                            <label class="text-secondary">Contact Person Last Name</label><br>
+                                            <label class="text-secondary">Contact Person Surname</label><br>
                                                 <input type="text" id="cplname" name="cplname"
-                                                    placeholder="Enter Last Name" class="w-100 p-2">
+                                                    placeholder="Enter Surname" class="w-100 p-2">
                                         </div>
                                     </div>
 

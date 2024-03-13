@@ -40,7 +40,7 @@
        </div>
         <div class="row my-4">
             <div class="col-3 ">
-                <h1 class="msg" id="text-color">Message's</h1>
+                <h1 class="msg" id="text-color">Messages</h1>
             </div>
         </div>
         <div class="row mb-5 px-md-2 mx-1 mx-md-0" style="border: 1px solid rgb(199, 199, 199);">
@@ -51,7 +51,7 @@
                         <li class="nav-item" role="presentation">
                             <a href="#topmsg" class="nav-link mb-1 active" id="ex1-tab-1" data-mdb-toggle="tab" href="#ex1-tabs-1"
                                 role="tab" aria-controls="ex1-tabs-1" aria-selected="true"
-                                style="border: 0px 0px 2px 0px solid rgb(199, 199, 199); ">Active Chat's</a>
+                                style="border: 0px 0px 2px 0px solid rgb(199, 199, 199); ">Active Chats</a>
                         </li>
 
                     </ul>

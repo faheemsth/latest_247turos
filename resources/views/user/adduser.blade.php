@@ -56,7 +56,7 @@
 
                             </div>
                             <div class="mb-3 col-md-6">
-                                <label class="form-label">Last Name</label>
+                                <label class="form-label">Surname</label>
                                 <input type="text" class="form-control" id="last-name" name="last_name"
                                     value="{{ old('last_name') }}">
                                 @if ($errors->has('last_name'))

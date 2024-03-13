@@ -71,12 +71,12 @@
        font-size: 23px;
        cursor: pointer;
      }
-.desktop-closed-message-avatar {
+/* .desktop-closed-message-avatar {
     animation: skew-y-shake 1.3s infinite;
 }
 .desktop-closed-message-avatar{
     top: 18px !important;
-}
+} */
 /*<span id="cookieBanner">*/
 /*@if(request()->segment(1) == '' || request()->segment(1) == 'faq' || request()->segment(1) == 'find-tutor' || request()->segment(1) == 'blogs' || request()->segment(1) == 'prices'|| request()->segment(1) == 'student-apply-steps'|| request()->segment(1) == 'tutor-apply-steps' || request()->segment(1) == 'organization-apply-steps' || request()->segment(1) == 'login-roles' || request()->segment(1) == 'login' || request()->segment(1) == 'sitemap' || request()->segment(1) == 'privacypolicy' )*/
 /*.footer-wrapper{*/
@@ -112,7 +112,7 @@
 }
 .cookiessection{
     width:35%;
-    bottom: 8px;left:22px; 
+    bottom: 8px;left:22px;
 }
 }
 @media screen and (max-width: 430px){
@@ -131,7 +131,7 @@
 }
  .cookiessection{
         width:85%;
-    
+
  }
 }
 
@@ -212,7 +212,7 @@ body { top: 0px !important; }
 
 
     </style>
-    
+
             <style>
         a[id="fr-logo"] {
   display: none !important;
@@ -345,7 +345,7 @@ a[href*="www.froala.com"] {
         $('#cookieNotification').fadeOut();
     }
 </script>
-            
+
         <script>
             $(document).ready(function() {
                 var popupShown = localStorage.getItem('popupShown');

@@ -262,9 +262,9 @@
 
               </div>
               <div class="col-md-6 mb-3 mb-md-0">
-                <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                <label for="exampleFormControlInput1" class="form-label">Surname</label>
                 <input type="text" name="last_name" value="{{ Auth::user()->last_name }}" class="form-control" id=""
-                  required placeholder="Type Your Last Name">
+                  required placeholder="Type Your Surname">
 
               </div>
             </div>

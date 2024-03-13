@@ -136,36 +136,36 @@
                     </tr>
                 </table>
             </td>
-           
+
             </tr>
             <tr>
-            
+
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td align="left" bgcolor="#ffffff"
                             style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;border-top: 3px solid #d4dadf">
-                           
+
                             <h3 style="font-size:1.2rem;font-weight:500;">
                             This mail to inform you that our 247tutors Support team has received your refund request regarding your recent booking. We understand the importance of resolving this matter swiftly and efficiently.
                             </h3>
-                             
+
                              <h3 style="font-size:1.2rem;font-weight:500;">
                             Please be assured that our team is currently working diligently on processing your refund request. We are committed to ensuring that this matter is addressed with the utmost care and attention to detail.
                             </h3>
-                             
+
                              <h3 style="font-size:1.2rem;font-weight:500;">
                             Thank you for choosing 247tutors. We value your trust and look forward to resolving this matter to your satisfaction.
                             </h3>
-                             
+
                         </td>
                     </tr>
                 </table>
             </td>
-            
-            
+
+
             </tr>
-           
+
         <tr>
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
@@ -184,7 +184,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">© 2023 247Tutor. All rights reserved.</p>
+                            <p style="margin: 0;">© 2024 247tutors. All rights reserved.</p>
                         </td>
                     </tr>
 

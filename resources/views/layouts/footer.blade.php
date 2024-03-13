@@ -9,9 +9,7 @@
                 <a href='{{ route('index') }}'> <img src="{{ asset('assets/images/247 NEW Logo 2.png') }}" alt=""
                         srcset="" width="250px"></a>
                 <p class="py-3">
-                    Accusamus etidio dignissimos ducimus blanditiis praesentium volupta eleniti atquete corrupti
-                    quolores
-                    etmquasa molestias epturi sinteam occaecati cupiditate non providente mikume molareshe.
+                    247Tutors provides tailored online tutoring, connecting students with experienced tutors across various subjects and levels. With flexible schedules and interactive tools, we foster academic growth and success.
                 </p>
                 <div>
                     <a href="@isset($web_settings['fblink']) {{ $web_settings['fblink'] ?? '' }} @endisset"
@@ -219,13 +217,13 @@
                     <li><a href="">Careers</a></li>
                     <li><a href="{{ url('blogs') }}">Blog</a></li>
                     <li><a href="{{ route('faq') }}">F.A.Q</a></li>
-                    <li><a href="{{ url('/privacypolicy') }}">Safegeuarding policy</a></li>
+                    <li><a href="{{ url('/privacy-policy') }}">privacy policy</a></li>
                 </ul>
             </div>
             <div class="col-6">
                 <ul>
                     <li><a href="{{ url('tutor-apply-steps') }}">Become a tutor</a></li>
-                    <li><a href="">Testimonials & press</a></li>
+                    {{-- <li><a href="">Testimonials & press</a></li> --}}
                     <li><a href="{{ url('/videos-guides') }}">Using the Online Lesson Space</a></li>
                     <li><a href="{{ url('/sitemap') }}">Sitemap</a></li>
                 </ul>
@@ -248,9 +246,10 @@
         style="display: contents;">
         @csrf
         <div class="col-12 col-md-5 col-xl-5 py-4 py-md-0">
-            <h5>Signup for newsletter</h5>
-            <p>Corrupti quolores etmquasa molestias epturite sinteam occaecati amet cupiditate mikume molareshe.
-            </p>
+            <h5>Subscription for newsletter</h5>
+            <p>
+                Subscribe to our newsletter for exclusive updates, offers, and insights delivered straight to your inbox. Stay informed and be part of our community!
+             </p>
             <div class="input-group input-group-lg">
                 <input type="text" class="form-control email-input" name="email"
                     placeholder="Enter email address">
@@ -271,12 +270,12 @@
 
 <div class="row py-2 text-center align-items-lg-center" style="background-color: rgba(0, 0, 0, 0.2);">
     <div class="col-12 col-lg-6 col-md-5">
-        <h6>© 2023 All Rights Reserved.</h6>
+        <h6>© 2024 All Rights Reserved.</h6>
     </div>
     <div class="col-12 col-md-7 col-lg-6 d-flex gap-3 bottom-footer-menu justify-content-center">
         <h6><a href="">Careers</a></h6>
         <h6><a href="{{ url('/testimonials') }}" class="text-primary">Terms of use</a></h6>
-        <h6><a href="{{ url('/privacypolicy') }}">Privacy policy</a></h6>
+        <h6><a href="{{ url('/privacy-policy') }}">Privacy policy</a></h6>
     </div>
 </div>
 </div>

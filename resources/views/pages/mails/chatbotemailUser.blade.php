@@ -136,10 +136,10 @@
                     </tr>
                 </table>
             </td>
-           
+
             </tr>
             <tr>
-            
+
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
@@ -154,7 +154,7 @@
                 </table>
             </td>
             </tr>
-           
+
         <tr>
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
@@ -166,8 +166,8 @@
                     <!--            delete this email.</p>-->
                     <!--    </td>-->
                     <!--</tr>-->
-                    
-                   
+
+
                     <tr>
                         <td align="left" bgcolor="#ffffff"
                             style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 16px; line-height: 24px; border-bottom: 3px solid #d4dadf">
@@ -183,7 +183,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">© 2023 247Tutor. All rights reserved.</p>
+                            <p style="margin: 0;">© . All rights reserved.</p>
                         </td>
                     </tr>
 

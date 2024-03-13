@@ -81,7 +81,7 @@ and (max-width : 425px) {
                         <thead class="qualification" id="qualification">
                             <tr>
                                 <th scope="">First Name</th>
-                                <th scope="">Last Name</th>
+                                <th scope="">Surname</th>
                                 <th scope="">Email</th>
                                 <th scope="">Status</th>
                                 <th scope="" style="width: 17%;">Remove from account</th>
@@ -138,9 +138,9 @@ and (max-width : 425px) {
 
                                 </div>
                                 <div class="col-md-6 ">
-                                    <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                                    <label for="exampleFormControlInput1" class="form-label">Surname</label>
                                     <input type="text" name="last_name" class="form-control" id=""
-                                        required placeholder="Type Last Name">
+                                        required placeholder="Type Surname">
 
                                 </div>
                             </div>

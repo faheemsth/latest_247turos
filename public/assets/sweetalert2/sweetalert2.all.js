@@ -3345,13 +3345,12 @@
    *
    * Before:
    * const textPromptOptions = { input: 'text', showCancelButton: true }
-   * const {value: firstName} = await Swal.fire({ ...textPromptOptions, title: 'What is your first name?' })
-   * const {value: lastName} = await Swal.fire({ ...textPromptOptions, title: 'What is your last name?' })
+   * const {value: firstName} = await Swal.fire({ ...textPromptOptions, title: 'What is your first name?' })Name} = await Swal.fire({ ...textPromptOptions, title: 'What is your Surname?' })
    *
    * After:
    * const TextPrompt = Swal.mixin({ input: 'text', showCancelButton: true })
    * const {value: firstName} = await TextPrompt('What is your first name?')
-   * const {value: lastName} = await TextPrompt('What is your last name?')
+   * const {value: lastName} = await TextPrompt('What is your Surname?')
    *
    * @param {SweetAlertOptions} mixinParams
    * @returns {SweetAlert}

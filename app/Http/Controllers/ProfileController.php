@@ -60,6 +60,7 @@ class ProfileController extends Controller
             // 'twitter_link' => $request->input('twitter_link'),
             'profile_description' => $request->input('profile_description'),
             'address' => $request->input('address'),
+            'relation' => $request->input('relation'),
             'zipcode' => $request->zipcode,
             
         ]);

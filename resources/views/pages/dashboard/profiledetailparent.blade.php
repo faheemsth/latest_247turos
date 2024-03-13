@@ -147,9 +147,9 @@
 
                                 </div>
                                 <div class="col-md-6 ">
-                                    <label for="exampleFormControlInput1" class="form-label">Last Name</label>
+                                    <label for="exampleFormControlInput1" class="form-label">Surname</label>
                                     <input type="text" name="last_name" value="{{ Auth::user()->last_name }}"
-                                        class="form-control" id="" required placeholder="Type Your Last Name">
+                                        class="form-control" id="" required placeholder="Type Your Surname">
 
                                 </div>
                             </div>
@@ -171,48 +171,64 @@
                                         class="form-control" id="" required placeholder="Type Your Phone">
                                 </div>
                             </div>
+
                             <div class="row mt-5 mb-5">
+                                <div class="col-md-6">
+                                    <label for="exampleFormControlInput1" class="form-label">Relation</label>
+                                    <select class="form-control" id="relation" name="relation">
+                                        <option value="parent" {{ Auth::user()->relation== 'parent' ? 'selected':'' }}>Parent</option>
+                                        <option value="brother" {{ Auth::user()->relation== 'brother' ? 'selected':'' }}>Brother</option>
+                                        <option value="other" {{ Auth::user()->relation== 'other' ? 'selected':'' }}>Other</option>
+                                    </select>
+                                </div>
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Gender</label>
                                     <input type="text" name="gender" value="{{ Auth::user()->gender }}"
                                         class="form-control" id="" required placeholder="Type Your gender">
 
                                 </div>
+                            </div>
+
+                            
+                            <div class="row mt-5 mb-5">
+                      
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">DOB</label>
                                     <input type="date" name="dob" value="{{ Auth::user()->dob }}"
                                         class="form-control" id="" required placeholder="Type Your dob">
                                 </div>
-                            </div>
-                            <div class="row mt-5 mb-5">
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Tagline</label>
                                     <input type="text" name="facebook_link" value="{{ Auth::user()->facebook_link }}"
                                         class="form-control" id=""
                                         placeholder="Type Your Tag Line For Profile">
                                 </div>
+                            </div>
+                           
+                           
+
+                            <div class="row mt-5 mb-5">
+
+
+                              
+                                 <div class="col-md-6">
+                                    <label for="exampleFormControlInput1" class="form-label">Biography</label>
+                                    <textarea name="profile_description" class="form-control" id="profile_description" cols="30" rows="3">{{ Auth::user()->profile_description }}</textarea>
+                                </div>
+                                <div class="col-md-6">
+                                    <label for="exampleFormControlInput1" class="form-label">Address</label>
+                                    <textarea name="address" class="form-control" id="address" cols="30" rows="3">{{ Auth::user()->address }}</textarea>
+                                </div>
+                                
+                            </div>
+                            <div class="row mt-5 mb-5">
+                               
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Postcode</label>
                                     <input type="text" name="zipcode" class="form-control" id="zipcode " value="{{ Auth::user()->zipcode  }}">
                                 </div>
                                
                                
-                            </div>
-                           
-
-                            <div class="row mt-5 mb-5">
-
-
-                                <div class="col-md-6">
-                                    <label for="exampleFormControlInput1" class="form-label">Address</label>
-                                    <textarea name="address" class="form-control" id="address" cols="30" rows="3">{{ Auth::user()->address }}</textarea>
-                                </div>
-                                 <div class="col-md-6">
-                                    <label for="exampleFormControlInput1" class="form-label">Biography</label>
-                                    <textarea name="profile_description" class="form-control" id="profile_description" cols="30" rows="3">{{ Auth::user()->profile_description }}</textarea>
-                                </div>
-
-                                
                             </div>
                             <div class="row mt-5 mb-5 justify-content-center">
                                 <div class="col-2 text-center">

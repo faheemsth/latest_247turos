@@ -136,38 +136,38 @@
                     </tr>
                 </table>
             </td>
-           
+
             </tr>
             <tr>
-            
+
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td align="left" bgcolor="#ffffff"
                             style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;border-top: 3px solid #d4dadf">
-                           
+
                             <h3>
-                           I hope this message finds you well. I regret to inform you that after careful review, the 247Tutor team has decided to reject your profile submission.
+                           I hope this message finds you well. I regret to inform you that after careful review, the 247Tutors team has decided to reject your profile submission.
                             <br>
                             <br>
                             While we understand that this decision may be disappointing, please be assured that our team conducts thorough evaluations to ensure the quality and credibility of tutors listed on our platform.
-                            
+
                             <br>
                             <br>
-                            We value your interest in joining the 247Tutor community and encourage you to take the necessary steps to enhance your profile to meet our standards.
+                            We value your interest in joining the 247Tutors community and encourage you to take the necessary steps to enhance your profile to meet our standards.
 
                             </h3>
-                            
+
                             <p>
                                 Thank you for your understanding and cooperation. We wish you all the best in your future endeavors.
                             </p>
-                             
+
                         </td>
                     </tr>
                 </table>
             </td>
             </tr>
-           
+
         <tr>
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
@@ -186,7 +186,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">© 2023 247Tutor. All rights reserved.</p>
+                            <p style="margin: 0;">© 2024 247tutors. All rights reserved.</p>
                         </td>
                     </tr>
 

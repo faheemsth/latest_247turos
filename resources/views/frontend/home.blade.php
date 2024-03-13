@@ -281,10 +281,10 @@ and (max-width : 430px){
         </button>
     </div> --}}
     {{-- div  --}}
-    <div class="container-fluid px-0">
-        <div class="row h-75 px-0 mx-0">
-            <div class="col-12 h-75">
-                <img src="{{ asset('assets/images/13763344_5317197.jpg') }}" class="d-block w-100 h-75" alt="...">
+    <div class="container-fluid px-0 ">
+        <div class="row  justify-content-center">
+            <div class="col-11 text-center">
+                <img src="{{ asset('assets/images/banner 21.png') }}" class=" " style="width: 100%;height: 550px; " alt="...">
             </div>
         </div>
     </div>
@@ -409,7 +409,7 @@ and (max-width : 430px){
                             </div>
                             <h4 class="card-title">German</h4>
                             <p class="mb-0 card-text"> Tutors Available</p>
-                            <p class="mb-0 card-text"> Students</p>
+                            {{-- <p class="mb-0 card-text"> Students</p> --}}
                         </div>
                     </div>
                     <div class="col-6 col-lg-3 mb-3 px-1 px-md-3">
@@ -420,7 +420,7 @@ and (max-width : 430px){
                             </div>
                             <h4 class="card-title">Spanish</h4>
                             <p class="mb-0 card-text"> Tutors Available</p>
-                            <p class="mb-0 card-text"> Students</p>
+                            {{-- <p class="mb-0 card-text"> Students</p> --}}
                         </div>
                     </div>
                     <div class="col-6 col-lg-3 mb-3 px-1 px-md-3">
@@ -431,7 +431,7 @@ and (max-width : 430px){
                             </div>
                             <h4 class="card-title">French</h4>
                             <p class="mb-0 card-text"> Tutors Available</p>
-                            <p class="mb-0 card-text"> Students</p>
+                            {{-- <p class="mb-0 card-text"> Students</p> --}}
                         </div>
                     </div>
                     <div class="col-6 col-lg-3 mb-3 px-1 px-md-3">
@@ -442,7 +442,7 @@ and (max-width : 430px){
                             </div>
                             <h4 class="card-title">Arabic</h4>
                             <p class="mb-0 card-text"> Tutors Available</p>
-                            <p class="mb-0 card-text"> Students</p>
+                            {{-- <p class="mb-0 card-text"> Students</p> --}}
                         </div>
                     </div>
                 </div>
@@ -467,45 +467,54 @@ and (max-width : 430px){
                 <div class="col-12 col-md-6 col-lg-3 my-3 d-flex justify-content-center">
                     <div
                         class="card choose-card-blue p-3 d-flex flex-column align-items-center text-center justify-content-center" style="width:20rem;">
-                        <img src="{{ asset('assets/images/Artboard 1.png') }}" alt="" style="width: 120px;height:120px;">
+                        <img class="card-img-top" src="{{ asset('assets/images/Artboard 2.png') }}" alt="" style="width: 120px;height:120px;">
+                        <div class="card-body px-0">
                         <h1 class="mb-0 pb-0 card-title">@isset($web_settings['card1_title']) {{ $web_settings['card1_title'] ?? '' }} @endisset</h1>
-                        <hr class="w-75">
+                        <hr class="w-100 text-center">
+
                         <div class=>
-                            <p class="mb-0 card-text text-white">@isset($web_settings['card1_desc']) {{$web_settings['card1_desc'] ?? '' }} @endisset  </p>
+                            <p class="mb-0 card-text text-white" style="text-align: justify;">@isset($web_settings['card1_desc']) {{$web_settings['card1_desc'] ?? '' }} @endisset  </p>
+                        </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 my-3 d-flex justify-content-center">
                     <div
                         class="card  choose-card-green p-3 d-flex flex-column align-items-center text-center justify-content-center"style="width:20rem;">
-                        <img src="{{ asset('assets/images/Artboard 2.png') }}" alt="" style="width: 120px;height:120px;">
+                        <img class="card-img-top" src="{{ asset('assets/images/Artboard 1 copy.png') }}" alt="" style="width: 120px;height:120px;">
+                        <div class="card-body px-0">
                         <h1 class="mb-0 pb-0 card-title text-white">@isset($web_settings['card2_title']) {{ $web_settings['card2_title'] ?? '' }} @endisset</h1>
-                        <hr class="w-75">
+                        <hr class="w-100">
                         <div class=>
-                            <p class="mb-0 card-text text-white">@isset($web_settings['card2_desc']) {{$web_settings['card2_desc'] ?? '' }} @endisset</p>
+                            <p class="mb-0 card-text text-white" style="text-align: justify;">@isset($web_settings['card2_desc']) {{$web_settings['card2_desc'] ?? '' }} @endisset</p>
+                        </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 my-3 d-flex justify-content-center">
                     <div
                         class="card  choose-card-blue p-3 d-flex flex-column align-items-center text-center justify-content-center"style="width:20rem;">
-                        <img src="{{ asset('assets/images/Artboard 3.png') }}" alt="" style="width: 120px;height:120px;">
+                        <img class="card-img-top" src="{{ asset('assets/images/Artboard 3.png') }}" alt="" style="width: 120px;height:120px;">
+                        <div class="card-body px-0">
                         <h1 class="mb-0 pb-0 card-title text-white">@isset($web_settings['card3_title']) {{ $web_settings['card3_title'] ?? '' }} @endisset</h1>
-                        <hr class="w-75">
+                        <hr class="w-100">
                         <div class=>
-                            <p class="mb-0 card-text text-white">@isset($web_settings['card3_desc']) {{$web_settings['card3_desc'] ?? '' }} @endisset </p>
+                            <p class="mb-0 card-text text-white" style="text-align: justify;">@isset($web_settings['card3_desc']) {{$web_settings['card3_desc'] ?? '' }} @endisset </p>
+                        </div>
                         </div>
                     </div>
                 </div>
                 <div class="col-12 col-md-6 col-lg-3 my-3 d-flex justify-content-center">
                     <div
                         class="card choose-card-green p-3 d-flex flex-column align-items-center text-center justify-content-center"style="width:20rem;">
-                        <img src="{{ asset('assets/images/Artboard 4.png') }}" alt="" style="width: 120px;height:120px;">
+                        <img class="card-img-top" src="{{ asset('assets/images/Artboard 5.png') }}" alt="" style="width: 120px;height:120px;">
+                        <div class="card-body px-0">
                         <h1 class="mb-0 pb-0 card-title text-white">@isset($web_settings['card4_title']) {{ $web_settings['card4_title'] ?? '' }} @endisset <br>
                             </h1>
-                        <hr class="w-75 ">
+                        <hr class="w-100 ">
                         <div class=>
-                            <p class="mb-0 card-text text-white">@isset($web_settings['card4_desc']) {{$web_settings['card4_desc'] ?? '' }} @endisset </p>
+                            <p class="mb-0 card-text text-white" style="text-align: justify;">@isset($web_settings['card4_desc']) {{$web_settings['card4_desc'] ?? '' }} @endisset </p>
+                        </div>
                         </div>
                     </div>
                 </div>
@@ -520,7 +529,7 @@ and (max-width : 430px){
         <div class="row mb-2 py-md-5" id="review-section-head">
             <div class="col-12 text-center">
                 <h1 class="review-link" id="text-color">4.5/5 Review
-                    <a href="">Trustpilot</a>
+                    <a href="#!">Trustpilot</a>
                 </h1>
 
             </div>

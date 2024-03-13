@@ -29,7 +29,8 @@
             <h2 class="text-center py-3 " style="font-size:3.4rem;" id="text-color">Our FAQs</h2>
             <div class="faq-design p-md-5 p-3">
                 <p class="text-white " style="font-size: 22px;">
-                    @isset($web_settings['faq_desc']) {{$web_settings['faq_desc'] ?? '' }} @endisset
+                    {{-- @isset($web_settings['faq_desc']) {{$web_settings['faq_desc'] ?? '' }} @endisset --}}
+                {!! $web_settings['faq_desc'] !!}
                 </p>
                 <div>
 

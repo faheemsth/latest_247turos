@@ -136,32 +136,32 @@
                     </tr>
                 </table>
             </td>
-           
+
             </tr>
             <tr>
-            
+
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td align="left" bgcolor="#ffffff"
                             style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;border-top: 3px solid #d4dadf">
-                           
+
                             <h3 style="font-size:1.2rem;font-weight:500;">
                             I hope this message finds you well. We are writing to inform you that an amount has been successfully added to your wallet on the 247Tutors platform.
                             </h3>
-                             
+
                              <h3 style="font-size:1.2rem;font-weight:500;">
                           As per your recent transaction request, the specified amount has been deposited into your wallet, allowing you to utilize these funds for various activities and transactions within the platform.
                             </h3>
-                             
+
                         </td>
                     </tr>
                 </table>
             </td>
-            
-            
+
+
             </tr>
-           
+
         <tr>
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
@@ -180,7 +180,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">© 2023 247Tutor. All rights reserved.</p>
+                            <p style="margin: 0;">© . All rights reserved.</p>
                         </td>
                     </tr>
 

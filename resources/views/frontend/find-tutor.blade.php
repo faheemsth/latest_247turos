@@ -26,18 +26,19 @@
             </div>
             <div class="col-md-6 col-12">
                 <div class="d-flex gap-2 gap-md-2 justify-content-md-end align-items-baseline">
+                    <h6>Sort by:</h6>
                     <div class="form-group">
-                        <label for="priceSort">Sort by:</label>
+                        {{-- <label for="priceSort">Sort by:</label> --}}
                         <select class="form-control" id="priceSort" name="priceSort">
-                            <option value="">Select Option</option>
+                            <option value="" >Select Price</option>
                             <option value="asc" data-sort="Low to High">Low to High</option>
                             <option value="desc" data-sort="High to Low">High to Low</option>
                         </select>
                     </div>
                     <div class="form-group">
-                        <label for="deliveryMethod">Type:</label>
+                        {{-- <label for="deliveryMethod">Type:</label> --}}
                         <select class="form-control" id="deliveryMethod" name="deliveryMethod">
-                            <option value="">Select Option</option>
+                            <option value="">Select Type</option>
                             <option value="1" data-method="Online">Online</option>
                             <option value="2" data-method="In Person">In Person</option>
                             <option value="3" data-method="Both">Both</option>
@@ -57,7 +58,7 @@
                     </div>
                     <div class="col-xl-3 col-md-3 col-12 py-2 d-flex justify-content-md-end">
                         <select class="form-control" id="genderSelect" name="genderSelect">
-                            <option value="">Select Option</option>
+                            <option value="" class="">Select Gender</option>
                             <option value="Male" data-gender="Male">Male</option>
                             <option value="Female" data-gender="Female">Female</option>
                             <option value="Other" data-gender="Any">Any</option>
@@ -942,18 +943,18 @@
                         '<small>' + selectedLevel1 + '</small> <img src="./assets/images/cross.png"></a>');
                 }
 
-                if (priceSort1 !== 'Select Option') {
+                if (priceSort1 !== 'Select Price') {
                     selectedCriteria.push(
                         '<a class="py-1 px-3 border-muted border fw-bold rounded-2 text-dark" style="text-decoration: none;">' +
                         '<small>' + priceSort1 + '</small> <img src="./assets/images/cross.png"></a>');
                 }
 
-                if (deliveryMethod1 !== 'Select Option') {
+                if (deliveryMethod1 !== 'Select Type') {
                     selectedCriteria.push(
                         '<a class="py-1 px-3 border-muted border fw-bold rounded-2 text-dark" style="text-decoration: none;">' +
                         '<small>' + deliveryMethod1 + '</small> <img src="./assets/images/cross.png"></a>');
                 }
-                if (genderSelect1 !== 'Select Option') {
+                if (genderSelect1 !== 'Select Gender') {
                     selectedCriteria.push(
                         '<a class="py-1 px-3 border-muted border fw-bold rounded-2 text-dark" style="text-decoration: none;">' +
                         '<small>' + genderSelect1 + '</small> <img src="./assets/images/cross.png"></a>');
