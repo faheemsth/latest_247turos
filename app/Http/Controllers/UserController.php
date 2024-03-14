@@ -635,4 +635,69 @@ class UserController extends Controller
         return $pdf->download('document.pdf');
 
     }
+
+    public function updateorgnization($status ,$id)
+    {
+        $user = User::find($id);
+        if(!empty($user)){
+
+            if($user->status == 'Pending'){
+            $data = [
+                'tutor' => $user->first_name . ' ' . $user->last_name,
+            ];
+            $imagePath = public_path('assets/images/247 NEW Logo 1.png');
+            $view = \view('pages.mails.OrgPending', $data);
+            $view = $view->render();
+
+            $mail = new PHPMailer();
+            $mail->CharSet = "UTF-8";
+
+            $mail->setfrom('support@247tutors.com', '247 Tutors');
+
+            $mail->isHTML(true);
+            $mail->Subject ='Verification Successful';
+            $mail->Body = $view;
+            $mail->AddEmbeddedImage($imagePath, 'logo');
+            $mail->AltBody = '';
+            $mail->addaddress($user->email, $user->first_name . ' ' . $user->last_name);
+            $mail->isHTML(true);
+            $mail->msgHTML($view);
+
+            if (!$mail->send())
+            throw new \Exception('Failed to send mail');
+            }else{
+            $data = [
+                'tutor' => $user->first_name . ' ' . $user->last_name,
+            ];
+            $imagePath = public_path('assets/images/247 NEW Logo 1.png');
+            $view = \view('pages.mails.OrgActive', $data);
+            $view = $view->render();
+
+            $mail = new PHPMailer();
+            $mail->CharSet = "UTF-8";
+
+            $mail->setfrom('support@247tutors.com', '247 Tutors');
+
+            $mail->isHTML(true);
+            $mail->Subject ='Pending Your Account';
+            $mail->Body = $view;
+            $mail->AddEmbeddedImage($imagePath, 'logo');
+            $mail->AltBody = '';
+            $mail->addaddress($user->email, $user->first_name . ' ' . $user->last_name);
+            $mail->isHTML(true);
+            $mail->msgHTML($view);
+
+            if (!$mail->send())
+            throw new \Exception('Failed to send mail');
+
+
+            }
+
+
+            $user->status=$status;
+            $user->save();
+            return back()->with('success', 'Update Orgnization Status Successfully');
+        }
+
+    }
 }

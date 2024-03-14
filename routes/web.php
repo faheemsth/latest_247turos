@@ -402,6 +402,7 @@ Route::group(['middleware' => 'auth'], function(){
 
         Route::get('/parents', [UserController::class,'parent']);
         Route::get('/organizations', [UserController::class,'organization']);
+        Route::get('/updateorgnization/{status}/{id}', [UserController::class,'updateorgnization']);
         Route::get('/verify_tutor', [UserController::class,'verification']);
         // coupons
 
@@ -595,8 +596,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/student_profile/{id}', [StudentController::class, 'student_profile_get']);
         Route::get('parent/home',[StudentController::class,'Parenthome']);
         Route::get('student/home',[StudentController::class,'Studenthome']);
-        Route::get('organization/students', [ParentController::class, 'your_students']);
-        Route::get('/organization/payments', [ParentController::class,'parent_payments']);
+        Route::get('organization/students', [ParentController::class, 'org_students']);
+
+        Route::get('/organization/payments', [ParentController::class,'org_payments']);
 
         Route::get('/organization/messages/',[ChatController::class,'Organizationchat']);
 

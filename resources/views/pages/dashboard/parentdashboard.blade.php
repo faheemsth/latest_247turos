@@ -160,7 +160,7 @@ and (max-width : 425px){
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between mt-4" >
                                     <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="0">{{ !empty($tutors) ? $tutors->count() : '0' }}</span></h4>
+                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="0">{{ !empty($bookingCount) ? $bookingCount->count() : '0' }}</span></h4>
                                         <a href="{{ url('/bookings') }}" class="text-decoration-none text-muted">View all
                                             Tutotr</a>
                                     </div>

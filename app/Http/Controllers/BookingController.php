@@ -48,7 +48,7 @@ class BookingController extends Controller
         $search = $request->input('search');
         $booking = Booking::join('transactions', 'bookings.id', '=', 'transactions.booking_id');
         if (!empty($status)) {
-            $booking->where('status', $status);
+            $booking->where('status', 'like', '%' . $status . '%');
         }
         $booking = $booking->with(['student', 'tutor', 'subjects']);
         if (!empty($search)) {
@@ -677,7 +677,7 @@ class BookingController extends Controller
             $query->where('student_id', Auth::id());
         }
 
-        if (Auth::user()->role_id == 5) {
+        if (Auth::user()->role_id == 5 || Auth::user()->role_id == 6) {
             $query->where('parent_id', Auth::id());
         }
 

@@ -55,8 +55,8 @@ class OrgController extends Controller
         } elseif (Auth::user()->role_id == 6) {
             $students = User::where('role_id', '4')->where('parent_id', Auth::id())->get();
             $tutors = Booking::where('parent_id',Auth::id())->with(['tutor','tutorSubjectOffer'])->get();
-
-            return view('pages.dashboard.parentdashboard', compact('students','tutors'));
+            $bookingCount = Booking::where('parent_id', Auth::id())->get()->unique('tutor_id');
+            return view('pages.dashboard.parentdashboard', compact('students','tutors','bookingCount'));
         }
 
     }
