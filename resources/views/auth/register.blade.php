@@ -123,7 +123,7 @@
                                             class="btn col-md-4 col-lg-3 text-left-1 text-dark fs-4 fw-bold next d-flex user-role"
                                             id="next4" style="background-color: rgba(171, 254, 16, 1);"> <img
                                                 src="assets/images/school.svg" alt="School icon" class="px-3"
-                                                width="60" height="auto">Organization</a>
+                                                width="60" height="auto">Organisation</a>
                                     </div>
                                 </div>
                             </div>

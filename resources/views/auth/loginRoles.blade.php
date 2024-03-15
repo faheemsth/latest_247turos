@@ -46,9 +46,9 @@
             <img src="./assets/images/4.png" class="card-img-top img-fluid  w-100 mx-auto" alt="...">
             <div class="card-body">
                 <br>
-                <h4 class="card-title fw-bold">I am a Organization</h4>
+                <h4 class="card-title fw-bold">I am a Organisation</h4>
                 <p class="card-text">Manage Payments or Lessons for your Child</p>
-                <a href='javascript:void(0)' onclick="roleget('6')" class="btn d-grid gap-2 btn-light">Organization Log in</a>
+                <a href='javascript:void(0)' onclick="roleget('6')" class="btn d-grid gap-2 btn-light">Organisation Log in</a>
             </div>
         </div>
     </div>
@@ -94,8 +94,8 @@ function roleget(role) {
         id = 5;
 
     } else if (role === '6') {
-        message = 'Organization Log In';
-        message1 = 'I am a Organization';
+        message = 'Organisation Log In';
+        message1 = 'I am a Organisation';
         id = 6;
 
     }

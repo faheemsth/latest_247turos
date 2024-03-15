@@ -49,7 +49,7 @@
                                                 @elseif ($recent->role_id == '5')
                                                     Parent
                                                 @elseif ($recent->role_id == '6')
-                                                     Organization
+                                                     Organisation
                                                 @endif
                     </td>
                     <td>{{ $recent->status }}</td>

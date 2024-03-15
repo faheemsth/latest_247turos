@@ -47,7 +47,7 @@
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
                         <li><a class="dropdown-item" href='{{ route('studentApplySteps') }}'>Become a Student</a></li>
                         <li><a class="dropdown-item" href='{{ route('tutorApplySteps') }}'>Become a Tutor</a></li>
-                        <li><a class="dropdown-item" href='{{ route('organizationApplySteps') }}'>Become an Organization</a>
+                        <li><a class="dropdown-item" href='{{ route('organizationApplySteps') }}'>Become an Organisation</a>
                         </li>
                     </ul>
                 </li>

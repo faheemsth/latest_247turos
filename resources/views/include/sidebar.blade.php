@@ -353,7 +353,7 @@
                         <a href="{{ url('organizations') }}"
                             class="menu-item {{ $segment1 == 'organizations' ? 'active' : '' }} d-flex align-items-center">
                             <span class="fa-solid fa-users-line" style="color: rgba(80, 80, 80, 0.87);font-size: 13px; padding-right:6px;"></span>
-                            {{('Organizations') }}</a>
+                            {{('Organisations') }}</a>
                     @endcan
                     <!-- only those have manage_permission permission will get access -->
                     @can('manage_permission')

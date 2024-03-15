@@ -196,7 +196,7 @@
                 <!--<img src="{{ asset('assets/images/247 NEW Logo 2.png') }}" alt="Logo" width="15%" height="auto">-->
                 <h3 class="fw-bold mb-0" style="font-size:1.6rem">
                     <span id="text-color">
-                        ORGANIZATION
+                        ORGANISATION
                     </span> REGISTRATION
                 </h3>
                 <div class="col-md-1 text-center">
@@ -237,7 +237,7 @@
                     <fieldset id="account">
                         <div class="panel-body mt-5 text-center">
                             <h2 class=" fs-1" id="text-color"><strong>Reduced Online Tutoring Rates For
-                                    Organizations</strong>
+                                    ORGANISATIONs</strong>
                             </h2><br>
                         </div>
                         <div class="d-flex flex-column flex-md-row ">
@@ -307,21 +307,21 @@
                     {{-- /// --}}
                     <fieldset id="account">
                         <div class="panel-body mt-5 text-center">
-                            <h2 class="text-center fs-1" id="text-color"><strong>Your Organization Information?</strong>
+                            <h2 class="text-center fs-1" id="text-color"><strong>Your ORGANISATION Information?</strong>
                             </h2><br>
                         </div>
                         <div class="d-flex flex-column flex-md-row ">
                             <div class="col-md-12 col-12 ">
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Organization Name</label><br>
-                                        <input type="text" id="parentfname" placeholder="Enter Organization Name"
+                                        <label class="text-secondary">ORGANISATION Name</label><br>
+                                        <input type="text" id="parentfname" placeholder="Enter ORGANISATION Name"
                                             name="name" class="w-100 p-2">
                                     </div>
                                 </div>
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Organization Type</label><br>
+                                        <label class="text-secondary">ORGANISATION Type</label><br>
                                         <span class="d-flex">
                                             <select class="w-100 p-2" id="org_type" name="org_type">
                                                 <option value="Welfare">Welfare</option>
@@ -334,7 +334,7 @@
                                 </div>
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Organization Email</label><br>
+                                        <label class="text-secondary">ORGANISATION Email</label><br>
                                         <input type="email" id="parentemail" name="email"
                                             placeholder="Enter Email Address" class="w-100 p-2">
                                         <span id="email-validation-message" style="color: red;"></span>
@@ -343,7 +343,7 @@
 
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Organization Phone</label><br>
+                                        <label class="text-secondary">ORGANISATION Phone</label><br>
                                         <span class="d-flex">
                                             <select class="w-10 p-2" name="code">
                                                 <option value="+1">+1</option>
@@ -391,18 +391,18 @@
 
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Organization Address</label><br>
+                                        <label class="text-secondary">ORGANISATION Address</label><br>
                                         <input type="email" id="address" name="address"
-                                            placeholder="Enter Organization Address" class="w-100 p-2">
+                                            placeholder="Enter ORGANISATION Address" class="w-100 p-2">
                                         <span id="email-validation-message" style="color: red;"></span>
                                     </div>
                                 </div>
 
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Organization Postcode </label><br>
+                                        <label class="text-secondary">ORGANISATION Postcode </label><br>
                                         <input type="email" id="zipcode" name="zipcode"
-                                            placeholder="Enter Organization Postcode" class="w-100 p-2">
+                                            placeholder="Enter ORGANISATION Postcode" class="w-100 p-2">
                                         <span id="email-validation-message" style="color: red;"></span>
                                     </div>
                                 </div>
@@ -444,7 +444,7 @@
                                     </div>
                                     <div class="row mt-4 justify-content-center">
                                         <div class="col-md-5">
-                                            <label class="text-secondary">Role in organization</label><br>
+                                            <label class="text-secondary">Role in ORGANISATION</label><br>
                                             <span class="d-flex">
                                                 <input type="text" id="org_role" name="org_role" placeholder="Enter Role" class="w-100 p-2">
                                             </span>

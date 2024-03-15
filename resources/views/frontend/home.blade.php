@@ -167,7 +167,7 @@ and (max-width : 430px){
                             <a type="button" href='{{ route('organizationApplySteps') }}' class="padd1 btn px-4 py-2 mb-2"
                                 style="border: 1px solid lightgray;
                           font-size: 16px;font-family:'Outfit', sans-serif;">Become
-                                a Organization
+                                a Organisation
                                 {{-- <span style="color:rgba(29, 161, 242, 1);">It’s Free <i class="fa-solid fa-exclamation"></i>
                                 </span> --}}
                                 <i class="fa-solid fa-chevron-right"></i>
