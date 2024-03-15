@@ -84,7 +84,14 @@
                                         <!--</td>-->
                                         <td style="border-bottom: .5px solid black;">{{ $coupon->description }}</td>
                                         <td style="border-bottom: .5px solid black;">{{ $coupon->discount_type }}</td>
-                                        <td style="border-bottom: .5px solid black;">£{{ $coupon->price }}</td>
+                                        <td style="border-bottom: .5px solid black;">
+                                            @if ($coupon->discount_type == 'percentage')
+                                              {{ $coupon->price }}%
+                                            @else
+                                              £{{ $coupon->price }}
+                                            @endif
+
+                                        </td>
 
 
                                         <td style="border-bottom: .5px solid black;">{{ $coupon->usage_limit }}</td>

@@ -619,8 +619,8 @@
                                     <tr>
                                         <th scope="col">Member</th>
                                         {{-- <th scope="col">Institute</th>
-                                        <th scope="col">Amount</th>
-                                        <th scope="col">Position</th> --}}
+                                        <th scope="col">Amount</th> --}}
+                                        <th scope="col">Role</th>
                                         <th scope="col" style="text-align: center;">Status</th>
                                         {{-- <th scope="col">Rating</th> --}}
                                     </tr>
@@ -657,6 +657,21 @@
                                                     <div class="flex-grow-1">
                                                         {{ $recent->first_name . '  ' . $recent->last_name }}</div>
                                                 </div>
+                                            </td>
+                                            <td style="text-align: center;">
+
+                                                @if ($recent->role_id == '4')
+                                                    Student
+                                                @elseif ($recent->role_id == '3')
+                                                    Tutor
+                                                @elseif ($recent->role_id == '5')
+                                                    Parent
+                                                @elseif ($recent->role_id == '6')
+                                                     Organization
+                                                @endif
+
+
+
                                             </td>
                                             <td style="text-align: center;">{{ $recent->status }}</td>
                                             </tr>

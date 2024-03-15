@@ -199,8 +199,8 @@
             </div>
     </div>
     <div  class="container ">
-        
-        
+
+
         <div class="row ">
             <div class="col-md-12 d-flex justify-content-between align-items-center mt-5 mb-4">
                 <div class="d-flex gap-10">
@@ -471,8 +471,8 @@
                                         <div class="col-md-5">
                                             <label class="text-secondary">Username</label><br>
                                                 <input type="text" id="username" name="username"
-                                                    placeholder="Enter Username" class="w-100 p-2">
-                                                    <span id="username-validation-message" style="color: red;"></span>
+                                                    placeholder="Enter Username" class="w-100 p-2" style="background-color: #f8f8f8;color: gray;border: 1px solid #4F4F4F">
+
                                         </div>
                                     </div>
 
@@ -531,7 +531,7 @@
                     age--;
                 }
                 if (age < 16) {
-                    window.location.href = '{{ url('/parent-signup') }}?role=5&message=true'; 
+                    window.location.href = '{{ url('/parent-signup') }}?role=5&message=true';
                 }
             }
         });
@@ -727,10 +727,10 @@
 
             }
             var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            
-            
+
+
             if ($('#confirm-password').val() === '' || $('#passwordUser').val() === '')
-            { 
+            {
                 Swal.fire({
                 position: 'center',
                 icon: 'error',
@@ -740,7 +740,7 @@
                 showCloseButton: true
             });
             }else{
-                      
+
             $.ajax({
                 url: '/register',
                 method: 'POST',

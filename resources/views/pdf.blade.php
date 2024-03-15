@@ -23,6 +23,7 @@
     <thead>
         <tr>
             <th>Member</th>
+            <th>Role</th>
             <th>Status</th>
         </tr>
     </thead>
@@ -39,6 +40,17 @@
                                 {{ $recent->first_name . '  ' . $recent->last_name }}
                             </div>
 
+                    </td>
+                    <td>
+                        @if ($recent->role_id == '4')
+                                                    Student
+                                                @elseif ($recent->role_id == '3')
+                                                    Tutor
+                                                @elseif ($recent->role_id == '5')
+                                                    Parent
+                                                @elseif ($recent->role_id == '6')
+                                                     Organization
+                                                @endif
                     </td>
                     <td>{{ $recent->status }}</td>
                 </tr>
