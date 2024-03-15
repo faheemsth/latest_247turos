@@ -275,7 +275,7 @@
     </div>
     <div class="col-12 col-md-7 col-lg-6 d-flex gap-3 bottom-footer-menu justify-content-center">
         <h6><a href="">Careers</a></h6>
-        <h6><a href="{{ url('/testimonials') }}" class="text-primary">Terms of use</a></h6>
+        <h6><a href="{{ url('/testimonials') }}" class="">Terms of use</a></h6>
         <h6><a href="{{ url('/privacypolicy') }}">Privacy policy</a></h6>
     </div>
 </div>

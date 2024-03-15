@@ -91,7 +91,7 @@
 
                                 <button class="paypal-button mx-1 py-1" onclick="withdraw()">
 
-                                    Withdrawn <i class="fa-brands fa-cc-paypal"
+                                    Withdrawn with<i class="fa-brands fa-cc-paypal"
                                         style="font-size:34px;margin-left:10px;"></i>
                                 </button>
 

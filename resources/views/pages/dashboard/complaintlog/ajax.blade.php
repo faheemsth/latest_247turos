@@ -4,7 +4,7 @@
             <td><a onclick="freeMeetmodal('{{ $Complaint->id }}','{{ $Complaint->status }}')"
                     style="cursor: pointer;font-size:20px;color:blue;">{{ $Complaint->TicketID }}</a>
             </td>
-            <td>{{ optional(App\Models\User::find($Complaint->user_id))->username }}
+            <td>{{ optional(App\Models\User::find($Complaint->user_id))->username == ''?optional(App\Models\User::find($Complaint->user_id))->first_name.' '.optional(App\Models\User::find($Complaint->user_id))->last_name:optional(App\Models\User::find($Complaint->user_id))->username }}
             </td>
             <td>{{ $Complaint->subject }}</td>
             <td>

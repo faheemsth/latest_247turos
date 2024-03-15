@@ -37,7 +37,8 @@ class BotManController extends Controller
                 if (!in_array(strtolower($message), ['hi', 'hello', 'hey'])) {
                     Session::put('question', $message);
                 }
-                $botman->reply('Give me your Gmail so I can contact you soon. ');
+                $botman->reply('What is your email?');
+
             }
         });
 
@@ -48,7 +49,7 @@ class BotManController extends Controller
         $botman->ask("What's your name?", function (Answer $answer) {
             $name = $answer->getText();
             Session::put('name', $name);
-            $this->say('Who can i help you,' . $name . '?');
+            $this->say('How i can help you,' . $name . '?');
         });
     }
 
@@ -58,7 +59,7 @@ class BotManController extends Controller
         $imagePath = public_path('assets/images/247 NEW Logo 1.png');
         // user
         $data1 = [
-            'newMessage' => 'Successfully Send Your Issue To 247Tutors Support Team',
+            'newMessage' => 'Successfully Sent Your Issue To 247Tutors Support Team',
             'email' => $message,
             'name' => Session::get('name'),
             'question' => Session::get('question'),
@@ -71,7 +72,7 @@ class BotManController extends Controller
         $mail->setfrom('support@247tutors.com', '247 Tutors');
         $mail->AddEmbeddedImage($imagePath, 'logo');
         $mail->isHTML(true);
-        $mail->Subject = 'Successfully Send Your Issue To 247Tutors Support Team';
+        $mail->Subject = 'Successfully Sent Your Issue To 247Tutors Support Team';
         $mail->Body = $view;
         $mail->AltBody = '';
         $mail->addaddress($message, Session::get('name'));
@@ -112,7 +113,6 @@ class BotManController extends Controller
         $botman->types();
         $botman->ask("Thanks, nice to meet you! We will contact you shortly. If you have an urgent inquiry then please contact " . optional(\App\Models\WebSetting::find(1))->field_value, function ($answer, $botman) {
             $botman->stopConversation();
-            echo "<script>document.getElementById('userText').style.display = 'none';</script>";
         });
     }
 }

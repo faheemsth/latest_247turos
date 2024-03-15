@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\ActivityLog;
 use App\Models\Booking;
 use App\Models\Complaint;
+use App\Models\Notification;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
@@ -189,7 +190,9 @@ class ComplaintController extends Controller
     {
         $html = "";
         $complaint = Complaint::find($request->id);
-
+        $notifications = Notification::where('user_id',$complaint->user_id)->first();
+        $notifications->is_read=1;
+        $notifications->save();
         $html .= '<tr>
                     <td class="pe-5">Ticket No :</td>
                     <td>' . $complaint->TicketID . '</td>

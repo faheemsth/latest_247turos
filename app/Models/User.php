@@ -46,6 +46,7 @@ class User extends Authenticatable implements MustVerifyEmail
         'org_type',
         'org_help',
         'org_role',
+        'get_in_touch'
     ];
     protected $casts = [
         'email_verified_at' => 'datetime',

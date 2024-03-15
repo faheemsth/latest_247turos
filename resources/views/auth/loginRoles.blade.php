@@ -95,7 +95,7 @@ function roleget(role) {
 
     } else if (role === '6') {
         message = 'Organization Log In';
-        message1 = 'I am an Organization';
+        message1 = 'I am a Organization';
         id = 6;
 
     }

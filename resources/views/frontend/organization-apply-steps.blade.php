@@ -40,7 +40,7 @@
     <div class="container">
         <div class="row pt-5 text-center">
             <div class="col">
-                <h1 class="fw-bolder simple-title" id="text-color">It is Simple</h1>
+                <h1 class="fw-bolder simple-title" id="text-color">it's simple</h1>
             </div>
         </div>
     </div>

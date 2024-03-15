@@ -256,7 +256,7 @@ class RegisterController extends Controller
                 'org_type' => $data['org_type'],
                 'org_help' => $data['org_help'],
                 'org_role' => $data['org_role'],
-
+                'get_in_touch' => $data['get_in_touch'],
 
                 'status' => 'Active',
                 'role_id' => $data['role_id'],

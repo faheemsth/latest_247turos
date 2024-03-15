@@ -467,6 +467,15 @@
                                         </div>
                                     </div>
 
+                                    <div class="row mt-4 justify-content-center">
+                                        <div class="col-md-5">
+                                            <label class="text-secondary">Get In Touch</label><br>
+                                            <input type="time" id="get_in_touch" name="get_in_touch"
+                                                placeholder="Enter Email" class="w-100 p-2">
+                                        </div>
+                                    </div>
+
+
 
                                 </div>
 
@@ -638,7 +647,7 @@
             $('#register').click(function() {
                 var formData = $('#registration-form').serialize();
                 if ($('#cpfname').val() === '' || $('#cplname').val() === '' || $('#cpemail').val() ===
-                    '' || $('#org_role').val() === '' || $('#org_help').val() === '') {
+                    '' || $('#org_role').val() === '' || $('#org_help').val() === '' || $('#get_in_touch').val() === '') {
                     Swal.fire({
                         position: 'center',
                         icon: 'error',

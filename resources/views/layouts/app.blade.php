@@ -112,7 +112,7 @@
 }
 .cookiessection{
     width:35%;
-    bottom: 8px;left:22px; 
+    bottom: 8px;left:22px;
 }
 }
 @media screen and (max-width: 430px){
@@ -131,7 +131,7 @@
 }
  .cookiessection{
         width:85%;
-    
+
  }
 }
 
@@ -212,7 +212,7 @@ body { top: 0px !important; }
 
 
     </style>
-    
+
             <style>
         a[id="fr-logo"] {
   display: none !important;
@@ -309,7 +309,7 @@ a[href*="www.froala.com"] {
       cookieBanner.style.display = "block";
     }
   }
-  setTimeout(showCookieBanner, 30000);
+  setTimeout(showCookieBanner, 2000);
 </script>
 <script>
     $(document).ready(function () {
@@ -345,7 +345,7 @@ a[href*="www.froala.com"] {
         $('#cookieNotification').fadeOut();
     }
 </script>
-            
+
         <script>
             $(document).ready(function() {
                 var popupShown = localStorage.getItem('popupShown');

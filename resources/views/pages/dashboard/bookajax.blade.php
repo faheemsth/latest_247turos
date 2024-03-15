@@ -118,6 +118,18 @@
                                                                         @endif
                                                                     @endif
                                                                 </li>
+
+                                                                <li>
+                                                                    @if(Auth::user()->role_id == 4)
+                                                                    <a href="{{ url('chat') . '/' . $booking->tutor->id }}"
+                                                                        class="dropdown-item">Chat with Tutor</a>
+                                                                    @endif
+                                                                    @if(Auth::user()->role_id == 3)
+                                                                    <a href="{{ url('chat') . '/' . $booking->student->id }}"
+                                                                        class="dropdown-item">Chat with Student</a>
+                                                                    @endif
+                                                                </li>
+
                                                             @endif
                                                         @endif
                                                     @endif

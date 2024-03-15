@@ -359,10 +359,24 @@ class ChatController extends Controller
                         $url = 'Complaintlogs';
                     }
                     $html .= '<a href="' . $url . '" class="list-group-item" data-chat-user="' . optional(User::find($notification->user_id))->username . '">
-                        <figure class="user--online">
-                            <img src="' . asset(optional(User::find($notification->user_id))->image) . '" class="rounded-circle" alt="">
-                        </figure><span><span class="name">' .  optional(User::find($notification->user_id))->username . '</span>  <span class="username">' . $notification->title . '</span> </span>
-                    </a>';
+                            <figure class="">
+                                <img src="';
+
+                        if (!empty(User::find($notification->user_id)->image) && file_exists(public_path(!empty(User::find($notification->user_id)->image) ? User::find($notification->user_id)->image : ''))) {
+                            $html .= asset(User::find($notification->user_id)->image);
+                        } else {
+                            if (User::find($notification->user_id)->gender == 'Male') {
+                                $html .= asset('assets/images/male.jpg');
+                            } elseif (User::find($notification->user_id)->gender == 'Female') {
+                                $html .= asset('assets/images/female.jpg');
+                            } else {
+                                $html .= asset('assets/images/default.jpg');
+                            }
+                        }
+
+                $html .= '" class="rounded-circle" alt="">
+                            </figure><span><span class="name">' . optional(User::find($notification->user_id))->username . '</span>  <span class="username">' . $notification->title . '</span> </span>
+                        </a>';
                 }
             }
         }

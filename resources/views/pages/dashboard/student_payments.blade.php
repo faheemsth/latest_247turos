@@ -88,7 +88,7 @@
                         @if (optional(App\Models\Wallet::where('user_id', Auth::id())->first())->net_income > 0)
                             <div class="col-auto">
                                 <button class="paypal-button mx-1 py-1" onclick="withdraw()">
-                                    Withdrawn <i class="fa-brands fa-cc-paypal"
+                                    Withdrawn with<i class="fa-brands fa-cc-paypal"
                                         style="font-size:34px;margin-left:10px;"></i>
                                 </button>
 
@@ -222,7 +222,7 @@
                                                 </span>
                                             @endif
                                         </td>
-                                        <td><td>{!! date('d-m-Y', strtotime($booking->booking_date)) . '<br>' . date('h:i a', strtotime($booking->booking_time)) !!}</td></td>
+                                        <td>{!! date('d-m-Y', strtotime($booking->booking_date)) . '<br>' . date('h:i a', strtotime($booking->booking_time)) !!}</td>
 
                                     </tr>
                                 @endforeach
