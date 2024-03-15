@@ -48,7 +48,7 @@
             <h2><b>£20 - £29</b></h2>
             <p>@isset($web_settings['pricecard1_desc']) {{$web_settings['pricecard1_desc'] ?? '' }} @endisset</p>
           </a>
-          <a href="{{ url('find-tutor?min_price=40&max_price=87') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3" id="box2" style="color: white;">
+          <a href="{{ url('find-tutor?min_price=40&max_price=87') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3 text-white" id="box2" style="color: white;">
             <h2><b>£40 - £87</b></h2>
             <p>@isset($web_settings['pricecard2_desc']) {{$web_settings['pricecard2_desc'] ?? '' }} @endisset</p>
           </a>
