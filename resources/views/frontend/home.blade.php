@@ -281,10 +281,10 @@ and (max-width : 430px){
         </button>
     </div> --}}
     {{-- div  --}}
-    <div class="container-fluid px-0 ">
-        <div class="row  justify-content-center">
-            <div class="col-11 text-center">
-                <img src="{{ asset('assets/images/banner 21.png') }}" class=" " style="width: 100%;height: 550px; " alt="...">
+    <div class="container-fluid ">
+        <div class="row ">
+            <div class="col-12 text-center px-0">
+                <img src="{{ asset('assets/images/banner 2 copy.png') }}" class="img-fluid " alt="...">
             </div>
         </div>
     </div>
