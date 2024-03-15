@@ -72,8 +72,10 @@
     <style>
         /* Add your custom styles here */
         .card-header {
-            background-color: #007bff; /* Bootstrap primary color */
-            color: #fff; /* Text color */
+            background-color: #007bff;
+            /* Bootstrap primary color */
+            color: #fff;
+            /* Text color */
             padding: 1rem;
             display: flex;
             justify-content: space-between;
@@ -83,7 +85,8 @@
         .select2 {
             /* Add your custom styles for the select element */
             padding: 0.5rem;
-            border: 1px solid #ced4da; /* Bootstrap default border color */
+            border: 1px solid #ced4da;
+            /* Bootstrap default border color */
             border-radius: 0.25rem;
         }
 
@@ -120,20 +123,12 @@
             <!-- start message area-->
             @include('include.message')
             <!-- end message area-->
-             <div class="col-md-12  user-table-data col-12 pe-0 pe-md-2">
+            <div class="col-md-12  user-table-data col-12 pe-0 pe-md-2">
                 <div class="card p-md-3 p-2">
-
-
-                    <!--<div class="card-header d-flex justify-content-between">-->
-                    <!--    <h3 class="col-auto">{{ __('') }}</h3>-->
-                    <!--    <form method="GET" action="" class="col-12 col-md-5  col-xl-3 d-flex justify-content-between align-items-center gap-2">-->
-                    <!--        <input type="text" name="search" value="{{ $_GET['search'] ?? '' }}" class="form-control" placeholder="Search">-->
-                    <!--        <button type="submit" class="btn btn-primary">Search</button>-->
-                    <!--    </form>-->
-                    <!--</div>-->
                     <div class="card-header justify-content-between">
                         <h3>{{ __('Activity Logs') }}</h3>
-                        <a class="btn btn-success px-3 py-1" href="{{ url('download') }}" ><i class="fa fa-download me-2" style="font-size:16px;"></i>Export</a>
+                        <a class="btn btn-success px-3 py-1" href="void::javascript(0)" onclick="tableToCSV()"><i
+                                class="fa fa-download me-2" style="font-size:16px;"></i>Export</a>
                     </div>
 
                     <div class="card-body" style="overflow: scroll;">
@@ -149,17 +144,20 @@
                                 </tr>
                             </thead>
                             <tbody id="ajaxbody">
-                                 @foreach($ActivityLogs as $key => $booking)
-                                 @if(!empty($booking->user) && !empty($booking->title) && !empty($booking->description))
-                                    <tr>
-                                        {{-- @dd($booking) --}}
-                                        <td style="border-bottom: .5px solid black;">{{ $key+1 }}</td>
-                                        <td style="border-bottom: .5px solid black;">{{ optional($booking->user)->first_name.' '.optional($booking->user)->last_name }}</td>
-                                        <td class="fw-bold" style="border-bottom: .5px solid black;">{{ $booking->title }}</td>
-                                        <td style="border-bottom: .5px solid black;">{{ $booking->description }}</td>
-                                        <td style="border-bottom: .5px solid black;">{{ $booking->created_at }}</td>
-                                    </tr>
-                                @endif
+                                @foreach ($ActivityLogs as $key => $booking)
+                                    @if (!empty($booking->user) && !empty($booking->title) && !empty($booking->description))
+                                        <tr>
+                                            {{-- @dd($booking) --}}
+                                            <td style="border-bottom: .5px solid black;">{{ $key + 1 }}</td>
+                                            <td style="border-bottom: .5px solid black;">
+                                                {{ optional($booking->user)->first_name . ' ' . optional($booking->user)->last_name }}
+                                            </td>
+                                            <td class="fw-bold" style="border-bottom: .5px solid black;">
+                                                {{ $booking->title }}</td>
+                                            <td style="border-bottom: .5px solid black;">{{ $booking->description }}</td>
+                                            <td style="border-bottom: .5px solid black;">{{ $booking->created_at }}</td>
+                                        </tr>
+                                    @endif
                                 @endforeach
                             </tbody>
                         </table>
@@ -171,48 +169,63 @@
     @push('script')
         <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        <link rel="stylesheet" type="text/css" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css"/>
-                        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.js"></script>
-                        <script>
-                            $(document).ready(function(){
-                                $('#reviewStudents').DataTable({
-                                    "order": [[ 0, "desc" ]] // Sort by the first column in ascending order
-                                });
-                            });
-                        </script>
+        <link rel="stylesheet" type="text/css"
+            href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/5.0.1/css/bootstrap.min.css" />
+        <script type="text/javascript" src="https://cdn.datatables.net/v/bs5/dt-1.11.5/datatables.min.js"></script>
+        <script>
+            $(document).ready(function() {
+                $('#reviewStudents').DataTable({
+                    "order": [
+                        [0, "desc"]
+                    ]
+                });
+            });
+        </script>
 
-                    	<script type="text/javascript">
-                    		function tableToCSV() {
-                    			let csv_data = [];
-                    			let rows = document.getElementsByTagName('tr');
-                    			for (let i = 0; i < rows.length; i++) {
-                    				let cols = rows[i].querySelectorAll('td,th');
-                    				let csvrow = [];
-                    				for (let j = 0; j < cols.length; j++) {
-                    					csvrow.push(cols[j].innerHTML);
-                    				}
-                    				csv_data.push(csvrow.join(","));
-                    			}
-                    			csv_data = csv_data.join('\n');
-                    			downloadCSVFile(csv_data);
+<script type="text/javascript">
+    function tableToCSV() {
+        let csv_data = [];
+        let rows = document.querySelectorAll('#reviewStudents tr');
 
-                    		}
+        rows.forEach(row => {
+            let csvrow = [];
+            let cols = row.querySelectorAll('td,th');
 
-                    		function downloadCSVFile(csv_data) {
-                    			CSVFile = new Blob([csv_data], {
-                    				type: "text/csv"
-                    			});
-                    			let temp_link = document.createElement('a');
-                    			temp_link.download = "ActivityLogs.csv";
-                    			let url = window.URL.createObjectURL(CSVFile);
-                    			temp_link.href = url;
-                    			temp_link.style.display = "none";
-                    			document.body.appendChild(temp_link);
-                    			temp_link.click();
-                    			document.body.removeChild(temp_link);
-                    		}
-                    	</script>
+            cols.forEach(col => {
+                csvrow.push(col.textContent.trim());
+            });
 
+            csv_data.push(csvrow.join(","));
+        });
+
+        csv_data = csv_data.join('\n');
+        downloadCSVFile(csv_data, 'Activity logs.csv');
+    }
+
+    function downloadCSVFile(csv_data, filename) {
+        var blob = new Blob([csv_data], {
+            type: 'text/csv'
+        });
+        if (window.navigator.msSaveOrOpenBlob) {
+            window.navigator.msSaveBlob(blob, filename);
+        } else {
+            var elem = window.document.createElement('a');
+            elem.href = window.URL.createObjectURL(blob);
+            elem.download = filename;
+            document.body.appendChild(elem);
+            elem.click();
+            document.body.removeChild(elem);
+            redirectToURL('{{ url("ActivityLogs") }}'); // Change the URL to your desired redirection URL
+        }
+    }
+
+    function redirectToURL(url) {
+        window.location.href = url;
+    }
+
+    // Call the function when needed
+    tableToCSV();
+</script>
 
     @endpush
 @endsection

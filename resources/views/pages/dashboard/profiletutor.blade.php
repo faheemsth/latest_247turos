@@ -912,7 +912,7 @@
 
 
         function BooTypemodal(BooTypemodal) {
-            var stripe = '<a  class=" btn px-5 py-2 text-decoration-none btnpay" href="{{ url('tutor/book') }}/' + BooTypemodal + '">Stripe<i class="ms-3 fa-solid fa-chevron-right"></i></a>';
+            var stripe = '<a  class=" btn px-5 py-2 text-decoration-none btnpay" href="{{ url('tutor/book') }}/' + BooTypemodal + '">Card<i class="ms-3 fa-solid fa-chevron-right"></i></a>';
             var wallet = '<a  class="btn px-5 py-2 text-decoration-none btnpay"  href="{{ url('tutor/wallet/book') }}/' + BooTypemodal + '">Wallet<i class="ms-3 fa-solid fa-chevron-right"></i></a>';
 
             $('#stripe').html(stripe);

@@ -48,7 +48,7 @@ class BookingController extends Controller
         $search = $request->input('search');
         $booking = Booking::join('transactions', 'bookings.id', '=', 'transactions.booking_id');
         if (!empty($status)) {
-            $booking->where('status', $status);
+            $booking->where('status', 'like', '%' . $status . '%');
         }
         $booking = $booking->with(['student', 'tutor', 'subjects']);
         if (!empty($search)) {
@@ -93,35 +93,32 @@ class BookingController extends Controller
 
         return view('pages.dashboard.ActivityLog.ActivityLog', compact('ActivityLogs'));
     }
-    
-    
-    
-    
-    public function download()
+
+
+
+
+    public function download(Request $request)
     {
-        $headers = [
-                'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0'
-            ,   'Content-type'        => 'text/csv'
-            ,   'Content-Disposition' => 'attachment; filename=galleries.csv'
-            ,   'Expires'             => '0'
-            ,   'Pragma'              => 'public'
-        ];
-    
-        $list = ActivityLog::all()->toArray();
-    
-        # add headers for each column in the CSV download
-        array_unshift($list, array_keys($list[0]));
-    
-       $callback = function() use ($list) 
-        {
-            $FH = fopen('php://output', 'w');
-            foreach ($list as $row) { 
-                fputcsv($FH, $row);
-            }
-            fclose($FH);
-        };
-    
-        return response()->stream($callback, 200, $headers);
+        if (Auth::user()->role_id != 1) {
+            return redirect('dashboard');
+        }
+        $ActivityLogs = ActivityLog::with('user');
+        $search = $request->input('search');
+
+        if (!empty($search)) {
+            $ActivityLogs->whereHas('user', function ($query) use ($search) {
+                $query->where(function ($subquery) use ($search) {
+                    $subquery->where('first_name', 'like', '%' . $search . '%')
+                        ->orWhere('last_name', 'like', '%' . $search . '%');
+                });
+            });
+
+            $ActivityLogs->orWhere('description', 'like', '%' . $search . '%');
+        }
+
+        $ActivityLogs = $ActivityLogs->get();
+
+        return view('pages.dashboard.ActivityLog.ActivityLogDownload', compact('ActivityLogs'));
     }
 
 
@@ -680,7 +677,7 @@ class BookingController extends Controller
             $query->where('student_id', Auth::id());
         }
 
-        if (Auth::user()->role_id == 5) {
+        if (Auth::user()->role_id == 5 || Auth::user()->role_id == 6) {
             $query->where('parent_id', Auth::id());
         }
 
@@ -2476,11 +2473,11 @@ class BookingController extends Controller
 
     public function startRecording()
     {
-        
+
         //  $activateScript = '/home/u163900009/domains/247tutors.co.uk/public_html/public/venv/Scripts/activate';
-        // $output = exec("source \"$activateScript\" 2>&1", $output, $returnVar); 
-        
-        
+        // $output = exec("source \"$activateScript\" 2>&1", $output, $returnVar);
+
+
         //       $sessionId = 2;
         //     $command = 'python3';
         //     $arguments = [
@@ -2488,24 +2485,24 @@ class BookingController extends Controller
         //         $sessionId,
         //         'start',
         //     ];
-            
+
         //     // Create a new process instance
         //     $process = new Process([$command, ...$arguments]);
         //     $process->run();
-            
+
         //     echo "<pre>";
         //     print_r($process->getOutput());
         //     echo "<pre>";
         //     print_r($process->getErrorOutput());
-            
+
         //     dd();
-        
-        
-        
-        
-        
-        
-        
+
+
+
+
+
+
+
        // if (Auth::check() && Auth::user()->role_id == 3) {
 
             // Retrieve the existing session ID or generate a new one
@@ -2555,9 +2552,9 @@ class BookingController extends Controller
         file_put_contents($filePath, $content);
         return response()->json(['message' => 'Recording stopped.']);
     }
-    
-    
-    
+
+
+
     public function saveVideo(Request $request)
     {
         try {
@@ -2574,7 +2571,7 @@ class BookingController extends Controller
             return response()->json(['error' => 'Failed to save video'], 500);
         }
     }
-    
-    
-    
+
+
+
 }

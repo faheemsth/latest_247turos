@@ -160,7 +160,7 @@
             title:'Chat Support',
             mainColor:'#0096FF',
             bubbleBackground:'#0096FF',
-            introMessage: "✋ Hi! I'm from 247tutors.com"
+            introMessage: "✋ Hi! I'm from 247tutors.co.uk"
         };
        </script>
 <script>

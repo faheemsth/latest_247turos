@@ -402,10 +402,12 @@ Route::group(['middleware' => 'auth'], function(){
 
         Route::get('/parents', [UserController::class,'parent']);
         Route::get('/organizations', [UserController::class,'organization']);
+        Route::get('/updateorgnization/{status}/{id}', [UserController::class,'updateorgnization']);
         Route::get('/verify_tutor', [UserController::class,'verification']);
         // coupons
 
         Route::get('/coupons', [CouponController::class,'index']);
+        Route::get('/coupons/delete/{id}', [CouponController::class,'delete']);
         Route::post('/get-coupon', [CouponController::class,'get_coupon']);
         Route::post('/tutor/update/{id}', [UserController::class,'update_tutor']);
 
@@ -544,6 +546,11 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/reviews/parent', [ReviewsController::class, 'ReviewParent']);
 
 
+        Route::get('/reviews/delete/tutor/{id}', [ReviewsController::class, 'TutorReviewDelete']);
+
+        Route::get('/reviews/delete/parent/{id}', [ReviewsController::class, 'ParentReviewDelete']);
+
+        Route::get('/reviews/delete/student/{id}', [ReviewsController::class, 'StudentDelete']);
 
         // subject offer store
         Route::post('/subject/offer/store', [SubjectOfferController::class, 'store']);
@@ -589,8 +596,9 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/student_profile/{id}', [StudentController::class, 'student_profile_get']);
         Route::get('parent/home',[StudentController::class,'Parenthome']);
         Route::get('student/home',[StudentController::class,'Studenthome']);
-        Route::get('organization/students', [ParentController::class, 'your_students']);
-        Route::get('/organization/payments', [ParentController::class,'parent_payments']);
+        Route::get('organization/students', [ParentController::class, 'org_students']);
+
+        Route::get('/organization/payments', [ParentController::class,'org_payments']);
 
         Route::get('/organization/messages/',[ChatController::class,'Organizationchat']);
 

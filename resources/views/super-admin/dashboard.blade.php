@@ -230,7 +230,7 @@
                 <div class="d-flex align-items-lg-center flex-lg-row flex-column">
                     <div class="flex-grow-1">
                         <h4 class="fs-16 mb-1">Good Morning, Super Admin!</h4>
-                        <p class="text-muted mb-0 ">Lastest form 247Tutors.
+                        <p class="text-muted mb-0 ">Latest form 247Tutors.
                         </p>
                     </div>
 

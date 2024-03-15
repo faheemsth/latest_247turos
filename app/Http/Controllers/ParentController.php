@@ -58,6 +58,15 @@ class ParentController extends Controller
         return view('pages.dashboard.addstudents',compact('students'));
     }
 
+    public function org_students()
+    {
+        if(Auth::user()->role_id != 6){
+                return  redirect('/dashboard');
+        }
+        $students = User::where('parent_id',Auth::id())->get();
+        return view('pages.dashboard.addstudents',compact('students'));
+    }
+
     public function book_lessons()
     {
         $tutors=Transaction::where('user_id',Auth::id())->with(['tutor'])->get();
@@ -98,13 +107,31 @@ class ParentController extends Controller
         if(Auth::user()->role_id != 5){
                 return  redirect('/dashboard');
         }
-        
+
         $bookings = Booking::with(['student', 'tutor', 'subjects'])
             ->where('parent_id',Auth::id())
             ->get();
 
         return view('pages.parent.payments',get_defined_vars());
     }
+
+
+    public function org_payments(Request $request){
+
+
+        if(Auth::user()->role_id != 6){
+                return  redirect('/dashboard');
+        }
+
+        $bookings = Booking::with(['student', 'tutor', 'subjects'])
+            ->where('parent_id',Auth::id())
+            ->get();
+
+        return view('pages.parent.payments',get_defined_vars());
+    }
+
+
+
 
 
 }

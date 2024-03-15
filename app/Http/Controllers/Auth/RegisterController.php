@@ -217,15 +217,15 @@ class RegisterController extends Controller
                     'phone' => $request->input('stucode') . $request->input('stuphone'),
                     'email' => $request->input('stuemail'),
                     'username' => $request->input('stulname').rand ( 100 , 999 ),
-    
+
                     'status' => 'Active',
                     'email_verified_at' => Carbon::now(),
                     'role_id' => '4',
                     'password' => Hash::make($data['password']),
                     'parent_id' => $parentId
                 ];
-    
-                User::create($studentData);  
+
+                User::create($studentData);
             }
 
             $ActivityLogs = new ActivityLog;
@@ -252,6 +252,12 @@ class RegisterController extends Controller
                 'cplname' => $data['cplname'],
                 'cpemail' => $data['cpemail'],
                 'zipcode' => $data['zipcode'],
+
+                'org_type' => $data['org_type'],
+                'org_help' => $data['org_help'],
+                'org_role' => $data['org_role'],
+                'get_in_touch' => $data['get_in_touch'],
+
                 'status' => 'Active',
                 'role_id' => $data['role_id'],
                 'password' => Hash::make('1234'),

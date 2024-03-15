@@ -309,7 +309,7 @@ a[href*="www.froala.com"] {
       cookieBanner.style.display = "block";
     }
   }
-  setTimeout(showCookieBanner, 30000);
+  setTimeout(showCookieBanner, 2000);
 </script>
 <script>
     $(document).ready(function () {

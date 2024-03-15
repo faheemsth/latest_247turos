@@ -123,13 +123,13 @@
                 @endif
 
                 <h5 class="img-name mt-2 text-capitalize" style="color: rgb(104, 224, 164);">
-                    {{ App\Models\User::find($id)->username }}
+                    {{ App\Models\User::find($id)->username == ''?App\Models\User::find($id)->first_name.' '.App\Models\User::find($id)->last_name:App\Models\User::find($id)->username }}
                 </h5>
 
                 @if(App\Models\User::find($id)->role_id == '3')
                 <p class="img-price fw-bold">&#163;{{ $subject->min('fee') }}-&#163;{{ $subject->max('fee') }}/hr</p>
                 @endif
-                
+
                 <div class="d-grid gap-2 my-5">
                     @if (Auth::user()->role_id == 4)
                         <a href="{{ url('tutor/book/') . '/' . $id }}" class="btn btn-success" type="button">Book meeting

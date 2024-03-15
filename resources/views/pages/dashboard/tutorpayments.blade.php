@@ -62,7 +62,7 @@
 
 
                                 <button class="paypal-button mx-1 py-1" onclick="withdraw()">
-                                    Withdrawn <i class="fa-brands fa-cc-paypal"
+                                    Withdrawn with<i class="fa-brands fa-cc-paypal"
                                         style="font-size:34px;margin-left:10px;"></i>
                                 </button>
 
@@ -87,7 +87,7 @@
                     <h5 class="fw-bold">Net Income</h5>
                     <h4>
                         @if(!empty($wallet))
-                        
+
                             @if ((int) $wallet->net_income == $wallet->net_income)
                                 £{{ $wallet->net_income }}.00
                             @else
@@ -95,14 +95,14 @@
                             @endif
                         @else
                             £ 0.00
-                        @endif  
+                        @endif
                         </h4>
                 </div>
                 <div class="col-lg-4 text-center col-6">
                     <h5 class="fw-bold">Withdrawn</h5>
                     <h4>
                         @if(!empty($wallet))
-                        
+
                             @if ((int) $wallet->withdrawn == $wallet->withdrawn)
                                 £{{ $wallet->withdrawn }}.00
                             @else
@@ -164,7 +164,7 @@
                                         <th class="text-capitalize">{{ optional($booking->subjects)->name }}</th>
                                         <td>
                                             @if ($booking->booking_fee !== 'Free')
-                                            
+
                                                 @if ((int) $booking->booking_fee == $booking->booking_fee)
                                                     £{{ $booking->booking_fee }}.00/hr
                                                 @else
@@ -201,8 +201,8 @@
                                                 </span>
                                             @endif
                                         </td>
-                                        <td>{{ $booking->booking_date . ' ' . $booking->booking_time }}</td>
-                                        <td>{{ $date }}</td>
+                                        <td>{!! date('d-m-Y', strtotime($booking->booking_date)) . '<br>' . date('h:i a', strtotime($booking->booking_time)) !!}</td>
+                                        <td>{!! date('d-m-Y', strtotime($date)) !!}</td>
 
                                     </tr>
                                 @endforeach
@@ -228,8 +228,8 @@
 
     <script>
         function withdraw() {
-            
-            
+
+
             Swal.fire({
                 title: 'Are you sure?',
                 text: 'Do you want to withdraw amount',
@@ -240,10 +240,10 @@
                 confirmButtonText: 'Yes'
             }).then((result) => {
                 if (result.isConfirmed) {
-                    
-                    
-                    
-                    
+
+
+
+
             $.ajax({
                 url: '{{ url('tutor/payout') }}',
                 type: 'GET',
@@ -284,7 +284,7 @@
                     }
                 }
             });
-            
+
             }
             });
         }

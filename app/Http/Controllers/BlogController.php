@@ -16,10 +16,20 @@ class BlogController extends Controller
     }
 
     public function blog_create_Request(Request $request) {
-        if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
+        if (Auth::user()->role_id != 1) {
+            return redirect('dashboard');
+        }
+
         $image = $request->file('image');
         $imageName = time() . '_' . $image->getClientOriginalName();
-        $image->move(public_path('images'), $imageName);
+
+        // Resize the image
+        $srcImage = imagecreatefromstring(file_get_contents($image->getRealPath()));
+        $resizedImage = imagecreatetruecolor(2000, 1500);
+        imagecopyresampled($resizedImage, $srcImage, 0, 0, 0, 0, 2000, 1500, imagesx($srcImage), imagesy($srcImage));
+        imagejpeg($resizedImage, public_path('images/' . $imageName));
+        imagedestroy($srcImage);
+        imagedestroy($resizedImage);
 
         $blog = new Blog();
         $blog->slug = $request->post('slug');
@@ -41,6 +51,7 @@ class BlogController extends Controller
     }
 
 
+
     public function blog_update(Request $request){
         if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
         $blog=Blog::find($request->id);
@@ -48,14 +59,29 @@ class BlogController extends Controller
     }
 
     public function blog_update_Request(Request $request){
-        if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
-        $image = $request->file('image');
-        $imageName = time() . '_' . $image->getClientOriginalName();
-        $image->move(public_path('images'), $imageName);
+        if (Auth::user()->role_id != 1) {
+            return redirect('dashboard');
+        }
 
-        $Blog =Blog::find($request->id);
+        $imageName = null;
+        if ($request->hasFile('image')) {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+
+            // Resize the image
+            $srcImage = imagecreatefromstring(file_get_contents($image->getRealPath()));
+            $resizedImage = imagecreatetruecolor(2000, 1500);
+            imagecopyresampled($resizedImage, $srcImage, 0, 0, 0, 0, 2000, 1500, imagesx($srcImage), imagesy($srcImage));
+            imagejpeg($resizedImage, public_path('images/' . $imageName));
+            imagedestroy($srcImage);
+            imagedestroy($resizedImage);
+        }
+
+        $Blog = Blog::find($request->id);
         $Blog->slug = $request->post('slug');
-        $Blog->image = 'images/' . $imageName;
+        if ($imageName) {
+            $Blog->image = 'images/' . $imageName;
+        }
         $Blog->author_id = Auth::id();
         $Blog->title = $request->post('title');
         $Blog->status = 'Published';
@@ -71,6 +97,7 @@ class BlogController extends Controller
 
         return back()->with('success','Update blog Successfully');
     }
+
 
     public function blog_delete(Request $request){
         if (Auth::user()->role_id != 1) { return redirect('dashboard'); }

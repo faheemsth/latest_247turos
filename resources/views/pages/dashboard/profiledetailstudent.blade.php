@@ -67,11 +67,11 @@
       </div>
     </div> --}}
     <div class="row mt-5 mb-5">
-        
-        
-        
-        
-        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
+
+
+
+
+        {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
 <div class="container" style="margin-top:30px;">
     <div class="panel panel-primary">
         <div class="panel-body">
@@ -151,7 +151,7 @@
     $('.btn-primary').on('click', function() {
         $('#file-upload').click();
     });
-</script>
+</script> --}}
 
 
 

@@ -43,7 +43,7 @@
             margin:10px auto;
         }
         .card-content{
-            
+
             display: flex ;
             flex-direction: column ;
             justify-content: center;
@@ -64,7 +64,7 @@
     <div class="container">
         <div class="row pt-5 text-center">
             <div class="col">
-                <h1 class="fw-bolder simple-title" id="text-color">It is Simple</h1>
+                <h1 class="fw-bolder simple-title" id="text-color">it's simple</h1>
             </div>
         </div>
     </div>
@@ -163,7 +163,7 @@
             title:'Chat Support',
             mainColor:'#0096FF',
             bubbleBackground:'#0096FF',
-            introMessage: "✋ Hi! I'm from 247tutors.com"
+            introMessage: "✋ Hi! I'm from 247tutors.co.uk"
         };
        </script>
 

@@ -33,9 +33,7 @@
                     <td  style="display: flex;align-items: center;gap: 20px;">
 
                             <div class="flex-shrink-0 me-2">
-                                <img src="{{ Auth::user()->image }}" alt=""
-                                    width="50" height="50"
-                                    class="avatar-xs rounded-circle">
+                                <img src="{{ $recent->image }}" alt=""width="50" height="50"class="avatar-xs rounded-circle">
                             </div>
                             <div class="flex-grow-1">
                                 {{ $recent->first_name . '  ' . $recent->last_name }}

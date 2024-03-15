@@ -112,7 +112,7 @@
                     <a href="tel:+447851012039> Need help call us on <strong>+447851012039</strong> or <strong>Email us</strong></a>
                 </div>
                 <div class="col-md-4 col-lg-2 ">
-                    <a href="{{url('/student-apply-steps')}}">Help! I'm an <strong>Adult Learn</strong></a>
+                    <a href="{{url('/student-apply-steps')}}">Help! I'm an <strong>Adult Learner</strong></a>
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-2">
                     <a href="{{url('/tutor-signup')}}">Log in as <strong>Register as Tutor</strong></a>
