@@ -421,8 +421,7 @@
                                         <div class="col-md-5">
                                             <label class="text-secondary">Username</label><br>
                                             <input type="text" id="username" name="username"
-                                                placeholder="Enter Username" class="w-100 p-2">
-                                            <span id="username-validation-message" style="color: red;"></span>
+                                                placeholder="Enter Username" class="w-100 p-2" style="background-color: #f8f8f8;color: gray;border: 1px solid #4F4F4F">
                                         </div>
                                     </div>
 
@@ -684,7 +683,7 @@
                         }
                     },
                 });
-                
+
             }
             });
         });
