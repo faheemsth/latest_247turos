@@ -795,7 +795,7 @@
                         showCloseButton: true
                     });
                 }else{
-                
+
                 $.ajax({
                     url: '/register',
                     method: 'POST',
@@ -833,7 +833,7 @@
                         }
                     },
                 });
-                
+
             }
             });
         });

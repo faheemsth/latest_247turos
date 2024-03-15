@@ -17,10 +17,10 @@
         <div class="row align-items-end">
             <div class="col-lg-8">
                 <div class="page-header-title">
-                    <i class="ik ik-users bg-blue"></i>
+                    <i class="fa-solid fa-newspaper bg-blue"></i>
                     <div class="d-inline">
-                        <h5>{{ __('Settings') }}</h5>
-                        <span>{{ __('List of Settings') }}</span>
+                        <h5>{{ __('Blogs') }}</h5>
+                        <span>{{ __(' Blog ') }}</span>
                     </div>
                 </div>
             </div>
@@ -88,8 +88,8 @@
                                     </select>
                                     <label for="floatingSelect">Select Category</label>
                                 </div>
-                                <div class="form-group">
-                                    <label for="name">Content</label>
+                                <div class="form-group mt-2">
+                                    <label for="name" class="ps-3">Content</label>
                                     <div id="froala-editor-blog">
 
                                     </div>

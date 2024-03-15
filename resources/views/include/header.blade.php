@@ -38,10 +38,10 @@
                 <!-- A comment Icon in the Dashboard -->
 
                         <div class=" header-item d-none d-sm-flex">
-                            <a type="button" class="text-decoration-none text-dark" style="font-size: 24px;margin-right: 10px;" href="{{ url('/') }}">
+                            <a type="button" class="text-decoration-none text-dark" style="font-size: 24px;margin-right: 10px;margin-top: 6px;" href="{{ url('/') }}">
 
 
-                                <i class="ri-global-fill"></i>
+                                <i class="fa-solid fa-layer-group"></i>
                             </a>
                         </div>
                         <button type="button" class="nav-link right-sidebar-toggle"><i
@@ -83,7 +83,7 @@ $.ajax({
         {
             $('#CountAppend').html('<span class="badge bg-success">' + response.count + '</span>');
         }
-        
+
 
         },
 

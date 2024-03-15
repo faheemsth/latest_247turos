@@ -170,7 +170,7 @@ class ComplaintController extends Controller
                 throw new \Exception('Failed to send mail');
         }
 
-        createNotification(Auth::user()->role_id, Auth::id(), 'Comptaint', 'Comptaint By ' . Auth::user()->username);
+        createNotification(Auth::user()->role_id, Auth::id(), 'Complaint', 'Complaint By ' . Auth::user()->username);
         return back()->with('success', 'Complaint submitted successfully');
     }
 

@@ -126,12 +126,12 @@
             <div class="col-md-12 user-table-data  col-12 pe-0 pe-md-2">
                 <div class="card p-md-3 p-2">
                     <div class="card-header justify-content-between">
-                        <h3>{{ __('Booking') }}</h3>
+                        <h3>{{ __('Bookings') }}</h3>
                     </div>
                      <div class=" mt-4  px-0 pe-md-4 d-flex justify-content-between">
                         <h3 class="col-auto  d-none d-md-inline-block">{{ __('') }}</h3>
                             <form method="GET" action="" class="col-12 col-md-6 col-lg-6 col-xl-5 d-flex px-0 justify-content-between align-items-center gap-2">
-                              
+
                              <select name="status" id="status" class="col-md-6 select2 form-select">
                                 <option value="">All Search</option>
                                 <option value="Pending" {{ !empty($_GET['status']) && $_GET['status'] == 'Pending'? 'selected':"" }}>Pending</option>
@@ -167,14 +167,14 @@
                                         <th>{{ optional($booking->subjects)->name }}</th>
                                         <td>{{ $booking->duration }} minute</td>
                                         <td>
-                                            
+
                                             @if ((int) $booking->amount == $booking->amount)
                                                     £{{ $booking->amount }}.00/hr
                                             @else
                                                     £{{ $booking->amount }}/hr
                                             @endif
 
-                                            
+
                                         </td>
 
                                         <td>
@@ -210,7 +210,7 @@
                                     </tr>
                                 @endforelse
                             </tbody>
-                            
+
                         </table>
                         {{ $bookings->links() }}
 

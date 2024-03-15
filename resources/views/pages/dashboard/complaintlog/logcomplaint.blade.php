@@ -42,7 +42,7 @@
 
                 <div class="card p-md-3 p-2">
                     <div class="card-header justify-content-between">
-                        <h3>{{ __('Complaint') }}</h3>
+                        <h3>{{ __('Complaints') }}</h3>
                     </div>
 
                     <div class=" mt-4  px-0 pe-md-4 d-flex justify-content-between">
@@ -112,11 +112,11 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        <tr style="border: none;">
-                                            <td class="text-end" colspan="6" style="border: none;">
+                                        <div>
+                                            <div>
                                                 {!! $Complaints->links('pagination.custom') !!}
-                                            </td>
-                                        </tr>
+                                            </div>
+                                        </div>
                                     @else
                                         <tr>
                                             <td class="text-center" colspan="6">Record not found</td>

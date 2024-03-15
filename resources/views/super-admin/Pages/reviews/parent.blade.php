@@ -37,7 +37,7 @@
                                 <a href="#">{{ __('Reviews') }}</a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">{{ __('Parent') }}</a>
+                                <a href="#">{{ __('Parents') }}</a>
                             </li>
                         </ol>
                     </nav>

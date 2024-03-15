@@ -69,12 +69,12 @@
                                 <!--        <option value="3" {{ !empty($_GET['status']) && $_GET['status'] == '3' ? 'selected':'' }}>Tutor</option>-->
                                 <!--        <option value="4" {{ !empty($_GET['status']) && $_GET['status'] == '4' ? 'selected':'' }}>Student</option>-->
                                 <!--        <option value="5" {{ !empty($_GET['status']) && $_GET['status'] == '5' ? 'selected':'' }}>Parent</option>-->
-    
+
                                 <!--    </select>-->
                                 <!--    <input type="text" name="search" value="{{ $_GET['search'] ?? '' }}" class="form-control" placeholder="Search">-->
                                 <!--    <button type="submit" class="btn btn-primary">Search</button>-->
                                 <!--</form>-->
-                                
+
                                 <div class="btn btn-primary px-2 py-2" style="height: max-content;">
                                     <a href="/blog/create" class="text-light"><i
                                             class="fa-solid fa-plus m-auto"></i></a>
@@ -101,16 +101,16 @@
                                                 <td style="border-bottom: .5px solid black;">{{ $blog->slug }}</td>
                                                 <td style="border-bottom: .5px solid black;">{{ $blog->title }}</td>
                                                 <td style="border-bottom: .5px solid black;">
-                                                    
+
                                                     <?php
-                                                    
+
                                                     $string = strip_tags($blog->content);
                                                     if (strlen($string) > 500) {
-                                                    
+
                                                         // truncate string
                                                         $stringCut = substr($string, 0, 400);
                                                         $endPoint = strrpos($stringCut, ' ');
-                                                    
+
                                                         //if the string doesn't contain any space then it will cut without word basis.
                                                         $string = $endPoint? substr($stringCut, 0, $endPoint) : substr($stringCut, 0);
                                                         $string .= '...';
@@ -151,7 +151,7 @@
                                         @endforelse
                                     </tbody>
                                 </table>
-                                
+
                             </div>
                         </div>
                     </div>
