@@ -450,7 +450,7 @@
                                         {{ $Scheduled->count() }}
                                     </span>
                                 </h4>
-                                <a href="{{ url('admin/bookings?status=Scheduled') }}"
+                                <a href="{{ url('AdminBookings?status=Scheduled') }}"
                                     class="text-decoration-underline text-muted">View All
                                     Scheduled Bookings</a>
                             </div>
@@ -487,7 +487,7 @@
                                         {{ $Cancelled->count() }}
                                     </span>
                                 </h4>
-                                <a href="{{ url('admin/bookings?status=Cancelled') }}"
+                                <a href="{{ url('AdminBookings?status=Cancelled') }}"
                                     class="text-decoration-underline text-muted">View All
                                     Cancelled Bookings</a>
                             </div>
@@ -500,6 +500,11 @@
                     </div><!-- end card body -->
                 </div><!-- end card -->
             </div>
+
+
+
+
+
             <div class="col-xl-3 col-md-4 col-lg-4">
                 <!-- card -->
                 <div class="card card-animate ">
@@ -524,7 +529,7 @@
                                         {{ $Completed->count() }}
                                     </span>
                                 </h4>
-                                <a href="{{ url('admin/bookings?status=Completed') }}"
+                                <a href="{{ url('AdminBookings?status=Completed') }}"
                                     class="text-decoration-underline text-muted">View All
                                     Completed Bookings</a>
                             </div>
@@ -537,6 +542,56 @@
                     </div><!-- end card body -->
                 </div><!-- end card -->
             </div>
+
+
+            <div class="col-xl-3 col-md-4 col-lg-4">
+                <!-- card -->
+                <div class="card card-animate ">
+                    <div class="card-body" style="height:125.5px;">
+                        <div class="d-flex align-items-center">
+                            <div class="flex-grow-1 overflow-hidden">
+                                <p class="text-uppercase fw-medium text-muted text-truncate mb-0">
+                                    <i class="fa-solid fa-calendar-check"></i>
+                                    Refunded Bookings
+                                </p>
+                            </div>
+                            <div class="flex-shrink-0">
+                                {{-- <h5 class="text-muted fs-14 mb-0">
+                                    +0.00 %
+                                </h5> --}}
+                            </div>
+                        </div>
+                        <div class="d-flex align-items-end justify-content-between mt-2">
+                            <div>
+                                <h4 class="fs-22 fw-semibold ff-secondary mb-2 ">
+                                    <span class="counter-value" data-target="0">
+                                        {{ $request_refound->count() }}
+                                    </span>
+                                </h4>
+                                <a href="{{ url('AdminBookings?status=1') }}"
+                                    class="text-decoration-underline text-muted">View All
+                                    Refunded Bookings</a>
+                            </div>
+                            <div class="avatar-sm flex-shrink-0">
+                                <span class="avatar-title bg-primary-subtle rounded fs-3">
+                                    <i class="bx bx-user-circle " style="color:#ABFE10;"></i>
+                                </span>
+                            </div>
+                        </div>
+                    </div><!-- end card body -->
+                </div><!-- end card -->
+            </div>
+
+
+
+
+
+
+
+
+
+
+
         </div>
     </div>
 

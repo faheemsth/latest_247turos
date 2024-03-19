@@ -93,8 +93,6 @@
                             </form>
                         </div>
                     </div>
-
-                </div>
                 </div>
                 <div class="col-12 col-md-8 ps-lg-0 mt-1 ms-2 ms-md-0">
                     <div class="d-flex justify-content-between mt-lg-4 hr align-items-center">
@@ -113,15 +111,15 @@
                         <a class="one" href="">Parent's home</a>
                         <a class="mb-0 one alert alert-{{ Auth::user()->status == 'Active' ? 'success' : 'danger' }}"
                             href="">{{ Auth::user()->status }}</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4"></div>
-                                <div class="col-md-8 d-flex justify-content-between align-items-center book mt-3">
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8 d-flex justify-content-between align-items-center book mt-3">
 
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -157,9 +155,9 @@
 
                                 </div>
                                 <div class="col-md-6 ">
-                                    <label for="exampleFormControlInput1" class="form-label">Surname</label>
+                                    <label for="exampleFormControlInput1" class="form-label">Last Name</label>
                                     <input type="text" name="last_name" value="{{ Auth::user()->last_name }}"
-                                        class="form-control" id="" required placeholder="Type Your Surname">
+                                        class="form-control" id="" required placeholder="Type Your Last Name">
 
                                 </div>
                             </div>
@@ -181,74 +179,48 @@
                                         class="form-control" id="" required placeholder="Type Your Phone">
                                 </div>
                             </div>
-
                             <div class="row mt-5 mb-5">
-                                <div class="col-md-6">
-                                    <label for="exampleFormControlInput1" class="form-label">Relation</label>
-                                    <select class="form-control" id="relation" name="relation">
-                                        <option value="parent" {{ Auth::user()->relation== 'parent' ? 'selected':'' }}>Parent</option>
-                                        <option value="brother" {{ Auth::user()->relation== 'brother' ? 'selected':'' }}>Brother</option>
-                                        <option value="other" {{ Auth::user()->relation== 'other' ? 'selected':'' }}>Other</option>
-                                    </select>
-                                </div>
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Gender</label>
-                                    <select class="form-control bgpro" name="gender" required>
-                                        <option value="Male" {{ Auth::user()->gender == 'Male' ? 'selected' : '' }}>Male
-                                        </option>
-                                        <option value="Female" {{ Auth::user()->gender == 'Female' ? 'selected' : '' }}>
-                                            Female
-                                        </option>
-                                        <option value="Other" {{ Auth::user()->gender == 'Other' ? 'selected' : '' }}>
-                                            Other
-                                        </option>
-                                    </select>
+                                    <input type="text" name="gender" value="{{ Auth::user()->gender }}"
+                                        class="form-control" id="" required placeholder="Type Your gender">
+
                                 </div>
-                            </div>
-
-
-                            <div class="row mt-5 mb-5">
-
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">DOB</label>
                                     <input type="date" name="dob" value="{{ Auth::user()->dob }}"
                                         class="form-control" id="" required placeholder="Type Your dob">
                                 </div>
+                            </div>
+                            <div class="row mt-5 mb-5">
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Tagline</label>
                                     <input type="text" name="facebook_link" value="{{ Auth::user()->facebook_link }}"
                                         class="form-control" id="" placeholder="Type Your Tag Line For Profile">
                                 </div>
-                            </div>
+                                <div class="col-md-6">
+                                    <label for="exampleFormControlInput1" class="form-label">Postcode</label>
+                                    <input type="text" name="zipcode" class="form-control" id="zipcode "
+                                        value="{{ Auth::user()->zipcode }}">
+                                </div>
 
+
+                            </div>
 
 
                             <div class="row mt-5 mb-5">
 
 
-
-                                 <div class="col-md-6">
-                                    <label for="exampleFormControlInput1" class="form-label">Biography</label>
-                                    <textarea name="profile_description" class="form-control" id="profile_description" cols="30" rows="3">{{ Auth::user()->profile_description }}</textarea>
-                                </div>
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Address</label>
                                     <textarea name="address" class="form-control" id="address" cols="30" rows="3">{{ Auth::user()->address }}</textarea>
                                 </div>
-
-                            </div>
-                            <div class="row mt-5 mb-5">
-
                                 <div class="col-md-6">
-                                    <label for="exampleFormControlInput1" class="form-label">Postcode</label>
-                                    <input type="text" name="zipcode" class="form-control" id="zipcode " value="{{ Auth::user()->zipcode  }}">
+                                    <label for="exampleFormControlInput1" class="form-label">Biography</label>
+                                    <textarea name="profile_description" class="form-control" id="profile_description" cols="30" rows="3">{{ Auth::user()->profile_description }}</textarea>
                                 </div>
 
 
-<<<<<<< HEAD
-=======
-
->>>>>>> c32a65c4249107b58bb14d31d0dafb7402c2522b
                             </div>
                             <div class="row mt-5 mb-5 justify-content-center">
                                 <div class="col-2 text-center">
@@ -260,25 +232,18 @@
                     {{-- end --}}
                 </div>
                 <div class="row my-4">
-                   <form action="{{ url('user-card-create') }}" method="post" class="ps-0">
-                    @csrf
-                    <div class="col-12 col-md-7 col-lg-6 col-xl-5 mt-2 billing about">
-                        <h2 class="mb-1">Configure Your Paypal Account</h2>
-                        <div>
-                            <h4 class="text-left text-secondary fs-4 my-3">We will use this paypal account to send you money when you initiate withdrawl.</h4>
+                    <form action="{{ url('user-card-create') }}" method="post" class="ps-0">
+                        @csrf
+                        <div class="col-12 col-md-7 col-lg-6 col-xl-5 mt-2 billing about">
+                            <h2 class="mb-1">Configure Your Paypal Account</h2>
+                            <div>
+                                <h4 class="text-left text-secondary fs-4 my-3">We will use this paypal account to send you
+                                    money when you initiate withdrawl.</h4>
 
+                            </div>
                         </div>
-                    </div>
 
                         <div class="col-12">
-
-                                <div class="row mb-3">
-                                    <div class="col-md-5 col-11 col-lg-4">
-                                        <div class='form-group required'>
-                                            <label class='control-label'>Paypal account email</label>
-                                            <input class=" w-100 p-2 mt-1" type='email' value="{{\Auth::user()->paypal_email}}" required name="paypal_email">
-                                        </div>
-                                    </div>
 
                             <div class="row mb-3">
                                 <div class="col-md-5 col-11 col-lg-4">
@@ -289,10 +254,29 @@
                                     </div>
                                 </div>
 
+                            </div>
+
+                            <div class="row  mb-3">
+                                <div class="col-md-5 col-11 col-lg-4">
+                                    <div class='form-group required'>
+                                        <label class='control-label'>Confirm email</label><br>
+                                        <input class=" w-100 p-2 mt-1" type='email' required
+                                            name="paypal_email_confirm">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row my-3">
+                                <div class="col-2">
+                                    <button class="btn bg-primary  px-4 py-2 text-white">Save</button>
+                                </div>
+                            </div>
+
 
                         </div>
 
-                </form>
+                    </form>
 
                 </div>
             </div>
@@ -433,7 +417,7 @@
         {{-- sheraz --}}
     </div>
 
-        <script src="./assets/js/main.js"></script>
+    <script src="./assets/js/main.js"></script>
     <!-- jquery file -->
     <script src="{{ asset('vendor/jquery/jquery3.7.0.js') }}"></script>
     <!-- Bootstrap js file -->

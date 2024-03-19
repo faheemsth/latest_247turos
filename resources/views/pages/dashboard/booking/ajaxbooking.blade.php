@@ -4,10 +4,19 @@
     <td>{{ optional($booking->tutor)->first_name . ' ' . optional($booking->tutor)->last_name }}</td>
     <th>{{ optional($booking->subjects)->name }}</th>
     <td>{{ $booking->duration }} minute</td>
-    <td>{{ $booking->amount }} /Hr</td>
+    <td>
+
+        @if ((int) $booking->amount == $booking->amount)
+                £{{ $booking->amount }}.00/hr
+        @else
+                £{{ $booking->amount }}/hr
+        @endif
+
+
+    </td>
 
     <td>
-        @if ($booking->request_refound != 1)
+        @if ($booking->request_refound != 1 && $booking->request_refound != 2)
             <span
                 class="badge
             @if ($booking->status == 'Completed') bg-success
@@ -28,11 +37,18 @@
             </span>
         @endif
     </td>
-
+    <td>
+       <a class="btn btn-success" href="{{ asset('videos/'.$booking->uuid.'/blob.mp4') }}" download>Lecture Download</a>
+    </td>
 </tr>
-{{ $bookings->links() }}
+
 @empty
-<tr>
-    <td colspan="6">Record not found</td>
+<tr >
+    <td class="text-center" colspan="7">Record not found</td>
 </tr>
 @endforelse
+<tr style="border: none;">
+<td class="text-end" colspan="7" style="border: none;">
+    {!! $bookings->links('pagination.custom') !!}
+</td>
+</tr>

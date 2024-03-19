@@ -10,8 +10,8 @@
 </style>
 {{-- coupons --}}
 
-<div class="nav-item {{ $segment1 == 'bookings' ? 'active' : '' }}">
-    <a href="{{ url('admin/bookings') }}">
+<div class="nav-item {{ $segment1 == 'AdminBookings' ? 'active' : '' }}">
+    <a href="{{ url('AdminBookings') }}">
         <span class="fa-solid fa-calendar-days" style="font-size: 15px; padding-left:2px; padding-right:7px;"></span>
         {{ __('Bookings') }}</a>
 </div>
@@ -97,7 +97,7 @@
             Blogs</a>
             <a href="{{ route('newsletter.list') }}" class="menu-item {{ $segment1 == 'newsletter' ? 'active' : '' }}">
 
-                <span class="fa-solid fa-envelopes-bulk" style="color: rgb(50 50 50 / 94%);font-size: 14px;padding-right:6px;"></span>Newsletter</a>
+                <span class="fa-solid fa-envelopes-bulk" style="color: rgb(50 50 50 / 94%);font-size: 14px;padding-right:6px;"></span>Newsletters</a>
                 <a href="{{ route('commentlist') }}" class=" d-flex align-items-center menu-item {{ $segment2 == 'blog-comments' ? 'active' : '' }}">
             <span class="fa-solid fa-comments"  style="color: rgb(50 50 50 / 94%);font-size: 14px ;padding-right:6px;"></span>
             Comments</a>
@@ -105,7 +105,7 @@
 
             <a href="{{ url('admin/terms_condition') }}" class=" d-flex align-items-center menu-item {{ $segment2 == 'terms_condition' ? 'active' : '' }}">
             <span class="fa-solid fa-file-shield"  style="color: rgb(50 50 50 / 94%);font-size: 15px ;padding-left:2px;padding-right:6px;"></span>
-            Terms Condition</a>
+            Terms Conditions</a>
 
 
             <a href="{{ url('admin/privacy_policy') }}" class=" d-flex align-items-center menu-item {{ $segment2 == 'privacy_policy' ? 'active' : '' }}">
