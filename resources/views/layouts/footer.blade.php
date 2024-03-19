@@ -214,7 +214,7 @@
         <div class="row">
             <div class="col-6">
                 <ul>
-                    <li><a href="">Careers</a></li>
+                    {{-- <li><a href="">Careers</a></li> --}}
                     <li><a href="{{ url('blogs') }}">Blog</a></li>
                     <li><a href="{{ route('faq') }}">F.A.Q</a></li>
                     <li><a href="{{ url('/privacy-policy') }}">privacy policy</a></li>
@@ -270,11 +270,11 @@
 
 <div class="row py-2 text-center align-items-lg-center" style="background-color: rgba(0, 0, 0, 0.2);">
     <div class="col-12 col-lg-6 col-md-5">
-        <h6>© 2024 All Rights Reserved.</h6>
+        <h6>© 247tutors All Rights Reserved 2024.</h6>
     </div>
     <div class="col-12 col-md-7 col-lg-6 d-flex gap-3 bottom-footer-menu justify-content-center">
-        <h6><a href="">Careers</a></h6>
-        <h6><a href="{{ url('/testimonials') }}" class="text-primary">Terms of use</a></h6>
+        {{-- <h6><a href="">Careers</a></h6> --}}
+        <h6><a href="{{ url('/testimonials') }}">Terms of use</a></h6>
         <h6><a href="{{ url('/privacy-policy') }}">Privacy policy</a></h6>
     </div>
 </div>

@@ -108,7 +108,7 @@
   <div class="container-fluid py-5">
     <div class="row py-md-5" id="review-section-head">
       <div class="review-trustpilot col-12 text-center">
-        <h1><span>4.5/5 Review <a href="#!" class="text-decoration-none text-dark">Trustpilot</a></span></h1>
+        <h1><span>4.5/5 Review <a href="https://www.trustpilot.com/" class="text-decoration-none text-dark">Trustpilot</a></span></h1>
       </div>
     </div>
     <div class="row py-3 justify-content-center mt-5">

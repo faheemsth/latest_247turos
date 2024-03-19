@@ -37,13 +37,16 @@
             <div class="top-menu d-flex ">
                 <!-- A comment Icon in the Dashboard -->
 
-                        <div class=" header-item d-none d-sm-flex">
-                            <a type="button" class="text-decoration-none text-dark" style="font-size: 24px;margin-right: 10px;margin-top: 6px;" href="{{ url('/') }}">
-
-
-                                <i class="fa-solid fa-layer-group"></i>
-                            </a>
-                        </div>
+                        <a href="{{ url('/') }}" style="background-color: #2222;
+                        border-radius: 50%;
+                        width: 33px;
+                        height: 33px;
+                        display: flex;
+                        margin-right: 10px;
+                        align-items: center;
+                        justify-content: center;">
+                            <img src="{{ asset('assets/images/icons8-web-50.png') }}" alt="" srcset="" width="20px">
+                        </a>
                         <button type="button" class="nav-link right-sidebar-toggle"><i
                             class="ik ik-message-square"></i>
                             <span id="CountAppend"></span>

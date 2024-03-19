@@ -23,7 +23,7 @@
                         <i class="fa-solid fa-ranking-star bg-blue"></i>
                         <div class="d-inline">
                             <h5>{{ __('Reviews') }}</h5>
-                            <span>{{ __('List of Reviews') }}</span>
+                            <span>{{ __('List of Tutor Reviews') }}</span>
                         </div>
                     </div>
                 </div>
@@ -36,9 +36,9 @@
                             <li class="breadcrumb-item">
                                 <a href="#">{{ __('Reviews') }}</a>
                             </li>
-                            <li class="breadcrumb-item">
+                            {{-- <li class="breadcrumb-item">
                                 <a href="#">{{ __('Tutors') }}</a>
-                            </li>
+                            </li> --}}
                         </ol>
                     </nav>
                 </div>

@@ -206,6 +206,9 @@
                                         <option value="Female" {{ Auth::user()->gender == 'Female' ? 'selected' : '' }}>
                                             Female
                                         </option>
+                                        <option value="Other" {{ Auth::user()->gender == 'Other' ? 'selected' : '' }}>
+                                            Other
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -340,7 +343,7 @@
 
                                                 </tr>
                                             @endforeach
-                                             @else 
+                                             @else
                                     <tr>
                                         <td colspan="5">No Record Found</td>
                                     </tr>
@@ -411,7 +414,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                     @else 
+                                     @else
                                     <tr>
                                         <td colspan="9">No Record Found</td>
                                     </tr>
@@ -458,7 +461,7 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                @else 
+                                @else
                                     <tr>
                                         <td colspan="4">No Record Found</td>
                                     </tr>

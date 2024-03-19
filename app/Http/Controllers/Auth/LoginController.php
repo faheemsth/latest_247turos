@@ -53,13 +53,28 @@ class LoginController extends Controller
     {
         session(['login_message' => $_GET['message']]);
         session(['login_message1' => $_GET['message1']]);
+        session(['msg' => $_GET['msg']]);
+
+
+        if($_GET['id'] == '3')
+        {
+            session(['login_image' => asset('assets/images/3.png')]);
+        }elseif($_GET['id'] == '4'){
+            session(['login_image' => asset('assets/images/2.png')]);
+            session(['login_image1' => asset('assets/images/Group.png')]);
+            session(['login_image2' => asset('assets/images/pencil.png')]);
+        }elseif($_GET['id'] == '5'){
+            session(['login_image' => asset('assets/images/1.png')]);
+        }elseif($_GET['id'] == '6'){
+            session(['login_image' => asset('assets/images/4.png')]);
+        }
         return response()->json(['message' =>$_GET['message']]);
     }
 
     public function showLoginForm(){
         return view('auth/login');
     }
-    
+
     public function adminshowLoginForm(){
         return view('auth/adminlogin');
     }
@@ -90,9 +105,9 @@ class LoginController extends Controller
 
     public function magicLogin($email){
         $user = User::where('email',$email)->first();
-        
+
         $name= !empty($user)? $user->first_name. ' '.$user->last_name : '';
-        
+
         if($user){
             if($user->role_id == 1){
                 return redirect('login')->with('failed', 'Login using your password');

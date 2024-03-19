@@ -290,8 +290,16 @@
             <div class="row mt-md-5 mb-md-5 mt-3">
               <div class="col-md-6 mb-3 mb-md-0">
                 <label for="exampleFormControlInput1" class="form-label">Gender</label>
-                <input type="text" name="gender" value="{{ Auth::user()->gender }}" class="form-control" id="" required
-                  placeholder="Type Your gender">
+                <select class="form-control bgpro" name="gender" required>
+                    <option value="Male" {{ Auth::user()->gender == 'Male' ? 'selected' : '' }}>Male
+                    </option>
+                    <option value="Female" {{ Auth::user()->gender == 'Female' ? 'selected' : '' }}>
+                        Female
+                    </option>
+                    <option value="Other" {{ Auth::user()->gender == 'Other' ? 'selected' : '' }}>
+                        Other
+                    </option>
+                </select>
               </div>
               <div class="col-md-6 mb-3 mb-md-0">
                 <label for="exampleFormControlInput1" class="form-label">DOB</label>

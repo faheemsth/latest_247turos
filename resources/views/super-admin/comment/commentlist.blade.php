@@ -59,29 +59,30 @@
                                 </tr>
                             </thead>
                             <tbody>
-                                @if(!empty($BlogReplies))
-                                 @foreach($BlogReplies as $key => $BlogReply)
-                                    <tr>
-                                        <td>{{ $key + 1}}</td>
-                                        <td>{{ optional(App\Models\Blog::find($BlogReply->post_id))->slug }}</td>
-                                        <td>{{ optional(App\Models\User::find($BlogReply->user_id))->first_name.' '.optional(App\Models\User::find($BlogReply->user_id))->last_name }}</td>
-                                        <td>{{ $BlogReply->reply }}</td>
-                                        <td>
-                                            <span class="badge {{ $BlogReply->status == 'Active' ? 'badge-success':'badge-danger' }}">{{ $BlogReply->status }}</span>
-                                        </td>
-                                        <td>
-                                            <div class="dropdown">
-                                              <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
-                                                Change Status
-                                              </button>
-                                              <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
-                                                <li><a class="dropdown-item" href="{{ url('change/reply/status/').'/'.$BlogReply->id.'/Active'}}">Active</a></li>
-                                                <li><a class="dropdown-item" href="{{ url('change/reply/status/').'/'.$BlogReply->id.'/Inactive'}}">Inactive</a></li>
-                                              </ul>
-                                            </div>
-                                        </td>
-                                    </tr>
-                                    @endforeach
+                                @if(!empty($BlogReplies) && $BlogReplies->count() > 0 )
+                                        @foreach($BlogReplies as $key => $BlogReply)
+                                            <tr>
+                                                <td>{{ $key + 1}}</td>
+                                                <td>{{ optional(App\Models\Blog::find($BlogReply->post_id))->slug }}</td>
+                                                <td>{{ optional(App\Models\User::find($BlogReply->user_id))->first_name.' '.optional(App\Models\User::find($BlogReply->user_id))->last_name }}</td>
+                                                <td>{{ $BlogReply->reply }}</td>
+                                                <td>
+                                                    <span class="badge {{ $BlogReply->status == 'Active' ? 'badge-success':'badge-danger' }}">{{ $BlogReply->status }}</span>
+                                                </td>
+                                                <td>
+                                                    <div class="dropdown">
+                                                    <button class="btn btn-primary dropdown-toggle" type="button" id="dropdownMenuButton1" data-bs-toggle="dropdown" aria-expanded="false">
+                                                        Change Status
+                                                    </button>
+                                                    <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton1">
+                                                        <li><a class="dropdown-item" href="{{ url('change/reply/status/').'/'.$BlogReply->id.'/Active'}}">Active</a></li>
+                                                        <li><a class="dropdown-item" href="{{ url('change/reply/status/').'/'.$BlogReply->id.'/Inactive'}}">Inactive</a></li>
+                                                    </ul>
+                                                    </div>
+                                                </td>
+                                            </tr>
+                                            @endforeach
+                                    @else
                                     <tr>
                                         <td class="text-center" colspan="6">Record not found</td>
                                     </tr>

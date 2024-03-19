@@ -20,7 +20,7 @@
                 <div class="page-header-title">
                     <i class="fa-solid fa-newspaper bg-blue"></i>
                     <div class="d-inline">
-                        <h5>{{ __('Blog') }}</h5>
+                        <h5>{{ __('Blogs') }}</h5>
                         <span>{{ __('List of Blogs') }}</span>
                     </div>
                 </div>
@@ -31,11 +31,9 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('dashboard') }}"><i class="ik ik-home"></i></a>
                         </li>
+
                         <li class="breadcrumb-item">
-                            <a href="#">{{ __('Settings') }}</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('bloglist') }}">{{ __('Blog') }}</a>
+                            <a href="{{ route('bloglist') }}">{{ __('Blogs') }}</a>
                         </li>
 
                     </ol>

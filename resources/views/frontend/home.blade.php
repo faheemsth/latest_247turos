@@ -140,7 +140,7 @@ and (max-width : 430px){
                         <div id="hero-focus">
                             <p class="px-2  fw-bold  hero-focus-btn">@isset($web_settings['highlight_text']) {{ $web_settings['highlight_text'] ?? '' }} @endisset</p>
                         </div>
-                        <p class="py-2">
+                        <p class="py-2 text-dark">
                             {{-- @isset($web_settings['hero_desc']) {{$web_settings['hero_desc'] ?? '' }} @endisset --}}
 
 
@@ -178,9 +178,9 @@ and (max-width : 430px){
                                 font-size: 16px;color: white; border: none;">Become
                                 a Parent  <i class="fa-solid fa-chevron-right"></i></a>
 
-                            <p class="">
+                            <p class="d-flex align-items-center gap-1">
                                 <img src="{{ asset('assets/images/Icon.png') }}" alt="" srcset="">
-                                @isset($web_settings['hero_short_desc']) {{$web_settings['hero_short_desc'] ?? '' }} @endisset </span>
+                                <a class="text-decoration-none" href="{{ route('select-user-type') }}">@isset($web_settings['hero_short_desc']) {{$web_settings['hero_short_desc'] ?? '' }} @endisset</a> </span>
                             </p>
                         </div>
                         {{-- {!! $Page->home_hero_section !!} --}}
@@ -318,7 +318,7 @@ and (max-width : 430px){
                             $icons = asset('assets/images/englishliterature.svg');
                         }
 
-                        elseif ($subject == 'physics') {
+                        elseif ($subject == 'Physics') {
                             $color = 'rgba(171, 255, 0, 1)';
                             $icons = asset('assets/images/physics (1).svg');
                         }
@@ -358,7 +358,7 @@ and (max-width : 430px){
                                        <div>
                                         <h4 class="card-title">{{ $subject }}</h4>
                                         <p class="mb-0 card-text ">{{ $counts['tutors'] }} Tutors Available</p>
-                                        <!--<p class="mb-0 card-text">{{ $counts['students'] }} Students</p>-->
+
                                        </div>
                                     </div>
                                 </a>
@@ -405,7 +405,7 @@ and (max-width : 430px){
                         <div class="card subj-card text-center py-3 "
                             style="border: 2px solid rgb(226, 226, 226); border-radius: 35px; max-height: 100%;background-color:#3c90f0 ;color: white;">
                             <div class="subj-card-icon">
-                                <img src="{{ asset('assets/images/german.svg') }}" style="width: 100px; height:100px;" alt="" srcset="">
+                                <img src="{{ asset('assets/images/German icon.png') }}" style="width: 100px; height:100px;" alt="" srcset="">
                             </div>
                             <h4 class="card-title">German</h4>
                             <p class="mb-0 card-text"> Tutors Available</p>
@@ -416,7 +416,7 @@ and (max-width : 430px){
                         <div class=" card subj-card text-center py-3 "
                             style="border: 2px solid rgb(226, 226, 226); border-radius: 35px; max-height: 100%;background-color: rgba(171, 255, 0, 1);color: white;">
                             <div class="subj-card-icon">
-                                <img src="{{ asset('assets/images/subicon4.png') }}" style="width: 100px; height:100px;" alt="" srcset="">
+                                <img src="{{ asset('assets/images/Spanish icon.png') }}" style="width: 100px; height:100px;" alt="" srcset="">
                             </div>
                             <h4 class="card-title">Spanish</h4>
                             <p class="mb-0 card-text"> Tutors Available</p>
@@ -427,7 +427,7 @@ and (max-width : 430px){
                         <div class="card subj-card text-center py-3 "
                             style="border: 2px solid rgb(226, 226, 226); border-radius: 35px; max-height: 100%;background-color: #3c90f0;color: white;">
                             <div class="subj-card-icon">
-                                <img src="{{ asset('assets/images/french.svg') }}" style="width: 100px; height:100px;" alt="" srcset="">
+                                <img src="{{ asset('assets/images/French icon.png') }}" style="width: 100px; height:100px;" alt="" srcset="">
                             </div>
                             <h4 class="card-title">French</h4>
                             <p class="mb-0 card-text"> Tutors Available</p>
@@ -438,7 +438,7 @@ and (max-width : 430px){
                         <div class="card subj-card text-center py-3 "
                             style="border: 2px solid rgb(226, 226, 226); border-radius: 35px; max-height: 100%;background-color: rgba(171, 255, 0, 1);color: white;">
                             <div class="subj-card-icon">
-                                <img src="{{ asset('assets/images/subicon1.png') }}" style="width: 100px; height:100px;" alt="" srcset="">
+                                <img src="{{ asset('assets/images/arabic icon.png') }}" style="width: 100px; height:100px;" alt="" srcset="">
                             </div>
                             <h4 class="card-title">Arabic</h4>
                             <p class="mb-0 card-text"> Tutors Available</p>
@@ -529,7 +529,7 @@ and (max-width : 430px){
         <div class="row mb-2 py-md-5" id="review-section-head">
             <div class="col-12 text-center">
                 <h1 class="review-link" id="text-color">4.5/5 Review
-                    <a href="#!">Trustpilot</a>
+                    <a href="https://www.trustpilot.com/">Trustpilot</a>
                 </h1>
 
             </div>

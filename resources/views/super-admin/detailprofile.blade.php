@@ -16,9 +16,9 @@
              background-color: #FFFFFF !important;
              /*color :white !important;*/
         }
-         
-         
-       
+
+
+
             .profileeditdiv{
             opacity: 0;
             position: absolute;
@@ -29,41 +29,46 @@
             opacity: 0.9;
             /*z-index:999999999;*/
         }
-    
+
         @media only screen and (max-width: 1026px){
             .profileeditdiv{
-              
+
             left:7px;
         }
+    }
         @media only screen and (max-width: 770px){
             .profileeditdiv{
-                
+
             left:33px;
         }
+    }
         @media only screen and (max-width: 426px){
             .profileeditdiv{
-               
+
             left:55px;
         }
+    }
         @media only screen and (max-width: 375px){
             .profileeditdiv{
-                
+
             left:38px;
         }
+    }
         @media only screen and (max-width: 325px){
             .profileeditdiv{
-                
+
             left:19px;
         }
-        
+    }
+
          @media only screen and (min-width: 1440px){
             .profileeditdiv{
-       
+
             left:79px;
         }
         }
-       
-    
+
+
 
 </style>
 @endpush
@@ -228,7 +233,7 @@
 
                                         <div class="col-lg-12">
                                             <div class="hstack gap-2 justify-content-end">
-                                                <button type="submit" class="py-2 px-3 bg-primary border-0 rounded-3 text-white" >Updates</button>
+                                                <button type="submit" class="py-2 px-3 bg-success border-0 rounded-3 text-white" >Update</button>
                                                 <button type="button" class="ms-2 py-2 px-3  border-0 rounded-3">Cancel</button>
                                             </div>
                                         </div>
@@ -243,21 +248,33 @@
                                 <form action="{{ url('/update/profile/password') }}" method="POST">
                                     @csrf
                                 <div class="row">
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label for="websiteInput1" class="form-label">New Password</label>
-                                        <input type="password" class="form-control" name="password"  placeholder="Enter New Password" autocomplete="current-password">
-                                    </div>
-                                </div>
-                                <div class="col-lg-6">
-                                    <div class="mb-3">
-                                        <label for="websiteInput1" class="form-label">Confirm Password*</label>
-                                        <input type="password" class="form-control" name="password_confirmation"  placeholder="Confirm Password" >
+                                <div class="row">
+                                    <div class="col-6">
+                                        <div class="row">
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label for="websiteInput1" class="form-label">Current Password <span style="color: red;">*</span></label>
+                                                    <input type="password" class="form-control" name="password"  placeholder="Enter Current Password" autocomplete="current-password">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label for="websiteInput1" class="form-label">New Password</label>
+                                                    <input type="password" class="form-control" name="password"  placeholder="Enter New Password" autocomplete="current-password">
+                                                </div>
+                                            </div>
+                                            <div class="col-12">
+                                                <div class="mb-3">
+                                                    <label for="websiteInput1" class="form-label">Confirm Password</label>
+                                                    <input type="password" class="form-control" name="password_confirmation"  placeholder="Confirm Password" >
+                                                </div>
+                                            </div>
+                                        </div>
                                     </div>
                                 </div>
                                 <div class="col-lg-12">
                                     <div class="hstack gap-2 justify-content-end">
-                                        <button type="submit" class="py-2 px-3 bg-primary border-0 rounded-3 text-white" >Updates</button>
+                                        <button type="submit" class="py-2 px-3 bg-success border-0 rounded-3 text-white" >Update</button>
                                         <button type="button" class="ms-2 py-2 px-3  border-0 rounded-3">Cancel</button>
                                     </div>
                                 </div>

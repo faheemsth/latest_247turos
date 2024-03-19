@@ -20,7 +20,7 @@
                     <i class="fa-solid fa-newspaper bg-blue"></i>
                     <div class="d-inline">
                         <h5>{{ __('Blogs') }}</h5>
-                        <span>{{ __(' Blog ') }}</span>
+                        <span>{{ __(' Create Blog ') }}</span>
                     </div>
                 </div>
             </div>
@@ -30,14 +30,9 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('dashboard') }}"><i class="ik ik-home"></i></a>
                         </li>
+
                         <li class="breadcrumb-item">
-                            <a href="#">{{ __('Settings') }}</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="#">{{ __('Pages') }}</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="#">{{ __('Blog') }}</a>
+                            <a href="{{ route('bloglist') }}">{{ __('Blog') }}</a>
                         </li>
                         <li class="breadcrumb-item">
                             <a href="#">{{ __('Create') }}</a>

@@ -69,7 +69,7 @@
                                     <th>{{ __('Name') }}</th>
                                     <th>{{ __('Email') }}</th>
                                      <th>{{ __('Date') }} & {{ __('Time') }} </th>
-                                     
+
                                     <th>{{ __('Status') }}</th>
                                     <th>{{ __('Interview') }}</th>
                                     <th>{{ __('Download') }}</th>
@@ -88,7 +88,7 @@
                                             0000-00-00 at 00-00
                                             @endif
                                         </td>
-                                    
+
                                         <td>
                                             @if ($Parent->request_refound != 1)
                                             <span
@@ -133,7 +133,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="6" class="text-center">Record not found</td>
+                                        <td colspan="7" class="text-center">Record not found</td>
                                     </tr>
                                 @endforelse
                             </tbody>

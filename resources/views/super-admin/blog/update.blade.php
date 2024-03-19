@@ -2,7 +2,6 @@
 @section('title', 'Users')
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet" />
- MDB
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
 
 @push('head')
@@ -20,7 +19,7 @@
                     <i class="fa-solid fa-newspaper bg-blue"></i>
                     <div class="d-inline">
                         <h5>{{ __('Blogs') }}</h5>
-                        <span>{{ __('Blog') }}</span>
+                        <span>{{ __('Edit Blog') }}</span>
                     </div>
                 </div>
             </div>
@@ -30,17 +29,12 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('dashboard') }}"><i class="ik ik-home"></i></a>
                         </li>
+
                         <li class="breadcrumb-item">
-                            <a href="#">{{ __('Settings') }}</a>
+                            <a href="{{ route('bloglist') }}">{{ __('Blog') }}</a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">{{ __('Pages') }}</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="#">{{ __('Blog') }}</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="#">{{ __('Create') }}</a>
+                            <a href="#">{{ __('Edit') }}</a>
                         </li>
                     </ol>
                 </nav>

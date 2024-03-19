@@ -324,8 +324,7 @@
                     </fieldset>
                     <fieldset id="subjects">
                         <div class="panel-body mt-5">
-                            <h2 class="text-center fs-1" id="text-color"><strong>Which Subject would you Like Help
-                                    with?</strong></h2><br>
+                            <h2 class="text-center fs-1" id="text-color"><strong>What Subjects Can You Tutor?</strong></h2><br>
                             <!-- <div class="container">
                                 <div class="d-flex flex-wrap justify-content-center">
                                     <a href="javascript:void(0)" data-subject-id="1" style="text-decoration: none">
@@ -380,7 +379,7 @@
 
                                     <div class="row mt-4 justify-content-center">
                                         <div class="col-md-5">
-                                            <label class="text-secondary">Subjects<span style="color:red">*</span></label><br>
+                                            {{-- <label class="text-secondary">Subjects<span style="color:red">*</span></label><br>
                                             <span class="d-flex">
                                                 @if (!empty($subjects))
                                                     <select class="w-10 p-3 select2" id="subject" name="subject[]"
@@ -391,7 +390,19 @@
                                                         @endforeach
                                                     </select>
                                                 @endif
-                                            </span>
+                                            </span> --}}
+                                            <label for="">
+                                                <h5>Choose subjects</h5>
+                                            </label>;
+                                            <div class="mx-3 text-capitalize">
+                                                @if (!empty($subjects))
+                                                    @foreach ($subjects as $key => $subject)
+                                                        <input type="checkbox" value="{{ $subject->id }}"  class="checkbox1" name="subject[]">
+                                                        <label
+                                                            class="mx-2">{{ $subject->name }}</label><br>
+                                                    @endforeach
+                                                @endif
+                                            </div>
                                         </div>
                                     </div>
                                 </div>

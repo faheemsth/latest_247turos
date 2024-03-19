@@ -20,7 +20,7 @@
                     <i class="ik ik-users bg-blue"></i>
                     <div class="d-inline">
                         <h5>{{ __('Privacy Policy') }}</h5>
-                        <span>{{ __('List of Privacy Policy') }}</span>
+                        <span>{{ __('Create Privacy Policy') }}</span>
                     </div>
                 </div>
             </div>

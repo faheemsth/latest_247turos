@@ -13,9 +13,9 @@
     <div class="row col-md-12 mt-5 gap-4 justify-content-center  text-center">
         <div class="card col-md-3" style="width: 16rem;background-color: rgba(171, 254, 16, 1);">
             <img src="./assets/images/1.png" class=" img-one card-img-top img-one img-fluid w-75 mx-auto" alt="...">
-            <div class="card-body">
-                <h4 class="card-title fw-bold">I am a Parent</h4>
-                <p class="card-text">Manage Payments or Lessons for your Child</p>
+            <div class="card-body px-2">
+                <h4 class="card-title fw-bold">Parent or guardian</h4>
+                <p class="card-text">Handle Payments or Tuitions for your Child.</p>
                 <a href="javascript:void(0)" onclick="roleget('5')" class="btn d-grid gap-2 btn-light">Parent Log in</a>
             </div>
         </div>
@@ -25,9 +25,9 @@
             <img src="./assets/images/Group.png" alt="" srcset="" id="shape-mail">
             <img src="./assets/images/Pencil.png" alt="" srcset="" id="shape-pencil">
             <div class="card-body">
-                <h4 class="card-title fw-bold">I am a Student</h4>
-                <p class="card-text">Manage Payments or Lessons for your Child</p>
-                <a href='javascript:void(0)' onclick="roleget('4')" class="btn  d-grid gap-2 " style="background-color: #0096FF;">Student Log in</a>
+                <h4 class="card-title fw-bold">Student</h4>
+                <p class="card-text">Unlock a world of learning opportunities.</p>
+                <a href='javascript:void(0)' onclick="roleget('4')" class="btn  d-grid gap-2 btn-light" >Student Log in</a>
             </div>
         </div>
         <!-- card3 -->
@@ -35,19 +35,20 @@
             <img src="./assets/images/3.png" class=" img-three card-img-top img-fluid w-75 mx-auto" alt="...">
             <img src="./assets/images/Layer_1 (2).png" alt="" srcset="" id="bg-shape-1">
             <img src="./assets/images/Speech Bubble (2).png" alt="" srcset="" id="bg-shape-2">
-            <div class="card-body">
-                <h4 class="card-title fw-bold">I am a Tutor</h4>
-                <p class="card-text mb-4">Manage Payments or Lessons for your Child</p>
+            <div class="card-body ">
+                <h4 class="card-title mt-2 fw-bold">Tutor</h4>
+                <p class="card-text mb-4">Embark on your tutoring journey with us.</p>
                 <a href='javascript:void(0)' onclick="roleget('3')" class="btn d-grid gap-2 btn-light">Tutor Log in</a>
             </div>
         </div>
         <!-- card4 -->
         <div class="card col-md-3" style="width: 16rem;background-color: rgba(171, 254, 16, 1);">
-            <img src="./assets/images/4.png" class="card-img-top img-fluid  w-100 mx-auto" alt="...">
+            <img src="./assets/images/4.png" class="card-img-top img-fluid mt-4 w-100 mx-auto" alt="...">
             <div class="card-body">
                 <br>
-                <h4 class="card-title fw-bold">I am a Organisation</h4>
-                <p class="card-text">Manage Payments or Lessons for your Child</p>
+                <h4 class="card-title fw-bold">Organisation</h4>
+                <p class="card-text mb-4">
+                    Empower your organisation with top-tier tutors.</p>
                 <a href='javascript:void(0)' onclick="roleget('6')" class="btn d-grid gap-2 btn-light">Organisation Log in</a>
             </div>
         </div>
@@ -81,21 +82,25 @@ function roleget(role) {
     if (role === '3') {
         message = 'Tutor Log In';
         message1 = 'I am a Tutor';
+        msg='Embark on your tutoring journey with us';
         id = 3;
 
     } else if (role === '4') {
         message = 'Student Log In';
         message1 = 'I am a Student';
+        msg='Unlock a world of learning opportunities';
         id = 4;
 
     } else if (role === '5') {
         message = 'Parent Log In';
         message1 = 'I am a Parent';
+        msg='Handle Payments or Tuitions for your Child';
         id = 5;
 
     } else if (role === '6') {
         message = 'Organisation Log In';
         message1 = 'I am a Organisation';
+        msg='Empower your organisation with top-tier tutors';
         id = 6;
 
     }
@@ -107,7 +112,7 @@ function roleget(role) {
 
     $.ajax({
         url: 'roleget',
-        data: { message: message ,message1:message1},
+        data: { message: message ,message1:message1, id:id,msg:msg},
         type: 'GET',
         success: function (response) {
             window.location.href = "{{ url('/login') }}";

@@ -48,7 +48,7 @@
             <div class="col-md-12  user-table-data col-12 pe-0 pe-md-2">
                 <div class="card p-md-3 p-2">
                     <div class="card-header justify-content-between">
-                        <h3>{{ __('Refund') }}</h3>
+                        <h3>{{ __('Refunds') }}</h3>
                     </div>
 
                     <div class="card-body" style="overflow: scroll;">
@@ -85,7 +85,7 @@
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">Record not found</td>
+                                        <td colspan="6" class="text-center">Record not found</td>
                                     </tr>
                                 @endforelse
                             </tbody>
