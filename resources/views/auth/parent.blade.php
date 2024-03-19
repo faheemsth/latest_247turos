@@ -508,19 +508,36 @@
                                 <div class="col-12 col-md-12 col-lg-12 col-xl-12 m-auto">
 
                                     <div class="row mt-4 justify-content-center">
-                                        <div class="col-md-5">
-                                            <label class="text-secondary mb-1" style="font-size: 1.6rem;">Subjects</label><br>
-                                            <span class="d-flex">
-                                                @if (!empty($subjects))
-                                                    <select class="w-10 p-3 select2" id="subject" name="subject[]"
-                                                        multiple>
-                                                        @foreach ($subjects as $subject)
-                                                            <option value="{{ $subject->id }}">{{ $subject->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                @endif
-                                            </span>
+                                        <div class="col-md-6">
+                                             <label for="">
+                                                <h2>Choose subjects</h2>
+                                            </label>;
+                                            <div class="row">
+                                                <div class="col-auto">
+                                                    <div class="mx-2 text-capitalize mt-3">
+                                                        @if (!empty($subjects))
+                                                            @foreach ($subjects as $key => $subject)
+                                                                @if ($key < 6)
+                                                                    <input type="checkbox" value="{{ $subject->id }}" style="width: 17px;height: 17px;" class="checkbox1" name="subject[]">
+                                                                    <label class="mx-2"><h5 class="text-gray">{{ $subject->name }}</h5></label><br>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <div class="mx-2 text-capitalize mt-3">
+                                                        @if (!empty($subjects))
+                                                            @foreach ($subjects as $key => $subject)
+                                                                @if ($key >= 5)
+                                                                    <input type="checkbox" value="{{ $subject->id }}" style="width: 17px;height: 17px;" class="checkbox1" name="subject[]">
+                                                                    <label class="mx-2"><h5 class="text-gray">{{ $subject->name }}</h5></label><br>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
