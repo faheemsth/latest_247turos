@@ -182,8 +182,16 @@
                             <div class="row mt-5 mb-5">
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Gender</label>
-                                    <input type="text" name="gender" value="{{ Auth::user()->gender }}"
-                                        class="form-control" id="" required placeholder="Type Your gender">
+                                    <select class="form-control bgpro" name="gender" required>
+                                        <option value="Male" {{ Auth::user()->gender == 'Male' ? 'selected' : '' }}>Male
+                                        </option>
+                                        <option value="Female" {{ Auth::user()->gender == 'Female' ? 'selected' : '' }}>
+                                            Female
+                                        </option>
+                                        <option value="Other" {{ Auth::user()->gender == 'Other' ? 'selected' : '' }}>
+                                            Other
+                                        </option>
+                                    </select>
 
                                 </div>
                                 <div class="col-md-6">
@@ -296,9 +304,6 @@
                 border: 1px solid rgb(83, 78, 78);
             }
 
-            input {
-                margin-top: 40px;
-            }
 
             .section {
                 margin-top: 150px;
@@ -328,8 +333,8 @@
                                     <form action="{{ url('/Upload/Profile') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
-                                        <input type="file" name="image" class="image">
-                                        <input type="hidden" name="image_base64">
+                                        <input type="file" name="image" class="image" style="margin-top: 40px;">
+                                        <input type="hidden" name="image_base64" style="margin-top: 40px;">
                                         <img src=""
                                             style="width: 200px;display: none;display: block;max-width: 100%;"
                                             class="show-image">

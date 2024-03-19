@@ -66,9 +66,7 @@
                 border: 1px solid rgb(83, 78, 78);
             }
 
-            input {
-                margin-top: 40px;
-            }
+
 
             .section {
                 margin-top: 150px;
@@ -98,8 +96,8 @@
                                     <form action="{{ url('/Upload/Profile') }}" method="POST"
                                         enctype="multipart/form-data">
                                         @csrf
-                                        <input type="file" name="image" class="image">
-                                        <input type="hidden" name="image_base64">
+                                        <input type="file" name="image" class="image" style="margin-top: 40px;">
+                                        <input type="hidden" name="image_base64" style="margin-top: 40px;">
                                         <img src=""
                                             style="width: 200px;display: none;display: block;max-width: 100%;"
                                             class="show-image">
@@ -312,9 +310,9 @@
 
                                 </div>
                                 <div class="col-md-6 ">
-                                    <label for="exampleFormControlInput1" class="form-label">Surname</label>
+                                    <label for="exampleFormControlInput1" class="form-label">Last Name</label>
                                     <input type="text" name="last_name" value="{{ Auth::user()->last_name }}"
-                                        class="form-control" id="" required placeholder="Type Your Surname">
+                                        class="form-control" id="" required placeholder="Type Your Last Name">
 
                                 </div>
                             </div>
@@ -495,10 +493,10 @@
 
                                                 </tr>
                                             @endforeach
-                                             @else
-                                    <tr>
-                                        <td colspan="5">No Record Found</td>
-                                    </tr>
+                                        @else
+                                            <tr>
+                                                <td colspan="5">No Record Found</td>
+                                            </tr>
                                         @endif
                                     </tbody>
                                 </table>
@@ -566,7 +564,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                     @else
+                                @else
                                     <tr>
                                         <td colspan="9">No Record Found</td>
                                     </tr>
@@ -613,10 +611,10 @@
                                         </td>
                                     </tr>
                                 @endforeach
-                                @else
-                                    <tr>
-                                        <td colspan="4">No Record Found</td>
-                                    </tr>
+                            @else
+                                <tr>
+                                    <td colspan="4">No Record Found</td>
+                                </tr>
                             @endif
                         </tbody>
 
