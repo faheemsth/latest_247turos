@@ -138,7 +138,7 @@
                                 <option value="Scheduled" {{ !empty($_GET['status']) && $_GET['status'] == 'Scheduled'? 'selected':"" }}>Scheduled</option>
                                 <option value="Completed" {{ !empty($_GET['status']) && $_GET['status'] == 'Completed'? 'selected':"" }}>Completed</option>
                                 <option value="Cancelled" {{ !empty($_GET['status']) && $_GET['status'] == 'Pending'? 'selected':"" }}>Cancelled</option>
-                                <option value="Cancelled" {{ !empty($_GET['status']) && $_GET['status'] == '1'? 'selected':"" }}>Request Refound</option>
+                                <option value="1" {{ !empty($_GET['status']) && $_GET['status'] == '1'? 'selected':"" }}>Request Refound</option>
                                 <option value="Cancelled By User" {{ !empty($_GET['status']) && $_GET['status'] == 'Cancelled By User'? 'selected':"" }}>Cancelled By User</option>
                                 <option value="Cancelled By Tutor" {{ !empty($_GET['status']) && $_GET['status'] == 'Cancelled By Tutor'? 'selected':"" }}>Cancelled By Tutor</option>
                             </select>
@@ -179,7 +179,7 @@
                                         </td>
 
                                         <td>
-                                            @if ($booking->request_refound != 1)
+                                            @if ($booking->request_refound != 1 && $booking->request_refound != 2)
                                                 <span
                                                     class="badge
                                                 @if ($booking->status == 'Completed') bg-success

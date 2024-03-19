@@ -16,7 +16,7 @@
     </td>
 
     <td>
-        @if ($booking->request_refound != 1)
+        @if ($booking->request_refound != 1 && $booking->request_refound != 2)
             <span
                 class="badge
             @if ($booking->status == 'Completed') bg-success

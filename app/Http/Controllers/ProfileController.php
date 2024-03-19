@@ -14,30 +14,49 @@ class ProfileController extends Controller
         if(Auth::user()->role_id != 5){
                 return  redirect('/dashboard');
         }
-        
+
         return view('pages.dashboard.profiledetailparent');
     }
     public function upload_profile_img(Request $request){
-        $image = $request->file('image');
-        $imageName = time() . '_' . $image->getClientOriginalName();
 
-        // Move the uploaded image to the 'public/images' directory
-        $image->move(public_path('images'), $imageName);
+        if(empty($request->image_base64))
+        {
+            $image = $request->file('image');
+            $imageName = time() . '_' . $image->getClientOriginalName();
+            $image->move(public_path('images'), $imageName);
+            $user = User::find(Auth::id());
 
-        // Create or retrieve the current user
-        $user = User::find(Auth::id());
+            $user->update([
+                'image' => 'images/' . $imageName, // Store the image path
+            ]);
+        }else{
 
+            $imageName=$this->storeBase64($request->image_base64);
+            $user = User::find(Auth::id());
+            $user->update([
+                'image' => 'assets/images/' . $imageName, // Store the image path
+            ]);
 
-        $user->update([
-            'image' => 'images/' . $imageName, // Store the image path
-    ]);
-
-
-    if (Auth::user()->role_id == 5) {
-        return redirect('parent/profile')->with('success','Successfully You Can Update Profile');
-    } elseif (Auth::user()->role_id == 6) {
-        return redirect('organization/home')->with('success','Successfully You Can Update Profile');
+        }
+        return back()->with('success','Successfully You Can Update Profile');
     }
+
+    private function storeBase64($imageBase64)
+    {
+        list($type, $imageBase64) = explode(';', $imageBase64);
+        list(, $imageBase64)      = explode(',', $imageBase64);
+        $imageBase64 = base64_decode($imageBase64);
+        $imageName= time().'.png';
+        $directory = public_path() . "/assets/images/";
+        if (!file_exists($directory)) {
+            mkdir($directory, 0777, true);
+        }
+        $path = $directory . $imageName;
+        if (file_put_contents($path, $imageBase64) !== false) {
+            return $imageName;
+        } else {
+            return null;
+        }
     }
 
     public function profile_setting_post(Request $request)
@@ -61,7 +80,7 @@ class ProfileController extends Controller
             'profile_description' => $request->input('profile_description'),
             'address' => $request->input('address'),
             'zipcode' => $request->zipcode,
-            
+
         ]);
         if (Auth::user()->role_id == 5) {
             return redirect('parent/profile')->with('success','Successfully You Can Update Profile');

@@ -53,7 +53,7 @@ class BookingController extends Controller
                 if ($status != '1') {
                     $booking->where('status', 'like', '%' . $status . '%');
                 } else {
-                    $booking->where('request_refound', $status);
+                    $booking = $booking->where('request_refound', '1')->orWhere('request_refound', '2');
                 }
             }
             if (!empty($search)) {

@@ -613,6 +613,7 @@ Route::group(['middleware' => 'auth'], function(){
         Route::get('/parent2', [ParentController::class, 'index']);
         Route::get('/parent_profile', [ParentController::class, 'parent_profile']);
         Route::get('/parent/profile', [ProfileController::class, 'profile_setting']);
+        Route::get('/organization/profile', [OrgController::class, 'org_profile_setting']);
         Route::post('/Upload/Profile', [ProfileController::class, 'upload_profile_img']);
         Route::post('/profile-setting', [ProfileController::class, 'profile_setting_post']);
         Route::post('/add_student', [StudentController::class, 'add_student']);

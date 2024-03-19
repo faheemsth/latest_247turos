@@ -134,7 +134,7 @@ $groups = App\Models\Group::All();
                                         srcset=""> Logout</a></li>
                         @else
                             <li><a class="dropdown-item"
-                                    href="{{ Auth::user()->role_id == '5' ? url('organization/profile') : url('organization/home') }}">
+                                    href="{{ Auth::user()->role_id == '6' ? url('organization/profile') : url('organization/home') }}">
                                     <img src="{{ asset('assets/images/user 1.png') }}" alt=""> Your
                                     Profile</a></li>
                             <li><a class="dropdown-item" href="{{ url('organization/students') }}">

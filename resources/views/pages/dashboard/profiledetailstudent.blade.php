@@ -38,130 +38,11 @@
       {{ session('success') }}
     </div>
     @endif
-    {{-- <div class="row mt-5 mb-5 flex-row">
-      <div class="col-12 col-md-3 image1">
-        <img src="{{ url(Auth::user()->image ?? '') }}" alt="" class="img-fluid">
-      </div>
-      <div class="col-12 col-md-9">
-        <div class="row">
-          <div class="col-md-6 mt-lg-5 ard">
-            <h5>{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}<img src="/assets/images/Verified-p.png"
-                alt=""></h5>
-            <p>Spreading knowledge everywhere that's all I do</p>
-          </div>
-          <div class="col-md-6 mt-lg-5 text-end hr pe-4">
-            <h5>£25 /hr</h5>
-          </div>
-
-          <div class="row mt-lg-3">
-            <div class="col-md-9 student-home justify-content-center">
-              <a href=""><img src="/assets/images/location.png" alt=""> Student's
-                home</a>
-              <a href=""><img src="/assets/images/Vector (2).png" alt=""> Online</a>
-            </div>
-            <div class="col-md-3 saved text-end">
-              <p><img src="/assets/images/heart.png" alt=""> Saved</p>
-            </div>
-          </div>
-        </div>
-      </div>
-    </div> --}}
     <div class="row mt-5 mb-5">
-
-
-
-
-        {{-- <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.min.css">
-<div class="container" style="margin-top:30px;">
-    <div class="panel panel-primary">
-        <div class="panel-body">
-            <div class="row" style="display: block;">
-                <div class="col-md-4 text-center">
-                    <div id="cropie-demo" style="width:250px"></div>
-                </div>
-                <div class="col-md-4">
-                    <label for="file-upload" class="btn btn-primary" id="file-upload-label">File</label>
-                    <input type="file" id="file-upload" style="display: none;">
-                    <br>
-                    <div class="text-center"> <!-- Centering both buttons -->
-                        <button class="btn btn-success upload-result" style="display: none;">Upload</button>
-                    </div>
-                </div>
-            </div>
-        </div>
-    </div>
-</div>
-
-<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
-<script src="https://cdnjs.cloudflare.com/ajax/libs/croppie/2.6.2/croppie.js"></script>
-
-<script type="text/javascript">
-    $.ajaxSetup({
-        headers: {
-            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-        }
-    });
-
-    $uploadCrop = $('#cropie-demo').croppie({
-        enableExif: true,
-        viewport: {
-            width: 200,
-            height: 200,
-            type: 'circle'
-        },
-        boundary: {
-            width: 300,
-            height: 300
-        }
-    });
-
-    $('#file-upload').on('change', function() {
-        var reader = new FileReader();
-        reader.onload = function(e) {
-            $uploadCrop.croppie('bind', {
-                url: e.target.result
-            }).then(function() {
-                console.log('jQuery bind complete');
-            });
-        }
-        reader.readAsDataURL(this.files[0]);
-        $('#file-upload-label').hide(); // Hide the "Choose File" button when a file is selected
-        $('.upload-result').show(); // Show the "Upload Image" button when a file is selected
-    });
-
-    $('.upload-result').on('click', function(ev) {
-        $uploadCrop.croppie('result', {
-            type: 'canvas',
-            size: 'viewport'
-        }).then(function(resp) {
-            $.ajax({
-                url: "{{ url('imageCrop') }}",
-                type: "POST",
-                data: {
-                    "image": resp
-                },
-                success: function(data) {
-                    html = '<img src="' + resp + '" />';
-                    $("#image-preview").html(html);
-                }
-            });
-        });
-    });
-
-    $('.btn-primary').on('click', function() {
-        $('#file-upload').click();
-    });
-</script> --}}
-
-
-
-
-
-
       <div class="col-12 col-lg-3 col-xl-2 image1 d-flex justify-content-lg-center position-relative">
         <div class="profileeditdiv d-flex justify-content-center align-items-center"
           style="width: 170px;height: 170px;background-color: #cfcfcf;border-radius: 50%; position: absolute;top:0px;">
-          <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn px-4" style="background-color: #080808;
+          <button type="button" data-bs-toggle="modal" data-bs-target="#RefundModal" class="btn px-4" style="background-color: #080808;
                         color: white;">Edit</button>
         </div>
         @if (!empty(Auth::user()->image) && file_exists(public_path(Auth::user()->image)))
@@ -385,6 +266,146 @@
 
     </div>
   </div>
+
+
+
+
+
+
+        {{-- sheraz --}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+
+        <style type="text/css">
+            .preview {
+                text-align: center;
+                overflow: hidden;
+                width: 160px;
+                height: 160px;
+                margin: 10px;
+                border: 1px solid rgb(83, 78, 78);
+            }
+
+            input {
+                margin-top: 40px;
+            }
+
+            .section {
+                margin-top: 150px;
+                background: #fff;
+                padding: 50px 30px;
+            }
+
+            .modal-lg {
+                max-width: 1000px !important;
+            }
+        </style>
+
+        <div class="modal fade" id="RefundModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Image Crop</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            id="close-modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="img-container">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <img id="image" style="display: block;max-width: 100%;">
+                                    <form action="{{ url('/Upload/Profile') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="file" name="image" class="image">
+                                        <input type="hidden" name="image_base64">
+                                        <img src=""
+                                            style="width: 200px;display: none;display: block;max-width: 100%;"
+                                            class="show-image">
+                                        <br />
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="preview"></div>
+                                    <span
+                                        style="text-align: center;overflow: hidden;width: 160px;height: 160px;margin: 10px;">
+                                        <button type="button" class="btn btn-primary" id="crop">Crop</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            var cropper;
+            var image = document.getElementById('image');
+
+            $("body").on("change", ".image", function(e) {
+                var files = e.target.files;
+
+                var done = function(url) {
+                    $('#image').attr('src', url);
+                    var reader;
+                    var file;
+
+                    if (files && files.length > 0) {
+                        file = files[0];
+
+                        if (window.URL && window.URL.createObjectURL) {
+                            cropper.replace(window.URL.createObjectURL(file));
+                        } else if (FileReader) {
+                            reader = new FileReader();
+                            reader.onload = function(e) {
+                                done(reader.result);
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            console.error('Your browser does not support previewing images.');
+                        }
+                    }
+                };
+                cropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 3,
+                    preview: '.preview'
+                });
+                done(window.URL.createObjectURL(files[0]));
+            });
+
+            $(document).ready(function() {
+                $("#crop").click(function() {
+                    canvas = cropper.getCroppedCanvas({
+                        width: 160,
+                        height: 160,
+                    });
+
+                    canvas.toBlob(function(blob) {
+                        url = URL.createObjectURL(blob);
+                        var reader = new FileReader();
+                        reader.readAsDataURL(blob);
+                        reader.onloadend = function() {
+                            var base64data = reader.result;
+                            $("input[name='image_base64']").val(base64data);
+                            $(".show-image").show();
+                            $(".show-image").attr("src", base64data);
+                        }
+                    });
+                });
+
+
+            });
+        </script>
+        {{-- sheraz --}}
+
 </div>
 <!-- main js file -->
 <script src="./assets/js/main.js"></script>
