@@ -130,20 +130,21 @@
                     </div>
                      <div class=" mt-4  px-0 pe-md-4 d-flex justify-content-between">
                         <h3 class="col-auto  d-none d-md-inline-block">{{ __('') }}</h3>
-                            <form method="GET" action="" class="col-12 col-md-6 col-lg-6 col-xl-5 d-flex px-0 justify-content-between align-items-center gap-2">
-                              
+                            <div class="col-12 col-md-6 col-lg-6 col-xl-5 d-flex px-0 justify-content-between align-items-center gap-2">
+
                              <select name="status" id="status" class="col-md-6 select2 form-select">
                                 <option value="">All Search</option>
                                 <option value="Pending" {{ !empty($_GET['status']) && $_GET['status'] == 'Pending'? 'selected':"" }}>Pending</option>
                                 <option value="Scheduled" {{ !empty($_GET['status']) && $_GET['status'] == 'Scheduled'? 'selected':"" }}>Scheduled</option>
                                 <option value="Completed" {{ !empty($_GET['status']) && $_GET['status'] == 'Completed'? 'selected':"" }}>Completed</option>
-                                <option value="Cancelled" {{ !empty($_GET['status']) && $_GET['status'] == 'Pending'? 'Cancelled':"" }}>Cancelled</option>
+                                <option value="Cancelled" {{ !empty($_GET['status']) && $_GET['status'] == 'Pending'? 'selected':"" }}>Cancelled</option>
+                                <option value="Cancelled" {{ !empty($_GET['status']) && $_GET['status'] == '1'? 'selected':"" }}>Request Refound</option>
                                 <option value="Cancelled By User" {{ !empty($_GET['status']) && $_GET['status'] == 'Cancelled By User'? 'selected':"" }}>Cancelled By User</option>
                                 <option value="Cancelled By Tutor" {{ !empty($_GET['status']) && $_GET['status'] == 'Cancelled By Tutor'? 'selected':"" }}>Cancelled By Tutor</option>
                             </select>
-                            <input type="text" name="search" value="{{ $_GET['search'] ?? '' }}" class="form-control " placeholder="Search">
-                            <button type="submit" class="btn btn-primary">Search</button>
-                        </form>
+                            <input type="text" name="search" id="serach" value="{{ $_GET['search'] ?? '' }}" class="form-control " placeholder="Search">
+
+                        </div>
                     </div>
                     <div class="card-body" style="overflow: scroll;">
                         <table id="user_table" class="table table-bordered">
@@ -167,14 +168,14 @@
                                         <th>{{ optional($booking->subjects)->name }}</th>
                                         <td>{{ $booking->duration }} minute</td>
                                         <td>
-                                            
+
                                             @if ((int) $booking->amount == $booking->amount)
                                                     £{{ $booking->amount }}.00/hr
                                             @else
                                                     £{{ $booking->amount }}/hr
                                             @endif
 
-                                            
+
                                         </td>
 
                                         <td>
@@ -209,10 +210,14 @@
                                         <td class="text-center" colspan="7">Record not found</td>
                                     </tr>
                                 @endforelse
+                                <tr style="border: none;">
+                                    <td class="text-end" colspan="7" style="border: none;">
+                                        {!! $bookings->links('pagination.custom') !!}
+                                    </td>
+                                </tr>
                             </tbody>
-                            
+
                         </table>
-                        {{ $bookings->links() }}
 
                     </div>
                 </div>
@@ -222,39 +227,48 @@
     @push('script')
         <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>
         <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
-        // <script>
-        //     $(document).ready(function() {
-        //         $('#status').on('change', function() {
-        //             var status = $('#status').val();
-        //             $.ajax({
-        //                 url: '{{ url('admin/bookings') }}',
-        //                 type: 'GET',
-        //                 data: { status: status },
-        //                 success: function(data) {
-        //                     $('#ajaxbody').html(data);
-        //                 }
-        //             });
-        //         });
+        <script>
+            $(document).ready(function() {
+                const fetch_data = (page, status, seach_term) => {
+                    if (status === undefined) {
+                        status = "";
+                    }
+                    if (seach_term === undefined) {
+                        seach_term = "";
+                    }
+                    $.ajax({
+                        url: "/AdminBookings/?page=" + page + "&status=" + status + "&seach_term=" +
+                            seach_term,
+                        success: function(data) {
+                            $('tbody').html('');
+                            $('tbody').html(data);
+                        }
+                    })
+                }
 
-        //         $(document).on('click', '.pagination a', function(e) {
-        //             e.preventDefault();
-        //             var page = $(this).attr('href').split('page=')[1];
-        //             var status = $('#status').val();
-        //             getPaginatedData(status,page);
-        //         });
+                $('body').on('keyup', '#serach', function() {
+                    var status = $('#status').val();
+                    var seach_term = $('#serach').val();
+                    var page = $('#hidden_page').val();
+                    fetch_data(page, status, seach_term);
+                });
 
-        //         function getPaginatedData(status,page) {
-        //             $.ajax({
-        //                 url: '{{ url('admin/bookings') }}?page=' + page,
-        //                 type: 'GET',
-        //                 data: { status: status },
-        //                 success: function(data) {
-        //                     $('#ajaxbody').html(data);
-        //                 }
-        //             });
-        //         }
+                $('body').on('change', '#status', function() {
+                    var status = $('#status').val();
+                    var seach_term = $('#serach').val();
+                    var page = $('#hidden_page').val();
+                    fetch_data(page, status, seach_term);
+                });
 
-        //     });
-        // </script>
+                $('body').on('click', '.pager a', function(event) {
+                    event.preventDefault();
+                    var page = $(this).attr('href').split('page=')[1];
+                    $('#hidden_page').val(page);
+                    var serach = $('#serach').val();
+                    var seach_term = $('#status').val();
+                    fetch_data(page, status, seach_term);
+                });
+            });
+        </script>
     @endpush
 @endsection

@@ -97,7 +97,7 @@
                         </svg>
                         +62 811 09998263
                     </p> --}}
-                    <p><a href="https://api.whatsapp.com/send?phone=@isset($web_settings['MainPh_num']){{$web_settings['MainPh_num']??'' }} @endisset"
+                    <p><a href="https://api.whatsapp.com/send?phone=@isset($web_settings['MainPh_num']){{ str_replace([' ', '+'], '', $web_settings['MainPh_num']) ?? '' }} @endisset"
 
                             class="text-decoration-none d-flex align-items-center gap-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"

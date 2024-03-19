@@ -10,8 +10,8 @@
 </style>
 {{-- coupons --}}
 
-<div class="nav-item {{ $segment1 == 'bookings' ? 'active' : '' }}">
-    <a href="{{ url('admin/bookings') }}">
+<div class="nav-item {{ $segment1 == 'AdminBookings' ? 'active' : '' }}">
+    <a href="{{ url('AdminBookings') }}">
         <span class="fa-solid fa-calendar-days" style="font-size: 15px; padding-left:2px; padding-right:7px;"></span>
         {{ __('Bookings') }}</a>
 </div>
@@ -28,7 +28,7 @@
     <a class=" d-flex align-items-baseline" href="{{ url('/transaction') }}"><span class="fa-regular fa-credit-card" style="color: rgb(50 50 50 / 94%);font-size: 14px ;padding-right:8.5px;"></span>{{ __('Transaction') }}</a>
 </div>
 <div class="nav-item {{ $segment2 == 'RefundList' ? 'active' : '' }}">
-    <a href="{{ url('admin/RefundList') }}" class="d-flex align-items-center "> 
+    <a href="{{ url('admin/RefundList') }}" class="d-flex align-items-center ">
             <span class="fa-solid fa-file-shield" style="color: rgb(50 50 50 / 94%);font-size: 14px ;padding-right:8px;"></span>
         <span>{{ __('Refund') }}</span></a>
 </div>
@@ -83,7 +83,7 @@
 
 <div class="nav-item {{ $segment1 == 'setting' || $segment1 == 'newsletter' || $segment2 == 'terms_condition' || $segment2 == 'privacy_policy'  ? 'active open' : '' }} has-sub">
     <a href="#" id="setting-dropdown-toggle"style="display: flex; align-items: center ;">
-        
+
         <i class="fa-solid fa-gear"style="color: rgb(50 50 50 / 94%);font-size: 15px;"></i>
         <span>Setting</span>
     </a>
@@ -96,22 +96,22 @@
             <span class="fa-solid fa-newspaper" style="color: rgb(50 50 50 / 94%);font-size: 15px ; padding-left:1px;padding-right:8px;"></span>
             Blogs</a>
             <a href="{{ route('newsletter.list') }}" class="menu-item {{ $segment1 == 'newsletter' ? 'active' : '' }}">
-             
+
                 <span class="fa-solid fa-envelopes-bulk" style="color: rgb(50 50 50 / 94%);font-size: 14px;padding-right:6px;"></span>Newsletter</a>
                 <a href="{{ route('commentlist') }}" class=" d-flex align-items-center menu-item {{ $segment2 == 'blog-comments' ? 'active' : '' }}">
             <span class="fa-solid fa-comments"  style="color: rgb(50 50 50 / 94%);font-size: 14px ;padding-right:6px;"></span>
             Comments</a>
-            
-            
+
+
             <a href="{{ url('admin/terms_condition') }}" class=" d-flex align-items-center menu-item {{ $segment2 == 'terms_condition' ? 'active' : '' }}">
             <span class="fa-solid fa-file-shield"  style="color: rgb(50 50 50 / 94%);font-size: 15px ;padding-left:2px;padding-right:6px;"></span>
             Terms Conditions</a>
-            
-            
+
+
             <a href="{{ url('admin/privacy_policy') }}" class=" d-flex align-items-center menu-item {{ $segment2 == 'privacy_policy' ? 'active' : '' }}">
             <span class="fa-solid fa-file-invoice"  style="color: rgb(50 50 50 / 94%);font-size: 16px ;padding-left:2px;padding-right:12px;"></span>
             Privacy policy</a>
-            
+
         {{-- <a href="{{ route('documentTypes') }}" class="menu-item {{ $segment2 == 'document_types' ? 'active' : '' }}">Document Types</a> --}}
     </div>
 </div>
@@ -136,7 +136,7 @@
             <img src="{{ asset('img/sidebar_icons/review image 3.png')}}" alt="" width="20px" height="20px" style="padding-right: 5px">
             <span>Tutor Reviews</span></a>
         <a href="{{ url('reviews/parent') }}" class=" d-flex align-items-center menu-item {{ $segment2 == 'parent' ? 'active' : '' }}">
-            
+
                 <!--<i class="fa-solid fa-newspaper" style="color: rgb(50 50 50 / 94%);font-size: 15px;"></i>-->
                 <img src="{{ asset('img/sidebar_icons/review image 3.png')}}" alt="" width="20px" height="20px" style="padding-right: 5px">
             <span>Parent Reviews</span></a>
@@ -153,7 +153,7 @@
 
 <!--Reviews-->
 <div class="nav-item {{ $segment1 == 'ActivityLogs' ? 'active' : '' }}">
-    <a href="{{ url('ActivityLogs') }}" class="d-flex align-items-center "> 
+    <a href="{{ url('ActivityLogs') }}" class="d-flex align-items-center ">
             <span class="fa-solid fa-file-shield" style="color: rgb(50 50 50 / 94%);font-size: 14px ;padding-right:8px;"></span>
         <span>{{ __('ActivityLogs') }}</span></a>
 </div>
