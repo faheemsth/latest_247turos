@@ -369,7 +369,7 @@
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Postcode</label>
                                     <input type="text" name="zipcode" class="form-control" id="" required
-                                        placeholder="Type Your Postcode" value="{{ Auth::user()->zipcode }}">
+                                        placeholder="Type Your Postcode" value="{{ Auth::user()->address }}">
                                 </div>
                             </div>
 
@@ -378,7 +378,7 @@
 
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Address</label>
-                                    <textarea type="text" name="address" class="form-control bgpro" id="address" cols="30" rows="5">{{ Auth::user()->address }}</textarea>
+                                    <textarea type="text" name="address" class="form-control bgpro" id="address" cols="30" rows="5"> {{ Auth::user()->zipcode }}</textarea>
                                 </div>
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Biography</label>

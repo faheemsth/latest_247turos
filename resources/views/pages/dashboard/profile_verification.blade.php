@@ -604,7 +604,7 @@
                                                                 <label class="text-secondary">Address<span
                                                                         id="Title-validation-message"
                                                                         style="color: red;">*</span></label><br>
-                                                                <textarea name="mainAddress" id="mainAddress" class="w-100 p-2"></textarea>
+                                                                <textarea name="address" id="mainAddress" class="w-100 p-2"></textarea>
                                                             </div>
 
 
@@ -612,7 +612,7 @@
                                                                 <label class="text-secondary">Postcode<span
                                                                         id="Title-validation-message"
                                                                         style="color: red;">*</span></label><br>
-                                                                <textarea type="text" name="address" id="address" class="w-100"></textarea>
+                                                                <textarea type="text" name="mainAddress" id="address" class="w-100"></textarea>
                                                             </div>
                                                             <div class="col-md-12 mb-3">
                                                                 <label class="text-secondary">Do you have any criminal
@@ -1879,10 +1879,11 @@
                             }
 
                         } else {
-                            if (licence_number == '' || licence_number == null ||
-                                allowed_drive == '' || allowed_drive == null) {
-                                message();
-                                return false;
+                            if (allowed_drive == 1) {
+                                if (!licence_number) {
+                                    message();
+                                    return false;
+                                }
                             }
 
 

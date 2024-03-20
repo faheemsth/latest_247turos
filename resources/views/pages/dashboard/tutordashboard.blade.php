@@ -573,23 +573,32 @@
 
     <div class="modal fade zoomIn" id="demo_meeting_modal" tabindex="-1" aria-labelledby="update_doc_modal"
         aria-hidden="true">
-        <div class="modal-dialog modal-dialog-centered modal-lg">
+        <div class="modal-dialog modal-dialog-centered modal-md">
             <div class="modal-content border-0">
                 <div class="modal-header p-3 bg-info-subtle">
-                    <h5 class="modal-title" id="update_doc_modal_title">Update Your Subject Price</h5>
+                    <h5 class="modal-title" id="update_doc_modal_title">Disclaimer Upgrade Offer</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
                         id="close-modal"></button>
                 </div>
 
-                    <div class="modal-body">
-                        <div class="row mt-4">
-                            <div class="col-md-6">
-                                Please Add Amount Into Your Subject Offers
-                            </div>
-
-
+                <div class="modal-body">
+                    <div class="row justify-content-center align-item-center">
+                        <div class="col-md-11 text-center mb-5 mt-3"
+                            style="
+                                    color: #3a3636;
+                                    /* line-height: 5rem; */
+                                ">
+                                <i class="fa-solid fa-triangle-exclamation mb-3 text-warning" style="font-size: 4rem;"></i>
+                                                            <h5 style="
+                                    line-height: 1.8rem;
+                                ">
+                               Upgrade pricing is subject to change without prior notice.Upgrading grants enhanced visibility on the "Find a Tutor" page.
+                            </h5>
                         </div>
+
+
                     </div>
+                </div>
             </div>
         </div>
     </div>
