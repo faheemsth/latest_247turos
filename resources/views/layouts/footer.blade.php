@@ -285,13 +285,13 @@
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-@if (Auth::check() && Auth::user()->role_id == 3 && App\Models\TutorSubjectOffer::where('tutor_id', Auth::id())->where('fee', 0)->count() > 0)
+{{-- @if (Auth::check() && Auth::user()->role_id == 3 && App\Models\TutorSubjectOffer::where('tutor_id', Auth::id())->where('fee', 0)->count() > 0)
     <script>
         $(document).ready(function() {
-            toastr.error('Dear Tutor', 'Complete your profile and Your {{ App\Models\TutorSubjectOffer::where('tutor_id', Auth::id())->where('fee', 0)->count() }} Subjects Have zero Fee');
+            // toastr.error('Dear Tutor', 'Complete your profile and Your {{ App\Models\TutorSubjectOffer::where('tutor_id', Auth::id())->where('fee', 0)->count() }} Subjects Have zero Fee');
         });
     </script>
-@endif
+@endif --}}
 
 <audio id="bellSound">
   <source src="{{ asset('assets/bicycle-bell-155622.mp3')}}" type="audio/mpeg">

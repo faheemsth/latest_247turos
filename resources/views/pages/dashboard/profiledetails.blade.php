@@ -472,20 +472,7 @@
                                                 <tr>
                                                     <td>{{ $subject->degree_title }}</td>
                                                     <td>{{ $subject->institute }}</td>
-
-                                                    @php
-                                                        $grade = '--';
-                                                        if ($subject->grade) {
-                                                            if ($subject->grade == 1) {
-                                                                $grade = 'A+';
-                                                            } elseif ($subject->grade == 2) {
-                                                                $grade = 'B+';
-                                                            } else {
-                                                                $grade = 'C+';
-                                                            }
-                                                        }
-                                                    @endphp
-                                                    <td>{{ $grade }}</td>
+                                                    <td>{{ $subject->grade }}</td>
                                                     <td>{{ $subject->type }}</td>
                                                     <td>{{ $subject->degree_completed }}</td>
 

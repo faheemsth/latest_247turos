@@ -56,7 +56,7 @@ class ComplaintController extends Controller
     public function SubmitComptaint(Request $request)
     {
         $imagePath = public_path('assets/images/247 NEW Logo 1.png');
-        $booking = Complaint::where('booking_id', $request->booking_id)->first();
+        $booking = !empty($request->booking_id) ? Complaint::where('booking_id', $request->booking_id)->first() :'';
         if (!empty($booking)) {
             return back()->with('error', 'This Complaint Already Exist');
         }
@@ -71,6 +71,7 @@ class ComplaintController extends Controller
         $data['file'] = $imageName;
         $data['user_id'] = Auth::id();
         $data['role_id'] = Auth::user()->role_id;
+        $data['type'] = $request->relation;
 
         $complant = Complaint::create($data);
 
