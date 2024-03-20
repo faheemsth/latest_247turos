@@ -57,7 +57,22 @@
     <div class="container mt-3 chat-sec">
         <div class="row   " style="height: 90vh;">
             <div class="col-md-9 border border-secondary border-opacity-10 h-100">
-                <a href="{{ url('tutor/messages') }}" class="btn btn-outline-success mt-3 btn-sm"><i
+                <a href="
+                @if (Auth::check())
+                    @if (Auth::user()->role_id == '4')
+                    {{ url('students/messages') }}
+                    @elseif (Auth::user()->role_id == '3')
+                    {{ url('tutor/messages') }}
+                    @elseif (Auth::user()->role_id == '5')
+                    {{ url('parent/messages') }}
+                    @elseif (Auth::user()->role_id == '6')
+                    {{ url('organization/messages') }}
+                    @endif
+                @else
+                    #
+                @endif
+
+                " class="btn btn-outline-success mt-3 btn-sm"><i
                         class="fa-solid fa-arrow-left" style="padding-right: 5px;"></i>Back</a>
                 <div class="cont-parts mt-3 sidebar chat-container" id="chat" style="height: 69%;">
                     @if (!empty($chats))
