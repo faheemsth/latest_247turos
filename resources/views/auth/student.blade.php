@@ -538,22 +538,18 @@
         </div>
     </div>
 
-    <div id="popuptens">
+    <div id="popuptens" class="py-5">
         <div id="closetens"> <i class="fa-solid fa-xmark"></i></div>
 
-        <img src="{{ asset('assets/images/shutterstock_1676998309 1.png') }}" width="100%" alt="">
-        <div class="mt-3 row gap-2 justify-content-center">
-            <a type="button" href='{{ route('studentApplySteps') }}' class="poptext col-auto btn px-5 py-2 mb-2"
-                style="background:linear-gradient(93.86deg, #063B00 9.41%, #000000 98.3%);
-                            ;
-                            color: white; border: none;">Become
-                a student <i class="fa-solid fa-chevron-right"></i></a>
-            <a type="button" href='{{ url('/parent-signup') }}?role=5&message=true'
-                class="poptext col-auto btn px-5 py-2 mb-2"
-                style="background:linear-gradient(93.86deg, #063B00 9.41%, #000000 98.3%);color: white; border: none;">Become
-                a Parent
-                <i class="fa-solid fa-chevron-right"></i>
-            </a><br>
+        <div class="row justify-content-center align-items-center">
+            <div class="col-10 text-center my-3" style="color: #423e3e;">
+                <h5 style="
+    line-height: 1.6rem;
+"><i class="fa-solid fa-circle-exclamation text-warning" style="font-size: 24px"></i> Disclaimer you are under the age of 16, <br>
+    please note that you are required to connect your account with that of  <a href="http://127.0.0.1:8000/parent-signup?role=5">your parent or guardian</a>. By continuing to use this platform, you acknowledge and agree to comply with this requirement.
+                </h5>
+                <h6>Thank you for your cooperation.</h6>
+            </div>
         </div>
     </div>
 

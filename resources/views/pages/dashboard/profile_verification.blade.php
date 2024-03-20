@@ -600,6 +600,12 @@
                                                                         style="color: red;">*</span></label><br>
                                                                 <textarea name="biography" id="biography" class="w-100 p-2"></textarea>
                                                             </div>
+                                                            <div class="col-md-12 mb-3">
+                                                                <label class="text-secondary">Address<span
+                                                                        id="Title-validation-message"
+                                                                        style="color: red;">*</span></label><br>
+                                                                <textarea name="mainAddress" id="mainAddress" class="w-100 p-2"></textarea>
+                                                            </div>
 
 
                                                             <div class="col-md-12 mb-3">
@@ -1640,6 +1646,9 @@
             var gender = $('#gender').val();
             var biography = $('#biography').val();
             var address = $('#address').val();
+            var mainAddress = $('#mainAddress').val();
+
+
 
             var experience = $('#experience').val();
             var week_hours = $('#week_hours').val();
@@ -1745,6 +1754,7 @@
                 gender: gender,
                 biography: biography,
                 address: address,
+                mainAddress:mainAddress
 
 
             }
@@ -1816,9 +1826,10 @@
                 var c_record = $('#c-record').val();
                 var gender = $('#gender').val();
                 var biography = $('#biography').val();
+                var mainAddress = $('#mainAddress').val();
                 var address = $('#address').val();
                 if (c_record == '' || c_record == null || gender == '' || gender == null || biography == '' || biography ==
-                    null || address == '' || address == null) {
+                    null || address == '' || address == null || mainAddress == '' || mainAddress == null) {
                     message();
                     return false;
                 } else {

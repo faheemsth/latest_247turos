@@ -315,6 +315,7 @@ public function update_tutor_post(Request $request)
             $tutor->refrance_email = $request->refrance_email;
             $tutor->disclaimer = $request->disclaimer;
             $tutor->address = $request->address;
+            $tutor->mainAddress = $request->mainAddress;
             $tutor->save();
 
             if ($request->user_id != 'undefined') {
