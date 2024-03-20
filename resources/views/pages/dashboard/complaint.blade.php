@@ -69,30 +69,24 @@
         <div class="row my-5">
             <div class="col-12 text-center">
                 <h4 class="complainttext" id="text-color">Complaint System</h4>
-                <h6 class="complaintp">How To Works</h6>
+                <h6 class="complaintp">How it Works</h6>
             </div>
             <div class="col-12 my-3">
                 <div class="row justify-content-center my-3">
                     <div class="col-md-3 col-12 text-center">
                         <i class="fa-solid fa-sitemap"></i>
                         <p class="mt-3">
-                            Get to know the status
-                            of your complaint or add a
-                            new complaint
+                            Gain insight into the status of your complaint or submit a new complaint.
                         </p>
                     </div>
                     <div class="col-md-3 col-12 text-center">
                         <i class="fa-solid fa-volcano"></i>
-                        <p class="mt-3">Track your complaint
-                            (Track your complaint using
-                            Ticket number)</p>
+                        <p class="mt-3">Monitor your grievance (Monitor your grievance using a Ticket number).</p>
                     </div>
                     <div class="col-md-3 col-12 text-center">
                         <i class="fa-regular fa-file-lines"></i>
                         <p class="mt-3">
-                            Add a complaint
-                            (Add a complaint against an Tutor
-                            service provided)
+                            Raise an issue (Lodge a grievance against a tutor service provided).
                         </p>
                     </div>
                 </div>

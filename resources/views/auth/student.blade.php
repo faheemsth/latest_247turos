@@ -465,8 +465,7 @@
 
                             </div>
                             <p style="font-size:20px;font-style:italic"
-                                class="text-center my-5 text-secondary text-italic">We’ll Select Tutors who Specialise in
-                                your Chosen Subject (with A/A*’s to Show for it)!.
+                                class="text-center my-5 text-secondary text-italic">Choose a subject to learn based on your interests, goals, and available resources,<br> while remaining open to exploring new topics.
                             </p>
                         </div>
                         <div class="d-flex col-12 justify-content-center m-auto my-5 gap-2">
