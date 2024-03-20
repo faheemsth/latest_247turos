@@ -262,7 +262,7 @@
                                 @endif
                                 <div class="text px-3 d-flex flex-column">
                                     <span class="fw-bold">{{ $tutor->username }}</span>
-                                     <span>{{ $tutor->facebook_link }}</span> 
+                                     <span>{{ $tutor->facebook_link }}</span>
                                 </div>
                             </div>
                         </div>
@@ -526,7 +526,7 @@
                                             @endif
                                             <div class="text p-3 d-flex flex-column">
                                                 <span  class="fw-bold">{{ $tutor->username }}</span>
-                                                 <span>{{ $tutor->facebook_link }}</span> 
+                                                 <span>{{ $tutor->facebook_link }}</span>
                                             </div>
                                         </div>
                                         <div class="summary-item mt-3" style="line-height: 0.7;">
@@ -1103,10 +1103,7 @@
             --------------------------------------------*/
             function stripeResponseHandler(status, response) {
                 if (response.error) {
-                    $('.error')
-                        .removeClass('hide')
-                        .find('.alert')
-                        .text(response.error.message);
+                    toastr.error(response.error.message, 'Error');
                 } else {
                     /* token contains id, last4, and card type */
                     var token = response['id'];
@@ -1141,11 +1138,11 @@
             $('#amount2').val(fee);
             $('#feeId').text('$' + fee);
             $('.total').text('$' + fee);
-            
+
             $('#feeId').text('$' + fee);
             $('.total').text('$' + selectedOption.data('fee'));
-            
-            
+
+
             $('#changesubject').on('change', function() {
                 var selectedOption = $(this).find('option:selected');
                 var fee = selectedOption.data('fee') - $('#walletBalance').data('balance');
@@ -1202,8 +1199,8 @@
                         }else{
                             discount = Math.max(fetchfee, 0);
                         }
-                        
-                        
+
+
                         var walletCheck=$('#wallet').val();
                         if(walletCheck > 0){
                          var TotalWallet = discount + parseFloat(walletCheck);
@@ -1215,8 +1212,8 @@
                         $('#walletText').text('Wallet Have Amount :' + TotalWallet);
                         $('#feeId').text('$' + fee);
                         $('.total').text('$' + (selectedOption.data('fee') - fetchfee));
-                        
-                        
+
+
                         }else{
                         $('.total').text('$' + Math.max((fee - discount), 0));
                         $('#amount').hide();
