@@ -288,7 +288,11 @@ public function update_tutor_post(Request $request)
 
 
             DB::beginTransaction();
-            $tutor = new TutorApplication;
+            $tutor = TutorApplication::where('tutor_id', auth()->user()->id)->first();
+            if (!$tutor) {
+                $tutor = new TutorApplication;
+                $tutor->tutor_id = auth()->user()->id;
+            }
             $tutor->tutor_id = auth()->user()->id;
             $tutor->is_criminal = $request->is_criminal;
             $tutor->is_criminal = $request->is_criminal;
@@ -389,6 +393,7 @@ public function update_tutor_post(Request $request)
                     'profile_description' => $request->biography,
                     'address' => $request->address,
                     'image' =>  $tutor->selfie,
+                    'gender' => $request->gender,
                 ]);
             }
 
@@ -415,6 +420,7 @@ public function update_tutor_post(Request $request)
             $user = User::where('id', auth()->user()->id)->first();
             if (!empty($user)) {
                 $user->profile_status = 1;
+                $user->zipcode = $request->mainAddress;
                 $user->save();
             }
 

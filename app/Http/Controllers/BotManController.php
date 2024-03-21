@@ -8,6 +8,8 @@ use BotMan\BotMan\Messages\Incoming\Answer;
 use Illuminate\Support\Facades\Mail;
 use PHPMailer\PHPMailer\PHPMailer;
 use Illuminate\Support\Facades\Session;
+use App\Models\Notification;
+use Auth;
 
 class BotManController extends Controller
 {
@@ -49,7 +51,7 @@ class BotManController extends Controller
         $botman->ask("What's your name?", function (Answer $answer) {
             $name = $answer->getText();
             Session::put('name', $name);
-            $this->say('How i can help you,' . $name . '?');
+            $this->say('How I can assist you,' . $name . '?');
         });
     }
 
@@ -111,6 +113,14 @@ class BotManController extends Controller
         Session::put('name');
         Session::put('question');
         $botman->types();
+
+        $noti = new Notification;
+        $noti->user_type = 0;
+        $noti->user_id = Auth::id();
+        $noti->title = 'Chat Support';
+        $noti->description = $message;
+        $noti->save();
+
         $botman->ask("Thanks, nice to meet you! We will contact you shortly. If you have an urgent inquiry then please contact " . optional(\App\Models\WebSetting::find(1))->field_value, function ($answer, $botman) {
             $botman->stopConversation();
         });

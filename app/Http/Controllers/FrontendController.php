@@ -21,7 +21,7 @@ use App\Models\Newsletter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use PHPMailer\PHPMailer\PHPMailer;
-
+use App\Models\Notification;
 
 class FrontendController extends Controller
 {
@@ -255,6 +255,13 @@ class FrontendController extends Controller
         }
 
         // If validation passes, proceed with saving the data
+        $noti = new Notification;
+        $noti->user_type = 0;
+        $noti->user_id = Auth::id();
+        $noti->title = 'Newsletter';
+        $noti->description = 'Create New Newsletter';
+        $noti->save();
+
         $data = new Newsletter;
         $data->email = $request->email;
         $data->save();

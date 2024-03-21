@@ -353,11 +353,49 @@ class ChatController extends Controller
 
                 $checkUser = User::find($notification->user_id);
                 if (!empty($checkUser)) {
-                    if ($notification->user_type == 3) {
+                    if ($notification->user_type == 3 || $notification->title == 'Tutor Logout') {
                         $url = url('tutorProfile') . '/' . $notification->user_id . '?NoteId=' . $notification->id;
-                    } elseif ($notification->user_type == 4 && $notification->title == 'Comptaint') {
+                    } elseif ($notification->user_type == 4 && $notification->title == 'Complaint') {
                         $url = 'Complaintlogs';
+                    } elseif ($notification->user_type == 5 && $notification->title == 'Parent Signup') {
+                        $url = 'parents';
+                    } elseif ($notification->user_type == 6 && $notification->title == 'Organization Signup') {
+                        $url = 'organizations';
+                    } elseif ($notification->user_type == 4 && $notification->title == 'Student Signup'){
+                        $url = 'students';
+                    } elseif ($notification->title == 'New Booking'){
+                        $url = 'AdminBookings';
+                    } elseif ($notification->title == 'Refound Request'){
+                        $url = 'admin/RefundList';
+                    } elseif ($notification->title == 'Rescheduled Meeting'){
+                        $url = 'AdminBookings';
+                    } elseif ($notification->title == 'Apperove Rescheduled Meeting'){
+                        $url = 'AdminBookings';
+                    } elseif ($notification->title == 'Add Amount To Wallet'){
+                        $url = 'transaction';
+                    } elseif ($notification->title == 'Amount to be refunded'){
+                        $url = 'admin/RefundList';
+                    } elseif ($notification->title == 'Refunded Request Processing'){
+                        $url = 'admin/RefundList';
+                    } elseif ($notification->title == 'Cancelled Booking' || $notification->title == 'Cancelled By User Booking' || $notification->title == 'Cancelled By Tutor Booking'){
+                        $url = 'AdminBookings';
+                    } elseif ($notification->title == 'Pending Booking'){
+                        $url = 'AdminBookings';
+                    } elseif ($notification->title == 'Scheduled Booking'){
+                        $url = 'AdminBookings';
+                    } elseif ($notification->title == 'In Process Booking'){
+                        $url = 'AdminBookings';
+                    } elseif ($notification->title == 'Completed Booking'){
+                        $url = 'AdminBookings';
+                    } elseif ($notification->title == 'Student Logout'){
+                        $url = 'students';
+                    } elseif ($notification->title == 'Parent Logout'){
+                        $url = 'parents';
+                    } elseif ($notification->title == 'Organization Logout'){
+                        $url = 'organizations';
                     }
+
+
                     $html .= '<a href="' . $url . '" class="list-group-item" data-chat-user="' . optional(User::find($notification->user_id))->username . '">
                             <figure class="">
                                 <img src="';
@@ -377,6 +415,22 @@ class ChatController extends Controller
                 $html .= '" class="rounded-circle" alt="">
                             </figure><span><span class="name">' . optional(User::find($notification->user_id))->username . '</span>  <span class="username">' . $notification->title . '</span> </span>
                         </a>';
+                }else{
+                    if($notification->title == 'Newsletter'){
+                        $html .= '<a href="' . url('newsletter') . '" class="list-group-item" data-chat-user="newsletter">
+                            <figure class="">
+                                <img src="'.asset('assets/images/male.jpg').'" class="rounded-circle" alt="">
+                            </figure><span><span class="name">New Subscriber</span>  <span class="username">' . $notification->title . '</span> </span>
+                        </a>';
+                    }else if($notification->title == 'Chat Support'){
+                        $html .= '<a href="' . url('newsletter') . '" class="list-group-item" data-chat-user="newsletter">
+                            <figure class="">
+                                <img src="'.asset('assets/images/male.jpg').'" class="rounded-circle" alt="">
+                            </figure><span><span class="name">Chat Support</span>  <span class="username" style="font-size: 13px;">' . $notification->description . '</span> </span>
+                        </a>';
+
+                    }
+
                 }
             }
         }

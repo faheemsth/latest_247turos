@@ -135,14 +135,14 @@ Route::post('disclaimer/request', [DisclaimerController::class,'disclaimer_reque
 
 Route::get('/countAllData', [FrontendController::class, 'countAllData']);
 Route::get('/find-tutor', [FrontendController::class, 'findTutor'])->name('findTutor');
-Route::get('/privacypolicy', function () {
+Route::get('/privacy-policy', function () {
     $TermsAndCondition=App\Models\TermsAndCondition::where('status','privacy_policy')->get();
     return view('frontend.policy',compact('TermsAndCondition'));
 });
 Route::get('/sitemap', function () {
     return view('frontend.sitemap');
 });
-Route::get('/testimonials', function () {
+Route::get('/terms-and-conditions', function () {
     $TermsAndCondition=App\Models\TermsAndCondition::where('status','terms_condition')->get();
     return view('frontend.testimonials',compact('TermsAndCondition'));
 });
@@ -250,10 +250,11 @@ Route::get('account/verify',  function (Request $request) {
 
             }
             $user->save();
-            if ($user->role_id == "3") {
-                return redirect('profile_verification')->with('success', "Your e-mail is Successfully verified.");
-            }
-            return redirect('dashboard')->with('success', "Your e-mail is Successfully verified.");
+            return redirect()->route('login')->with('success', "Your e-mail is Successfully verified.");
+            // if ($user->role_id == "3") {
+            //     return redirect('profile_verification')->with('success', "Your e-mail is Successfully verified.");
+            // }
+            // return redirect('dashboard')->with('success', "Your e-mail is Successfully verified.");
         } else {
             return redirect()->route('login')->with('success', "Your e-mail is already verified. You can now login.");
         }
@@ -314,7 +315,8 @@ Route::group(['middleware' => 'auth'], function(){
                 $Pending=Booking::where('status', "Pending")->get();
                 $request_refound=Booking::where('request_refound', "2")->get();
                 $notifications = Notification::with('Notifier')->where('is_read', 0)->where('title','Comptaint')->whereHas('Notifier', function ($query) { $query->whereNotNull('id'); })->paginate(5);
-                return view('super-admin.dashboard',compact('request_refound','notifications','org','students','tutors','parents','recents','Completed','Cancelled','InProcess','Scheduled','Pending'));
+                $Complaint = App\Models\Complaint::paginate(5);
+                return view('super-admin.dashboard',compact('Complaint','request_refound','notifications','org','students','tutors','parents','recents','Completed','Cancelled','InProcess','Scheduled','Pending'));
 
             } elseif ($request->user()->role_id == 2) {
                 return redirect('admin_dashboard');
