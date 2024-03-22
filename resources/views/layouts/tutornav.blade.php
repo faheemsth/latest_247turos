@@ -89,6 +89,7 @@ $groups = App\Models\Group::All();
                     </a>
                 </li>
             </ul>
+            <div id="google_element"></div>
             <div class="dropdown d-none d-lg-block">
                 <a class="btn   fw-bold dropdown dropdown-second " href="#" role="button" id="dropdownMenuLink"
                     data-bs-toggle="dropdown" aria-expanded="false"

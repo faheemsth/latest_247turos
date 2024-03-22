@@ -135,10 +135,9 @@ $groups = App\Models\Group::All();
                 </li>
             </ul>
 
-
+            <div id="google_element"></div>
             <div class="col-md-2 d-flex justify-content-end align-items-center header-btn gap-1"
                 style="max-width: max-content;">
-
                 <div class="dropdown  d-none d-lg-flex ">
                     <a class="btn   fw-bold dropdown dropdown-second " href="#" role="button"
                         id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"

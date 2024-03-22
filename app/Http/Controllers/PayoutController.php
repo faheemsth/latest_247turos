@@ -134,6 +134,7 @@ class PayoutController extends Controller
                 $user = User::find($wallet->user_id);
                 $data = [
                     'student' => $user->first_name . ' ' . $user->last_name,
+                    'date' => now(),
                 ];
                 $imagePath = public_path('assets/images/247 NEW Logo 1.png');
                 $view = view('pages.mails.WalletPeddingAmountTransferToWallet', $data)->render();
