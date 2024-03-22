@@ -408,7 +408,7 @@ class ChatController extends Controller
                             } elseif (User::find($notification->user_id)->gender == 'Female') {
                                 $html .= asset('assets/images/female.jpg');
                             } else {
-                                $html .= asset('assets/images/default.jpg');
+                                $html .= asset('assets/images/default.png');
                             }
                         }
 

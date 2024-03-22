@@ -13,6 +13,7 @@ use App\Models\TutorSubjectOffer;
 use App\Models\User;
 use App\Models\DocumentType;
 use App\Models\Document;
+use App\Models\Language;
 use App\Models\TutorApplication;
 use App\Models\TutorQualification;
 use Carbon\Carbon;
@@ -32,11 +33,12 @@ class TutorExperienceController extends Controller
                 return  redirect('/dashboard');
             }
         $subjects = Subject::with('level')->get();
-        $tutorsubjectoffers = TutorSubjectOffer::where('tutor_id', Auth::id())->with(['level', 'tutor', 'subject'])->get();
+        $Languages = Language::all();
+        $tutorsubjectoffers = TutorSubjectOffer::where('tutor_id', Auth::id())->with(['level', 'tutor', 'subject','language'])->get();
         $levels = Level::all();
         $availabilitys = Availability::where('tutor_id', Auth::id())->get();
         $TutorQualifications = TutorQualification::where('tutor_id', Auth::id())->get();
-        return view('pages.dashboard.profiledetails', compact('TutorQualifications', 'availabilitys', 'subjects', 'levels', 'tutorsubjectoffers'));
+        return view('pages.dashboard.profiledetails', compact('Languages','TutorQualifications', 'availabilitys', 'subjects', 'levels', 'tutorsubjectoffers'));
     }
 
     public function profileVerification()
@@ -139,7 +141,7 @@ public function update_tutor_post(Request $request)
         $subject_ids = explode(',', $subject_ids);
 
         $subjects = Subject::whereIn('id', $subject_ids)->with('level')->get();
-        $tutorsubjectoffers = TutorSubjectOffer::where('tutor_id', Auth::id())->with(['level', 'tutor', 'subject'])->get();
+        $tutorsubjectoffers = TutorSubjectOffer::where('tutor_id', Auth::id())->with(['level', 'tutor', 'subject','language'])->get();
         $levels = Level::all();
         $TutorQualifications = TutorQualification::where('tutor_id', Auth::id())->get();
         $availabilitys = Availability::where('tutor_id', Auth::id())->get();

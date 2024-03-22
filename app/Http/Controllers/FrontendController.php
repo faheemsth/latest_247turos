@@ -14,6 +14,7 @@ use App\Models\Availability;
 use App\Models\Booking;
 use App\Models\Chat;
 use App\Models\BlogReply;
+use App\Models\Language;
 use Illuminate\Http\Request;
 use App\Models\TutorSubjectOffer;
 use Illuminate\Support\Facades\DB;
@@ -49,11 +50,12 @@ class FrontendController extends Controller
     {
         $levels = Level::all();
         $Subjects = Subject::distinct('name')->pluck('name','id');
+        $Languages = Language::distinct('name')->pluck('name','id');
         $TutorSubjectOffers = TutorSubjectOffer::find_tutor($request);
         if ($request->ajax()) {
-            return view('frontend.ajax', compact('TutorSubjectOffers', 'levels', 'Subjects'));
+            return view('frontend.ajax', compact('TutorSubjectOffers', 'levels', 'Subjects','Languages'));
         }
-        return view('frontend.find-tutor', compact('TutorSubjectOffers', 'levels', 'Subjects'));
+        return view('frontend.find-tutor', compact('TutorSubjectOffers', 'levels', 'Subjects','Languages'));
     }
 
     public function studentApplySteps()
@@ -175,7 +177,7 @@ class FrontendController extends Controller
     {
         $tutor = User::find($id);
         $subjects = Subject::with('level')->get();
-        $tutorsubjectoffers = TutorSubjectOffer::where('tutor_id', $tutor->id)->with(['level', 'tutor', 'subject'])->get();
+        $tutorsubjectoffers = TutorSubjectOffer::where('tutor_id', $tutor->id)->with(['level', 'tutor', 'subject','language'])->get();
         $availabilitys = Availability::where('tutor_id', $tutor->id)->get();
         $TutorQualifications=TutorQualification::where('tutor_id',$id)->get();
         $students = array();

@@ -522,6 +522,8 @@
                                     <thead class="qualification">
                                         <tr>
                                             <th scope="col">Subject</th>
+                                            <th scope="col">Language</th>
+
                                             <th scope="col">Qualification</th>
                                             <th scope="col">Fee Per Hour</th>
                                         </tr>
@@ -531,7 +533,7 @@
                                             @foreach ($tutorsubjectoffers as $tutorsubjectoffer)
                                                 <tr>
                                                     <td>{{ optional($tutorsubjectoffer->subject)->name }}</td>
-
+                                                    <td>{{ optional($tutorsubjectoffer->language)->name }}</td>
                                                     <td>{{ $tutorsubjectoffer->levelstring }}</td>
                                                     <td>£{{ $tutorsubjectoffer->fee }}/hr</td>
                                                 </tr>

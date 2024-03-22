@@ -574,6 +574,7 @@
                         <thead class="qualification">
                             <tr>
                                 <th scope="col">Subject</th>
+                                <th scope="col">Language</th>
                                 <th scope="col">Level</th>
                                 <th scope="col">Fee Per Hour</th>
                                 <th scope="col">Action</th>
@@ -586,13 +587,15 @@
 
                                         <td>{{ !empty($tutorsubjectoffer->subject) ? $tutorsubjectoffer->subject->name : '' }}
                                         </td>
+                                        <td>{{ !empty($tutorsubjectoffer->language) ? $tutorsubjectoffer->language->name : '' }}
+                                        </td>
                                         <td>{{ $tutorsubjectoffer->levelstring }}</td>
                                         <td>£{{ $tutorsubjectoffer->fee }}/hr</td>
                                         <td class="text-center">
                                             <a href="{{ url('subject/offer/delete') . '/' . $tutorsubjectoffer->id }}"
                                                 class="btn qualification"><i class="fa-solid fa-trash"></i></a>
                                             <a class="btn qualification"
-                                                onclick="UpdateSubjectOffer('{{ $tutorsubjectoffer->id }}','{{ $tutorsubjectoffer->subject_id }}','{{ $tutorsubjectoffer->levelstring }}','{{ $tutorsubjectoffer->fee }}')"><i
+                                                onclick="UpdateSubjectOffer('{{ $tutorsubjectoffer->language_id }}','{{ $tutorsubjectoffer->id }}','{{ $tutorsubjectoffer->subject_id }}','{{ $tutorsubjectoffer->levelstring }}','{{ $tutorsubjectoffer->fee }}')"><i
                                                     class="fa-solid fa-edit"></i></a>
                                         </td>
                                     </tr>
@@ -882,6 +885,21 @@
                             </select>
                             <label for="floatingSelectGrid">Subjects</label>
                         </div>
+
+
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="floatingSelectGrid" required name="language_id"
+                                aria-label="Floating label select example">
+                                <option value="" selected>Select Language</option>
+                                @if ($Languages)
+                                    @foreach ($Languages as $Language)
+                                        <option value="{{ $Language->id }}">{{ $Language->name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            <label for="floatingSelectGrid">Languages</label>
+                        </div>
+
                         <div class="form-floating mb-3">
                             <select class="form-select" id="floatingSelectGrid" name="level_id" required
                                 aria-label="Floating label select example">
@@ -1113,12 +1131,14 @@
             new bootstrap.Modal(modal).show();
         }
 
-        function UpdateSubjectOffer(id, subject_id, level_id, fee) {
+        function UpdateSubjectOffer(language_id, id, subject_id, level_id, fee) {
             $('#subjectmodalget').html('');
             const modal = document.getElementById("updateSubjectModal");
             const url = `{{ url('/subject/offer/update') }}/${id}`;
             let selectOptions = @json($levels);
             let selectOptions2 = @json($subjects);
+            let selectOptions3 = @json($Languages);
+
 
             const html = `
             <form action="${url}" method="post" enctype="multipart/form-data">
@@ -1136,6 +1156,14 @@
                             ${selectOptions2.map(l => `<option value="${l.id}" ${subject_id == l.id ? 'selected' : ''}>${l.name}</option>`).join('')}
                         </select>
                         <label for="floatingSelectGrid">Subjects</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="floatingSelectGrid" name="language_id" aria-label="Floating label select example">
+                            <option>Select Level</option>
+                            ${selectOptions3.map(l => `<option value="${l.id}" ${language_id == l.id ? 'selected' : ''}>${l.name}</option>`).join('')}
+                        </select>
+                        <label for="floatingSelectGrid">Languages</label>
                     </div>
 
 

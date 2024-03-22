@@ -42,7 +42,7 @@
 
                 <div class="card p-md-3 p-2">
                     <div class="card-header justify-content-between">
-                        <h3>{{ __('Complaint') }}</h3>
+                        <h3>{{ __('Complaints') }}</h3>
                     </div>
 
                     <div class=" mt-4  px-0 pe-md-4 d-flex justify-content-between">
@@ -51,13 +51,15 @@
                             class="col-12 col-md-6 col-lg-6 col-xl-5 d-flex px-0 justify-content-between align-items-center gap-2">
                             <select name="status" id="status" class="col-md-6 select2 form-select">
                                 <option value="">All Search</option>
-                                <option value="3"
-                                    {{ !empty($_GET['status']) && $_GET['status'] == 3 ? 'selected' : '' }}>Tutor</option>
-                                <option value="4"
-                                    {{ !empty($_GET['status']) && $_GET['status'] == 4 ? 'selected' : '' }}>Student
+                                <option value="website"
+                                    {{ !empty($_GET['status']) && $_GET['status'] == 'website' ? 'selected' : '' }}>Website</option>
+                                <option value="admin"
+                                    {{ !empty($_GET['status']) && $_GET['status'] == 'admin' ? 'selected' : '' }}>Admin
                                 </option>
-                                <option value="5"
-                                    {{ !empty($_GET['status']) && $_GET['status'] == 5 ? 'selected' : '' }}>Parent</option>
+                                <option value="tutor"
+                                    {{ !empty($_GET['status']) && $_GET['status'] == 'tutor' ? 'selected' : '' }}>Tutor</option>
+                                <option value="organization"
+                                    {{ !empty($_GET['status']) && $_GET['status'] == 'organization' ? 'selected' : '' }}>Organization</option>
                             </select>
                             <input type="text" id="serach" name="serach" value="{{ $_GET['serach'] ?? '' }}"
                                 class="form-control" placeholder="Search">
@@ -74,6 +76,7 @@
                                         <th>#Ticket No</th>
                                         <th>Complainer</th>
                                         <th>Subject</th>
+                                        <th>Position</th>
                                         <th>Booking Id</th>
                                         <th>Status</th>
                                         <th>Date</th>
@@ -89,6 +92,7 @@
                                                 <td>{{ optional(App\Models\User::find($Complaint->user_id))->username == ''?optional(App\Models\User::find($Complaint->user_id))->first_name.' '.optional(App\Models\User::find($Complaint->user_id))->last_name:optional(App\Models\User::find($Complaint->user_id))->username }}
                                                 </td>
                                                 <td>{{ $Complaint->subject }}</td>
+                                                <td>{{ $Complaint->type }}</td>
                                                 <td>
                                                     @if (empty($Complaint->booking_id))
                                                         N/A
@@ -112,11 +116,11 @@
                                                 </td>
                                             </tr>
                                         @endforeach
-                                        <tr style="border: none;">
-                                            <td class="text-end" colspan="6" style="border: none;">
-                                                {!! $Complaints->links('pagination.custom') !!}
-                                            </td>
-                                        </tr>
+                                        <!--<div>-->
+                                        <!--    <div>-->
+                                        <!--        {!! $Complaints->links('pagination.custom') !!}-->
+                                        <!--    </div>-->
+                                        <!--</div>-->
                                     @else
                                         <tr>
                                             <td class="text-center" colspan="6">Record not found</td>

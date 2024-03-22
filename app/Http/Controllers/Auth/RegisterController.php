@@ -249,6 +249,7 @@ class RegisterController extends Controller
                 'phone' => $data['code'] . $data['phone'],
                 'email' => $data['email'],
                 'cpfname' => $data['cpfname'],
+                'username' => $data['username'],
                 'cplname' => $data['cplname'],
                 'cpemail' => $data['cpemail'],
                 'zipcode' => $data['zipcode'],
@@ -260,7 +261,7 @@ class RegisterController extends Controller
 
                 'status' => 'Active',
                 'role_id' => $data['role_id'],
-                'password' => Hash::make('1234'),
+                'password' => Hash::make($data['cpassword']),
             ]);
             $ActivityLogs = new ActivityLog;
             $ActivityLogs->user_id = $user->id;

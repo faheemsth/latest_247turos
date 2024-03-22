@@ -7,6 +7,7 @@
             <td>{{ optional(App\Models\User::find($Complaint->user_id))->username == ''?optional(App\Models\User::find($Complaint->user_id))->first_name.' '.optional(App\Models\User::find($Complaint->user_id))->last_name:optional(App\Models\User::find($Complaint->user_id))->username }}
             </td>
             <td>{{ $Complaint->subject }}</td>
+            <td>{{ $Complaint->type }}</td>
             <td>
                 @if (empty($Complaint->booking_id))
                     N/A
@@ -27,11 +28,11 @@
             </td>
         </tr>
     @endforeach
-    <tr style="border: none;">
-        <td class="text-end" colspan="6" style="border: none;">
-            {!! $Complaints->links('pagination.custom') !!}
-        </td>
-    </tr>
+    <!--<tr style="border: none;">-->
+    <!--    <td class="text-end" colspan="6" style="border: none;">-->
+    <!--        {!! $Complaints->links('pagination.custom') !!}-->
+    <!--    </td>-->
+    <!--</tr>-->
 @else
     <tr>
         <td class="text-center" colspan="6">Record not found</td>
