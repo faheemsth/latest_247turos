@@ -421,6 +421,8 @@ Route::group(['middleware' => 'auth'], function () {
         Route::post('/create-coupon', [CouponController::class, 'create_coupon']);
         // super admin dashboard users
         Route::get('/newsletter', [FrontendController::class, 'list'])->name('newsletter.list');
+        Route::get('/newsletter/create', [FrontendController::class, 'NewsletterCreate'])->name('Newsletter.Create');
+        Route::post('/Newsletter/Send', [FrontendController::class, 'NewsletterSend'])->name('Newsletter.Send');
         Route::get('/setting/pages', [PageController::class, 'setting'])->name('website');
         Route::get('/setting/blog', [PageController::class, 'bloglisting'])->name('bloglist');
 

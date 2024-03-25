@@ -297,10 +297,53 @@ class FrontendController extends Controller
 
         }
 
-        $blogs=$blogs->paginate(5);
+        $blogs=$blogs->get();
         return view('super-admin.Pages.Newsletter.list', compact('blogs'));
 
     }
+
+
+    public function NewsletterCreate(Request $request)
+    {
+        return view('super-admin.Pages.Newsletter.create');
+    }
+
+    public function NewsletterSend(Request $request)
+    {
+        $blogs = Newsletter::all();
+        foreach($blogs as $blog){
+
+            $data = [
+            'tutorMessage' => 'Thank You for Subscribing to Our Newsletter!',
+            'content'=> $request->content
+            ];
+            $imagePath = public_path('assets/images/247 NEW Logo 1.png');
+            $view = \view('pages.mails.newslatter', $data);
+            $view = $view->render();
+
+            $mail = new PHPMailer();
+            $mail->CharSet = "UTF-8";
+
+            $mail->setfrom('support@247tutors.com', '247 Tutors');
+            $mail->AddEmbeddedImage($imagePath, 'logo');
+
+            $mail->isHTML(true);
+            $mail->Subject = 'This Newsletter from Admin!';
+            $mail->Body = $view;
+            $mail->AltBody = '';
+            $mail->addaddress($blog->email,'test');
+            $mail->isHTML(true);
+            $mail->msgHTML($view);
+
+            if (!$mail->send())
+                throw new \Exception('Failed to send mail');
+
+        }
+        return back();
+
+    }
+
+
 
         public function deleteNewsletter($id)
         {
