@@ -108,9 +108,10 @@
                 <div class=" col-lg-6 text-center col-6" style="border-right: 1px solid gray;">
                     <h5 class="fw-bold">Balance</h5>
                     <h4>
-                       @if (!empty(App\Models\Wallet::where('user_id', Auth::id())->first()))
-
-                            @if ( (int) App\Models\Wallet::where('user_id', Auth::id())->first()->net_income == App\Models\Wallet::where('user_id', Auth::id())->first()->net_income)
+                        @if (!empty(App\Models\Wallet::where('user_id', Auth::id())->first()))
+                            @if (
+                                (int) App\Models\Wallet::where('user_id', Auth::id())->first()->net_income ==
+                                    App\Models\Wallet::where('user_id', Auth::id())->first()->net_income)
                                 £{{ App\Models\Wallet::where('user_id', Auth::id())->first()->net_income }}.00
                             @else
                                 £{{ App\Models\Wallet::where('user_id', Auth::id())->first()->net_income }}
@@ -125,8 +126,9 @@
                     <h5 class="fw-bold">Withdrawn</h5>
                     <h4>
                         @if (!empty(App\Models\Wallet::where('user_id', Auth::id())->first()))
-
-                            @if ( (int) App\Models\Wallet::where('user_id', Auth::id())->first()->withdrawn == App\Models\Wallet::where('user_id', Auth::id())->first()->withdrawn)
+                            @if (
+                                (int) App\Models\Wallet::where('user_id', Auth::id())->first()->withdrawn ==
+                                    App\Models\Wallet::where('user_id', Auth::id())->first()->withdrawn)
                                 £{{ App\Models\Wallet::where('user_id', Auth::id())->first()->withdrawn }}.00
                             @else
                                 £{{ App\Models\Wallet::where('user_id', Auth::id())->first()->withdrawn }}
@@ -214,10 +216,10 @@
                                                 </span>
                                             @else
                                                 <span class="badge bg-secondary">
-                                                     @if($booking->request_refound == '2')
-                                                     {{ 'Paid Refund To User' }}
+                                                    @if ($booking->request_refound == '2')
+                                                        {{ 'Paid Refund To User' }}
                                                     @else
-                                                     {{ 'Request Refund' }}
+                                                        {{ 'Request Refund' }}
                                                     @endif
                                                 </span>
                                             @endif
@@ -278,8 +280,9 @@
 
                                         <div class="col-md-6">
                                             <div class=' form-group required'>
-                                                <label class='control-label'>Payed Amount £</label> <input class=" w-100 p-2"
-                                                    size='4' type='text' name="amount" id="amount2" required>
+                                                <label class='control-label'>Payed Amount £</label> <input
+                                                    class=" w-100 p-2" size='4' type='text' name="amount"
+                                                    id="amount2" required>
                                             </div>
                                         </div>
 
@@ -352,13 +355,15 @@
                                             @endif
                                             <div class="text p-3 d-flex flex-column">
                                                 <span class="fw-bold" id="text-color">{{ Auth::user()->username }}</span>
-                                                 <span>{{ Auth::user()->facebook_link }}</span>
+                                                <span>{{ Auth::user()->facebook_link }}</span>
                                             </div>
                                         </div>
 
                                         <div class="summary-text mt-3">
                                             <p class="text-center">
-                                               Thank you for adding funds to your 247Tutors wallet! Your action ensures smooth transactions and uninterrupted learning experiences with our tutors. 🌟
+                                                Thank you for adding funds to your 247Tutors wallet! Your action ensures
+                                                smooth transactions and uninterrupted learning experiences with our tutors.
+                                                🌟
                                             </p>
                                         </div>
                                     </div>
@@ -378,13 +383,52 @@
     </div>
 
 
+    <div class="modal fade zoomIn" id="withdraw_modal" tabindex="-1" aria-labelledby="update_doc_modal"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-lg">
+            <div class="modal-content border-0">
+                <div class="modal-header p-3 bg-info-subtle">
+                    <h5 class="modal-title" id="update_doc_modal_title"> Add Amount In Wallet</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                        id="close-modal"></button>
+                </div>
+                <form id="withdrawForm" action="{{ url('tutor/payout') }}" method="GET">
+                    @csrf
+                    <div class="modal-dialog">
+                        <div class="modal-content" style="background-color: #003087;color:white">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="withdrawModalLabel">PayPal</h5>
+                            </div>
+                            <div class="modal-body">
+                                <!-- Payment Withdraw Form -->
+                                <div class="mb-3">
+                                    <label for="withdrawAmount" class="form-label">Amount:</label>
+                                    <input type="number" class="form-control" id="withdrawAmount" name="withdrawAmount"
+                                        placeholder="Enter amount">
+                                </div>
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                <button type="button" id="withdrawBtn" class="btn btn-primary">Withdraw</button>
+                                <span id="processing" style="display:none;">Processing...</span>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer"></div>
+                </form>
+            </div>
+        </div>
+    </div>
+
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+
     <script>
         document.getElementById("amount2").addEventListener("input", function() {
             var inputValue = this.value;
             var number = inputValue.match(/\d+/);
             this.value = number ? number[0] : '';
         });
-        </script>
+    </script>
     <script>
         function freeMeetmodal() {
             $('#demo_meeting_modal').modal('show')
@@ -481,6 +525,67 @@
 
         });
     </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#withdrawBtn').click(function(e) {
+                e.preventDefault();
+                $(this).prop('disabled', true);
+                $('#withdrawBtn').hide();
+                $('#processing').show();
+                let formData = $('#withdrawForm').serialize();
+                $.ajax({
+                    url: $('#withdrawForm').attr('action'),
+                    type: 'GET',
+                    data: formData,
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    },
+                    success: function(data) {
+                        console.log(data)
+                        if (data.status_code == 401) {
+                            $('#withdrawBtn').show();
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'warning',
+                                title: data.message,
+                                showConfirmButton: false,
+                                timer: 2000,
+                                showCloseButton: true
+                            });
+                        } else if (data.status_code == 501) {
+                            $('#withdrawBtn').show();
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'error',
+                                title: data.message,
+                                showConfirmButton: false,
+                                timer: 2000,
+                                showCloseButton: true
+                            });
+                        } else if (data.status_code == 200) {
+                            $('#withdrawBtn').show();
+                            Swal.fire({
+                                position: 'center',
+                                icon: 'success',
+                                title: data.message,
+                                showConfirmButton: false,
+                                timer: 2000,
+                                showCloseButton: true
+                            }).then(function() {
+                                window.location.reload();
+                            });
+                        }
+                    },
+                    complete: function() {
+                        $('#processing').hide();
+                        $('#withdrawBtn').prop('disabled', false);
+                    }
+                });
+            });
+        });
+    </script>
+
     <script>
         const currentYear = new Date().getFullYear();
         const expYearInput = document.getElementById("exp_year_input");
@@ -505,67 +610,9 @@
 
     <script src="{{ URL::asset('assets/sweetalert2/sweetalert2.min.js') }}"></script>
 
-<script>
+    <script>
         function withdraw() {
-
-
-            Swal.fire({
-                title: 'Are you sure?',
-                text: 'Do you want to withdraw amount',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Yes'
-            }).then((result) => {
-                if (result.isConfirmed) {
-
-
-
-
-            $.ajax({
-                url: '{{ url('tutor/payout') }}',
-                type: 'GET',
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(data) {
-                    console.log(data)
-                    if (data.status_code == 401) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'warning',
-                            title: data.message,
-                            showConfirmButton: false,
-                            timer: 2000,
-                            showCloseButton: true
-                        });
-                    } else if (data.status_code == 501) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: data.message,
-                            showConfirmButton: false,
-                            timer: 2000,
-                            showCloseButton: true
-                        });
-                    } else if (data.status_code == 200) {
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'success',
-                            title: data.message,
-                            showConfirmButton: false,
-                            timer: 2000,
-                            showCloseButton: true
-                        }).then(function() {
-                            window.location.reload();
-                        });
-                    }
-                }
-            });
-
-            }
-            });
+            $('#withdraw_modal').modal('show');
         }
     </script>
 @endsection

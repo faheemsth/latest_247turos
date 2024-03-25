@@ -23,7 +23,7 @@ class PayoutController extends Controller
         return PayoutAmount('10','acct_1OoKzjSDq7qRUMRw');
     }
 
-    public function payout()
+    public function payout(Request $request)
     {
         $provider = new PayPalClient;
         $provider->setApiCredentials(config('paypal'));
@@ -36,7 +36,7 @@ class PayoutController extends Controller
         if ($user) {
             if ($user->paypal_email != null) {
                 if ($wallet) {
-                    if ($wallet->net_income > 0) {
+                    if ($wallet->net_income > 0 && $request->withdrawAmount > 0) {
 
                         $data = [
                             'student' => $user->first_name . ' ' . $user->last_name,
@@ -84,8 +84,8 @@ class PayoutController extends Controller
                             $res = $provider->createBatchPayout($payoutData);
 
                             if (isset($res['batch_header'])) {
-                                $wallet->withdrawn += $wallet->net_income;
-                                $wallet->net_income = 0;
+                                $wallet->withdrawn += $request->withdrawAmount;
+                                $wallet->net_income -= $request->withdrawAmount;
                                 $wallet->save();
                             }
                             $response['message'] = " Withdraw successfull! ";
@@ -101,6 +101,12 @@ class PayoutController extends Controller
                             return response()->json($response);
                             dd($e->getMessage());
                         }
+                    }else{
+                        $response['message'] = " We cannot process this request! ";
+                        $response['success'] = true;
+                        $response['status_code'] = 501;
+                        return response()->json($response);
+
                     }
                 } else {
                     $response['message'] = " We cannot process this request! ";
@@ -129,7 +135,7 @@ class PayoutController extends Controller
             $currentTime = time();
             // $twentyFourHoursAgo = $currentTime - (7 * 24 * 3600);
 
-            $twentyFourHoursAgo = $currentTime - (1 * 24 * 3600);
+            $twentyFourHoursAgo = $currentTime - (5 * 60);
             if ($updatedTime <= $twentyFourHoursAgo) {
                 $user = User::find($wallet->user_id);
                 $data = [
