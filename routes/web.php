@@ -95,6 +95,7 @@ Route::get('SevenDayPaymentSendToTutorReminder', [PayoutController::class, 'Seve
 
 Route::get('BookingSlotRelease', [InterviewController::class, 'BookingSlotRelease']);
 
+Route::get('CronExpiredDBS', [TutorExperienceController::class, 'CronExpiredDBS']);
 
 Route::get('/emailVerificationEmail', function () {
     return view('auth.verifytutor');

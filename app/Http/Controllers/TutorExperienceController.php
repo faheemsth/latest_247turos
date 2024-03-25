@@ -477,6 +477,31 @@ public function update_tutor_post(Request $request)
     }
 
 
+    public function CronExpiredDBS()
+    {
+        $dbs_expiris = TutorApplication::where('is_dbs_expired','0')->get();
+        foreach ($dbs_expiris as $dbs_expiri) {
+            $user1 = User::find($dbs_expiri->tutor_id);
+            $enhaced_dbs_expiry = Carbon::parse($dbs_expiri->enhaced_dbs_expiry);
+            $enhaced_dbs_expired = $enhaced_dbs_expiry->isPast();
+            if ($enhaced_dbs_expired && !empty($user1)) {
+                createNotification(optional($user1)->role_id, Auth::id(), 'DBs Expired', $dbs_expiri->enhaced_dbs_expiry);
+                $dbs_expiri->is_dbs_expired= "1";
+                $dbs_expiri->save();
+            }
+        }
+        $user_id_expiris = TutorApplication::where('is_user_id_expired','0')->get();
+        foreach ($user_id_expiris as $user_id_expiri) {
+            $user2 = User::find($user_id_expiri->tutor_id);
+            $user_id_expiry = Carbon::parse($user_id_expiri->user_id_expiry);
+            $user_id_expired = $user_id_expiry->isPast();
+            if ($user_id_expired && !empty($user2)) {
+                createNotification(optional($user2)->role_id, Auth::id(), 'User ID Expired', $dbs_expiri->user_id_expiry);
+                $user_id_expiri->is_user_id_expired= "1";
+                $user_id_expiri->save();
+            }
+        }
+    }
 
 
 

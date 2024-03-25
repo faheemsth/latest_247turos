@@ -1810,6 +1810,7 @@ class BookingController extends Controller
             if (empty($booking)) {
                 return redirect('bookings')->with('error', 'Reschedule meeting not Create');
             }
+            $tempSlots = TempSlot::where('date',$booking_reschedule->booking_date)->where('slot',$booking_reschedule->booking_time)->where('tutor_id',$booking_reschedule->tutor_id)->first();
 
             createNotification(Auth::user()->role_id, Auth::id(), 'Apperove Rescheduled Meeting', 'By ' . Auth::user()->username);
 
@@ -1848,6 +1849,11 @@ class BookingController extends Controller
                 ];
             }
             if ($booking_reschedule) {
+                if (!empty($tempSlots)) {
+                    $tempSlots->date = $booking->booking_date;
+                    $tempSlots->slot = $booking->booking_time;
+                    $tempSlots->save();
+                }
                 if ($booking) {
                     $booking_reschedule->booking_date = $booking->booking_date;
                     $booking_reschedule->booking_time = $booking->booking_time;
