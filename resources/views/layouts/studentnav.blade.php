@@ -72,6 +72,14 @@ $groups = App\Models\Group::All();
                     <a class="nav-link {{ request()->routeIs('findTutor') ? 'active' : '' }}"
                         href="{{ url('find-tutor') }}">Find a Tutor</a>
                 </li>
+
+                @if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+                @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/student/payments') }}">Balance over view Report</a>
+                </li>
+                @endif
+
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('findTutor') ? 'active' : '' }}"
                         href="{{ url('students/messages') }}">Messages <span id="msgcount" class="messgcount" style="display: none"></a>
@@ -93,6 +101,9 @@ $groups = App\Models\Group::All();
                         href="{{ url('bookings') }}" tabindex="-1" aria-disabled="true">Bookings
                        <span id="msgcount" class="countBooking" style="display: none"></span>
                     </a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('faq') ? 'active' : '' }}"  href='{{ route('faq') }}' tabindex="-1" aria-disabled="true">FAQs</a>
                 </li>
             </ul>
 
@@ -138,7 +149,10 @@ $groups = App\Models\Group::All();
                         <li><a class="dropdown-item" href="{{ url('student/profile') }}"><img
                                     src="{{ asset('assets/images/student 1.png') }}" alt="" srcset="">
                                 Your Profile</a></li>
-                    <li><a class="dropdown-item" href="{{ url('/student/payments') }}"><i class="fa-solid fa-file-invoice-dollar me-2"></i>Billing & Payments</a></li>
+                    @if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+                    @else
+                        <li><a class="dropdown-item" href="{{ url('/student/payments') }}"><i class="fa-solid fa-file-invoice-dollar me-2"></i>Billing & Payments</a></li>
+                    @endif
                     <li><a class="dropdown-item" href="{{ url('complaint') }}"><i class="fa-solid fa-headset me-2"></i>
                     Support</a></li>
                         <li><a class="dropdown-item" href="{{ url('logout') }}"><img

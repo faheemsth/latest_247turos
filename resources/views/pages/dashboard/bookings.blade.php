@@ -189,7 +189,10 @@
                                 <th>Student</th>
                                 <th>Tutor</th>
                                 <th>Subject</th>
+                                @if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+                                @else
                                 <th>Amount</th>
+                                @endif
                                 <th>Duration</th>
                                 <th>Status</th>
                                 <th>Date</th>
@@ -213,6 +216,8 @@
                                             </a>
                                         </th>
                                         <th class="text-capitalize">{{ optional($booking->subjects)->name }}</th>
+                                        @if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+                                        @else
                                         <td>
                                             @if ($booking->booking_fee !== 'Free')
                                                 @if ((int) $booking->booking_fee == $booking->booking_fee)
@@ -224,6 +229,7 @@
                                                 {{ $booking->booking_fee }}
                                             @endif
                                         </td>
+                                        @endif
                                         <td>{{ $booking->duration }} minutes</td>
                                         <td>
                                             @if ($booking->request_refound != 1 && $booking->request_refound != '2')

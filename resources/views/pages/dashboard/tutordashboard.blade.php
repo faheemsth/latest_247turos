@@ -549,7 +549,7 @@
                                     <input class="form-check-input" type="checkbox" value="1" name="disclaimer"
                                         required id="flexCheckDefault">
                                     <label class="form-check-label" for="flexCheckDefault">
-                                        I would like to Receive, Tips, and offers by Email
+                                        I Accept
                                     </label>
                                 </div>
                                 <button type="submit" id="checkButton" class="btn btn-primary">Check the

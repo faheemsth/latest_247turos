@@ -638,6 +638,7 @@ Route::group(['middleware' => 'auth'], function () {
 
         Route::get('/show_student/{id}', [ParentController::class, 'show_student']);
         Route::get('parent/students', [ParentController::class, 'your_students']);
+        Route::post('parent/set_is_monitor', [ParentController::class, 'set_is_monitor']);
         Route::get('book_lessons', [ParentController::class, 'book_lessons']);
         Route::get('get-subject', [ParentController::class, 'get_subject']);
         Route::post('get-slots', [StudentController::class, 'getSlots']);

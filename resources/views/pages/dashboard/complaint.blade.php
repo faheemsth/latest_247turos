@@ -168,7 +168,7 @@
                                         @endforeach
                                     @else
                                         <tr>
-                                            <td colspan="6">Not Record Found </td>
+                                            <td colspan="7">Not Record Found </td>
                                         </tr>
                                     @endif
                                 </tbody>

@@ -386,6 +386,8 @@
                                                 placeholder="Enter Phone Number" class="w-100 p-2">
 
                                         </span>
+                                        <span id="phone-validation-message" style="color: red;"></span>
+
                                     </div>
                                 </div>
 
@@ -417,7 +419,7 @@
                                 Back</a>
                             <a href="#toplinkup" class="text-decoration-none">
                                 <input type="button" required name="password" class=" next btn btn-primary px-5"
-                                    value="Next" id="next1" /></a>
+                                    value="Next" id="next2" /></a>
                         </div>
                     </fieldset>
                     <fieldset id="personal">
@@ -489,7 +491,7 @@
 
                             <a href="#toplinkup" class="text-decoration-none">
                                 <input type="button" required name="password" class=" next btn btn-primary px-5"
-                                    value="Next" id="next1" /></a>
+                                    value="Next" id="next3" /></a>
                         </div>
                     </fieldset>
                     <fieldset id="personal">
@@ -563,27 +565,37 @@
         $(document).ready(function() {
             $('#parentemail').on('keyup', function() {
                 var email = $(this).val();
+                if (email.length > 6) {
+                    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(email)) {
+                        $('#email-validation-message').text(
+                            "Please include an '@' in the email address. '" + email +
+                            "' is missing an '@'.");
+                        $('#next2').prop('disabled', true);
+                    } else {
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'email-check',
-                    data: {
-                        email: email
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.unique === false) {
-                            $('#email-validation-message').text(
-                                'This email is already registered.');
-                            $('#next1').prop('disabled', true);
-                        } else {
-                            $('#email-validation-message').text('');
-                            $('#next1').prop('disabled', false);
-                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: 'email-check',
+                            data: {
+                                email: email
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                                if (response.unique === false) {
+                                    $('#email-validation-message').text(
+                                        'This email is already registered.');
+                                    $('#next2').prop('disabled', true);
+                                } else {
+                                    $('#email-validation-message').text('');
+                                    $('#next2').prop('disabled', false);
+                                }
+                            }
+                        });
                     }
-                });
+                }
             });
         });
     </script>
@@ -592,30 +604,63 @@
         $(document).ready(function() {
             $('#cpemail').on('keyup', function() {
                 var email = $(this).val();
+                var parentemail = $('#parentemail').val();
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    $('#cpemail-validation-message').text("Please include an '@' in the email address. '" +
+                        email + "' is missing an '@'.");
+                    $('#next3').prop('disabled', true);
+                } else {
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'email-check',
-                    data: {
-                        email: email
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.unique === false) {
-                            $('#cpemail-validation-message').text(
-                                'This email is already registered.');
-                            $('#register').prop('disabled', true);
-                        } else {
-                            $('#cpemail-validation-message').text('');
-                            $('#register').prop('disabled', false);
-                        }
+                    if (email === parentemail) {
+                        $('#cpemail-validation-message').text(
+                            'This email is already registered.');
+                        $('#next3').prop('disabled', true);
+                    } else {
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'email-check',
+                            data: {
+                                email: email
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                                if (response.unique === false) {
+                                    $('#cpemail-validation-message').text(
+                                        'This email is already registered.');
+                                    $('#next3').prop('disabled', true);
+                                } else {
+                                    $('#cpemail-validation-message').text('');
+                                    $('#next3').prop('disabled', false);
+                                }
+                            }
+                        });
                     }
-                });
+                }
             });
         });
     </script>
+        <script>
+            $(document).ready(function() {
+                $('#parentphone').on('keyup', function() {
+                    var phoneNumber = $(this).val();
+
+                    phoneNumber = phoneNumber.replace(/\D/g, '');
+                    $(this).val(phoneNumber);
+
+                    if (phoneNumber.length > 10) {
+                        $('#phone-validation-message').text('');
+                        $('#next2').prop('disabled', false);
+                    } else {
+                        $('#phone-validation-message').text('Phone number should be more than 10 characters.');
+                        $('#next2').prop('disabled', true);
+                    }
+                });
+            });
+        </script>
     <script>
         var picker = '';
         let slots = '';

@@ -217,7 +217,7 @@ class RegisterController extends Controller
                     'phone' => $request->input('stucode') . $request->input('stuphone'),
                     'email' => $request->input('stuemail'),
                     'username' => $request->input('stulname').rand ( 100 , 999 ),
-
+                    'is_monitor' => !empty($data['parent_authority']) ? '1':'0',
                     'status' => 'Active',
                     'email_verified_at' => Carbon::now(),
                     'role_id' => '4',

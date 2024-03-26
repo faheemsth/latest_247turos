@@ -65,6 +65,7 @@
         .flag-1 {
             left: -12px;
         }
+
         .flag-2 {
             left: 302px;
         }
@@ -76,19 +77,20 @@
         .flag-4 {
             left: 918px;
         }
-        @media only screen and (min-width: 1440px){
 
-        .flag-2 {
-            left: 354px;
-        }
+        @media only screen and (min-width: 1440px) {
 
-        .flag-3 {
-            left: 710px;
-        }
+            .flag-2 {
+                left: 354px;
+            }
 
-        .flag-4 {
-            left: 1068px;
-        }
+            .flag-3 {
+                left: 710px;
+            }
+
+            .flag-4 {
+                left: 1068px;
+            }
         }
 
         @media only screen and (max-width: 1240px) {
@@ -175,27 +177,28 @@
             }
         }
     </style>
-      <div id="topsscrol"  class="container-fluid ">
-            <div class="row" style="background-color:#dcdcdc8f;">
-                <div class="col-12 py-1" style="text-align:end;">
-                    <a href="{{ url('auth/google?role=').$_GET['role'] }}" class="btn btn-outline-primary px-2 fw-bold py-1">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png" style="width: 29px;
+    <div id="topsscrol" class="container-fluid ">
+        <div class="row" style="background-color:#dcdcdc8f;">
+            <div class="col-12 py-1" style="text-align:end;">
+                <a href="{{ url('auth/google?role=') . $_GET['role'] }}" class="btn btn-outline-primary px-2 fw-bold py-1">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png"
+                        style="width: 29px;
                      padding: 3px ;">
-                        Sign-Up With Google</a>
-                    <!--<a href="" class="btn bg-transparent p-0" type="button">-->
-                    <!--    <img src="https://portal.kedasrd.com/images/GButton.png" class="w-25">-->
-                    <!--</a>-->
-                </div>
+                    Sign-Up With Google</a>
+                <!--<a href="" class="btn bg-transparent p-0" type="button">-->
+                <!--    <img src="https://portal.kedasrd.com/images/GButton.png" class="w-25">-->
+                <!--</a>-->
             </div>
+        </div>
     </div>
-    <div  class="container">
+    <div class="container">
         <div class="row">
             <div class="col-md-12 d-flex justify-content-between align-items-center mt-5 mb-4">
                 <!--<img src="{{ asset('assets/images/247 NEW Logo 2.png') }}" alt="Logo" width="15%" height="auto">-->
-                 <h3 class="fw-bold mb-0" style="font-size:1.6rem">
-                  <span id="text-color">
-                      PARENT
-                  </span>   REGISTRATION
+                <h3 class="fw-bold mb-0" style="font-size:1.6rem">
+                    <span id="text-color">
+                        PARENT
+                    </span> REGISTRATION
                 </h3>
                 <div class="col-md-1 text-center">
                     <a href="{{ url('') }}" class="link-dark"><i class="fa-solid fa-xmark fa-2x"></i></a>
@@ -208,7 +211,7 @@
 
     <!-- prograss bar -->
 
-    <div  class="container mt-3">
+    <div class="container mt-3">
         <div class="justify-content-center align-items-center d-none d-md-flex">
             <div class=" col-8 col-md-10">
                 <div class="progress" style="position: relative; overflow: visible;">
@@ -241,7 +244,8 @@
                             <div class="col-md-12 col-12 ">
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Parent First Name<span  style="color: red;">*</span></label><br>
+                                        <label class="text-secondary">Parent First Name<span
+                                                style="color: red;">*</span></label><br>
                                         <input type="text" id="parentfname" placeholder="Enter First Name" name="fname"
                                             class="w-100 p-2">
                                     </div>
@@ -249,7 +253,8 @@
 
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Parent Last Name<span  style="color: red;">*</span></label><br>
+                                        <label class="text-secondary">Parent Last Name<span
+                                                style="color: red;">*</span></label><br>
                                         <input type="text" id="parentlname" placeholder="Enter Last Name" name="lname"
                                             class="w-100 p-2">
                                     </div>
@@ -257,7 +262,8 @@
 
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Parent Email<span  style="color: red;">*</span></label><br>
+                                        <label class="text-secondary">Parent Email<span
+                                                style="color: red;">*</span></label><br>
                                         <input type="email" id="parentemail" name="email"
                                             placeholder="Enter Email Address" class="w-100 p-2">
                                         <span id="email-validation-message" style="color: red;"></span>
@@ -266,14 +272,15 @@
                                 <div class="row mt-4 justify-content-center"></div>
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Parent Phone <span  style="color: red;">*</span></label><br>
+                                        <label class="text-secondary">Parent Phone <span
+                                                style="color: red;">*</span></label><br>
                                         <span class="d-flex">
                                             <select class="w-10 p-2" name="code">
                                                 <option value="+1">+1</option>
                                                 <option value="+20">+20</option>
                                                 <option value="+33">+33</option>
                                                 <option value="+34">+34</option>
-                                                <option value="+44"  selected>+44</option>
+                                                <option value="+44" selected>+44</option>
                                                 <option value="+44">+44</option>
                                                 <option value="+52">+52</option>
                                                 <option value="+55">+55</option>
@@ -309,12 +316,14 @@
                                                 placeholder="Enter Phone Number" class="w-100 p-2">
 
                                         </span>
+                                        <span id="phone-validation-message" style="color: red;"></span>
                                     </div>
                                 </div>
                                 <div class="row mt-3 justify-content-center">
                                     <div class="col-md-5 d-flex">
                                         <input type="checkbox" class="p-2  me-1" name="parent_authority" value="1">
-                                        <label class="text-secondary">Allow Authority to contact student directly<span  style="color: red;">*</span></label><br>
+                                        <label class="text-secondary">Allow Authority to contact student directly<span
+                                                style="color: red;">*</span></label><br>
 
                                     </div>
                                 </div>
@@ -325,8 +334,8 @@
                             <a href="#" class="link-dark previous btn " id="previous1"><i
                                     class="fa fa-light fa-arrow-left"></i>
                                 Back</a>
-                           <a href="#topsscrol" class="text-decoration-none"> <input type="button" required  class=" next btn btn-primary px-5"
-                                value="Next" id="next1" /></a>
+                            <a href="#topsscrol" class="text-decoration-none"> <input type="button" required
+                                    class=" next btn btn-primary px-5" value="Next" id="next1" /></a>
                         </div>
                     </fieldset>
 
@@ -339,7 +348,8 @@
                                     <div class="col-md-12 col-12 ">
                                         <div class="row mt-4 justify-content-center">
                                             <div class="col-md-5">
-                                                <label class="text-secondary">Student First Name<span  style="color: red;">*</span></label><br>
+                                                <label class="text-secondary">Student First Name<span
+                                                        style="color: red;">*</span></label><br>
                                                 <input type="text" id="fname"
                                                     placeholder="Enter Student First Name" name="stufname"
                                                     class="w-100 p-2">
@@ -348,7 +358,8 @@
 
                                         <div class="row mt-4 justify-content-center">
                                             <div class="col-md-5">
-                                                <label class="text-secondary">Student Last Name<span  style="color: red;">*</span></label><br>
+                                                <label class="text-secondary">Student Last Name<span
+                                                        style="color: red;">*</span></label><br>
                                                 <input type="text" id="lname"
                                                     placeholder="Enter Student Last Name" name="stulname"
                                                     class="w-100 p-2">
@@ -358,14 +369,17 @@
 
                                         <div class="row mt-4 justify-content-center">
                                             <div class="col-md-5">
-                                                <label class="text-secondary">Date Of Birth<span  style="color: red;">*</span></label><br>
-                                                <input type="date" id="dob" name="dob" class="w-100 p-2" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                                                <label class="text-secondary">Date Of Birth<span
+                                                        style="color: red;">*</span></label><br>
+                                                <input type="date" id="dob" name="dob" class="w-100 p-2"
+                                                    max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                             </div>
                                         </div>
 
                                         <div class="row mt-4 justify-content-center">
                                             <div class="col-md-5">
-                                                <label class="text-secondary">Student Email<span  style="color: red;">*</span></label><br>
+                                                <label class="text-secondary">Student Email<span
+                                                        style="color: red;">*</span></label><br>
                                                 <input type="email" id="stuemail" name="stuemail"
                                                     placeholder="Enter Student Email Address" class="w-100 p-2">
                                                 <span id="email-validation-message-stuemail" style="color: red;"></span>
@@ -374,7 +388,8 @@
 
                                         <div class="row mt-4 justify-content-center">
                                             <div class="col-md-5">
-                                                <label class="text-secondary">Student Phone<span  style="color: red;">*</span></label><br>
+                                                <label class="text-secondary">Student Phone<span
+                                                        style="color: red;">*</span></label><br>
                                                 <span class="d-flex">
                                                     <select class="w-10 p-2" name="stucode">
                                                         <option value="+1">+1</option>
@@ -418,6 +433,7 @@
                                                         placeholder="Enter Student Phone Number" class="w-100 p-2">
 
                                                 </span>
+                                                <span id="stuphone-validation-message" style="color: red;"></span>
                                             </div>
                                         </div>
 
@@ -430,15 +446,16 @@
                             <a href="#" class="link-dark previous btn " id="previous2"><i
                                     class="fa fa-light fa-arrow-left"></i>
                                 Back</a>
-                           <a href="#topsscrol" class="text-decoration-none"> <input type="button" required  class=" next btn btn-primary px-5"
-                                value="Next" id="next2" /></a>
+                            <a href="#topsscrol" class="text-decoration-none"> <input type="button" required
+                                    class=" next btn btn-primary px-5" value="Next" id="next2" /></a>
                         </div>
                     </fieldset>
 
 
                     <fieldset id="subjects">
                         <div class="panel-body mt-5">
-                            <h2 class="text-center fs-1" id="text-color"><strong>Which Subject Would You Choose</strong></h2><br>
+                            <h2 class="text-center fs-1" id="text-color"><strong>Which Subject Would You Choose</strong>
+                            </h2><br>
                             {{-- <div class="container">
                                 <div class="d-flex flex-wrap justify-content-center">
                                     <a href="javascript:void(0)" data-subject-id="1" style="text-decoration: none">
@@ -494,7 +511,8 @@
 
                                     <div class="row mt-4 justify-content-center">
                                         <div class="col-md-5">
-                                            <label class="text-secondary mb-1" style="font-size: 1.6rem;">Subjects<span  style="color: red;">*</span></label><br>
+                                            <label class="text-secondary mb-1" style="font-size: 1.6rem;">Subjects<span
+                                                    style="color: red;">*</span></label><br>
                                             <span class="d-flex">
                                                 @if (!empty($subjects))
                                                     <select class="w-10 p-3 select2" id="subject" name="subject[]"
@@ -520,8 +538,8 @@
                             <a href="#" class="link-dark previous btn " id="previous2"><i
                                     class="fa fa-light fa-arrow-left"></i>
                                 Back</a>
-                          <a href="#topsscrol" class="text-decoration-none"><input type="button" required  class=" next btn btn-primary px-5"
-                                value="Next" id="next2" /></a>
+                            <a href="#topsscrol" class="text-decoration-none"><input type="button" required
+                                    class=" next btn btn-primary px-5" value="Next" id="next2" /></a>
                         </div>
                     </fieldset>
 
@@ -569,7 +587,7 @@
                             <button class="btn btn-primary d-none spiner" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Processing ...
-                                </button>
+                            </button>
                         </div>
                     </fieldset>
                 </form>
@@ -584,58 +602,75 @@
         $(document).ready(function() {
             $('#parentemail').on('keyup', function() {
                 var email = $(this).val();
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'email-check',
-                    data: {
-                        email: email
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.unique === false) {
-                            $('#email-validation-message').text(
-                                'This email is already registered.');
-                            $('#next1').prop('disabled', true);
-                        } else {
-                            $('#email-validation-message').text('');
-                            $('#next1').prop('disabled', false);
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    $('#email-validation-message').text("Please include an '@' in the email address. '" +
+                        email + "' is missing an '@'.");
+                    $('#next1').prop('disabled', true);
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'email-check',
+                        data: {
+                            email: email
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            if (response.unique === false) {
+                                $('#email-validation-message').text(
+                                    'This email is already registered.');
+                                $('#next1').prop('disabled', true);
+                            } else {
+                                $('#email-validation-message').text('');
+                                $('#next1').prop('disabled', false);
+                            }
                         }
-                    }
-                });
+                    });
+                }
             });
             $('#stuemail').on('keyup', function() {
                 var stuemail = $(this).val();
                 var parentemail = $('#parentemail').val();
-                if (stuemail === parentemail) {
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(stuemail)) {
                     $('#email-validation-message-stuemail').text(
-                        'This email is already registered.');
+                        "Please include an '@' in the email address. '" + stuemail +
+                        "' is missing an '@'.");
                     $('#next2').prop('disabled', true);
                 } else {
 
-                    $.ajax({
-                    type: 'POST',
-                    url: 'email-check',
-                    data: {
-                        email: stuemail
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.unique === false) {
-                            $('#email-validation-message-stuemail').text(
-                           'This email is already registered.');
-                            $('#next2').prop('disabled', true);
-                        } else {
-                            $('#email-validation-message-stuemail').text('');
-                            $('#next2').prop('disabled', false);
-                        }
+                    if (stuemail === parentemail) {
+                        $('#email-validation-message-stuemail').text(
+                            'This email is already registered.');
+                        $('#next2').prop('disabled', true);
+                    } else {
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'email-check',
+                            data: {
+                                email: stuemail
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                                if (response.unique === false) {
+                                    $('#email-validation-message-stuemail').text(
+                                        'This email is already registered.');
+                                    $('#next2').prop('disabled', true);
+                                } else {
+                                    $('#email-validation-message-stuemail').text('');
+                                    $('#next2').prop('disabled', false);
+                                }
+                            }
+                        });
                     }
-                });
                 }
+
+
             });
         });
     </script>
@@ -652,6 +687,44 @@
             $username.prop('readonly', true);
         });
     </script>
+    <script>
+        $(document).ready(function() {
+            $('#parentphone').on('keyup', function() {
+                var phoneNumber = $(this).val();
+
+                phoneNumber = phoneNumber.replace(/\D/g, '');
+                $(this).val(phoneNumber);
+
+                if (phoneNumber.length > 10) {
+                    $('#phone-validation-message').text('');
+                    $('#next1').prop('disabled', false);
+                } else {
+                    $('#phone-validation-message').text('Phone number should be more than 10 characters.');
+                    $('#next1').prop('disabled', true);
+                }
+            });
+        });
+    </script>
+
+<script>
+    $(document).ready(function() {
+        $('#phone').on('keyup', function() {
+            var phoneNumber = $(this).val();
+
+            phoneNumber = phoneNumber.replace(/\D/g, '');
+            $(this).val(phoneNumber);
+
+            if (phoneNumber.length > 10) {
+                $('#stuphone-validation-message').text('');
+                $('#next2').prop('disabled', false);
+            } else {
+                $('#stuphone-validation-message').text('Phone number should be more than 10 characters.');
+                $('#next2').prop('disabled', true);
+            }
+        });
+    });
+</script>
+
     <script>
         $(document).ready(function() {
             $('#username').on('keyup', function() {
@@ -719,21 +792,24 @@
                     });
                 }
             }
+
             function validateStep(step) {
                 var isValid = true;
                 if (step === 1) {
 
-                    if ($('#parentfname').val() === '' || $('#parentlname').val() === '' || $('#parentemail').val() === '' || $('#parentphone').val() === '') {
+                    if ($('#parentfname').val() === '' || $('#parentlname').val() === '' || $('#parentemail')
+                    .val() === '' || $('#parentphone').val() === '') {
                         isValid = false;
                     }
-                }else if (step === 3) {
+                } else if (step === 3) {
 
                     if ($('#subject').val() === '') {
                         isValid = false;
                     }
                 } else if (step === 4) {
 
-                    if ($('#confirm-password').val() === '' || $('#parentpassword').val() === '' || $('#parentusername').val() === '') {
+                    if ($('#confirm-password').val() === '' || $('#parentpassword').val() === '' || $(
+                            '#parentusername').val() === '') {
                         isValid = false;
                     }
                 }
@@ -771,8 +847,9 @@
         $(document).ready(function() {
             $('#register').click(function() {
                 var formData = $('#registration-form').serialize();
-                if ($('#confirm-password').val() === '' || $('#parentpassword').val() === '' || $('#parentusername').val() === '') {
-                        Swal.fire({
+                if ($('#confirm-password').val() === '' || $('#parentpassword').val() === '' || $(
+                        '#parentusername').val() === '') {
+                    Swal.fire({
                         position: 'center',
                         icon: 'error',
                         title: 'Please fill in all the required fields.',
@@ -780,61 +857,73 @@
                         timer: 5000,
                         showCloseButton: true
                     });
-                }else{
-                
-                $.ajax({
-                    url: '/register',
-                    method: 'POST',
-                    data: formData,
-                    beforeSend: function() {
-                        $('.submit-button').addClass('d-none');
-                        $('.spiner').removeClass('d-none');
-                    },
-                    success: function(response) {
-                        if(response.status == 200){
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'success',
-                                title: 'Registration Successful.Please check your email and verify your account to login.',
-                                showConfirmButton: false,
-                                timer: 5000,
-                                showCloseButton: true
-                            });
-                            window.setTimeout(function(){
+                } else {
 
-                                // Move to a new location or you can do something else
-                                window.location.href = 'login';
+                    if ($('#confirm-password').val() !== $('#parentpassword').val()) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Password Are Not Same.',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            showCloseButton: true
+                        });
+                    } else {
 
-                            }, 5000);
+                        $.ajax({
+                            url: '/register',
+                            method: 'POST',
+                            data: formData,
+                            beforeSend: function() {
+                                $('.submit-button').addClass('d-none');
+                                $('.spiner').removeClass('d-none');
+                            },
+                            success: function(response) {
+                                if (response.status == 200) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: 'Registration Successful.Please check your email and verify your account to login.',
+                                        showConfirmButton: false,
+                                        timer: 5000,
+                                        showCloseButton: true
+                                    });
+                                    window.setTimeout(function() {
 
-                        }else{
-                            Swal.fire({
-                                position: 'center',
-                                icon: 'error',
-                                title: 'Something went wrong!',
-                                showConfirmButton: false,
-                                timer: 2000,
-                                showCloseButton: true
-                            });
-                        }
-                    },
-                });
-                
-            }
+                                        // Move to a new location or you can do something else
+                                        window.location.href = 'login';
+
+                                    }, 5000);
+
+                                } else {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'error',
+                                        title: 'Something went wrong!',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                        showCloseButton: true
+                                    });
+                                }
+                            },
+                        });
+                    }
+
+                }
             });
         });
     </script>
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
-<script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
 
-<script>
-    // Get the message from the URL query parameter
-    var urlParams = new URLSearchParams(window.location.search);
-    var message = urlParams.get('message');
-    if (message) {
-        // Display the message to the user
-        toastr.error('You must be at least 16 years old to continue.');
-    }
-</script>
+    <script>
+        // Get the message from the URL query parameter
+        var urlParams = new URLSearchParams(window.location.search);
+        var message = urlParams.get('message');
+        if (message) {
+            // Display the message to the user
+            toastr.error('You must be at least 16 years old to continue.');
+        }
+    </script>
 
 @endsection

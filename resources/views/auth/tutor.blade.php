@@ -307,6 +307,7 @@
                                                 placeholder="Enter Phone Number" class="w-100 p-2">
 
                                         </span>
+                                        <span id="phone-validation-message" style="color: red;"></span>
                                     </div>
                                 </div>
 
@@ -478,12 +479,34 @@
             $username.prop('readonly', true);
         });
     </script>
+        <script>
+            $(document).ready(function() {
+                $('#parentphone').on('keyup', function() {
+                    var phoneNumber = $(this).val();
+
+                    phoneNumber = phoneNumber.replace(/\D/g, '');
+                    $(this).val(phoneNumber);
+
+                    if (phoneNumber.length > 10) {
+                        $('#phone-validation-message').text('');
+                        $('#next1').prop('disabled', false);
+                    } else {
+                        $('#phone-validation-message').text('Phone number should be more than 10 characters.');
+                        $('#next1').prop('disabled', true);
+                    }
+                });
+            });
+        </script>
     <script>
         $(document).ready(function() {
             var email = $('#parentemail').val('');
             $('#parentemail').on('keyup', function() {
                 var email = $(this).val();
-
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    $('#email-validation-message').text("Please include an '@' in the email address. '" + email + "' is missing an '@'.");
+                    $('#next1').prop('disabled', true);
+                }else{
                 $.ajax({
                     type: 'POST',
                     url: 'email-check',
@@ -504,6 +527,8 @@
                         }
                     }
                 });
+              }
+
             });
         });
     </script>

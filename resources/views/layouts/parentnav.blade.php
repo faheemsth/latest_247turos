@@ -133,6 +133,9 @@ $groups = App\Models\Group::All();
                         <span id="msgcount" class="countBooking" style="display: none"></span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('faq') ? 'active' : '' }}"  href='{{ route('faq') }}' tabindex="-1" aria-disabled="true">FAQs</a>
+                </li>
             </ul>
 
             <div id="google_element"></div>
