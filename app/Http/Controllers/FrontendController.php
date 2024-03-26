@@ -328,7 +328,7 @@ class FrontendController extends Controller
             $mail->AddEmbeddedImage($imagePath, 'logo');
 
             $mail->isHTML(true);
-            $mail->Subject = 'This Newsletter from Admin!';
+            $mail->Subject = $request->Subject;
             $mail->Body = $view;
             $mail->AltBody = '';
             $mail->addaddress($blog->email,'test');

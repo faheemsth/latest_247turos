@@ -2,7 +2,7 @@
 @section('title', 'Users')
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet" />
- MDB
+MDB
 <script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.js"></script>
 
 @push('head')
@@ -60,11 +60,13 @@
                             <form action="{{ url('Newsletter/Send') }}" method="POST" enctype="multipart/form-data">
                                 @csrf
                                 <div class="form-group">
+                                    <label for="name">Subject</label>
+                                    <input type="text" name="Subject" class="form-control" required>
+                                </div>
+                                <div class="form-group">
                                     <label for="name">Content</label>
-                                    <div id="froala-editor-blog">
-
-                                    </div>
-                                    <input type="hidden" name="content" id="editor-content-blog">
+                                    <div id="editor" style="height: 300px"></div>
+                                    <input type="hidden" name="content" id="editor-content-blog" required>
                                 </div>
                                 <button type="submit" class="btn btn-primary px-2 py-2" style="height: max-content;">
                                     Submit
@@ -77,18 +79,18 @@
         </div>
 
     </div>
-
-    <link rel="stylesheet" href="{{ asset('assets/css/froala_editor.pkgd.min.css') }}">
-    <script src="{{ asset('assets/js/froala_editor.pkgd.min.js') }}"></script>
+    <link href="https://cdn.quilljs.com/1.3.6/quill.snow.css" rel="stylesheet">
+    <script src="https://cdn.quilljs.com/1.3.6/quill.js"></script>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-
+    <script></script>
     <script>
         $(document).ready(function() {
-            const froalaEditor = new FroalaEditor(`div#froala-editor-blog`, {
-                language: 'ro'
+            var froalaEditor = new Quill('div#editor', {
+                theme: 'snow'
             });
+
             $('form').submit(function(event) {
-                const editorContent = froalaEditor.html.get();
+                const editorContent = froalaEditor.root.innerHTML;
                 $(`#editor-content-blog`).val(editorContent);
             });
         });
