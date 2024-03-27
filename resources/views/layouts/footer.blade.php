@@ -108,7 +108,9 @@
                 <a href='{{ route('index') }}'> <img src="{{ asset('assets/images/247 NEW Logo 2.png') }}" alt=""
                         srcset="" width="250px"></a>
                 <p class="py-3">
-                    247Tutors provides tailored online tutoring, connecting students with experienced tutors across various subjects and levels. With flexible schedules and interactive tools, we foster academic growth and success.
+                    Accusamus etidio dignissimos ducimus blanditiis praesentium volupta eleniti atquete corrupti
+                    quolores
+                    etmquasa molestias epturi sinteam occaecati cupiditate non providente mikume molareshe.
                 </p>
                 <div>
                     <a href="@isset($web_settings['fblink']) {{ $web_settings['fblink'] ?? '' }} @endisset"
@@ -215,7 +217,7 @@
     <!-- Middle-Footer -->
     <div class="container border-top p-md-3 py-3 d-none">
         <div class="row">
-            <div class="col col-md-12">
+            <div class="col col-md-12 ">
                 <h5>Tutor by subjects</h5>
                 @if (!empty($Subjects))
                     <div class="row ">
@@ -305,69 +307,38 @@
             @endif
         </div>
     </div>
-    </div>
-    </div>
+</div>
 <!-- last footer section -->
 <div class="container border-top p-md-3 pt-4">
-<div class="row justify-content-beetween">
-    <div class="col-12 col-md-7 col-xl-6">
-        <h5>Useful links</h5>
-        <div class="row">
-            <div class="col-6">
-                <ul>
-                    {{-- <li><a href="">Careers</a></li> --}}
-                    <li><a href="{{ url('blogs') }}">Blog</a></li>
-                    <li><a href="{{ route('faq') }}">F.A.Q</a></li>
-                    <li><a href="{{ url('/privacy-policy') }}">Privacy Policy</a></li>
-                </ul>
-            </div>
-            <div class="col-6">
-                <ul>
-                    <li><a href="{{ url('tutor-apply-steps') }}">Register as a tutor</a></li>
-                    {{-- <li><a href="">Testimonials & press</a></li> --}}
-                    <li><a href="{{ url('/videos-guides') }}">Using the Online Lesson Space</a></li>
-                    <li><a href="{{ url('/sitemap') }}">Sitemap</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-lg-4 col-xl-3 py-3 d-none">
-        <h5>Get mobile app</h5>
-        <p>Take education on the go. Get our mobile app for FREE! on your Apple and android devices</p>
-        <div>
-            <a href="">
-                <img src="./assets/images/iOS.png" alt="">
-            </a>
-            <a href="">
-                <img src="./assets/images/Android.png" alt="" srcset="">
-            </a>
-        </div>
-    </div>
-    <form id="newsletterForm" action="{{ url('send/newsletter') }}" method="POST"
-        style="display: contents;">
-        @csrf
-        <div class="col-12 col-md-5 col-xl-5 py-4 py-md-0">
-            <h5>Subscription for newsletter</h5>
-            <p>
-                Subscribe to our newsletter for exclusive updates, offers, and insights delivered straight to your inbox. Stay informed and be part of our community!
-             </p>
-            <div class="input-group input-group-lg">
-                <input type="text" class="form-control email-input" name="email"
-                    placeholder="Enter email address">
-                <span class="input-group-text input-group-sm border-0 px-2" style="cursor: pointer"
-                    id="bg-color">
-                    <button class="btn bg-transparent px-2" type="submit">
-                        <img src="{{ asset('assets/images/Icon (1).png') }}" alt="" srcset="">
-                    </button>
-                </span>
+    <div class="row justify-content-beetween">
+        <div class="col-12 col-md-7 col-xl-6">
+            <h5>Useful links</h5>
+            <div class="row">
+                <div class="col-6">
+                    <ul>
+                        {{-- <li><a href="">Careers</a></li> --}}
+                        <li><a href="{{ url('blogs') }}">Blog</a></li>
+                        <li><a href="{{ route('faq') }}">F.A.Q</a></li>
+                        <li><a href="{{ url('/privacypolicy') }}">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <ul>
+                        <li><a href="{{ url('tutor-apply-steps') }}">Register as a tutor</a></li>
+                        {{-- <li><a href="">Testimonials & press</a></li> --}}
+                        <li><a href="{{ url('/videos-guides') }}">Using the Online Lesson Space</a></li>
+                        <li><a href="{{ url('/sitemap') }}">Sitemap</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
+
         <form id="newsletterForm" action="{{ url('send/newsletter') }}" method="POST"
             style="display: contents;">
             @csrf
             <div class="col-12 col-md-5 col-xl-5 py-4 py-md-0">
-                <h5>Signup for newsletter</h5>
-                <p>Corrupti quolores etmquasa molestias epturite sinteam occaecati amet cupiditate mikume molareshe.
+                <h5>Subscription for newsletter</h5>
+                <p>Subscribe to our newsletter for exclusive updates, offers, and insights delivered straight to your inbox. Stay informed and be part of our community!
                 </p>
                 <div class="input-group input-group-lg">
                     <input type="text" class="form-control email-input" name="email"
@@ -387,16 +358,16 @@
 <!-- bottom footer -->
 <div class="container-fluid">
 
-<div class="row py-2 text-center align-items-lg-center" style="background-color: rgba(0, 0, 0, 0.2);">
-    <div class="col-12 col-lg-6 col-md-5">
-        <h6>© 247tutors All Rights Reserved 2024.</h6>
+    <div class="row py-2 text-center align-items-lg-center" style="background-color: rgba(0, 0, 0, 0.2);">
+        <div class="col-12 col-lg-6 col-md-5">
+            <h6>© 247Tutors All Rights Reserved 2024.</h6>
+        </div>
+        <div class="col-12 col-md-7 col-lg-6 d-flex gap-3 bottom-footer-menu justify-content-center">
+            {{-- <h6><a href="">Careers</a></h6> --}}
+            <h6><a href="{{ url('/testimonials') }}" class="">Terms of use</a></h6>
+            <h6><a href="{{ url('/privacypolicy') }}">Privacy policy</a></h6>
+        </div>
     </div>
-    <div class="col-12 col-md-7 col-lg-6 d-flex gap-3 bottom-footer-menu justify-content-center">
-        {{-- <h6><a href="">Careers</a></h6> --}}
-        <h6><a href="{{ url('/terms-and-conditions') }}">Terms of use</a></h6>
-        <h6><a href="{{ url('/privacy-policy') }}">Privacy Policy</a></h6>
-    </div>
-</div>
 </div>
 </div>
 

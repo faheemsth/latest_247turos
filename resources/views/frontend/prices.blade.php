@@ -66,10 +66,10 @@
     <div class="boxcontent container w-75 mt-4 d-none">
         <p> @isset($web_settings['price_desc']) {{$web_settings['price_desc'] ?? '' }} @endisset</p>
       </div>
-      <div class="find-tutor-budget mt-5 mb-4 py-3">
+      <div class="find-tutor-budget mt-5 mb-4 py-3 d-none">
         <h1><b> Find a Tutor for your Budget </b></h1>
       </div>
-      <div class="find-1-content d-flex justify-content-center mb-5">
+      <div class="find-1-content d-flex justify-content-center mb-5 d-none">
         <a href="{{ url('find-tutor?min_price=19&max_price=29') }}" class="text-decoration-none find-1-text">
           <h5><b> Find £19 - £29 Tutors </b></h5>
         </a>
