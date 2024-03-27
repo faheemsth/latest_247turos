@@ -319,7 +319,7 @@
                         {{-- <li><a href="">Careers</a></li> --}}
                         <li><a href="{{ url('blogs') }}">Blog</a></li>
                         <li><a href="{{ route('faq') }}">F.A.Q</a></li>
-                        <li><a href="{{ url('/privacypolicy') }}">Privacy Policy</a></li>
+                        <li><a href="{{ url('/privacy-policy') }}">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="col-6">
@@ -364,8 +364,8 @@
         </div>
         <div class="col-12 col-md-7 col-lg-6 d-flex gap-3 bottom-footer-menu justify-content-center">
             {{-- <h6><a href="">Careers</a></h6> --}}
-            <h6><a href="{{ url('/testimonials') }}" class="">Terms of use</a></h6>
-            <h6><a href="{{ url('/privacypolicy') }}">Privacy policy</a></h6>
+            <h6><a href="{{ url('/terms-and-conditions') }}" class="">Terms of use</a></h6>
+            <h6><a href="{{ url('/privacy-policy') }}">Privacy policy</a></h6>
         </div>
     </div>
 </div>

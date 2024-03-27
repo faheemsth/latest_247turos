@@ -494,7 +494,7 @@ and (max-width : 430px){
                 <div class="col-12 col-md-6 col-lg-3 my-3 d-flex justify-content-center">
                     <div
                         class="card  choose-card-blue p-3 d-flex flex-column align-items-center text-center justify-content-center"style="width:20rem;">
-                        <img class="card-img-top" src="{{ asset('assets/images/Artboard 3.png') }}" alt="" style="width: 120px;height:120px;">
+                        <img class="card-img-top" src="{{ asset('assets/images/complaint icon.png') }}" alt="" style="width: 120px;height:120px;">
                         <div class="card-body px-0">
                         <h1 class="mb-0 pb-0 card-title text-white">@isset($web_settings['card3_title']) {{ $web_settings['card3_title'] ?? '' }} @endisset</h1>
                         <hr class="w-100">

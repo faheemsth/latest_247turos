@@ -56,6 +56,10 @@
 
         }
 
+        .comimg{
+            width: 50%;
+        }
+
         @media only screen and (max-width:425px) {
             table tr th {
                 min-width: 110px;
@@ -76,17 +80,17 @@
             <div class="col-12 my-3">
                 <div class="row justify-content-center my-3">
                     <div class="col-md-3 col-12 text-center">
-                        <i class="fa-solid fa-sitemap"></i>
+                        <img class="comimg" src="{{ asset('assets/images/complaint icon.1.png')}}" alt="">
                         <p class="mt-3">
                             Gain insight into the status of your complaint or submit a new complaint.
                         </p>
                     </div>
                     <div class="col-md-3 col-12 text-center">
-                        <i class="fa-solid fa-volcano"></i>
+                    <img class="comimg" src="{{ asset('assets/images/complaint icon 2.png')}}" alt="">
                         <p class="mt-3">Monitor your grievance (Monitor your grievance using a Ticket number).</p>
                     </div>
                     <div class="col-md-3 col-12 text-center">
-                        <i class="fa-regular fa-file-lines"></i>
+                    <img class="comimg" src="{{ asset('assets/images/complaint icon 3.png')}}" alt="">
                         <p class="mt-3">
                             Raise an issue (Lodge a grievance against a tutor service provided).
                         </p>
