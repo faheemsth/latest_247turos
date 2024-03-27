@@ -22,8 +22,8 @@
                     <div class="page-header-title">
                         <i class="ik ik-users bg-blue"></i>
                         <div class="d-inline">
-                            <h5>{{ __('Refund') }}</h5>
-                            <span>{{ __('List of Refund') }}</span>
+                            <h5>{{ __('Refunds') }}</h5>
+                            <span>{{ __('List of Refunds') }}</span>
                         </div>
                     </div>
                 </div>
@@ -34,7 +34,7 @@
                                 <a href="{{ route('dashboard') }}"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">{{ __('Refund') }}</a>
+                                <a href="#">{{ __('Refunds') }}</a>
                             </li>
                         </ol>
                     </nav>
@@ -48,7 +48,7 @@
             <div class="col-md-12  user-table-data col-12 pe-0 pe-md-2">
                 <div class="card p-md-3 p-2">
                     <div class="card-header justify-content-between">
-                        <h3>{{ __('Refund') }}</h3>
+                        <h3>{{ __('Refunds') }}</h3>
                     </div>
 
                     <div class="card-body" style="overflow: scroll;">
@@ -61,31 +61,31 @@
                                     <th>{{ __('Fee') }}</th>
                                     <th>{{ __('Status') }}</th>
                                     <th>{{ __('Date') }}</th>
-                                    
+
                                 </tr>
                             </thead>
                             <tbody>
                                 @forelse($Refound as $user)
                                     <tr>
                                         <td style="border-bottom: .5px solid black;">{{ $loop->index + 1 }}</td>
-                                        
+
                                         <td style="border-bottom: .5px solid black;">
                                             <a onclick="freeMeetmodal('{{ $user->bookingId }}','{{ $user->status }}')"  style="cursor: pointer;font-size:20px;color:blue;">
                                               {{ $user->bookingId }}
                                             </a>
                                         </td>
-                                        
+
                                         <td style="border-bottom: .5px solid black;">{{ optional(App\Models\User::find($user->tutorId))->username }}</td>
                                         <td style="border-bottom: .5px solid black;">{{ optional(App\Models\Transaction::where('booking_id',optional(App\Models\Booking::where('uuid',$user->bookingId)->first())->id)->first())->amount }}£</td>
-                                        
+
                                         <td style="border-bottom: .5px solid black;">{{ $user->status }}</td>
-                                        
+
                                         <td style="border-bottom: .5px solid black;">{{ $user->created_at }}</td>
-                                        
+
                                     </tr>
                                 @empty
                                     <tr>
-                                        <td colspan="5" class="text-center">Record not found</td>
+                                        <td colspan="6" class="text-center">Record not found</td>
                                     </tr>
                                 @endforelse
                             </tbody>
@@ -109,9 +109,9 @@
             </div>
         </div>
     </div>
-    
-    
-    
+
+
+
         <div class="modal fade zoomIn" id="demo_meeting_modal" tabindex="-1" aria-labelledby="update_doc_modal"
         aria-hidden="true">
         <div class="modal-dialog modal-dialog-centered modal-lg">
@@ -148,7 +148,7 @@
             </div>
         </div>
     </div>
-    
+
 
     @push('script')
         <script src="{{ asset('plugins/select2/dist/js/select2.min.js') }}"></script>

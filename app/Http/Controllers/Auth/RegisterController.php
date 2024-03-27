@@ -153,7 +153,6 @@ class RegisterController extends Controller
         $data = $request->all();
 
 
-
         if ($data['role_id'] == 3) {
             $user = User::create([
                 'first_name' => ucfirst(strtolower($data['fname'])),
@@ -202,6 +201,7 @@ class RegisterController extends Controller
                 'last_name' => ucfirst(strtolower($data['lname'])),
                 'phone' => $data['code'] . $data['phone'],
                 'email' => $data['email'],
+                'relation' => $data['relation'],
                 'status' => 'Pending',
                 'role_id' => $data['role_id'],
                 'username' => ucfirst(strtolower($data['username'])),
@@ -217,15 +217,15 @@ class RegisterController extends Controller
                     'phone' => $request->input('stucode') . $request->input('stuphone'),
                     'email' => $request->input('stuemail'),
                     'username' => $request->input('stulname').rand ( 100 , 999 ),
-    
+                    'is_monitor' => !empty($data['parent_authority']) ? '1':'0',
                     'status' => 'Active',
                     'email_verified_at' => Carbon::now(),
                     'role_id' => '4',
                     'password' => Hash::make($data['password']),
                     'parent_id' => $parentId
                 ];
-    
-                User::create($studentData);  
+
+                User::create($studentData);
             }
 
             $ActivityLogs = new ActivityLog;
@@ -249,12 +249,19 @@ class RegisterController extends Controller
                 'phone' => $data['code'] . $data['phone'],
                 'email' => $data['email'],
                 'cpfname' => $data['cpfname'],
+                'username' => $data['username'],
                 'cplname' => $data['cplname'],
                 'cpemail' => $data['cpemail'],
                 'zipcode' => $data['zipcode'],
+
+                'org_type' => $data['org_type'],
+                'org_help' => $data['org_help'],
+                'org_role' => $data['org_role'],
+                'get_in_touch' => $data['get_in_touch'],
+
                 'status' => 'Active',
                 'role_id' => $data['role_id'],
-                'password' => Hash::make('1234'),
+                'password' => Hash::make($data['cpassword']),
             ]);
             $ActivityLogs = new ActivityLog;
             $ActivityLogs->user_id = $user->id;

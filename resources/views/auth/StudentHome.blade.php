@@ -29,7 +29,7 @@
         .welstd{
             font-size:2.8rem;
         }
-        @media only screen 
+        @media only screen
 and (max-width : 425px){
      .welstd{
             font-size:1.8rem;
@@ -158,7 +158,7 @@ and (max-width : 425px){
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between mt-4" >
                                     <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="0">{{ !empty($tutors) ? $tutors->count() : '0' }}</span></h4>
+                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="0">{{ !empty($bookingCount) ? $bookingCount->count() : '0' }}</span></h4>
                                         <a href="{{ url('/bookings') }}" class="text-decoration-none text-muted">View all
                                             Tutotr</a>
                                     </div>
@@ -214,14 +214,14 @@ and (max-width : 425px){
                         </a>
                     </div>
                     <span id="AjaxFetchChatUnredList" class="msgprofile">
-                        
+
                     </span>
 
                 </div>
 
                 {{--  --}}
             </div>
-            
+
             <div class="col-12 col-md-6 col-lg-3">
                 @if(\Auth::user()->role_id == 5)
                 <div class="row py-4">
@@ -250,7 +250,7 @@ and (max-width : 425px){
                       </div>
                 </div>
                 @endif
-                
+
             </div>
         </div>
 
@@ -258,7 +258,7 @@ and (max-width : 425px){
  <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-    
+
     <script>
         setInterval(function() {
         $.ajax({

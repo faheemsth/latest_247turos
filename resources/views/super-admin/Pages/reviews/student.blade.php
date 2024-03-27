@@ -23,7 +23,7 @@
                         <i class="fa-solid fa-ranking-star bg-blue"></i>
                         <div class="d-inline">
                             <h5>{{ __('Reviews') }}</h5>
-                            <span>{{ __('List of Reviews') }}</span>
+                            <span>{{ __('List of Student Reviews') }}</span>
                         </div>
                     </div>
                 </div>
@@ -36,9 +36,7 @@
                             <li class="breadcrumb-item">
                                 <a href="#">{{ __('Reviews') }}</a>
                             </li>
-                            <li class="breadcrumb-item">
-                                <a href="#">{{ __('Student') }}</a>
-                            </li>
+
                         </ol>
                     </nav>
                 </div>
@@ -54,15 +52,6 @@
                         <h3>{{ __('Student Reviews') }}</h3>
                     </div>
                     <div class="card-body" style="overflow:scroll;">
-
-                        <!--<div class="card-header d-flex justify-content-between">-->
-                        <!--    {{-- <h3 class="col-auto">{{ __('Complaint') }}</h3> --}}-->
-                        <!--    <form method="GET" action="" class="col-md-3 d-flex justify-content-between align-items-center gap-2">-->
-                        <!--        {{-- <input type="text" name="search" value="{{ $_GET['search'] ?? '' }}" class="form-control" placeholder="Search">-->
-                        <!--        <button type="submit" class="btn btn-primary">Search</button> --}}-->
-                        <!--    </form>-->
-                        <!--</div>-->
-
                         <table id="reviewStudents" class="table table-bordered">
                             <thead>
                                 <tr>
@@ -70,6 +59,7 @@
                                     <th>{{ __('Tutor') }}</th>
                                     <th>{{ __('Tutor Rating') }}</th>
                                     <th>{{ __('Tutor Feedback') }}</th>
+                                    <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -82,9 +72,12 @@
                                             @for ($i=0;$i < $Parent->student_rating ;$i++)
                                             <i class="fa fa-star" style="color: yellow"></i>
                                             @endfor
-                                            {{-- {{  }} --}}
                                         </td>
                                         <td style="border-bottom: .5px solid black;">{{ $Parent->student_feedback }}</td>
+                                        <td style="border-bottom: .5px solid black;">
+                                            <a href="{{ url('reviews/delete/student/').'/'. $Parent->id }}" class="btn btn-danger p-2 ">
+                                                <i class="fa-solid fa-trash" style="font-size: 14px;"></i></a>
+                                        </td>
                                     </tr>
                                 @endif
                                 @empty

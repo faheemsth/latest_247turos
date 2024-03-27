@@ -23,7 +23,7 @@
                         <i class="fa-solid fa-ranking-star bg-blue"></i>
                         <div class="d-inline">
                             <h5>{{ __('Reviews') }}</h5>
-                            <span>{{ __('List of Reviews') }}</span>
+                            <span>{{ __('List of Parent Reviews') }}</span>
                         </div>
                     </div>
                 </div>
@@ -36,9 +36,7 @@
                             <li class="breadcrumb-item">
                                 <a href="#">{{ __('Reviews') }}</a>
                             </li>
-                            <li class="breadcrumb-item">
-                                <a href="#">{{ __('Parent') }}</a>
-                            </li>
+
                         </ol>
                     </nav>
                 </div>
@@ -69,6 +67,7 @@
                                     <th>{{ __('Parent') }}</th>
                                     <th>{{ __('Parent Rating') }}</th>
                                     <th>{{ __('Parent Feedback') }}</th>
+                                    <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -83,6 +82,10 @@
                                             @endfor
                                         </td>
                                         <td style="border-bottom: .5px solid black;">{{ $Parent->parent_feedback }}</td>
+                                        <td style="border-bottom: .5px solid black;">
+                                            <a href="{{ url('reviews/delete/parent/').'/'. $Parent->id }}" class="btn btn-danger p-2 ">
+                                                <i class="fa-solid fa-trash" style="font-size: 14px;"></i></a>
+                                        </td>
                                     </tr>
                                  @endif
                                 @empty

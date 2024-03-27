@@ -352,10 +352,10 @@ p {
     border-bottom: 4px solid #0096FF;
 }
 
-.review-trustpilot h1 a:hover {
+/* .review-trustpilot h1 a:hover {
     color: #0096FF;
     background-color: #a2cff0;
-}
+} */
 
 @media screen and (max-width:1024px) {
     .review-trustpilot h1 {

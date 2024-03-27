@@ -92,9 +92,12 @@ $groups = App\Models\Group::All();
                         <span id="msgcount" class="countBooking" style="display: none"></span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('faq') ? 'active' : '' }}"  href='{{ route('faq') }}' tabindex="-1" aria-disabled="true">FAQs</a>
+                </li>
             </ul>
 
-
+            <div id="google_element"></div>
             <div class="col-md-2 d-flex justify-content-end align-items-center header-btn gap-1"
                 style="max-width: max-content;">
 
@@ -134,7 +137,7 @@ $groups = App\Models\Group::All();
                                         srcset=""> Logout</a></li>
                         @else
                             <li><a class="dropdown-item"
-                                    href="{{ Auth::user()->role_id == '5' ? url('organization/profile') : url('organization/home') }}">
+                                    href="{{ Auth::user()->role_id == '6' ? url('organization/profile') : url('organization/home') }}">
                                     <img src="{{ asset('assets/images/user 1.png') }}" alt=""> Your
                                     Profile</a></li>
                             <li><a class="dropdown-item" href="{{ url('organization/students') }}">

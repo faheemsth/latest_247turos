@@ -64,7 +64,7 @@
                             <thead>
                                 <tr>
                                     <th>{{ __('First Name') }}</th>
-                                    <th>{{ __('Last Name') }}</th>
+                                    <th>{{ __('Surname') }}</th>
                                     <th>{{ __('DOB') }}</th>
                                 </tr>
                             </thead>

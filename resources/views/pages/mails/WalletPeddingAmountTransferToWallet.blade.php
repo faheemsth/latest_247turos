@@ -136,36 +136,36 @@
                     </tr>
                 </table>
             </td>
-           
+
             </tr>
             <tr>
-            
+
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td align="left" bgcolor="#ffffff"
                             style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;border-top: 3px solid #d4dadf">
-                           
+
                             <h3 style="font-size:1.2rem;font-weight:500;">
                             I hope this email finds you well. We wanted to inform you that you will soon be able to withdraw the booking amount from your recent tutoring sessions on the 247Tutors platform.
                             </h3>
-                             
+
                              <h3 style="font-size:1.2rem;font-weight:500;">
                             As per our policy, booking amounts are held for a period of 7 days after the completion of tutoring sessions to ensure the smooth resolution of any issues or disputes that may arise.
                             </h3>
-                             
+
                              <h3 style="font-size:1.2rem;font-weight:500;">
-                            We are pleased to inform you that the 7-day period for your recent sessions is coming to an end. You will be able to initiate the withdrawal process and transfer the funds to your preferred account starting from [date]. Please ensure that your withdrawal details are up to date to facilitate a seamless transaction.
+                            We are pleased to inform you that the 7-day period for your recent sessions is coming to an end. You will be able to initiate the withdrawal process and transfer the funds to your preferred account starting from {!! date('d-m-Y', strtotime($date)) !!}. Please ensure that your withdrawal details are up to date to facilitate a seamless transaction.
                             </h3>
-                             
+
                         </td>
                     </tr>
                 </table>
             </td>
-            
-            
+
+
             </tr>
-           
+
         <tr>
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
@@ -180,7 +180,7 @@
                 </table>
             </td>
         </tr>
-        
+
         <tr>
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
@@ -199,7 +199,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">© 2023 247Tutor. All rights reserved.</p>
+                            <p style="margin: 0;">© 2024 247tutors. All rights reserved.</p>
                         </td>
                     </tr>
 

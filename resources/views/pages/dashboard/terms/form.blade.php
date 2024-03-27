@@ -20,7 +20,7 @@
                     <i class="ik ik-users bg-blue"></i>
                     <div class="d-inline">
                         <h5>{{ __('Terms & Conditions') }}</h5>
-                        <span>{{ __('List of Terms & Conditions') }}</span>
+                        <span>{{ __('Create Terms & Conditions') }}</span>
                     </div>
                 </div>
             </div>

@@ -25,7 +25,7 @@
     <div class="container py-5">
         <div class="row my-4">
             <div class="col-3">
-                <h1 class="msg">Message's</h1>
+                <h1 class="msg">Messages</h1>
             </div>
         </div>
         <div class="row mb-5 px-2" style="border: 1px solid rgb(199, 199, 199);">
@@ -35,7 +35,7 @@
                     <ul class="nav nav-tabs mb-3" id="ex1" role="tablist">
                         <li class="nav-item" role="presentation">
                             <a class="nav-link mb-1 active" id="ex1-tab-1" data-mdb-toggle="tab" href="#ex1-tabs-1"
-                                role="tab" aria-controls="ex1-tabs-1" aria-selected="true" style="border: 0px 0px 2px 0px solid rgb(199, 199, 199); ">Active Chat's</a>
+                                role="tab" aria-controls="ex1-tabs-1" aria-selected="true" style="border: 0px 0px 2px 0px solid rgb(199, 199, 199); ">Active Chats</a>
                         </li>
 
                     </ul>

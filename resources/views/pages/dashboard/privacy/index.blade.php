@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Privacy & Policy')
+@section('title', 'Privacy Policy')
 @section('content')
     <!-- push external head elements to head -->
     @push('head')
@@ -23,8 +23,8 @@
                     <div class="page-header-title">
                         <i class="fa-solid fa-file-invoice bg-blue"></i>
                         <div class="d-inline">
-                            <h5>{{ __('Privacy & Policy') }}</h5>
-                            <span>{{ __('List of Privacy & Policy') }}</span>
+                            <h5>{{ __('Privacy Policy') }}</h5>
+                            <span>{{ __('List of Privacy Policy') }}</span>
                         </div>
                     </div>
                 </div>
@@ -35,7 +35,7 @@
                                 <a href="{{ route('dashboard') }}"><i class="ik ik-home"></i></a>
                             </li>
                             <li class="breadcrumb-item">
-                                <a href="#">{{ __('Privacy & Policy') }}</a>
+                                <a href="#">{{ __('Privacy Policy') }}</a>
                             </li>
                         </ol>
                     </nav>
@@ -49,7 +49,7 @@
             <div class="col-md-12  user-table-data col-12 pe-0 pe-md-2">
                 <div class="card  p-md-3 p-2">
                     <div class="card-header justify-content-between">
-                        <h3>{{ __('Privacy & Policy') }}</h3>
+                        <h3>{{ __('Privacy Policy') }}</h3>
                         <a href="{{ url('add/terms/privacy_policy') }}" class="btn btn-primary px-2 py-1"><i class="fa fa-plus"></i></a>
                     </div>
                     <div class="card-body" style="overflow: scroll;">
@@ -70,7 +70,7 @@
                                             <td style="border-bottom: .5px solid black;">
 
                                                 <?php
-                                                    
+
                                                     $string = strip_tags( $TermsAndCon->type);
                                                     if (strlen($string) > 15) {
                                                         $stringCut = substr($string, 0, 15);
@@ -80,11 +80,11 @@
                                                     }
                                                     echo $string;
                                                  ?>
-                                                
+
                                                 </td>
                                             <td style="border-bottom: .5px solid black;">
                                                 <?php
-                                                    
+
                                                     $string = strip_tags( $TermsAndCon->content);
                                                     if (strlen($string) > 15) {
                                                         $stringCut = substr($string, 0, 15);
@@ -94,10 +94,10 @@
                                                     }
                                                     echo $string;
                                                  ?>
-                                                
-                                                
+
+
                                                 </td>
-                                            
+
                                              <td style="border-bottom: .5px solid black;" class="d-flex justify-content-center  align-items-center gap-2 text-white">
                                                 <a href="{{ url('delete/terms/privacy_policy') . '/' . $TermsAndCon->id }}"
                                                     class="btn btn-danger p-2 ">

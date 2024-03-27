@@ -185,8 +185,8 @@
     </div>
     <div class="row mx-0">
         <div class="col text-center py-5">
-            <h1 id="text-color" class="my-4"> <strong>Over a 100+ <br>
-                    Tutor are Available to Teach you</strong> </h1>
+            <h1 id="text-color" class="my-4"> <strong>Over a 100+
+                    Tutor  <br> are Available to Teach you</strong> </h1>
             <a href="{{ route ('findTutor') }}" id="find-tutor">Find a Tutor</a>
         </div>
 
@@ -197,7 +197,7 @@
             title:'Chat Support',
             mainColor:'#0096FF',
             bubbleBackground:'#0096FF',
-            introMessage: "✋ Hi! I'm from 247tutors.com"
+            introMessage: "✋ Hi! I'm from 247tutors.co.uk"
         };
        </script>
 

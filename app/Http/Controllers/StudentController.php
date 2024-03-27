@@ -56,23 +56,23 @@ class StudentController extends Controller
     }
 
     public function upload_profile_img(Request $request) {
-        
+
         if (!Auth::check() || !$request->hasFile('image') || !$request->file('image')->isValid()) {
             return redirect()->back()->with('error', 'Unauthorized access or invalid image file.');
         }
         $image = $request->file('image');
         $imageName = time() . '_' . $image->getClientOriginalName();
-    
+
         $srcImage = imagecreatefromstring(file_get_contents($image->getRealPath()));
         $resizedImage = imagecreatetruecolor(5000, 5000);
         imagecopyresampled($resizedImage, $srcImage, 0, 0, 0, 0, 5000, 5000, imagesx($srcImage), imagesy($srcImage));
-    
+
         imagejpeg($resizedImage, public_path('images/' . $imageName));
         imagedestroy($srcImage);
         imagedestroy($resizedImage);
-    
+
         $user = User::find(Auth::id());
-    
+
         if ($user) {
             $user->update(['image' => 'images/' . $imageName]);
             return redirect('student/profile');
@@ -92,6 +92,10 @@ class StudentController extends Controller
         if(Auth::user()->role_id != 4){
                 return  redirect('/dashboard');
         }
+        if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+        {
+            return  redirect('/dashboard');
+        }
         $bookings = Booking::where('student_id','=', Auth::user()->id)
             ->with(['student', 'tutor', 'subjects'])
             ->get();
@@ -101,6 +105,11 @@ class StudentController extends Controller
 
     public function book_tutor($id)
     {
+        if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+        {
+            return  redirect('/dashboard');
+        }
+
         $tutor = User::find($id);
         $students = User::where('parent_id', Auth::id())->get();
         $dayOfTheWeek = Carbon::now()->dayOfWeek;
@@ -116,16 +125,21 @@ class StudentController extends Controller
         $Wallet = Wallet::where('user_id', Auth::id())->first();
         if (Auth::check()) {
             // return view('pages.dashboard.booking', compact('Wallet','tutor', 'offersubjects', 'tutor_slots', 'students'));
-            
+
             return view('pages.dashboard.StripeBook', compact('Wallet','tutor', 'offersubjects', 'tutor_slots', 'students'));
         } else {
             return redirect('login');
         }
 
     }
-    
+
     public function book_tutor_wallet($id)
     {
+        if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+        {
+            return  redirect('/dashboard');
+        }
+
         $tutor = User::find($id);
         $students = User::where('parent_id', Auth::id())->get();
         $dayOfTheWeek = Carbon::now()->dayOfWeek;
@@ -146,22 +160,22 @@ class StudentController extends Controller
         }
 
     }
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
-    
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
     public function student_profile_get($id)
     {
         $tutor = User::find($id);
@@ -223,7 +237,7 @@ class StudentController extends Controller
         $user->email = $request->input('email');
         $user->username = $request->input('last_name').rand ( 100 , 999 );
         $user->dob = '2000-01-01';
-        $user->phone = '123456789';
+        $user->phone = Auth::user()->phone;
         $user->password = Hash::make($request->password);
         $user->facebook_link = 'https://www.google.com';
         $user->linkedin_link = 'https://www.google.com';
@@ -234,6 +248,7 @@ class StudentController extends Controller
         $user->image = 'pic.jpg';
         $user->status = 'Active';
         $user->address = 'test';
+        $user->is_monitor = $request->input('is_monitor') == "on" ? '1' : '0';
         $user->parent_id = Auth::id();
         $user->save();
         $data=['token' => $user->password, 'user' => $user];
@@ -243,7 +258,7 @@ class StudentController extends Controller
         $wallet->user_id = $user->id;
         $wallet->wallet_id = Str::uuid()->toString();
         $wallet->save();
-        
+
         $environment = env('APP_ENV', 'local');
         if($environment == 'local'){
             Mail::send('email.emailVerificationEmail', ['token' => $user->password, 'user' => $user], function ($message) use ($user) {
@@ -283,98 +298,100 @@ class StudentController extends Controller
     }
     public function Parenthome()
     {
-        
+
         if(Auth::user()->role_id != 5){
                 return  redirect('/dashboard');
         }
-        
+
         $chats = [];
-    
+
         $chatsUsers = Chat::where('sender_id',Auth::id())->where('status', 0)->pluck('reciver_id')->unique();
-    
+
         $c_users = User::whereIn('id',$chatsUsers)->where('id','!=',Auth::id())->get();
         $j = 0;
         foreach($c_users as $i => $user){
-    
+
             $chats[$i]['id'] = $user->id;
             $chats[$i]['username'] = $user->username;
             $chats[$i]['image'] = $user->image;
-    
+
             $j++;
         }
-    
+
         $chatsUsers = Chat::where('reciver_id',Auth::id())->where('status', 0)->pluck('sender_id')->unique();
-    
+
         foreach(User::whereIn('id',$chatsUsers)->where('id','!=',Auth::id())->get() as $i => $user){
-    
+
             $chats[$i]['id'] = $user->id;
             $chats[$i]['username'] = $user->username;
             $chats[$i]['image'] = $user->image;
-    
+
             $j++;
         }
-        
+
         $students = User::where('role_id', '4')->where('parent_id', Auth::id())->get();
         $tutors = Booking::where('parent_id', Auth::id())->with(['tutor', 'tutorSubjectOffer'])->get();
-        return view('auth.StudentHome', compact('students', 'tutors', 'chats'));
+        $bookingCount = Booking::where('parent_id', Auth::id())->get()->unique('tutor_id');
+
+        return view('auth.StudentHome', compact('students', 'tutors', 'chats', 'bookingCount'));
     }
-    
+
         public function Studenthome()
     {
-        
+
         if(Auth::user()->role_id != 4){
                 return  redirect('/dashboard');
         }
-        
+
         $chats = [];
-    
+
         $chatsUsers = Chat::where('sender_id',Auth::id())->where('status', 0)->pluck('reciver_id')->unique();
-    
+
         $c_users = User::whereIn('id',$chatsUsers)->where('id','!=',Auth::id())->get();
         $j = 0;
         foreach($c_users as $i => $user){
-    
+
             $chats[$i]['id'] = $user->id;
             $chats[$i]['username'] = $user->username;
             $chats[$i]['image'] = $user->image;
-    
+
             $j++;
         }
-    
+
         $chatsUsers = Chat::where('reciver_id',Auth::id())->where('status', 0)->pluck('sender_id')->unique();
-    
+
         foreach(User::whereIn('id',$chatsUsers)->where('id','!=',Auth::id())->get() as $i => $user){
-    
+
             $chats[$i]['id'] = $user->id;
             $chats[$i]['username'] = $user->username;
             $chats[$i]['image'] = $user->image;
-    
+
             $j++;
         }
-        
+
         $students = User::where('role_id', '4')->where('parent_id', Auth::id())->get();
         $tutors = Booking::where('parent_id', Auth::id())->with(['tutor', 'tutorSubjectOffer'])->get();
         return view('auth.StudentHome', compact('students', 'tutors', 'chats'));
     }
-    
-    
-    
-    
+
+
+
+
    public function AjaxFetchChatUnredList()
     {
         $chats = [];
         $j = 0;
         $chatsUsers = Chat::where('reciver_id',Auth::id())->where('status',0)->pluck('sender_id')->unique();
         foreach(User::whereIn('id',$chatsUsers)->where('id','!=',Auth::id())->get() as $i => $user){
-    
+
             $chats[$i]['id'] = $user->id;
             $chats[$i]['username'] = $user->username;
             $chats[$i]['image'] = $user->image;
             $chats[$i]['taglink'] =$user->facebook_link;
-    
+
             $j++;
         }
-        
+
         $html = "";
 
         if (!empty($chats)) {
@@ -382,20 +399,20 @@ class StudentController extends Controller
             $html .= '<div class="tab-content " id="ex1-content">';
             $html .= '<div class="tab-pane fade show active" id="ex1-tabs-1" role="tabpanel" aria-labelledby="ex1-tab-1">';
             $html .= '<ul style="list-style: none;padding-left: 10px;">';
-        
+
             foreach ($chats as $tutor) {
                 $html .= '<li class="d-flex align-items-center justify-content-between py-2 mb-2" style="border-bottom: 1px solid #e3e3e3;">';
                 $html .= '<div class="d-flex gap-2 align-items-center">';
-        
+
                 // Receiver
-        
+
                 // Sender
                 if (!empty($tutor['image']) && file_exists(public_path(!empty($tutor['image']) ? $tutor['image'] : ''))) {
                     $html .= '<img src="' . asset($tutor['image']) . '" style="width: 60px;height: 60px;border-radius: 50%;" alt="" srcset="">';
                 } else {
                     $html .= '<img src="' . asset('assets/images/default.png') . '" style="width: 60px;height: 60px;border-radius: 50%;" alt="" srcset="">';
                 }
-        
+
                 $html .= '<div class=" d-flex flex-column">';
                 $html .= '<h5 class="mb-0 text-capitalize">' . $tutor['username'] . '</h5>';
                 $html .= '<p class="mb-0">'. (!empty($tutor['taglink']) ? $tutor['taglink'] : '') . '</p>';
@@ -406,7 +423,7 @@ class StudentController extends Controller
                 $html .= '</div>';
                 $html .= '</li>';
             }
-        
+
             $html .= '</ul>';
             $html .= '</div>';
             $html .= '</div>';
@@ -417,13 +434,13 @@ class StudentController extends Controller
             $html .= '<h6>You’re all caught up. No unread messages</h6>';
             $html .= '</div>';
         }
-        
+
         return $html;
 
 
     }
-    
-    
+
+
     public function chat()
     {
         return view('include.chattwo');

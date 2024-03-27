@@ -1,32 +1,32 @@
 @extends('pages.dashboard.appstudent')
 @section('content')
-@if (Auth::check())
-@if (Auth::user()->role_id == '4')
-    @include('layouts.studentnav')
-@elseif (Auth::user()->role_id == '3')
-    @include('layouts.tutornav')
-@elseif (Auth::user()->role_id == '5' || Auth::user()->role_id == '6')
-    @include('layouts.parentnav')
-
-@elseif (Auth::user()->role_id == '1' || Auth::user()->role_id == '2')
-  @include('layouts.navbar')
-@endif
-@else
-@include('layouts.navbar')
-@endif
-<script src="{{ asset('js/jsdelivrcore.js') }}"></script>
-<script src="{{ asset('js/jsdelivr.js') }}"></script>
-<style>
-      .profileeditdiv{
+    @if (Auth::check())
+        @if (Auth::user()->role_id == '4')
+            @include('layouts.studentnav')
+        @elseif (Auth::user()->role_id == '3')
+            @include('layouts.tutornav')
+        @elseif (Auth::user()->role_id == '5' || Auth::user()->role_id == '6')
+            @include('layouts.parentnav')
+        @elseif (Auth::user()->role_id == '1' || Auth::user()->role_id == '2')
+            @include('layouts.navbar')
+        @endif
+    @else
+        @include('layouts.navbar')
+    @endif
+    <script src="{{ asset('js/jsdelivrcore.js') }}"></script>
+    <script src="{{ asset('js/jsdelivr.js') }}"></script>
+    <style>
+        .profileeditdiv {
             opacity: 0;
         }
-        .profileeditdiv:hover{
+
+        .profileeditdiv:hover {
             opacity: 0.8;
         }
-</style>
+    </style>
     <div class="container-fluid">
         <div class="container">
-                         @if (session('failed'))
+            @if (session('failed'))
                 <div class="alert alert-danger">
                     {{ session('failed') }}
                 </div>
@@ -36,82 +36,90 @@
                     {{ session('success') }}
                 </div>
             @endif
-                     <div class="row mt-5 mb-5">
+            <div class="row mt-5 mb-5">
 
-                        <div class="col-12 col-lg-2 image1 d-flex justify-content-lg-center position-relative">
-                            <div  class="profileeditdiv d-flex justify-content-center align-items-center" style="width: 180px;height: 180px;background-color: #cfcfcf;border-radius: 50%; position: absolute;top:0px;">
-                                <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn px-4" style="background-color: #080808;
+                <div class="col-12 col-lg-2 image1 d-flex justify-content-lg-center position-relative">
+                    <div class="profileeditdiv d-flex justify-content-center align-items-center"
+                        style="width: 180px;height: 180px;background-color: #cfcfcf;border-radius: 50%; position: absolute;top:0px;">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#RefundModal" class="btn px-4"
+                            style="background-color: #080808;
                                 color: white;">Edit</button>
-                            </div>
-                            @if (!empty(Auth::user()->image) && file_exists(public_path(Auth::user()->image)))
-                                <img src="{{ asset(Auth::user()->image) }}" alt="" style="width: 180px;height: 180px;
+                    </div>
+                    @if (!empty(Auth::user()->image) && file_exists(public_path(Auth::user()->image)))
+                        <img src="{{ asset(Auth::user()->image) }}" alt=""
+                            style="width: 180px;height: 180px;
                                 border-radius: 50%;">
-                            @else
-                                <img src="{{ asset('assets/images/default.png') }}" alt="" style="    width: 180px;
+                    @else
+                        <img src="{{ asset('assets/images/default.png') }}" alt=""
+                            style="    width: 180px;
                                 height: 180px;
                                 border-radius: 50%;">
-                            @endif
-                        </div>
-                                            <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Upload Profile</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form id="form1" runat="server" action="{{ url('/Upload/Profile') }}" method="post" enctype="multipart/form-data">
-            @csrf
-                <div class="modal-body">
-                <div class="row gap-4">
+                    @endif
+                </div>
+                <!-- Modal -->
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Upload Profile</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form id="form1" runat="server" action="{{ url('/Upload/Profile') }}" method="post"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="row gap-4">
 
-                    <div class="col-12 my-3" style="position: relative;">
-                        <div class="btn text-center btn-primary w-100 p-1">
-                            <h5>Upload Image</h5>
-                        </div>
-                        <div class="btn btn-primary w-100 p-1" style="position: absolute;top:0px;left:0px;opacity: 0;">
-                            <input  id="imgInp"  type="file" name="image"
-                            placeholder="Select Your picture"class="w-100" >
+                                        <div class="col-12 my-3" style="position: relative;">
+                                            <div class="btn text-center btn-primary w-100 p-1">
+                                                <h5>Upload Image</h5>
+                                            </div>
+                                            <div class="btn btn-primary w-100 p-1"
+                                                style="position: absolute;top:0px;left:0px;opacity: 0;">
+                                                <input id="imgInp" type="file" name="image"
+                                                    placeholder="Select Your picture"class="w-100">
+                                            </div>
+                                        </div>
+
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                </div>
+                            </form>
                         </div>
                     </div>
-                    
                 </div>
-                </div>
+                <div class="col-12 col-md-8 ps-lg-0 mt-1 ms-2 ms-md-0">
+                    <div class="d-flex justify-content-between mt-lg-4 hr align-items-center">
+                        <h4 class="text-capitalize">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
+                            @if (Auth::user()->status == 'Active')
+                                <img src="{{ asset('assets/images/Verified-p.png') }}" alt="">
+                            @endif
 
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Upload</button>
-                </div>
-         </form>
-      </div>
-    </div>
-</div>
-                            <div class="col-12 col-md-8 ps-lg-0 mt-1 ms-2 ms-md-0">
-                                <div class="d-flex justify-content-between mt-lg-4 hr align-items-center">
-                                    <h4 class="text-capitalize">{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
-                                    @if (Auth::user()->status == "Active")
-                                    <img src="{{ asset('assets/images/Verified-p.png') }}" alt="">
-                                    @endif
-
-                                    </h4>
-                                    <!--<h5>£25 /hr</h5>-->
-                                </div>
-                                <div class="Spreading">
-                                    <h6 style="font-weight: 500;color:#3d3d3d;">{{ Auth::user()->facebook_link }}</h6>
-                                </div>
-                                <div class="mt-md-3 mt-lg-5">
-                                    <a class="one" href="">Parent's home</a>
-                                   <a class="mb-0 one alert alert-{{ Auth::user()->status == 'Active' ? 'success' : 'danger' }}"
+                        </h4>
+                        <!--<h5>£25 /hr</h5>-->
+                    </div>
+                    <div class="Spreading">
+                        <h6 style="font-weight: 500;color:#3d3d3d;">{{ Auth::user()->facebook_link }}</h6>
+                    </div>
+                    <div class="mt-md-3 mt-lg-5">
+                        <a class="one" href="">Parent's home</a>
+                        <a class="mb-0 one alert alert-{{ Auth::user()->status == 'Active' ? 'success' : 'danger' }}"
                             href="">{{ Auth::user()->status }}</a>
-                                </div>
-                            </div>
-                            <div class="row">
-                                <div class="col-md-4"></div>
-                                <div class="col-md-8 d-flex justify-content-between align-items-center book mt-3">
-                                   
-                                </div>
-                            </div>
-                        </div>
+                    </div>
+                </div>
+                <div class="row">
+                    <div class="col-md-4"></div>
+                    <div class="col-md-8 d-flex justify-content-between align-items-center book mt-3">
+
+                    </div>
+                </div>
+            </div>
 
 
 
@@ -174,8 +182,17 @@
                             <div class="row mt-5 mb-5">
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Gender</label>
-                                    <input type="text" name="gender" value="{{ Auth::user()->gender }}"
-                                        class="form-control" id="" required placeholder="Type Your gender">
+                                    <select class="form-control bgpro" name="gender" required>
+                                        <option value="Male" {{ Auth::user()->gender == 'Male' ? 'selected' : '' }}>
+                                            Male
+                                        </option>
+                                        <option value="Female" {{ Auth::user()->gender == 'Female' ? 'selected' : '' }}>
+                                            Female
+                                        </option>
+                                        <option value="Other" {{ Auth::user()->gender == 'Other' ? 'selected' : '' }}>
+                                            Other
+                                        </option>
+                                    </select>
 
                                 </div>
                                 <div class="col-md-6">
@@ -188,17 +205,17 @@
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Tagline</label>
                                     <input type="text" name="facebook_link" value="{{ Auth::user()->facebook_link }}"
-                                        class="form-control" id=""
-                                        placeholder="Type Your Tag Line For Profile">
+                                        class="form-control" id="" placeholder="Type Your Tag Line For Profile">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Postcode</label>
-                                    <input type="text" name="zipcode" class="form-control" id="zipcode " value="{{ Auth::user()->zipcode  }}">
+                                    <input type="text" name="zipcode" class="form-control" id="zipcode "
+                                        value="{{ Auth::user()->zipcode }}">
                                 </div>
-                               
-                               
+
+
                             </div>
-                           
+
 
                             <div class="row mt-5 mb-5">
 
@@ -207,12 +224,12 @@
                                     <label for="exampleFormControlInput1" class="form-label">Address</label>
                                     <textarea name="address" class="form-control" id="address" cols="30" rows="3">{{ Auth::user()->address }}</textarea>
                                 </div>
-                                 <div class="col-md-6">
+                                <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Biography</label>
                                     <textarea name="profile_description" class="form-control" id="profile_description" cols="30" rows="3">{{ Auth::user()->profile_description }}</textarea>
                                 </div>
 
-                                
+
                             </div>
                             <div class="row mt-5 mb-5 justify-content-center">
                                 <div class="col-2 text-center">
@@ -224,60 +241,194 @@
                     {{-- end --}}
                 </div>
                 <div class="row my-4">
-                   <form action="{{ url('user-card-create') }}" method="post" class="ps-0">
-                    @csrf
-                    <div class="col-12 col-md-7 col-lg-6 col-xl-5 mt-2 billing about">
-                        <h2 class="mb-1">Configure Your Paypal Account</h2>
-                        <div>
-                            <h4 class="text-left text-secondary fs-4 my-3">We will use this paypal account to send you money when you initiate withdrawl.</h4>
-                            
+                    <form action="{{ url('user-card-create') }}" method="post" class="ps-0">
+                        @csrf
+                        <div class="col-12 col-md-7 col-lg-6 col-xl-5 mt-2 billing about">
+                            <h2 class="mb-1">Configure Your Paypal Account</h2>
+                            <div>
+                                <h4 class="text-left text-secondary fs-4 my-3">We will use this paypal account to send you
+                                    money when you initiate withdrawl.</h4>
+
+                            </div>
                         </div>
-                    </div>    
 
                         <div class="col-12">
-                            
-                                <div class="row mb-3">
-                                    <div class="col-md-5 col-11 col-lg-4">
-                                        <div class='form-group required'>
-                                            <label class='control-label'>Paypal account email</label>
-                                            <input class=" w-100 p-2 mt-1" type='email' value="{{\Auth::user()->paypal_email}}" required name="paypal_email">
-                                        </div>
-                                    </div>
 
-                                </div>
-
-                                <div class="row  mb-3">
-                                    <div class="col-md-5 col-11 col-lg-4">
-                                        <div class='form-group required'>
-                                            <label class='control-label'>Confirm email</label><br>
-                                            <input class=" w-100 p-2 mt-1" type='email' required name="paypal_email_confirm">
-                                        </div>
-                                    </div>
-
-                                </div>
-
-                                <div class="row my-3">
-                                    <div class="col-2">
-                                        <button class="btn bg-primary  px-4 py-2 text-white">Save</button>
+                            <div class="row mb-3">
+                                <div class="col-md-5 col-11 col-lg-4">
+                                    <div class='form-group required'>
+                                        <label class='control-label'>Paypal account email</label>
+                                        <input class=" w-100 p-2 mt-1" type='email'
+                                            value="{{ \Auth::user()->paypal_email }}" required name="paypal_email">
                                     </div>
                                 </div>
-                           
+
+                            </div>
+
+                            <div class="row  mb-3">
+                                <div class="col-md-5 col-11 col-lg-4">
+                                    <div class='form-group required'>
+                                        <label class='control-label'>Confirm email</label><br>
+                                        <input class=" w-100 p-2 mt-1" type='email' required
+                                            name="paypal_email_confirm">
+                                    </div>
+                                </div>
+
+                            </div>
+
+                            <div class="row my-3">
+                                <div class="col-2">
+                                    <button class="btn bg-primary  px-4 py-2 text-white">Save</button>
+                                </div>
+                            </div>
+
 
                         </div>
-                    
-                </form>
+
+                    </form>
 
                 </div>
             </div>
         </div>
+
+        {{-- sheraz --}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+
+        <style type="text/css">
+            .preview {
+                text-align: center;
+                overflow: hidden;
+                width: 160px;
+                height: 160px;
+                margin: 10px;
+                border: 1px solid rgb(83, 78, 78);
+            }
+
+
+            .section {
+                margin-top: 150px;
+                background: #fff;
+                padding: 50px 30px;
+            }
+
+            .modal-lg {
+                max-width: 1000px !important;
+            }
+        </style>
+
+        <div class="modal fade" id="RefundModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Image Crop</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            id="close-modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="img-container">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <img id="image" style="display: block;max-width: 100%;">
+                                    <form action="{{ url('/Upload/Profile') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="file" name="image" class="image" style="margin-top: 40px;">
+                                        <input type="hidden" name="image_base64" style="margin-top: 40px;">
+                                        <img src=""
+                                            style="width: 200px;display: none;display: block;max-width: 100%;"
+                                            class="show-image">
+                                        <br />
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="preview"></div>
+                                    <span
+                                        style="text-align: center;overflow: hidden;width: 160px;height: 160px;margin: 10px;">
+                                        <button type="button" class="btn btn-primary" id="crop">Crop</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            var cropper;
+            var image = document.getElementById('image');
+
+            $("body").on("change", ".image", function(e) {
+                var files = e.target.files;
+
+                var done = function(url) {
+                    $('#image').attr('src', url);
+                    var reader;
+                    var file;
+
+                    if (files && files.length > 0) {
+                        file = files[0];
+
+                        if (window.URL && window.URL.createObjectURL) {
+                            cropper.replace(window.URL.createObjectURL(file));
+                        } else if (FileReader) {
+                            reader = new FileReader();
+                            reader.onload = function(e) {
+                                done(reader.result);
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            console.error('Your browser does not support previewing images.');
+                        }
+                    }
+                };
+                cropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 3,
+                    preview: '.preview'
+                });
+                done(window.URL.createObjectURL(files[0]));
+            });
+
+            $(document).ready(function() {
+                $("#crop").click(function() {
+                    canvas = cropper.getCroppedCanvas({
+                        width: 160,
+                        height: 160,
+                    });
+
+                    canvas.toBlob(function(blob) {
+                        url = URL.createObjectURL(blob);
+                        var reader = new FileReader();
+                        reader.readAsDataURL(blob);
+                        reader.onloadend = function() {
+                            var base64data = reader.result;
+                            $("input[name='image_base64']").val(base64data);
+                            $(".show-image").show();
+                            $(".show-image").attr("src", base64data);
+                        }
+                    });
+                });
+
+
+            });
+        </script>
+        {{-- sheraz --}}
     </div>
-    
-        <script src="./assets/js/main.js"></script>
+
+    <script src="./assets/js/main.js"></script>
     <!-- jquery file -->
     <script src="{{ asset('vendor/jquery/jquery3.7.0.js') }}"></script>
     <!-- Bootstrap js file -->
     <script src="./vendor/bootstrap/js/bootstrap.bundle.js"></script>
-        <script type="text/javascript">
+    <script type="text/javascript">
         var _gaq = _gaq || [];
         _gaq.push(['_setAccount', 'UA-36251023-1']);
         _gaq.push(['_setDomainName', 'jqueryscript.net']);
@@ -351,10 +502,7 @@
             --------------------------------------------*/
             function stripeResponseHandler(status, response) {
                 if (response.error) {
-                    $('.error')
-                        .removeClass('hide')
-                        .find('.alert')
-                        .text(response.error.message);
+                    toastr.error(response.error.message, 'Error');
                 } else {
                     /* token contains id, last4, and card type */
                     var token = response['id'];
@@ -362,6 +510,7 @@
                     $form.find('input[type=text]').empty();
                     $form.append("<input type='hidden' name='stripeToken' value='" + token + "'/>");
                     $form.get(0).submit();
+                    toastr.success('Amount added successfully to wallet.');
                 }
             }
 
@@ -388,4 +537,4 @@
             }
         });
     </script>
-    @endsection
+@endsection

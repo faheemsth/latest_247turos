@@ -45,23 +45,25 @@ class BookingController extends Controller
             return redirect('dashboard');
         }
         $status = $request->input('status');
-        $search = $request->input('search');
-        $booking = Booking::join('transactions', 'bookings.id', '=', 'transactions.booking_id');
-        if (!empty($status)) {
-            $booking->where('status', $status);
+        $search = $request->input('seach_term');
+        $bookings = Booking::join('transactions', 'bookings.id', '=', 'transactions.booking_id')->with(['student', 'tutor', 'subjects'])->paginate(25);
+        if ($request->ajax()) {
+            $booking = Booking::join('transactions', 'bookings.id', '=', 'transactions.booking_id')->with(['student', 'tutor', 'subjects']);
+            if (!empty($status)) {
+                if ($status != '1') {
+                    $booking->where('status', 'like', '%' . $status . '%');
+                } else {
+                    $booking = $booking->where('request_refound', '1')->orWhere('request_refound', '2');
+                }
+            }
+            if (!empty($search)) {
+                $booking->whereHas('subjects', function ($query) use ($search) {
+                    $query->where('name', 'like', '%' . $search . '%');
+                });
+            }
+            $bookings = $booking->paginate(25);
+            return view('pages.dashboard.booking.ajaxbooking', compact('bookings'))->render();
         }
-        $booking = $booking->with(['student', 'tutor', 'subjects']);
-        if (!empty($search)) {
-            $booking->whereHas('subjects', function ($query) use ($search) {
-                $query->where('name', 'like', '%' . $search . '%');
-            });
-        }
-
-        $bookings = $booking->paginate(5);
-        // if ($request->ajax()) {
-        //     return view('pages.dashboard.booking.ajaxbooking', compact('bookings'));
-        // }
-        // dd($bookings);
         return view('pages.dashboard.booking.booking', compact('bookings'));
     }
 
@@ -93,35 +95,32 @@ class BookingController extends Controller
 
         return view('pages.dashboard.ActivityLog.ActivityLog', compact('ActivityLogs'));
     }
-    
-    
-    
-    
-    public function download()
+
+
+
+
+    public function download(Request $request)
     {
-        $headers = [
-                'Cache-Control'       => 'must-revalidate, post-check=0, pre-check=0'
-            ,   'Content-type'        => 'text/csv'
-            ,   'Content-Disposition' => 'attachment; filename=galleries.csv'
-            ,   'Expires'             => '0'
-            ,   'Pragma'              => 'public'
-        ];
-    
-        $list = ActivityLog::all()->toArray();
-    
-        # add headers for each column in the CSV download
-        array_unshift($list, array_keys($list[0]));
-    
-       $callback = function() use ($list) 
-        {
-            $FH = fopen('php://output', 'w');
-            foreach ($list as $row) { 
-                fputcsv($FH, $row);
-            }
-            fclose($FH);
-        };
-    
-        return response()->stream($callback, 200, $headers);
+        if (Auth::user()->role_id != 1) {
+            return redirect('dashboard');
+        }
+        $ActivityLogs = ActivityLog::with('user');
+        $search = $request->input('search');
+
+        if (!empty($search)) {
+            $ActivityLogs->whereHas('user', function ($query) use ($search) {
+                $query->where(function ($subquery) use ($search) {
+                    $subquery->where('first_name', 'like', '%' . $search . '%')
+                        ->orWhere('last_name', 'like', '%' . $search . '%');
+                });
+            });
+
+            $ActivityLogs->orWhere('description', 'like', '%' . $search . '%');
+        }
+
+        $ActivityLogs = $ActivityLogs->get();
+
+        return view('pages.dashboard.ActivityLog.ActivityLogDownload', compact('ActivityLogs'));
     }
 
 
@@ -204,6 +203,8 @@ class BookingController extends Controller
                 return redirect('parent/profile')->with('success', 'You Have Booked This Tutor');
             }
             if ($request->amount > 0) {
+
+                createNotification(Auth::user()->role_id, Auth::id(), 'New Booking', 'Booking By ' . Auth::user()->username);
 
                 $customer = Stripe\Customer::create(
                     array(
@@ -373,6 +374,7 @@ class BookingController extends Controller
         $Wallet = Wallet::where('user_id', Auth::id())->first();
         if (!empty($Wallet)) {
             if ($Wallet->net_income > 0 && $Wallet->net_income >= $request->amount) {
+                createNotification(Auth::user()->role_id, Auth::id(), 'New Booking', 'Booking By ' . Auth::user()->username);
                 $student = Auth::user();
                 $data = [
                     'tutorMessage' => 'Your Booking Reschedule Request Accepted',
@@ -617,6 +619,7 @@ class BookingController extends Controller
             'ScheduleTime' => $request->date . ' ' . $request->time,
         ];
 
+        createNotification(Auth::user()->role_id, Auth::id(), 'New Booking', 'Booking By ' . Auth::user()->username);
         $environment = env('APP_ENV', 'local');
         if ($environment == 'local') {
             Mail::send('pages.mails.NewBooking', $data, function ($message) use ($tutor, $user, $subject) {
@@ -680,7 +683,7 @@ class BookingController extends Controller
             $query->where('student_id', Auth::id());
         }
 
-        if (Auth::user()->role_id == 5) {
+        if (Auth::user()->role_id == 5 || Auth::user()->role_id == 6) {
             $query->where('parent_id', Auth::id());
         }
 
@@ -860,7 +863,7 @@ class BookingController extends Controller
                     throw new \Exception('Failed to send mail');
             }
 
-
+            createNotification(Auth::user()->role_id, Auth::id(), $request->status.' Booking', 'By ' . Auth::user()->username);
             Booking::where('uuid', $request->id)->where('tutor_id', $request->tutorId)
                 ->update([
                     'status' => $request->status,
@@ -913,7 +916,7 @@ class BookingController extends Controller
             if ($student->booking_cancellation_count == 3) {
                 return redirect('bookings')->with('failed', 'Your cancellation limit exceeded please contact admin.');
             }
-
+            createNotification(Auth::user()->role_id, Auth::id(), $request->status.' Booking', 'By ' . Auth::user()->username);
             Booking::where('uuid', $request->id)->where('tutor_id', $request->tutorId)
                 ->update([
                     'status' => $request->status,
@@ -1084,6 +1087,7 @@ class BookingController extends Controller
 
     public function booking_status_compeleted(Request $request)
     {
+        createNotification(Auth::user()->role_id, Auth::id(), $request->status.' Booking', 'By ' . Auth::user()->username);
         Booking::where('uuid', $request->id)->where('tutor_id', $request->tutorId)
             ->update([
                 'status' => $request->status,
@@ -1092,16 +1096,17 @@ class BookingController extends Controller
 
         $Booking = Booking::where('uuid', $request->id)->where('tutor_id', $request->tutorId)->first();
 
-            if ($Booking) {
-                $student = User::find($Booking->student_id);
-                if ($Booking->parent_id != null) {
-                    $parent = User::find($Booking->parent_id);
-                }
+        if ($Booking) {
+            $student = User::find($Booking->student_id);
+            if ($Booking->parent_id != null) {
+                $parent = User::find($Booking->parent_id);
             }
+        }
 
 
         $Transaction = Transaction::where('booking_id', $Booking->id)->first();
         if (empty(PendingPayment::where('booking_id', $Booking->id)->first()) && $Transaction) {
+
             //  dd($Transaction);
             $PendingPayment = new PendingPayment;
             $PendingPayment->tutor_id = $request->tutorId;
@@ -1166,33 +1171,31 @@ class BookingController extends Controller
         if (!$mail->send())
             throw new \Exception('Failed to send mail');
         // Parent Completed
-        if(!empty($parent)){
+        if (!empty($parent)) {
             $parentData = [
-            'tutorMessage' => 'Your Booking Successfully Completed',
-            'studentMessage' => 'Your Booking Successfully Completed',
-            'student' => $parent->first_name . ' ' . $parent->last_name,
-            'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
-             ];
+                'tutorMessage' => 'Your Booking Successfully Completed',
+                'studentMessage' => 'Your Booking Successfully Completed',
+                'student' => $parent->first_name . ' ' . $parent->last_name,
+                'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
+            ];
 
 
-        $view = \view('pages.mails.CompletedBookingStudent', $parentData);
-        $view = $view->render();
-        $mail = new PHPMailer();
-        $mail->CharSet = "UTF-8";
-        $mail->setfrom('support@247tutors.com', '247 Tutors');
-        $mail->isHTML(true);
-        $mail->Subject = 'Your Booking Successfully Completed';
-        $mail->Body = $view;
-        $mail->AddEmbeddedImage($imagePath, 'logo');
-        $mail->AltBody = '';
-        $mail->addaddress($parent->email, $parent->first_name . ' ' . $parent->last_name);
-        $mail->isHTML(true);
-        $mail->msgHTML($view);
+            $view = \view('pages.mails.CompletedBookingStudent', $parentData);
+            $view = $view->render();
+            $mail = new PHPMailer();
+            $mail->CharSet = "UTF-8";
+            $mail->setfrom('support@247tutors.com', '247 Tutors');
+            $mail->isHTML(true);
+            $mail->Subject = 'Your Booking Successfully Completed';
+            $mail->Body = $view;
+            $mail->AddEmbeddedImage($imagePath, 'logo');
+            $mail->AltBody = '';
+            $mail->addaddress($parent->email, $parent->first_name . ' ' . $parent->last_name);
+            $mail->isHTML(true);
+            $mail->msgHTML($view);
 
-        if (!$mail->send())
-            throw new \Exception('Failed to send mail');
-
-
+            if (!$mail->send())
+                throw new \Exception('Failed to send mail');
         }
 
 
@@ -1233,14 +1236,15 @@ class BookingController extends Controller
     {
         $imagePath = public_path('assets/images/247 NEW Logo 1.png');
 
-        if(Auth::user()->role_id == 3){
-            return back()->with('error','401 Unauthorized Action');
+        if (Auth::user()->role_id == 3) {
+            return back()->with('error', '401 Unauthorized Action');
         }
         Booking::where('uuid', $request->id)->where('tutor_id', $request->tutorId)
             ->update([
                 'request_refound' => '1',
             ]);
 
+        createNotification(Auth::user()->role_id, Auth::id(), 'Refound Request', 'By ' . Auth::user()->username);
 
         $bookingId = $request->id;
         $existingRefound = Refound::where('bookingId', $bookingId)->first();
@@ -1282,10 +1286,10 @@ class BookingController extends Controller
 
         if ($booking) {
             $student = User::find($booking->student_id);
-                if ($booking->parent_id != null) {
-                    $parent = User::find($booking->parent_id);
-                }
+            if ($booking->parent_id != null) {
+                $parent = User::find($booking->parent_id);
             }
+        }
 
 
         if (empty($student)) {
@@ -1338,7 +1342,7 @@ class BookingController extends Controller
         if (!$mail->send())
             throw new \Exception('Failed to send mail');
         // Parent Refund
-        if(!empty($parent)){
+        if (!empty($parent)) {
 
             $parentdata = [
                 'tutorMessage' => 'Your Booking Successfully Completed',
@@ -1432,10 +1436,10 @@ class BookingController extends Controller
         $booking = Booking::where('uuid', $request->booking_id)->first();
         if ($booking) {
             $student = User::find($booking->student_id);
-                if ($booking->parent_id != null) {
-                    $parent = User::find($booking->parent_id);
-                }
+            if ($booking->parent_id != null) {
+                $parent = User::find($booking->parent_id);
             }
+        }
 
         $tutor = User::find($booking->tutor_id);
         $url = URL::temporarySignedRoute(
@@ -1458,7 +1462,7 @@ class BookingController extends Controller
             'request_date' => $request->date,
             'request_time' => $request->time,
         ];
-        if(!empty($parent)){
+        if (!empty($parent)) {
             $parentdata = [
                 'url' => $url,
                 'tutorMessage' => 'Your Booking Reschedule Request Submited',
@@ -1476,7 +1480,7 @@ class BookingController extends Controller
             return redirect('bookings')->with('failed', 'Your Rescheduled limit exceeded please contact admin.');
         }
 
-        $TutorWarning = User::where('id', Auth::id())->whereIn('role_id', [3, 4, 5 ,6])->first();
+        $TutorWarning = User::where('id', Auth::id())->whereIn('role_id', [3, 4, 5, 6])->first();
         if ($TutorWarning->tutor_reschedule_warning == 3) {
             return redirect('bookings')->with('failed', 'Your Rescheduled limit exceeded please contact admin.');
         }
@@ -1492,7 +1496,7 @@ class BookingController extends Controller
         $ActivityLogs->description = "Booking ($request->id) Rescheduled Meeting Submited" . Auth::user()->first_name . " " . Auth::user()->last_name;
         $ActivityLogs->save();
 
-        $TutorWarning = User::where('id', Auth::id())->whereIn('role_id', [3, 4, 5,6])->first();
+        $TutorWarning = User::where('id', Auth::id())->whereIn('role_id', [3, 4, 5, 6])->first();
         if ($TutorWarning->tutor_reschedule_warning == 3) {
             return redirect('bookings')->with('failed', 'Your Rescheduled limit exceeded please contact admin.');
         }
@@ -1501,7 +1505,7 @@ class BookingController extends Controller
 
         if ($booking) {
             $user = \Auth::user();
-
+            createNotification(Auth::user()->role_id, Auth::id(), 'Rescheduled Meeting', 'By ' . Auth::user()->username);
             if ($user->role_id == 3 && $booking->tutor_id == $user->id) {
                 $this->rescheduleMeet($booking, $request->date, $request->time);
                 // Send mail code
@@ -1525,35 +1529,34 @@ class BookingController extends Controller
                 $mail->isHTML(true);
                 $mail->msgHTML($view);
 
-                    if (!$mail->send())
-                        throw new \Exception('Failed to send mail');
+                if (!$mail->send())
+                    throw new \Exception('Failed to send mail');
 
                 // parent Reschedule
-                    if(!empty($parent)){
-                        $student = User::find($booking->student_id);
-                        $tutor = User::find($booking->tutor_id);
+                if (!empty($parent)) {
+                    $student = User::find($booking->student_id);
+                    $tutor = User::find($booking->tutor_id);
 
-                            $view = \view('pages.mails.RescheduleMeetingByTutor', $parentdata);
-                            $view = $view->render();
+                    $view = \view('pages.mails.RescheduleMeetingByTutor', $parentdata);
+                    $view = $view->render();
 
-                            $mail = new PHPMailer();
-                            $mail->CharSet = "UTF-8";
+                    $mail = new PHPMailer();
+                    $mail->CharSet = "UTF-8";
 
-                            $mail->setfrom('support@247tutors.com', '247 Tutors');
+                    $mail->setfrom('support@247tutors.com', '247 Tutors');
 
-                            $mail->isHTML(true);
-                            $mail->Subject = 'Request to Reschedule Booking';
-                            $mail->Body = $view;
-                            $mail->AddEmbeddedImage($imagePath, 'logo');
-                            $mail->AltBody = '';
-                            $mail->addaddress($parent->email, $parent->first_name . ' ' . $parent->last_name);
-                            $mail->isHTML(true);
-                            $mail->msgHTML($view);
+                    $mail->isHTML(true);
+                    $mail->Subject = 'Request to Reschedule Booking';
+                    $mail->Body = $view;
+                    $mail->AddEmbeddedImage($imagePath, 'logo');
+                    $mail->AltBody = '';
+                    $mail->addaddress($parent->email, $parent->first_name . ' ' . $parent->last_name);
+                    $mail->isHTML(true);
+                    $mail->msgHTML($view);
 
-                            if (!$mail->send())
-                                throw new \Exception('Failed to send mail');
-                    }
-
+                    if (!$mail->send())
+                        throw new \Exception('Failed to send mail');
+                }
             } elseif ($user->role_id == 5 || $user->role_id == 6 || $user->role_id == 4 && $booking->student_id == $user->id) {
 
                 $this->rescheduleMeet($booking, $request->date, $request->time);
@@ -1807,6 +1810,9 @@ class BookingController extends Controller
             if (empty($booking)) {
                 return redirect('bookings')->with('error', 'Reschedule meeting not Create');
             }
+            $tempSlots = TempSlot::where('date',$booking_reschedule->booking_date)->where('slot',$booking_reschedule->booking_time)->where('tutor_id',$booking_reschedule->tutor_id)->first();
+
+            createNotification(Auth::user()->role_id, Auth::id(), 'Apperove Rescheduled Meeting', 'By ' . Auth::user()->username);
 
             $ActivityLogs = new ActivityLog;
             $ActivityLogs->user_id = Auth::id();
@@ -1819,10 +1825,10 @@ class BookingController extends Controller
 
             if ($findbooking) {
                 $student = User::find($findbooking->student_id);
-                    if ($findbooking->parent_id != null) {
-                        $parent = User::find($findbooking->parent_id);
-                    }
+                if ($findbooking->parent_id != null) {
+                    $parent = User::find($findbooking->parent_id);
                 }
+            }
 
 
             $data = [
@@ -1833,7 +1839,7 @@ class BookingController extends Controller
                 'id' => $findbooking->id,
             ];
 
-            if(!empty($parent)){
+            if (!empty($parent)) {
                 $parentdata = [
                     'tutorMessage' => 'Your Booking Reschedule Request Accepted',
                     'studentMessage' => 'Your Booking Reschedule Request Accepted',
@@ -1843,6 +1849,11 @@ class BookingController extends Controller
                 ];
             }
             if ($booking_reschedule) {
+                if (!empty($tempSlots)) {
+                    $tempSlots->date = $booking->booking_date;
+                    $tempSlots->slot = $booking->booking_time;
+                    $tempSlots->save();
+                }
                 if ($booking) {
                     $booking_reschedule->booking_date = $booking->booking_date;
                     $booking_reschedule->booking_time = $booking->booking_time;
@@ -1881,30 +1892,27 @@ class BookingController extends Controller
                         throw new \Exception('Failed to send mail');
 
                     // parent Accept Booking Reschedule
-                    if(!empty($parent)){
-                    $view = \view('pages.mails.rescheduleAccept', $data);
-                    $view = $view->render();
+                    if (!empty($parent)) {
+                        $view = \view('pages.mails.rescheduleAccept', $data);
+                        $view = $view->render();
 
-                    $mail = new PHPMailer();
-                    $mail->CharSet = "UTF-8";
+                        $mail = new PHPMailer();
+                        $mail->CharSet = "UTF-8";
 
-                    $mail->setfrom('support@247tutors.com', '247 Tutors');
+                        $mail->setfrom('support@247tutors.com', '247 Tutors');
 
-                    $mail->isHTML(true);
-                    $mail->Subject = 'Accept Booking Reschedule Request';
-                    $mail->Body = $view;
-                    $mail->AddEmbeddedImage($imagePath, 'logo');
-                    $mail->AltBody = '';
-                    $mail->addaddress($parent->email, $parent->first_name . ' ' . $parent->last_name);
-                    $mail->isHTML(true);
-                    $mail->msgHTML($view);
+                        $mail->isHTML(true);
+                        $mail->Subject = 'Accept Booking Reschedule Request';
+                        $mail->Body = $view;
+                        $mail->AddEmbeddedImage($imagePath, 'logo');
+                        $mail->AltBody = '';
+                        $mail->addaddress($parent->email, $parent->first_name . ' ' . $parent->last_name);
+                        $mail->isHTML(true);
+                        $mail->msgHTML($view);
 
-                    if (!$mail->send())
-                        throw new \Exception('Failed to send mail');
+                        if (!$mail->send())
+                            throw new \Exception('Failed to send mail');
                     }
-
-
-
                 }
                 return redirect('bookings')->with('success', 'Your Booking Rescheduled Successfully #' . $request->booking_id);
             } else {
@@ -2216,6 +2224,8 @@ class BookingController extends Controller
                 "customer" => $customer->id,
                 "description" => "",
             ]);
+
+            createNotification(Auth::user()->role_id, Auth::id(), 'Add Amount To Wallet', 'By ' . Auth::user()->username);
         }
         return back()->with('success', 'Add Amount In Wallet Successfully');
     }
@@ -2251,7 +2261,7 @@ class BookingController extends Controller
                 </tr>';
         $html .= '<tr class="pb-3 m-4">
                     <td class="pe-5">Fee :</td>
-                   <td>' .  ($complaint->bookingId ?  optional(Transaction::where('booking_id',optional(Booking::where('uuid',$complaint->bookingId)->first())->id)->first())->amount.'£' : 'N/A') . '</td>
+                   <td>' .  ($complaint->bookingId ?  optional(Transaction::where('booking_id', optional(Booking::where('uuid', $complaint->bookingId)->first())->id)->first())->amount . '£' : 'N/A') . '</td>
                 </tr>';
 
         $html .= '<tr class="pb-3 m-4">
@@ -2294,9 +2304,9 @@ class BookingController extends Controller
 
             if ($Booking) {
                 $student = User::find($Booking->student_id);
-                    if ($Booking->parent_id != null) {
-                        $parent = User::find($Booking->parent_id);
-                    }
+                if ($Booking->parent_id != null) {
+                    $parent = User::find($Booking->parent_id);
+                }
             }
 
             if ($Booking->parent_id == null) {
@@ -2333,7 +2343,7 @@ class BookingController extends Controller
                 'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
             ];
 
-            if(!empty($parent)){
+            if (!empty($parent)) {
                 $parentdata = [
                     'tutorMessage' => 'Your Refund Has Successfully Has ' . $request->status,
                     'student' => $parent->first_name . ' ' . $parent->last_name,
@@ -2351,7 +2361,7 @@ class BookingController extends Controller
                         $Booking->request_refound = "2";
                         $Booking->save();
 
-
+                        createNotification($student->role_id, $student->id, 'Amount to be refunded', 'By ' . $student->username);
 
                         // student
                         $view = view('pages.mails.RefundPaidStudent', $data)->render();
@@ -2368,7 +2378,7 @@ class BookingController extends Controller
                         $mail->msgHTML($view);
                         $mail->send();
                         // parent
-                        if(!empty($parent)){
+                        if (!empty($parent)) {
 
                             $view = view('pages.mails.RefundPaidStudent', $parentdata)->render();
                             $mail = new PHPMailer(true);
@@ -2411,7 +2421,7 @@ class BookingController extends Controller
                 }
                 // end paid
             } elseif ($request->status == 'Processing') {
-
+                createNotification($student->role_id, $student->id, 'Refunded Request Processing', 'By ' . $student->username);
                 // student
                 $view = view('pages.mails.RefundProcessingStudent', $data)->render();
                 $mail = new PHPMailer(true);
@@ -2428,20 +2438,20 @@ class BookingController extends Controller
                 $mail->send();
 
 
-                if(!empty($parent)){
-                $view = view('pages.mails.RefundProcessingStudent', $parentdata)->render();
-                $mail = new PHPMailer(true);
-                $mail->CharSet = 'UTF-8';
-                $mail->setFrom('support@247tutors.com', '247 Tutors');
-                $mail->isHTML(true);
-                $mail->Subject = "Refund Request Processing";
-                $mail->Body = $view;
-                $mail->AddEmbeddedImage($imagePath, 'logo');
-                $mail->AltBody = '';
-                $mail->addAddress($parent->email, $parent->first_name . ' ' . $parent->last_name);
-                $mail->isHTML(true);
-                $mail->msgHTML($view);
-                $mail->send();
+                if (!empty($parent)) {
+                    $view = view('pages.mails.RefundProcessingStudent', $parentdata)->render();
+                    $mail = new PHPMailer(true);
+                    $mail->CharSet = 'UTF-8';
+                    $mail->setFrom('support@247tutors.com', '247 Tutors');
+                    $mail->isHTML(true);
+                    $mail->Subject = "Refund Request Processing";
+                    $mail->Body = $view;
+                    $mail->AddEmbeddedImage($imagePath, 'logo');
+                    $mail->AltBody = '';
+                    $mail->addAddress($parent->email, $parent->first_name . ' ' . $parent->last_name);
+                    $mail->isHTML(true);
+                    $mail->msgHTML($view);
+                    $mail->send();
                 }
 
 
@@ -2476,11 +2486,11 @@ class BookingController extends Controller
 
     public function startRecording()
     {
-        
+
         //  $activateScript = '/home/u163900009/domains/247tutors.co.uk/public_html/public/venv/Scripts/activate';
-        // $output = exec("source \"$activateScript\" 2>&1", $output, $returnVar); 
-        
-        
+        // $output = exec("source \"$activateScript\" 2>&1", $output, $returnVar);
+
+
         //       $sessionId = 2;
         //     $command = 'python3';
         //     $arguments = [
@@ -2488,42 +2498,42 @@ class BookingController extends Controller
         //         $sessionId,
         //         'start',
         //     ];
-            
+
         //     // Create a new process instance
         //     $process = new Process([$command, ...$arguments]);
         //     $process->run();
-            
+
         //     echo "<pre>";
         //     print_r($process->getOutput());
         //     echo "<pre>";
         //     print_r($process->getErrorOutput());
-            
+
         //     dd();
-        
-        
-        
-        
-        
-        
-        
-       // if (Auth::check() && Auth::user()->role_id == 3) {
 
-            // Retrieve the existing session ID or generate a new one
-            $recordingSession = \App\Models\RecordingSession::where('user_id', \Auth::user()->id)->firstOrNew();
 
-            if (!$recordingSession->exists) {
-                $recordingSession->session_id = \Illuminate\Support\Str::uuid()->toString();
-                $recordingSession->user_id = \Auth::user()->id;
-                $recordingSession->save();
-            }
 
-            $sessionId = $recordingSession->session_id;
 
-            // Dispatch the job to run the recording script in the background
-            \App\Jobs\StartRecordingJob::dispatch($sessionId);
-           // dd('come');
-            // Return the response
-            return response()->json(['status' => 'success', 'message' => 'Recording started in the background.', 'sessionId' => $sessionId]);
+
+
+
+        // if (Auth::check() && Auth::user()->role_id == 3) {
+
+        // Retrieve the existing session ID or generate a new one
+        $recordingSession = \App\Models\RecordingSession::where('user_id', \Auth::user()->id)->firstOrNew();
+
+        if (!$recordingSession->exists) {
+            $recordingSession->session_id = \Illuminate\Support\Str::uuid()->toString();
+            $recordingSession->user_id = \Auth::user()->id;
+            $recordingSession->save();
+        }
+
+        $sessionId = $recordingSession->session_id;
+
+        // Dispatch the job to run the recording script in the background
+        \App\Jobs\StartRecordingJob::dispatch($sessionId);
+        // dd('come');
+        // Return the response
+        return response()->json(['status' => 'success', 'message' => 'Recording started in the background.', 'sessionId' => $sessionId]);
         // } else {
         //     return response()->json(['status' => 'error', 'message' => 'Recording started in the background.']);
         // }
@@ -2555,16 +2565,16 @@ class BookingController extends Controller
         file_put_contents($filePath, $content);
         return response()->json(['message' => 'Recording stopped.']);
     }
-    
-    
-    
+
+
+
     public function saveVideo(Request $request)
     {
         try {
             if ($request->hasFile('video')) {
                 $video = $request->file('video');
                 $booking_id = $request->booking_uid;
-                $video->move(public_path('videos/'.$booking_id), $video->getClientOriginalName().'.mp4');
+                $video->move(public_path('videos/' . $booking_id), $video->getClientOriginalName() . '.mp4');
                 Booking::where('uuid', $booking_id)->update(['video_path' => 'videos/' . $booking_id . '/' . $video->getClientOriginalName() . '.mp4']);
                 return response()->json(['message' => 'Video saved successfully'], 200);
             } else {
@@ -2574,7 +2584,4 @@ class BookingController extends Controller
             return response()->json(['error' => 'Failed to save video'], 500);
         }
     }
-    
-    
-    
 }

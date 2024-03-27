@@ -1,5 +1,6 @@
 @php
-    function generateTicketId() {
+    function generateTicketId()
+    {
         $uniqueId = uniqid();
         $ticketId = substr($uniqueId, -6);
         return $ticketId;
@@ -54,45 +55,40 @@
             background-color: rgba(0, 150, 255, 1);
 
         }
-        @media only screen and (max-width:425px){
-            table tr th{
-                min-width:110px;
+
+        @media only screen and (max-width:425px) {
+            table tr th {
+                min-width: 110px;
             }
-             table tr td{
-                min-width:120px;
+
+            table tr td {
+                min-width: 120px;
             }
         }
-
     </style>
     <div class="container-fluid">
         @include('include.message')
         <div class="row my-5">
             <div class="col-12 text-center">
                 <h4 class="complainttext" id="text-color">Complaint System</h4>
-                <h6 class="complaintp">How To Works</h6>
+                <h6 class="complaintp">How it Works</h6>
             </div>
             <div class="col-12 my-3">
                 <div class="row justify-content-center my-3">
                     <div class="col-md-3 col-12 text-center">
                         <i class="fa-solid fa-sitemap"></i>
                         <p class="mt-3">
-                            Get to know the status
-                            of your complaint or add a
-                            new complaint
+                            Gain insight into the status of your complaint or submit a new complaint.
                         </p>
                     </div>
                     <div class="col-md-3 col-12 text-center">
                         <i class="fa-solid fa-volcano"></i>
-                        <p class="mt-3">Track your complaint
-                            (Track your complaint using
-                            Ticket number)</p>
+                        <p class="mt-3">Monitor your grievance (Monitor your grievance using a Ticket number).</p>
                     </div>
                     <div class="col-md-3 col-12 text-center">
                         <i class="fa-regular fa-file-lines"></i>
                         <p class="mt-3">
-                            Add a complaint
-                            (Add a complaint against an Tutor
-                            service provided)
+                            Raise an issue (Lodge a grievance against a tutor service provided).
                         </p>
                     </div>
                 </div>
@@ -113,15 +109,17 @@
 
 
         <div class="row mx-md-5 mx-2 mb-5" id="complaintDiv">
-            <form method="get" class="col-12 d-flex flex-column flex-md-row justify-content-md-between align-items-baseline"
-            style="border-bottom: 1px solid gray;" onsubmit="return submitForm()">
-            <h5 class="tickettext mb-0 pb-0" id="text-color">Track Ticket</h5>
-            <div class="mb-1">
-                <label for="formGroupExampleInput" class="form-label">Search:</label>
-                <input type="text" class="form-control" id="formGroupExampleInput" value="{{ $_GET['search'] ?? '' }}" name="search" placeholder="Ticket No"
-                    onkeydown="if(event.keyCode==13) return submitForm()">
-            </div>
-        </form>
+            <form method="get"
+                class="col-12 d-flex flex-column flex-md-row justify-content-md-between align-items-baseline"
+                style="border-bottom: 1px solid gray;" onsubmit="return submitForm()">
+                <h5 class="tickettext mb-0 pb-0" id="text-color">Track Ticket</h5>
+                <div class="mb-1">
+                    <label for="formGroupExampleInput" class="form-label">Search:</label>
+                    <input type="text" class="form-control" id="formGroupExampleInput"
+                        value="{{ $_GET['search'] ?? '' }}" name="search" placeholder="Ticket No"
+                        onkeydown="if(event.keyCode==13) return submitForm()">
+                </div>
+            </form>
             <div class="col-12 mt-5 mt-md-1">
                 <div class="row mb-4 justify-content-md-center text-center">
                     <div class="col-lg-11 col-12 px-0 ">
@@ -131,7 +129,8 @@
                                     <tr>
                                         <th>#Ticket No</th>
                                         <th>Subject</th>
-                                        <th>Bookind Id</th>
+                                        <th>Type</th>
+                                        <th>Booking Id</th>
                                         <th>Issue Details</th>
                                         <th>Status</th>
                                         <th>Date</th>
@@ -140,28 +139,30 @@
                                 <tbody>
                                     @if ($Complaints->count() > 0)
                                         @foreach ($Complaints as $Complaint)
-                                        <tr>
-                                            <td>{{ $Complaint->TicketID }}</td>
-                                            <td>{{ $Complaint->subject }}</td>
-                                            <td>{{ $Complaint->booking_id }}</td>
-                                            <td>{{ $Complaint->issues_detail }}</td>
-                                            <td>
-                                                <!--<span class="badge badge-danger" style="background-color: green">{{ $Complaint->status }}</span>-->
+                                            <tr>
+                                                <td>{{ $Complaint->TicketID }}</td>
+                                                <td>{{ $Complaint->subject }}</td>
+                                                <td>{{ $Complaint->type }}</td>
+                                                <td>{{ $Complaint->booking_id }}</td>
+                                                <td>{{ $Complaint->issues_detail }}</td>
+                                                <td>
+                                                    <!--<span class="badge badge-danger" style="background-color: green">{{ $Complaint->status }}</span>-->
 
-                                                 @if($Complaint->status == 'Pending')
-                                                    <span class="badge bg-warning" >{{ $Complaint->status }}</span>
+                                                    @if ($Complaint->status == 'Pending')
+                                                        <span class="badge bg-warning">{{ $Complaint->status }}</span>
                                                     @elseif($Complaint->status == 'Processing')
-                                                    <span class="badge bg-danger">{{ $Complaint->status }}</span>
+                                                        <span class="badge bg-danger">{{ $Complaint->status }}</span>
                                                     @else
-                                                    <span class="badge bg-success">{{ $Complaint->status }}</span>
+                                                        <span class="badge bg-success">{{ $Complaint->status }}</span>
                                                     @endif
-                                            </td>
-                                            <td>{{ \Carbon\Carbon::parse($Complaint->created_at)->format('F j, Y \a\t g:i A'); }}</td>
-                                        </tr>
+                                                </td>
+                                                <td>{{ \Carbon\Carbon::parse($Complaint->created_at)->format('F j, Y \a\t g:i A') }}
+                                                </td>
+                                            </tr>
                                         @endforeach
-                                        @else
+                                    @else
                                         <tr>
-                                            <td colspan="6">Not Record Found </td>
+                                            <td colspan="7">Not Record Found </td>
                                         </tr>
                                     @endif
                                 </tbody>
@@ -185,25 +186,42 @@
                     <div class="row mb-3">
                         <div class="col-lg-8 col-12">
                             <label for="inputticket" class="form-label">Ticket No</label>
-                            <input type="text" class="form-control" name="TicketID" id="inputticket" placeholder="Ticket No" value="{{ generateTicketId() }}" readonly>
+                            <input type="text" class="form-control" name="TicketID" id="inputticket"
+                                placeholder="Ticket No" value="{{ generateTicketId() }}" readonly>
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-lg-8 col-12">
                             <label for="inputsubject" class="form-label">Subject <span style="color:red">*</span></label>
-                            <input type="text" class="form-control" name="subject" id="inputsubject" required placeholder="Select Subject">
+                            <input type="text" class="form-control" name="subject" id="inputsubject" required
+                                placeholder="Select Subject">
                         </div>
                     </div>
                     <div class="row mb-3">
-                        <div class="col-lg-8 col-12" >
-                            <label for="inputbooking" class="form-label">Booking Id <span style="color:red"></span></label>
-                            <input type="text" class="form-control" name="booking_id" id="inputbooking"  placeholder="123plm">
+                        <div class="col-lg-8 col-12">
+                            <label for="inputrelation" class="form-label">Position</label>
+                            <select class="form-select" name="relation" id="inputrelation">
+                                <option value="website">Website</option>
+                                <option value="admin">Admin</option>
+                                <option value="tutor">Tutor</option>
+                                <option value="organization">Organization</option>
+                            </select>
+                        </div>
+                    </div>
+
+                    <div class="row mb-3" id="ISHAVEID" style="display: none;">
+                        <div class="col-lg-8 col-12">
+                            <label for="inputbooking" class="form-label">Booking Id <span
+                                    style="color:red"></span></label>
+                            <input type="text" class="form-control" name="booking_id" id="inputbooking"
+                                placeholder="123plm">
                         </div>
                     </div>
                     <div class="row mb-3">
                         <div class="col-lg-8 col-12">
                             <label for="inputissues" class="form-label">Issues Details</label>
-                            <textarea type="text" class="form-control" name="issues_detail" id="inputissues" required placeholder="Description"></textarea>
+                            <textarea type="text" class="form-control" name="issues_detail" id="inputissues" required
+                                placeholder="Description"></textarea>
                         </div>
                     </div>
                     <div class="row mb-3">
@@ -238,5 +256,17 @@
 
             }
         }
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#inputrelation').change(function() {
+                var selectedOption = $(this).val();
+                if (selectedOption === 'tutor') {
+                    $('#ISHAVEID').show();
+                } else {
+                    $('#ISHAVEID').hide();
+                }
+            });
+        });
     </script>
 @endsection

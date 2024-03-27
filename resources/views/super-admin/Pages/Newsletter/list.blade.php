@@ -31,9 +31,7 @@
                         <li class="breadcrumb-item">
                             <a href="{{ route('dashboard') }}"><i class="ik ik-home"></i></a>
                         </li>
-                        <li class="breadcrumb-item">
-                            <a href="#">{{ __('Settings') }}</a>
-                        </li>
+
                         <li class="breadcrumb-item">
                             <a href="{{ url('Newsletter') }}">{{ __('Newsletter') }}</a>
                         </li>
@@ -57,7 +55,7 @@
     <div class="container">
         <div class="row">
             <!-- start message area-->
-           
+
             <!-- end message area-->
             <div class="col-md-12  user-table-data col-12 pe-0 pe-md-2">
                 <div class="card p-md-3 p-2">
@@ -65,6 +63,7 @@
                         <h3 class="col-auto">{{ __('Newsletter') }}</h3>
                         <!--<form method="GET" action="" class="col-12 d-flex  align-items-center gap-2">-->
                             <button id="copy-all-emails" class="btn-sm btn-primary ">Copy All Emails</button>
+                            <a class="btn-sm btn-primary" href="{{ url('newsletter/create') }}">Create Newsletter</a>
                         <!--    <select class="form-control" name="date">-->
                         <!--        <option value="">All</option>-->
                         <!--        <option value="Today" {{ !empty($_GET['date']) && $_GET['date'] == 'Today' ? 'selected':'' }}>Today</option>-->
@@ -87,23 +86,23 @@
                                 </tr>
                             </thead>
                             <tbody>
-                               
+
                                 @forelse($blogs as $key => $blog)
                                     <tr>
                                         <td  style="border-bottom: .5px solid black;">{{ $key + 1 }}</td>
                                         <td style="border-bottom: .5px solid black;">
-                                            <a href="#" class="copy-email" data-email="{{ $blog->email }}" title="Click to copy">{{ $blog->email }}</a>
+                                            <a href="mailto:{{ $blog->email }}" class="copy-email" data-email="{{ $blog->email }}" title="Click to copy">{{ $blog->email }}</a>
                                         </td>
                                         <td style="border-bottom: .5px solid black;">{{ Carbon\Carbon::parse($blog->created_at)->format('F j, Y g:i A') }}</td>
                                          <td style="border-bottom: .5px solid black;"><a href="{{ url('delete/newsletter').'/'.$blog->id}}" class="btn btn-danger"> <i class="fa fa-trash"></i></a></td>
 
                                     </tr>
-                                
+
                                 @empty
                                     <tr>
                                         <td  colspan="4" class="text-center">Record not found</td>
                                     </tr>
-                               
+
                                 @endforelse
                                 <script>
                                     $(document).ready(function() {
@@ -111,14 +110,14 @@
                                             var emailToCopy = $(this).data('email');
                                             copyToClipboard(emailToCopy);
                                         });
-                                
+
                                         $("#copy-all-emails").click(function() {
                                             var allEmails = $(".copy-email").map(function() {
                                                 return $(this).data('email');
                                             }).get().join(', ');
-                                
+
                                             copyToClipboard(allEmails);
-                                
+
                                             Swal.fire({
                                                 title: 'Copied!',
                                                 text: 'All emails copied to clipboard: ' + allEmails,
@@ -126,18 +125,18 @@
                                                 confirmButtonText: 'OK'
                                             });
                                         });
-                                
+
                                         function copyToClipboard(text) {
                                             var tempInput = $("<input>");
                                             $("body").append(tempInput);
                                             tempInput.val(text).select();
-                                
+
                                             try {
                                                 document.execCommand("copy");
                                             } catch (err) {
                                                 console.error('Unable to copy to clipboard:', err);
                                             }
-                                
+
                                             tempInput.remove();
                                         }
                                     });

@@ -28,7 +28,9 @@
         <h1 class="hero-heading"><b>@isset($web_settings['pricing_title']) {{ $web_settings['pricing_title'] ?? '' }} @endisset</b></h1>
         <p>@isset($web_settings['pricing_desc']) {{ $web_settings['pricing_desc'] ?? '' }} @endisset</p>
         <img src="./assets/images/Icon.png" alt="">
-        <span>@isset($web_settings['pricing_short_desc']) {{ $web_settings['pricing_short_desc'] ?? '' }} @endisset</span>
+        <span>@isset($web_settings['pricing_short_desc'])
+            {!! isset($web_settings['pricing_short_desc']) ? $web_settings['pricing_short_desc'] : '' !!}
+        @endisset</span>
       </div>
       <div class="col-12 col-lg-4 col-md-5 p-3 d-none d-md-flex align-items-end">
         <div class="first-header-model pt-5 pt-md-0">
@@ -42,16 +44,16 @@
 
       <div class="boxes-center">
         <div class="price-boxes row d-flex justify-content-center mt-5">
-          <a href="{{ url('find-tutor?min_price=20&max_price=29') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3" id="box1">
-            <h2><b>£20 - £29</b></h2>
+          <a href="{{ url('find-tutor?min_price=19&max_price=29') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3" id="box1">
+            <h2><b>£19 - £29</b></h2>
             <p>@isset($web_settings['pricecard1_desc']) {{$web_settings['pricecard1_desc'] ?? '' }} @endisset</p>
           </a>
-          <a href="{{ url('find-tutor?min_price=40&max_price=87') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3" id="box2" style="color: white;">
-            <h2><b>£40 - £87</b></h2>
+          <a href="{{ url('find-tutor?min_price=30&max_price=39') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3 text-white" id="box2" style="color: white;">
+            <h2><b>£30 - £39</b></h2>
             <p>@isset($web_settings['pricecard2_desc']) {{$web_settings['pricecard2_desc'] ?? '' }} @endisset</p>
           </a>
-          <a href="{{ url('find-tutor?min_price=90&max_price=119') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3" id="box3">
-            <h2><b>£90 - £119</b></h2>
+          <a href="{{ url('find-tutor?min_price=40&max_price=49') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3" id="box3">
+            <h2><b>£40 - £49</b></h2>
             <p>@isset($web_settings['pricecard3_desc']) {{$web_settings['pricecard3_desc'] ?? '' }} @endisset</p>
           </a>
         </div>
@@ -61,29 +63,29 @@
     </div>
 
 
-    <div class="boxcontent container w-75 mt-4">
-      <p> @isset($web_settings['price_desc']) {{$web_settings['price_desc'] ?? '' }} @endisset</p>
-    </div>
-    <div class="find-tutor-budget mt-5 mb-4 py-3">
-      <h1><b> Find a Tutor for your Budget </b></h1>
-    </div>
-    <div class="find-1-content d-flex justify-content-center mb-5">
-      <a href="{{ url('find-tutor?min_price=20&max_price=29') }}" class="text-decoration-none find-1-text">
-        <h5><b> Find £20 - £29 Tutors </b></h5>
-      </a>
-      <a href="{{ url('find-tutor?min_price=40&max_price=89') }}" class="text-decoration-none find-1-text ms-3">
-        <h5><b> Find £40 - £89 Tutors </b></h5>
-      </a>
-      <a href="{{ url('find-tutor?min_price=90&max_price=119') }}" class="text-decoration-none find-1-text ms-3">
-        <h5><b> Find £90 - £119 Tutors </b></h5>
-      </a>
-    </div>
+    <div class="boxcontent container w-75 mt-4 d-none">
+        <p> @isset($web_settings['price_desc']) {{$web_settings['price_desc'] ?? '' }} @endisset</p>
+      </div>
+      <div class="find-tutor-budget mt-5 mb-4 py-3 d-none">
+        <h1><b> Find a Tutor for your Budget </b></h1>
+      </div>
+      <div class="find-1-content d-flex justify-content-center mb-5 d-none">
+        <a href="{{ url('find-tutor?min_price=19&max_price=29') }}" class="text-decoration-none find-1-text">
+          <h5><b> Find £19 - £29 Tutors </b></h5>
+        </a>
+        <a href="{{ url('find-tutor?min_price=30&max_price=39') }}" class="text-decoration-none find-1-text ms-3">
+          <h5><b> Find £30 - £39 Tutors </b></h5>
+        </a>
+        <a href="{{ url('find-tutor?min_price=40&max_price=49') }}" class="text-decoration-none find-1-text ms-3">
+          <h5><b> Find £40 - £49 Tutors </b></h5>
+        </a>
+      </div>
 
   </div>
 
   <div class="container mt-5">
     <div class="row  pt-5 justify-content-xl-center align-items-center mb-5">
-      <div class="mid-content1 col-12 col-lg-6 col-md-offset-1 mt-5">
+      <div class="mid-content1 col-12 col-lg-5 col-md-offset-1 mt-5">
         <h1>@isset($web_settings['card5_title']) {{ $web_settings['card5_title'] ?? '' }} @endisset</h1>
         <p>@isset($web_settings['card5_desc']) {{ $web_settings['card5_desc'] ?? '' }} @endisset
         </p>
@@ -92,11 +94,11 @@
         <img src="./assets/images/Frame@2x.png" alt="" class="mid-content1-img img-fluid">
       </div>
     </div>
-    <div class="row justify-content-lg-center">
+    <div class="row justify-content-lg-center align-items-lg-center">
       <div class="col-12 col-lg-5 mt-4 order-2 order-lg-1 d-flex justify-content-center justify-content-lg-start">
         <img src="./assets/images/Character.png" alt="" width="100%" class="mid-content2-img img-fluid">
       </div>
-      <div class="mid-content2 col-12 col-lg-6 col-md-offset-1 mt-4 order-1 order-lg-2 d-flex flex-column ">
+      <div class="mid-content2 col-12 col-lg-5 col-md-offset-1 mt-4 order-1 order-lg-2 d-flex flex-column ">
         <h1 class="mt-2">@isset($web_settings['card6_title']) {{ $web_settings['card6_title'] ?? '' }} @endisset</h1>
         <p> @isset($web_settings['card6_desc']) {{$web_settings['card6_desc'] ?? '' }} @endisset</p>
       </div>
@@ -106,7 +108,7 @@
   <div class="container-fluid py-5">
     <div class="row py-md-5" id="review-section-head">
       <div class="review-trustpilot col-12 text-center">
-        <h1><text>4.5/5 Review on<a href="#" class="text-decoration-none">Trustpilot</a></text></h1>
+        <h1><span>4.5/5 Review <a href="https://www.trustpilot.com/" class="text-decoration-none text-dark">Trustpilot</a></span></h1>
       </div>
     </div>
     <div class="row py-3 justify-content-center mt-5">
@@ -254,7 +256,7 @@
         title:'Chat Support',
         mainColor:'#0096FF',
         bubbleBackground:'#0096FF',
-        introMessage: "✋ Hi! I'm from 247tutors.com"
+        introMessage: "✋ Hi! I'm from 247tutors.co.uk"
     };
    </script>
 

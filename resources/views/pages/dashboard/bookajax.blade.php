@@ -14,6 +14,8 @@
                                             </a>
                                         </th>
                                         <th class="text-capitalize">{{ optional($booking->subjects)->name }}</th>
+                                        @if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+                                        @else
                                         <td>
                                             @if ($booking->booking_fee !== 'Free')
                                                 @if ((int) $booking->booking_fee == $booking->booking_fee)
@@ -25,6 +27,7 @@
                                                 {{ $booking->booking_fee }}
                                             @endif
                                         </td>
+                                        @endif
                                         <td>{{ $booking->duration }} minutes</td>
                                         <td>
                                             @if ($booking->request_refound != 1 && $booking->request_refound != '2')
@@ -48,7 +51,7 @@
                                                 </span>
                                             @endif
                                         </td>
-                                        <td>{!! $booking->booking_date . '<br>' . $booking->booking_time !!}</td>
+                                        <td>{!! date('d-m-Y', strtotime($booking->booking_date)) . '<br>' . date('h:i a', strtotime($booking->booking_time)) !!}</td>
                                         <th class="dropdown">
 
 
@@ -118,6 +121,18 @@
                                                                         @endif
                                                                     @endif
                                                                 </li>
+
+                                                                <li>
+                                                                    @if(Auth::user()->role_id == 4)
+                                                                    <a href="{{ url('chat') . '/' . $booking->tutor->id }}"
+                                                                        class="dropdown-item">Chat with Tutor</a>
+                                                                    @endif
+                                                                    @if(Auth::user()->role_id == 3)
+                                                                    <a href="{{ url('chat') . '/' . $booking->student->id }}"
+                                                                        class="dropdown-item">Chat with Student</a>
+                                                                    @endif
+                                                                </li>
+
                                                             @endif
                                                         @endif
                                                     @endif

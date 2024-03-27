@@ -131,8 +131,7 @@ and (max-width : 425px){
                                 <div class="d-flex align-items-end justify-content-between mt-4" >
                                     <div>
                                         <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="0">{{ !empty($students) ? $students->count() : '0' }}</span></h4>
-                                        <a href="{{url('parent/students')}}" class="text-decoration-none text-muted">View all
-                                            Student</a>
+                                        <a href="{{url('organization/students')}}" class="text-decoration-none text-muted">View all Students</a>
                                     </div>
                                     <div style="width: 16%;">
                                         <span class="avatar-title bg-info-subtle rounded fs-3">
@@ -152,7 +151,7 @@ and (max-width : 425px){
                                         <p class="text-uppercase fw-bold mb-0">
                                             {{-- <img src="{{ asset('assets/images/user 1.png') }}" alt="" width="11%"> --}}
                                             <i class="fa-solid fa-user" style="font-size: 27.5px;"></i>
-                                            Hired Tutor</p>
+                                            Hired Tutors</p>
                                     </div>
                                     <div class="flex-shrink-0">
 
@@ -160,9 +159,8 @@ and (max-width : 425px){
                                 </div>
                                 <div class="d-flex align-items-end justify-content-between mt-4" >
                                     <div>
-                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="0">{{ !empty($tutors) ? $tutors->count() : '0' }}</span></h4>
-                                        <a href="{{ url('/bookings') }}" class="text-decoration-none text-muted">View all
-                                            Tutotr</a>
+                                        <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="0">{{ !empty($bookingCount) ? $bookingCount->count() : '0' }}</span></h4>
+                                        <a href="{{ url('/bookings') }}" class="text-decoration-none text-muted">View all Tutor</a>
                                     </div>
                                     <div style="width: 16%;text-align: end;">
                                         <span class="avatar-title bg-info-subtle rounded fs-3">
@@ -191,8 +189,7 @@ and (max-width : 425px){
                                 <div class="d-flex align-items-end justify-content-between mt-4" >
                                     <div>
                                         <h4 class="fs-22 fw-semibold ff-secondary mb-4"><span class="counter-value" data-target="0">{{ !empty($tutors) ? $tutors->count() : '0' }}</span></h4>
-                                        <a href="{{ url('/bookings') }}" class="text-decoration-none text-muted">View all
-                                            Booking</a>
+                                        <a href="{{ url('/bookings') }}" class="text-decoration-none text-muted">View all Bookings</a>
                                     </div>
                                     <div style="width: 16%;">
                                         <span class="avatar-title bg-info-subtle rounded fs-3">

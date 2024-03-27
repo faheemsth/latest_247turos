@@ -108,7 +108,7 @@
 <body style="background-color: #e9ecef;">
     <div class="preheader"
         style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-        Refund Request Processing
+        I am writing to bring to your attention an important matter regarding recent payment transactions.
     </div>
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
@@ -136,36 +136,36 @@
                     </tr>
                 </table>
             </td>
-           
+
             </tr>
             <tr>
-            
+
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td align="left" bgcolor="#ffffff"
                             style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;border-top: 3px solid #d4dadf">
-                           
+
                             <h3 style="font-size:1.2rem;font-weight:500;">
-                            This mail to inform you that our 247tutors Support team has received your refund request regarding your recent booking. We understand the importance of resolving this matter swiftly and efficiently.
-                            </h3>
-                             
+                                Our team at 247Tutor has detected that the payment for a recent booking may have been associated with a student refund request. We are currently investigating this issue to ensure accuracy and transparency in all financial transactions. </h3>
+
                              <h3 style="font-size:1.2rem;font-weight:500;">
-                            Please be assured that our team is currently working diligently on processing your refund request. We are committed to ensuring that this matter is addressed with the utmost care and attention to detail.
-                            </h3>
-                             
+                                We understand the significance of this situation and assure you that we are taking the necessary steps to address it promptly. Your cooperation and understanding during this process are greatly appreciated. </h3>
+
                              <h3 style="font-size:1.2rem;font-weight:500;">
-                            Thank you for choosing 247tutors. We value your trust and look forward to resolving this matter to your satisfaction.
-                            </h3>
-                             
+                                If you have any questions or require further clarification regarding this matter, please do not hesitate to contact us.
+                            <br>
+                            Thank you for your attention to this issue.
+                        </h3>
+
                         </td>
                     </tr>
                 </table>
             </td>
-            
-            
+
+
             </tr>
-           
+
         <tr>
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
@@ -184,7 +184,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">© 2023 247Tutor. All rights reserved.</p>
+                            <p style="margin: 0;">© 2024 247tutors. All rights reserved.</p>
                         </td>
                     </tr>
 

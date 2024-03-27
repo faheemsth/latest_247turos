@@ -16,24 +16,26 @@
     <script src="{{ asset('js/jsdelivrcore.js') }}"></script>
     <script src="{{ asset('js/jsdelivr.js') }}"></script>
     <style>
-        .bgpro{
+        .bgpro {
             background-color: #f2f2f2;
             border: 1px solid #c1c1c1;
         }
-        .bgpro:focus{
+
+        .bgpro:focus {
             color: white;
-    background-color: rgba(59, 59, 59, 0.267);
-    border-color: rgba(180, 178, 178, 0.267);
-    outline: 0;
-    box-shadow: 0 0 0 0;
-        }
-        .profileeditdiv{
-            opacity: 0;
-        }
-        .profileeditdiv:hover{
-            opacity: 0.8;
+            background-color: rgba(59, 59, 59, 0.267);
+            border-color: rgba(180, 178, 178, 0.267);
+            outline: 0;
+            box-shadow: 0 0 0 0;
         }
 
+        .profileeditdiv {
+            opacity: 0;
+        }
+
+        .profileeditdiv:hover {
+            opacity: 0.8;
+        }
     </style>
     <div class="container-fluid">
         <div class="container">
@@ -50,65 +52,208 @@
             @endif
 
             <div class="row mt-5 mb-5">
+        {{-- sheraz --}}
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.css" />
+        <script src="https://cdnjs.cloudflare.com/ajax/libs/cropperjs/1.5.6/cropper.js"></script>
+
+        <style type="text/css">
+            .preview {
+                text-align: center;
+                overflow: hidden;
+                width: 160px;
+                height: 160px;
+                margin: 10px;
+                border: 1px solid rgb(83, 78, 78);
+            }
+
+
+
+            .section {
+                margin-top: 150px;
+                background: #fff;
+                padding: 50px 30px;
+            }
+
+            .modal-lg {
+                max-width: 1000px !important;
+            }
+        </style>
+
+        <div class="modal fade" id="RefundModal" tabindex="-1" role="dialog" aria-labelledby="modalLabel"
+            aria-hidden="true">
+            <div class="modal-dialog modal-lg" role="document">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="modalLabel">Image Crop</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            id="close-modal"></button>
+                    </div>
+                    <div class="modal-body">
+                        <div class="img-container">
+                            <div class="row">
+                                <div class="col-md-8">
+                                    <img id="image" style="display: block;max-width: 100%;">
+                                    <form action="{{ url('/Upload/Profile') }}" method="POST"
+                                        enctype="multipart/form-data">
+                                        @csrf
+                                        <input type="file" name="image" class="image" style="margin-top: 40px;">
+                                        <input type="hidden" name="image_base64" style="margin-top: 40px;">
+                                        <img src=""
+                                            style="width: 200px;display: none;display: block;max-width: 100%;"
+                                            class="show-image">
+                                        <br />
+                                </div>
+                                <div class="col-md-4">
+                                    <div class="preview"></div>
+                                    <span
+                                        style="text-align: center;overflow: hidden;width: 160px;height: 160px;margin: 10px;">
+                                        <button type="button" class="btn btn-primary" id="crop">Crop</button>
+                                    </span>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                    <div class="modal-footer">
+                        <button class="btn btn-success" type="submit">Submit</button>
+                    </div>
+                </form>
+                </div>
+            </div>
+        </div>
+
+
+        <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.7.1/jquery.min.js"></script>
+        <script>
+            var cropper;
+            var image = document.getElementById('image');
+
+            $("body").on("change", ".image", function(e) {
+                var files = e.target.files;
+
+                var done = function(url) {
+                    $('#image').attr('src', url);
+                    var reader;
+                    var file;
+
+                    if (files && files.length > 0) {
+                        file = files[0];
+
+                        if (window.URL && window.URL.createObjectURL) {
+                            cropper.replace(window.URL.createObjectURL(file));
+                        } else if (FileReader) {
+                            reader = new FileReader();
+                            reader.onload = function(e) {
+                                done(reader.result);
+                            };
+                            reader.readAsDataURL(file);
+                        } else {
+                            console.error('Your browser does not support previewing images.');
+                        }
+                    }
+                };
+                cropper = new Cropper(image, {
+                    aspectRatio: 1,
+                    viewMode: 3,
+                    preview: '.preview'
+                });
+                done(window.URL.createObjectURL(files[0]));
+            });
+
+            $(document).ready(function() {
+                $("#crop").click(function() {
+                    canvas = cropper.getCroppedCanvas({
+                        width: 160,
+                        height: 160,
+                    });
+
+                    canvas.toBlob(function(blob) {
+                        url = URL.createObjectURL(blob);
+                        var reader = new FileReader();
+                        reader.readAsDataURL(blob);
+                        reader.onloadend = function() {
+                            var base64data = reader.result;
+                            $("input[name='image_base64']").val(base64data);
+                            $(".show-image").show();
+                            $(".show-image").attr("src", base64data);
+                        }
+                    });
+                });
+
+
+            });
+        </script>
+        {{-- sheraz --}}
+
                 <div class="col-12 col-lg-2 image1 d-flex justify-content-lg-center position-relative">
-                    <div  class="profileeditdiv d-flex justify-content-center align-items-center" style="width: 180px;height: 180px;background-color: #cfcfcf;border-radius: 50%; position: absolute;top:0px;">
-                        <button type="button" data-bs-toggle="modal" data-bs-target="#staticBackdrop" class="btn px-4" style="background-color: #080808;
+
+                    <div class="profileeditdiv d-flex justify-content-center align-items-center"
+                        style="width: 180px;height: 180px;background-color: #cfcfcf;border-radius: 50%; position: absolute;top:0px;">
+                        <button type="button" data-bs-toggle="modal" data-bs-target="#RefundModal" class="btn px-4"
+                            style="background-color: #080808;
                         color: white;">Edit</button>
                     </div>
                     @if (!empty(Auth::user()->image) && file_exists(public_path(Auth::user()->image)))
-                        <img src="{{ asset(Auth::user()->image) }}" alt="" style="width: 180px;height: 180px;
+                        <img src="{{ asset(Auth::user()->image) }}" alt=""
+                            style="width: 180px;height: 180px;
                         border-radius: 50%;">
                     @else
-                        <img src="{{ asset('assets/images/default.png') }}" alt="" style="    width: 180px;
+                        <img src="{{ asset('assets/images/default.png') }}" alt=""
+                            style="    width: 180px;
                         height: 180px;
                         border-radius: 50%;">
                     @endif
                 </div>
                 <!-- Modal -->
-<div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title" id="staticBackdropLabel">Upload Profile</h5>
-          <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
-        </div>
-        <form id="form1" runat="server" action="{{ url('/Upload/Profile') }}" method="post" enctype="multipart/form-data">
-            @csrf
-                <div class="modal-body">
-                <div class="row gap-4">
+                <div class="modal fade" id="staticBackdrop" data-bs-backdrop="static" data-bs-keyboard="false"
+                    tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="staticBackdropLabel">Upload Profile</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal"
+                                    aria-label="Close"></button>
+                            </div>
+                            <form id="form1" runat="server" action="{{ url('/Upload/Profile') }}" method="post"
+                                enctype="multipart/form-data">
+                                @csrf
+                                <div class="modal-body">
+                                    <div class="row gap-4">
 
-                    <div class="col-12 my-3" style="position: relative;">
-                        <div class="btn text-center btn-primary w-100 p-1">
-                            <h5>Upload Image</h5>
-                        </div>
-                        <div class="btn btn-primary w-100 p-1" style="position: absolute;top:0px;left:0px;opacity: 0;">
-                            <input  id="imgInp"  type="file" name="image"
-                            placeholder="Select Your picture"class="w-100" >
-                        </div>
-                    </div>
-                    <div class="col-12 text-center d-none">
-                        <img id="blah" alt="your image" src="#"  style="width: 80px;height: 80px;
+                                        <div class="col-12 my-3" style="position: relative;">
+                                            <div class="btn text-center btn-primary w-100 p-1">
+                                                <h5>Upload Image</h5>
+                                            </div>
+                                            <div class="btn btn-primary w-100 p-1"
+                                                style="position: absolute;top:0px;left:0px;opacity: 0;">
+                                                <input id="imgInp" type="file" name="image"
+                                                    placeholder="Select Your picture"class="w-100">
+                                            </div>
+                                        </div>
+                                        <div class="col-12 text-center d-none">
+                                            <img id="blah" alt="your image" src="#"
+                                                style="width: 80px;height: 80px;
                         border-radius: 50%;">
+                                        </div>
+                                    </div>
+                                </div>
+
+                                <div class="modal-footer">
+                                    <button type="button" class="btn btn-secondary"
+                                        data-bs-dismiss="modal">Close</button>
+                                    <button type="submit" class="btn btn-primary">Upload</button>
+                                </div>
+                            </form>
+                        </div>
                     </div>
                 </div>
-                </div>
-
-                <div class="modal-footer">
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
-                <button type="submit" class="btn btn-primary">Upload</button>
-                </div>
-         </form>
-      </div>
-    </div>
-</div>
 
                 <div class="col-12 col-lg-8  mt-1 ms-2 ms-md-0">
                     <div class="d-flex justify-content-between mt-lg-4 hr align-items-center">
 
                         <h4>{{ Auth::user()->first_name . ' ' . Auth::user()->last_name }}
-                        @if (Auth::user()->status == "Active")
-                        <img src="{{asset('assets/images/Verified-p.png')}}" >
-                        @endif
+                            @if (Auth::user()->status == 'Active')
+                                <img src="{{ asset('assets/images/Verified-p.png') }}">
+                            @endif
 
                         </h4>
 
@@ -119,18 +264,18 @@
                         <h6 style="font-weight: 500;color:#3d3d3d;">{{ Auth::user()->facebook_link }}</h6>
                     </div>
                     @php
-                        $updateType=App\Models\TutorApplication::where('tutor_id',Auth::id())->first();
+                        $updateType = App\Models\TutorApplication::where('tutor_id', Auth::id())->first();
                     @endphp
                     <div class="mt-md-3 mt-lg-5">
                         <a class="one alert alert-{{ Auth::user()->status == 'Active' ? 'success' : 'danger' }}"
                             href="">{{ Auth::user()->status }}</a>
                         <a class="two" href="">
                             @if (!empty($updateType) && $updateType->tutor_type == 1)
-                             Online
+                                Online
                             @elseif (!empty($updateType) && $updateType->tutor_type == 2)
-                            In Person
+                                In Person
                             @else
-                            Both
+                                Both
                             @endif
                         </a>
                     </div>
@@ -176,18 +321,18 @@
                                 <div class="col-md-6 ">
                                     <label for="exampleFormControlInput1" class="form-label">Email</label>
                                     <input type="email" name="email" value="{{ Auth::user()->email }}"
-                                        class="form-control" id="" required placeholder="Type Your Email Address">
+                                        class="form-control" id="" required
+                                        placeholder="Type Your Email Address">
                                 </div>
                                 <!-- <div class="col-md-6">
-                                    <label for="exampleFormControlInput1" class="form-label">Password</label>
-                                    <input type="password" name="password" value="" class="form-control"
-                                        id="" required placeholder="Type Your Password">
-                                </div> -->
+                                            <label for="exampleFormControlInput1" class="form-label">Password</label>
+                                            <input type="password" name="password" value="" class="form-control"
+                                                id="" required placeholder="Type Your Password">
+                                        </div> -->
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Tagline</label>
                                     <input type="text" name="facebook_link" value="{{ Auth::user()->facebook_link }}"
-                                        class="form-control" id=""
-                                        placeholder="Type Your Tag Line For Profile">
+                                        class="form-control" id="" placeholder="Type Your Tag Line For Profile">
 
                                 </div>
                             </div>
@@ -206,6 +351,9 @@
                                         <option value="Female" {{ Auth::user()->gender == 'Female' ? 'selected' : '' }}>
                                             Female
                                         </option>
+                                        <option value="Other" {{ Auth::user()->gender == 'Other' ? 'selected' : '' }}>
+                                            Other
+                                        </option>
                                     </select>
                                 </div>
                             </div>
@@ -215,12 +363,13 @@
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">DOB</label>
                                     <input type="date" name="dob" value="{{ Auth::user()->dob }}"
-                                        class="form-control" id="" required placeholder="yyyy-mm-dd" max="9999-12-31">
+                                        class="form-control" id="" required placeholder="yyyy-mm-dd"
+                                        max="9999-12-31">
                                 </div>
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Postcode</label>
                                     <input type="text" name="zipcode" class="form-control" id="" required
-                                        placeholder="Type Your Postcode" value="{{ Auth::user()->zipcode }}">
+                                        placeholder="Type Your Postcode" value="{{ Auth::user()->address }}">
                                 </div>
                             </div>
 
@@ -229,27 +378,33 @@
 
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Address</label>
-                                    <textarea type="text" name="address" class="form-control bgpro"  id="address" cols="30" rows="5">{{ Auth::user()->address }}</textarea>
+                                    <textarea type="text" name="address" class="form-control bgpro" id="address" cols="30" rows="5"> {{ Auth::user()->zipcode }}</textarea>
                                 </div>
                                 <div class="col-md-6">
-                                    <label for="exampleFormControlInput1"  class="form-label">Biography</label>
-                                    <textarea type="text" name="profile_description" class="form-control bgpro"  id="profile_description" cols="30" rows="5">{{ Auth::user()->profile_description }}</textarea>
+                                    <label for="exampleFormControlInput1" class="form-label">Biography</label>
+                                    <textarea type="text" name="profile_description" class="form-control bgpro" id="profile_description"
+                                        cols="30" rows="5">{{ Auth::user()->profile_description }}</textarea>
 
                                 </div>
                             </div>
                             <div class="row mt-5 mb-2">
 
                                 @php
-                                    $updateType=App\Models\TutorApplication::where('tutor_id',Auth::id())->first();
+                                    $updateType = App\Models\TutorApplication::where('tutor_id', Auth::id())->first();
                                 @endphp
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Choose</label>
                                     <select class="form-control bgpro" name="tutor_type" required>
-                                        <option value="1" {{ !empty($updateType) && $updateType->tutor_type == 1 ? 'selected' : '' }}>Online
+                                        <option value="1"
+                                            {{ !empty($updateType) && $updateType->tutor_type == 1 ? 'selected' : '' }}>
+                                            Online
                                         </option>
-                                        <option value="2" {{ !empty($updateType) && $updateType->tutor_type == 2 ? 'selected' : '' }}>In Person
+                                        <option value="2"
+                                            {{ !empty($updateType) && $updateType->tutor_type == 2 ? 'selected' : '' }}>In
+                                            Person
                                         </option>
-                                        <option value="3" {{ !empty($updateType) && $updateType->tutor_type == 3 ? 'selected' : '' }}>
+                                        <option value="3"
+                                            {{ !empty($updateType) && $updateType->tutor_type == 3 ? 'selected' : '' }}>
                                             Both
                                         </option>
                                     </select>
@@ -257,16 +412,14 @@
                                 <div class="col-md-6 d-none">
                                     <label for="exampleFormControlInput1" class="form-label">Linkedin Link</label>
                                     <input type="text" name="linkedin_link" value="{{ Auth::user()->linkedin_link }}"
-                                        class="form-control" id=""
-                                        placeholder="Type Your Linkedin Link">
+                                        class="form-control" id="" placeholder="Type Your Linkedin Link">
                                 </div>
                             </div>
                             <div class="row mt-5 mb-2 d-none">
                                 <div class="col-md-6">
                                     <label for="exampleFormControlInput1" class="form-label">Twitter Link</label>
                                     <input type="text" name="twitter_link" value="{{ Auth::user()->twitter_link }}"
-                                        class="form-control" id=""
-                                        placeholder="Type Your twitter link">
+                                        class="form-control" id="" placeholder="Type Your twitter link">
 
                                 </div>
                             </div>
@@ -320,30 +473,17 @@
                                                 <tr>
                                                     <td>{{ $subject->degree_title }}</td>
                                                     <td>{{ $subject->institute }}</td>
-
-                                                    @php
-                                                        $grade = '--';
-                                                        if ($subject->grade) {
-                                                            if ($subject->grade == 1) {
-                                                                $grade = 'A+';
-                                                            } elseif ($subject->grade == 2) {
-                                                                $grade = 'B+';
-                                                            } else {
-                                                                $grade = 'C+';
-                                                            }
-                                                        }
-                                                    @endphp
-                                                    <td>{{ $grade }}</td>
+                                                    <td>{{ $subject->grade }}</td>
                                                     <td>{{ $subject->type }}</td>
                                                     <td>{{ $subject->degree_completed }}</td>
 
 
                                                 </tr>
                                             @endforeach
-                                             @else 
-                                    <tr>
-                                        <td colspan="5">No Record Found</td>
-                                    </tr>
+                                        @else
+                                            <tr>
+                                                <td colspan="5">No Record Found</td>
+                                            </tr>
                                         @endif
                                     </tbody>
                                 </table>
@@ -361,7 +501,7 @@
                 <div class="col-md-12 col-12 gen">
                     <h3>General Availability</h3>
                     <!-- <a href="" class="btn qualification float-end mb-3 me-2" data-bs-toggle="modal"
-                        data-bs-target="#addavailabilityModal">Add General Availability</a> -->
+                                data-bs-target="#addavailabilityModal">Add General Availability</a> -->
                     <div class="genav">
                         <table class="table table-bordered border-dark mt-4 ">
                             <thead class="qualification">
@@ -411,7 +551,7 @@
                                             </td>
                                         </tr>
                                     @endforeach
-                                     @else 
+                                @else
                                     <tr>
                                         <td colspan="9">No Record Found</td>
                                     </tr>
@@ -435,6 +575,7 @@
                         <thead class="qualification">
                             <tr>
                                 <th scope="col">Subject</th>
+                                <th scope="col">Language</th>
                                 <th scope="col">Level</th>
                                 <th scope="col">Fee Per Hour</th>
                                 <th scope="col">Action</th>
@@ -447,21 +588,23 @@
 
                                         <td>{{ !empty($tutorsubjectoffer->subject) ? $tutorsubjectoffer->subject->name : '' }}
                                         </td>
+                                        <td>{{ !empty($tutorsubjectoffer->language) ? $tutorsubjectoffer->language->name : '' }}
+                                        </td>
                                         <td>{{ $tutorsubjectoffer->levelstring }}</td>
                                         <td>£{{ $tutorsubjectoffer->fee }}/hr</td>
                                         <td class="text-center">
                                             <a href="{{ url('subject/offer/delete') . '/' . $tutorsubjectoffer->id }}"
                                                 class="btn qualification"><i class="fa-solid fa-trash"></i></a>
                                             <a class="btn qualification"
-                                                onclick="UpdateSubjectOffer('{{ $tutorsubjectoffer->id }}','{{ $tutorsubjectoffer->subject_id }}','{{ $tutorsubjectoffer->levelstring }}','{{ $tutorsubjectoffer->fee }}')"><i
+                                                onclick="UpdateSubjectOffer('{{ $tutorsubjectoffer->language_id }}','{{ $tutorsubjectoffer->id }}','{{ $tutorsubjectoffer->subject_id }}','{{ $tutorsubjectoffer->levelstring }}','{{ $tutorsubjectoffer->fee }}')"><i
                                                     class="fa-solid fa-edit"></i></a>
                                         </td>
                                     </tr>
                                 @endforeach
-                                @else 
-                                    <tr>
-                                        <td colspan="4">No Record Found</td>
-                                    </tr>
+                            @else
+                                <tr>
+                                    <td colspan="4">No Record Found</td>
+                                </tr>
                             @endif
                         </tbody>
 
@@ -530,93 +673,95 @@
 
             </div> --}}
             <!-- <div class="row my-4">
-                <form action="{{ url('user-card-create') }}" method="post">
-                    @csrf
-                    <div class="panel-body mt-5 billing">
-                        <h2 class="text-left fs-1" style="color: #4fb5ff;"><strong>Configure your paypal account</strong></h2><br>
-                        <div class="d-flex col-lg-7 col-md-6 justify-content-between">
-                            <h4 class="text-left text-secondary fs-3"><strong>We will use this paypal account to send you money when you initiate withdrawl.</strong></h4>
-                            <br>
-                            <img src="{{ asset('assets/images/card visa.svg') }}" alt="visa cards" width="100"
-                                height="auto">
-                        </div>
+                        <form action="{{ url('user-card-create') }}" method="post">
+                            @csrf
+                            <div class="panel-body mt-5 billing">
+                                <h2 class="text-left fs-1" style="color: #4fb5ff;"><strong>Configure your paypal account</strong></h2><br>
+                                <div class="d-flex col-lg-7 col-md-6 justify-content-between">
+                                    <h4 class="text-left text-secondary fs-3"><strong>We will use this paypal account to send you money when you initiate withdrawl.</strong></h4>
+                                    <br>
+                                    <img src="{{ asset('assets/images/card visa.svg') }}" alt="visa cards" width="100"
+                                        height="auto">
+                                </div>
 
-                        <div class="d-flex flex-column flex-md-row justify-content-between">
-                            <div class="col-lg-7 col-md-6 col-12">
-                                <div class="row col-md-12">
-                                    <div class="col-md-6">
-                                        <div class='col-xs-12 form-group required'>
-                                            <label class='control-label'>Paypal account</label> <input class=" w-100 p-3"
-                                                size='4' type='text' required name="account_holder_name">
+                                <div class="d-flex flex-column flex-md-row justify-content-between">
+                                    <div class="col-lg-7 col-md-6 col-12">
+                                        <div class="row col-md-12">
+                                            <div class="col-md-6">
+                                                <div class='col-xs-12 form-group required'>
+                                                    <label class='control-label'>Paypal account</label> <input class=" w-100 p-3"
+                                                        size='4' type='text' required name="account_holder_name">
+                                                </div>
+                                            </div>
+
+                                        </div>
+                                        <div class="mt-5 row col-md-12">
+                                            <div class="col-md-12">
+                                                <label class="text-secondary">Card Number</label><br>
+                                                <input autocomplete='off' required name="card_number"
+                                                    class='card-number w-100 p-3' size='20' type='text' id='cardInput'>
+                                            </div>
+                                        </div>
+                                        <div class="mt-5 row col-md-12">
+
+                                            <div class="col-md-4">
+                                                <label class="text-secondary">CVC Number</label><br>
+                                                <input type="text" required name="cvc" placeholder='ex. 311'
+                                                    class="w-100 p-3 card-cvc" id="cvcInput">
+                                            </div>
+                                            <div class="col-md-4">
+                                                <label class="text-secondary">Expiration Month</label><br>
+                                                <input type="text" required name="exp_month" placeholder="MM"
+                                                    class="w-100 p-3 card-expiry-month">
+                                            </div>
+
+                                            <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+                                            <script>
+                                                $(document).ready(function() {
+                                                    $(".card-expiry-month").on("input", function() {
+                                                        var inputValue = $(this).val();
+                                                        inputValue = inputValue.replace(/\D/g, "");
+                                                        if (inputValue === '' || parseInt(inputValue) > 12) {
+                                                            $(this).val('');
+                                                        } else {
+                                                            $(this).val(inputValue);
+                                                        }
+                                                    });
+                                                });
+                                            </script>
+
+                                            <div class="col-md-4">
+                                                <label class="text-secondary">Expiration Year</label><br>
+                                                <input type="text" required name="exp_year" placeholder="YY"
+                                                    class="w-100 p-3 card-expiry-year" id="exp_year_input">
+                                            </div>
+                                        </div>
+                                        <div class="row my-5">
+                                            <div class="col-2">
+                                                <button class="btn bg-primary  px-5 py-3 text-white">Save</button>
+                                            </div>
                                         </div>
                                     </div>
 
                                 </div>
-                                <div class="mt-5 row col-md-12">
-                                    <div class="col-md-12">
-                                        <label class="text-secondary">Card Number</label><br>
-                                        <input autocomplete='off' required name="card_number"
-                                            class='card-number w-100 p-3' size='20' type='text' id='cardInput'>
-                                    </div>
-                                </div>
-                                <div class="mt-5 row col-md-12">
-
-                                    <div class="col-md-4">
-                                        <label class="text-secondary">CVC Number</label><br>
-                                        <input type="text" required name="cvc" placeholder='ex. 311'
-                                            class="w-100 p-3 card-cvc" id="cvcInput">
-                                    </div>
-                                    <div class="col-md-4">
-                                        <label class="text-secondary">Expiration Month</label><br>
-                                        <input type="text" required name="exp_month" placeholder="MM"
-                                            class="w-100 p-3 card-expiry-month">
-                                    </div>
-
-                                    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
-                                    <script>
-                                        $(document).ready(function() {
-                                            $(".card-expiry-month").on("input", function() {
-                                                var inputValue = $(this).val();
-                                                inputValue = inputValue.replace(/\D/g, "");
-                                                if (inputValue === '' || parseInt(inputValue) > 12) {
-                                                    $(this).val('');
-                                                } else {
-                                                    $(this).val(inputValue);
-                                                }
-                                            });
-                                        });
-                                    </script>
-
-                                    <div class="col-md-4">
-                                        <label class="text-secondary">Expiration Year</label><br>
-                                        <input type="text" required name="exp_year" placeholder="YY"
-                                            class="w-100 p-3 card-expiry-year" id="exp_year_input">
-                                    </div>
-                                </div>
-                                <div class="row my-5">
-                                    <div class="col-2">
-                                        <button class="btn bg-primary  px-5 py-3 text-white">Save</button>
-                                    </div>
-                                </div>
                             </div>
-
-                        </div>
-                    </div>
-                    <input type="hidden" class="w-100 p-3" required name="amount" id="amount2" value="">
-                    <input type="hidden" class="w-100 p-3" required name="copounid" id="copounid" value="">
+                            <input type="hidden" class="w-100 p-3" required name="amount" id="amount2" value="">
+                            <input type="hidden" class="w-100 p-3" required name="copounid" id="copounid" value="">
 
 
-                </form>
+                        </form>
 
-            </div> -->
+                    </div> -->
 
             <div class="row my-4">
                 <form action="{{ url('user-card-create') }}" method="post">
                     @csrf
                     <div class="panel-body mt-5 billing">
-                        <h2 class="text-left fs-2" style="color: #4fb5ff;"><strong>Configure your paypal account</strong></h2><br>
+                        <h2 class="text-left fs-2" style="color: #4fb5ff;"><strong>Configure your paypal account</strong>
+                        </h2><br>
                         <div class="d-flex col-lg-7 col-md-6 justify-content-between">
-                            <h4 class="text-left text-secondary fs-4"><strong>We will use this paypal account to send you money <br> when you initiate withdrawl.</strong></h4>
+                            <h4 class="text-left text-secondary fs-4"><strong>We will use this paypal account to send you
+                                    money <br> when you initiate withdrawl.</strong></h4>
                             <br>
                             <img src="{{ asset('assets/images/paypal.png') }}" alt="visa cards" width="100px"
                                 height="38px">
@@ -628,7 +773,8 @@
                                     <div class="col-md-6">
                                         <div class='col-xs-12 form-group required'>
                                             <label class='control-label'>Paypal account email</label>
-                                            <input class=" w-100 p-2" type='email' value="{{\Auth::user()->paypal_email}}" required name="paypal_email">
+                                            <input class=" w-100 p-2" type='email'
+                                                value="{{ \Auth::user()->paypal_email }}" required name="paypal_email">
                                         </div>
                                     </div>
 
@@ -638,7 +784,8 @@
                                     <div class="col-md-6">
                                         <div class='col-xs-12 form-group required'>
                                             <label class='control-label'>Confirm email</label>
-                                            <input class=" w-100 p-2" type='email' required name="paypal_email_confirm">
+                                            <input class=" w-100 p-2" type='email' required
+                                                name="paypal_email_confirm">
                                         </div>
                                     </div>
 
@@ -739,6 +886,21 @@
                             </select>
                             <label for="floatingSelectGrid">Subjects</label>
                         </div>
+
+
+                        <div class="form-floating mb-3">
+                            <select class="form-select" id="floatingSelectGrid" required name="language_id"
+                                aria-label="Floating label select example">
+                                <option value="" selected>Select Language</option>
+                                @if ($Languages)
+                                    @foreach ($Languages as $Language)
+                                        <option value="{{ $Language->id }}">{{ $Language->name }}</option>
+                                    @endforeach
+                                @endif
+                            </select>
+                            <label for="floatingSelectGrid">Languages</label>
+                        </div>
+
                         <div class="form-floating mb-3">
                             <select class="form-select" id="floatingSelectGrid" name="level_id" required
                                 aria-label="Floating label select example">
@@ -762,7 +924,7 @@
 
                     <!-- Modal footer -->
                     <div class="modal-footer">
-                        <button type="submit" class="btn btn-success" >Create</button>
+                        <button type="submit" class="btn btn-success">Create</button>
                     </div>
                 </form>
 
@@ -872,21 +1034,21 @@
     </div>
     <script>
         function readURL(input) {
-    if (input.files && input.files[0]) {
-        var reader = new FileReader();
+            if (input.files && input.files[0]) {
+                var reader = new FileReader();
 
-        reader.onload = function (e) {
-            $('#blah').attr('src', e.target.result);
+                reader.onload = function(e) {
+                    $('#blah').attr('src', e.target.result);
+                }
+
+                reader.readAsDataURL(input.files[0]);
+            }
         }
 
-        reader.readAsDataURL(input.files[0]);
-    }
-}
-
-$("#imgInp").change(function(){
-    alert(1);
-    readURL(this);
-});
+        $("#imgInp").change(function() {
+            alert(1);
+            readURL(this);
+        });
 
 
         function UpdateAvailability(id, days, schedule_time) {
@@ -908,13 +1070,13 @@ $("#imgInp").change(function(){
         <div class="modal-body">
             <span class="d-flex">
                 ${daysOfWeek.map((day, index) => `
-                        <div class="form-check">
-                            <input class="form-check-input" type="checkbox" name="day_of_the_week[]" value="${index + 1}" id="flexCheckChecked${index + 1}" ${getday.includes(index + 1) ? 'checked' : ''}>
-                            <label class="form-check-label px-2" for="flexCheckChecked${index + 1}">
-                                ${day}
-                            </label>
-                        </div>
-                    `).join('')}
+                                <div class="form-check">
+                                    <input class="form-check-input" type="checkbox" name="day_of_the_week[]" value="${index + 1}" id="flexCheckChecked${index + 1}" ${getday.includes(index + 1) ? 'checked' : ''}>
+                                    <label class="form-check-label px-2" for="flexCheckChecked${index + 1}">
+                                        ${day}
+                                    </label>
+                                </div>
+                            `).join('')}
             </span>
         </div>
         <div class="modal-footer">
@@ -970,12 +1132,14 @@ $("#imgInp").change(function(){
             new bootstrap.Modal(modal).show();
         }
 
-        function UpdateSubjectOffer(id, subject_id, level_id, fee) {
+        function UpdateSubjectOffer(language_id, id, subject_id, level_id, fee) {
             $('#subjectmodalget').html('');
             const modal = document.getElementById("updateSubjectModal");
             const url = `{{ url('/subject/offer/update') }}/${id}`;
             let selectOptions = @json($levels);
             let selectOptions2 = @json($subjects);
+            let selectOptions3 = @json($Languages);
+
 
             const html = `
             <form action="${url}" method="post" enctype="multipart/form-data">
@@ -993,6 +1157,14 @@ $("#imgInp").change(function(){
                             ${selectOptions2.map(l => `<option value="${l.id}" ${subject_id == l.id ? 'selected' : ''}>${l.name}</option>`).join('')}
                         </select>
                         <label for="floatingSelectGrid">Subjects</label>
+                    </div>
+
+                    <div class="form-floating mb-3">
+                        <select class="form-select" id="floatingSelectGrid" name="language_id" aria-label="Floating label select example">
+                            <option>Select Level</option>
+                            ${selectOptions3.map(l => `<option value="${l.id}" ${language_id == l.id ? 'selected' : ''}>${l.name}</option>`).join('')}
+                        </select>
+                        <label for="floatingSelectGrid">Languages</label>
                     </div>
 
 
@@ -1057,7 +1229,6 @@ $("#imgInp").change(function(){
             }
         });
     </script>
-    <script>
-    </script>
+    <script></script>
 
 @endsection

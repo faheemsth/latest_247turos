@@ -607,10 +607,7 @@
             });
             function stripeResponseHandler(status, response) {
                 if (response.error) {
-                    $('.error')
-                        .removeClass('hide')
-                        .find('.alert')
-                        .text(response.error.message);
+                    toastr.error(response.error.message, 'Error');
                 } else {
                     var token = response['id'];
                     $form.find('input[type=text]').empty();

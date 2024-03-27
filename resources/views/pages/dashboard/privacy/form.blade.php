@@ -1,5 +1,5 @@
 @extends('layouts.main')
-@section('title', 'Privacy & Policy')
+@section('title', 'Privacy Policy')
 
 <link href="https://cdnjs.cloudflare.com/ajax/libs/mdb-ui-kit/6.4.2/mdb.min.css" rel="stylesheet" />
 <!-- MDB -->
@@ -19,8 +19,8 @@
                 <div class="page-header-title">
                     <i class="ik ik-users bg-blue"></i>
                     <div class="d-inline">
-                        <h5>{{ __('Privacy & Policy') }}</h5>
-                        <span>{{ __('List of Privacy & Policy') }}</span>
+                        <h5>{{ __('Privacy Policy') }}</h5>
+                        <span>{{ __('Create Privacy Policy') }}</span>
                     </div>
                 </div>
             </div>
@@ -31,7 +31,7 @@
                             <a href="{{ route('dashboard') }}"><i class="ik ik-home"></i></a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">{{ __('Privacy & Policy') }}</a>
+                            <a href="#">{{ __('Privacy Policy') }}</a>
                         </li>
                     </ol>
                 </nav>
@@ -47,7 +47,7 @@
             <div class="col-md-12  user-table-data">
                 <div class="card p-3">
                     <div class="card-header justify-content-between">
-                        <h3>{{ __('Privacy & Policy') }}</h3>
+                        <h3>{{ __('Privacy Policy') }}</h3>
                     </div>
                     <div class="card-body">
                         <div class="col-md-12 col-lg-12">

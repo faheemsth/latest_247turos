@@ -51,10 +51,11 @@
                                 <tr>
                                     <th>{{ __('Sr.No') }}</th>
                                     <th>{{ __('Name') }}</th>
-                                    {{-- <th>{{ __('Last Name') }}</th> --}}
+                                    {{-- <th>{{ __('Surname') }}</th> --}}
                                     <th>{{ __('Email') }}</th>
                                     <th>{{ __('Verify Email') }}</th>
                                     <th>{{ __('Status') }}</th>
+                                    <th>{{ __('Action') }}</th>
                                 </tr>
                             </thead>
                             <tbody>
@@ -72,31 +73,28 @@
                                          @endif
                                         </td>
                                         <td>
-                                            @if ($Parent->request_refound != 1)
-                                            <span
-                                                class="badge
-                                        @if ($Parent->status == 'Completed') bg-success
-                                        @elseif($Parent->status == 'Scheduled')
-                                        bg-info
-                                        @elseif($Parent->status == 'Cancelled By Tutor' || $Parent->status == 'Cancelled By User')
-                                        bg-danger
-                                        @elseif($Parent->status == 'Cancelled')
-                                        bg-danger
-                                        @elseif($Parent->status == 'Pending')
-                                        bg-warning
-                                        @elseif($Parent->status == 'Active')
-                                        bg-success
-                                        @elseif($Parent->status == 'Inctive')
-                                        bg-danger
-                                        @endif
-                                        ">
-                                                {{ $Parent->status }}
+                                            <span class="badge
+                                                @if($Parent->status == 'Pending')
+                                                        bg-warning
+                                                        @elseif($Parent->status == 'Active')
+                                                        bg-success
+                                                        @elseif($Parent->status == 'Inctive')
+                                                        bg-danger
+                                                        @endif
+                                            ">{{ $Parent->status }}
                                             </span>
-                                        @else
-                                            <span class="badge bg-secondary">
-                                                {{ 'Request Refound' }}
-                                            </span>
-                                        @endif
+                                        </td>
+
+                                       <td>
+                                            <div class="dropdown">
+                                                <button class="btn btn-secondary dropdown-toggle" type="button" id="dropdownMenuButton{{$Parent->id}}" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    {{$Parent->status}}
+                                                </button>
+                                                <ul class="dropdown-menu" aria-labelledby="dropdownMenuButton{{$Parent->id}}">
+                                                    <li><a class="dropdown-item" href="{{ url('updateorgnization', ['Pending', $Parent->id]) }}">Pending</a></li>
+                                                    <li><a class="dropdown-item" href="{{ url('updateorgnization', ['Active', $Parent->id]) }}">Active</a></li>
+                                                </ul>
+                                            </div>
                                         </td>
 
                                     </tr>

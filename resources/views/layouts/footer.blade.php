@@ -1,6 +1,105 @@
 @php
     $Subjects = App\Models\Subject::distinct('name')->pluck('name');
 @endphp
+<style>
+    /*google translate */
+    .goog-te-gadget img {
+        display: none !important;
+    }
+
+    body>.skiptranslate {
+        display: none;
+    }
+
+    body {
+        top: 0px !important;
+    }
+
+    #google_translate_element {
+        width: 300px;
+        float: right;
+        text-align: right;
+        display: block
+    }
+
+    .goog-te-banner-frame.skiptranslate {
+        display: none !important;
+    }
+
+    body {
+        top: 0px !important;
+    }
+
+    #goog-gt-tt {
+        display: none !important;
+        top: 0px !important;
+    }
+
+    .goog-tooltip skiptranslate {
+        display: none !important;
+        top: 0px !important;
+    }
+
+    .activity-root {
+        display: hide !important;
+    }
+
+    .status-message {
+        display: hide !important;
+    }
+
+    .started-activity-container {
+        display: hide !important;
+    }
+
+
+    .VIpgJd-ZVi9od-ORHb {
+        background-image: none !important;
+        background-color: transparent;
+        opacity: 0 !important;
+    }
+
+    .VIpgJd-ZVi9od-l4eHX-hSRGPd {
+        display: none !important;
+    }
+
+    .goog-te-gadget {
+        display: flex;
+        font-size: 1px !important;
+        color: #6660 !important;
+    }
+
+    .goog-te-combo {
+        padding: 8px;
+        border: none;
+        /* Removing border */
+        border-radius: 5px;
+        /* Increased border-radius for a smoother look */
+        background-color: rgba(171, 255, 0, 1);
+        color: black;
+        /* Changing text color to white */
+        font-family: Arial, sans-serif;
+        /* Adding a fallback font */
+        font-size: 16px;
+        /* Adjusting font size */
+        text-transform: uppercase;
+        /* Making text uppercase */
+        cursor: pointer;
+        /* Changing cursor on hover */
+        box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.1);
+        /* Adding a subtle shadow */
+        transition: all 0.3s ease;
+        /* Adding transition for smoother hover effect */
+    }
+
+    /* Hover effect */
+    .goog-te-combo:hover {
+        background-color: rgba(171, 255, 0, 0.9);
+        /* Slightly darken on hover */
+        box-shadow: 0px 4px 8px rgba(0, 0, 0, 0.2);
+        /* Enhance shadow on hover */
+    }
+</style>
 <div class="footer-wrapper container-fluid pt-4">
     <!-- Top-Footer -->
     <div class="container">
@@ -97,8 +196,7 @@
                         </svg>
                         +62 811 09998263
                     </p> --}}
-                    <p><a href="https://api.whatsapp.com/send?phone=@isset($web_settings['MainPh_num']){{$web_settings['MainPh_num']??'' }} @endisset"
-
+                    <p><a href="https://api.whatsapp.com/send?phone=@isset($web_settings['MainPh_num']){{ str_replace([' ', '+'], '', $web_settings['MainPh_num']) ?? '' }} @endisset"
                             class="text-decoration-none d-flex align-items-center gap-1">
                             <svg xmlns="http://www.w3.org/2000/svg" width="16" height="16" viewBox="0 0 16 16"
                                 fill="none">
@@ -107,8 +205,8 @@
                                     fill="#DDDDDD" />
                             </svg>
                             @isset($web_settings['MainPh_num'])
-                            {{ $web_settings['MainPh_num'] ?? '' }}
-                        @endisset
+                                {{ $web_settings['MainPh_num'] ?? '' }}
+                            @endisset
                             <span>(Mon to Sun 9am - 11pm GMT)</span>
                         </a>
                     </p>
@@ -117,9 +215,9 @@
         </div>
     </div>
     <!-- Middle-Footer -->
-    <div class="container border-top p-md-3 py-3">
+    <div class="container border-top p-md-3 py-3 d-none">
         <div class="row">
-            <div class="col col-md-12">
+            <div class="col col-md-12 ">
                 <h5>Tutor by subjects</h5>
                 @if (!empty($Subjects))
                     <div class="row ">
@@ -132,174 +230,166 @@
                                     <li class="text-capitalize"><a
                                             href="{{ url('find-tutor?subject=') . $Subject }}">{{ $Subject }}</a>
                                     </li>
-
+                                @endforeach
+                            </ul>
+                        </div>
+                        <div class="col-12 col-md-12 d-none">
+                            <ul style="display: flex;gap:100px;">
+                                @php
+                                    $extraSubjects = $subjectCount - 6;
+                                    $subjectCount = 0;
+                                @endphp
+                                @foreach ($Subjects as $Subject)
+                                    @if ($subjectCount >= 6)
+                                        <!-- Limit to 15 records -->
+                                        @if ($subjectCount == 6)
+                                            <li><a
+                                                    href="{{ url('find-tutor?subject=') . $Subject }}">{{ $Subject }}</a>
+                                            </li>
+                                        @else
+                                            <li><a
+                                                    href="{{ url('find-tutor?subject=') . $Subject }}">{{ $Subject }}</a>
+                                            </li>
+                                        @endif
+                                    @endif
+                                    @php $subjectCount++; @endphp
+                                @endforeach
+                                {{-- <a href="{{ url('find-tutor') }}" class="text-primary d-inline-block py-2">Explore
+                                all</a> --}}
+                            </ul>
+                        </div>
+                    </div>
+                @endif
+            </div>
+            <div class="col-12 col-md-5 d-none">
+                <h5>Online classes</h5>
+                @if (!empty($Subjects))
+                    <div class="row">
+                        <div class="col col-md-6">
+                            <ul>
+                                @php
+                                    $subjectCount = 0;
+                                @endphp
+                                @foreach ($Subjects as $Subject)
+                                    <li><a href="{{ url('find-tutor?subject=') . $Subject }}">Online
+                                            {{ $Subject }} classes</a>
+                                    </li>
+                                    @php $subjectCount++; @endphp
+                                    @if ($subjectCount == 5)
+                                    @break
+                                @endif
                             @endforeach
                         </ul>
                     </div>
-                    <div class="col-12 col-md-12 d-none">
-                        <ul style="display: flex;gap:100px;">
+                    <div class="col">
+                        <ul>
                             @php
-                                $extraSubjects = $subjectCount - 6;
+                                $extraSubjects = $subjectCount - 5;
                                 $subjectCount = 0;
                             @endphp
                             @foreach ($Subjects as $Subject)
-                                @if ($subjectCount >= 6)
+                                @if ($subjectCount >= 5)
                                     <!-- Limit to 15 records -->
-                                    @if ($subjectCount == 6)
-                                        <li><a href="{{ url('find-tutor?subject=') . $Subject }}">{{ $Subject }}</a>
-                                        </li>
+                                    @if ($subjectCount == 5)
+                                        <li><a href="{{ url('find-tutor?subject=') . $Subject }}">Online
+                                                {{ $Subject }} classes</a></li>
                                     @else
-                                        <li><a href="{{ url('find-tutor?subject=') . $Subject }}">{{ $Subject }}</a></li>
+                                        <li>Online {{ $Subject }} classes</li>
                                     @endif
                                 @endif
                                 @php $subjectCount++; @endphp
                             @endforeach
-                            {{-- <a href="{{ url('find-tutor') }}" class="text-primary d-inline-block py-2">Explore
-                                all</a> --}}
+                            <a href="{{ url('find-tutor') }}" class="text-primary d-inline-block py-2">Explore
+                                all</a>
                         </ul>
                     </div>
                 </div>
             @endif
         </div>
-        <div class="col-12 col-md-5 d-none">
-            <h5>Online classes</h5>
-            @if (!empty($Subjects))
-                <div class="row">
-                    <div class="col col-md-6">
-                        <ul>
-                            @php
-                                $subjectCount = 0;
-                            @endphp
-                            @foreach ($Subjects as $Subject)
-                                <li><a href="{{ url('find-tutor?subject=') . $Subject }}">Online
-                                        {{ $Subject }} classes</a>
-                                </li>
-                                @php $subjectCount++; @endphp
-                                @if ($subjectCount == 5)
-                                @break
-                            @endif
-                        @endforeach
-                    </ul>
-                </div>
-                <div class="col">
-                    <ul>
-                        @php
-                            $extraSubjects = $subjectCount - 5;
-                            $subjectCount = 0;
-                        @endphp
-                        @foreach ($Subjects as $Subject)
-                            @if ($subjectCount >= 5)
-                                <!-- Limit to 15 records -->
-                                @if ($subjectCount == 5)
-                                    <li><a href="{{ url('find-tutor?subject=') . $Subject }}">Online
-                                            {{ $Subject }} classes</a></li>
-                                @else
-                                    <li>Online {{ $Subject }} classes</li>
-                                @endif
-                            @endif
-                            @php $subjectCount++; @endphp
-                        @endforeach
-                        <a href="{{ url('find-tutor') }}" class="text-primary d-inline-block py-2">Explore
-                            all</a>
-                    </ul>
-                </div>
-            </div>
-        @endif
     </div>
-</div>
 </div>
 <!-- last footer section -->
 <div class="container border-top p-md-3 pt-4">
-<div class="row justify-content-beetween">
-    <div class="col-12 col-md-7 col-xl-6">
-        <h5>Useful links</h5>
-        <div class="row">
-            <div class="col-6">
-                <ul>
-                    <li><a href="">Careers</a></li>
-                    <li><a href="{{ url('blogs') }}">Blog</a></li>
-                    <li><a href="{{ route('faq') }}">F.A.Q</a></li>
-                    <li><a href="{{ url('/privacypolicy') }}">Safegeuarding policy</a></li>
-                </ul>
-            </div>
-            <div class="col-6">
-                <ul>
-                    <li><a href="{{ url('tutor-apply-steps') }}">Become a tutor</a></li>
-                    <li><a href="">Testimonials & press</a></li>
-                    <li><a href="{{ url('/videos-guides') }}">Using the Online Lesson Space</a></li>
-                    <li><a href="{{ url('/sitemap') }}">Sitemap</a></li>
-                </ul>
-            </div>
-        </div>
-    </div>
-    <div class="col-12 col-lg-4 col-xl-3 py-3 d-none">
-        <h5>Get mobile app</h5>
-        <p>Take education on the go. Get our mobile app for FREE! on your Apple and android devices</p>
-        <div>
-            <a href="">
-                <img src="./assets/images/iOS.png" alt="">
-            </a>
-            <a href="">
-                <img src="./assets/images/Android.png" alt="" srcset="">
-            </a>
-        </div>
-    </div>
-    <form id="newsletterForm" action="{{ url('send/newsletter') }}" method="POST"
-        style="display: contents;">
-        @csrf
-        <div class="col-12 col-md-5 col-xl-5 py-4 py-md-0">
-            <h5>Signup for newsletter</h5>
-            <p>Corrupti quolores etmquasa molestias epturite sinteam occaecati amet cupiditate mikume molareshe.
-            </p>
-            <div class="input-group input-group-lg">
-                <input type="text" class="form-control email-input" name="email"
-                    placeholder="Enter email address">
-                <span class="input-group-text input-group-sm border-0 px-2" style="cursor: pointer"
-                    id="bg-color">
-                    <button class="btn bg-transparent px-2" type="submit">
-                        <img src="{{ asset('assets/images/Icon (1).png') }}" alt="" srcset="">
-                    </button>
-                </span>
+    <div class="row justify-content-beetween">
+        <div class="col-12 col-md-7 col-xl-6">
+            <h5>Useful links</h5>
+            <div class="row">
+                <div class="col-6">
+                    <ul>
+                        {{-- <li><a href="">Careers</a></li> --}}
+                        <li><a href="{{ url('blogs') }}">Blog</a></li>
+                        <li><a href="{{ route('faq') }}">F.A.Q</a></li>
+                        <li><a href="{{ url('/privacypolicy') }}">Privacy Policy</a></li>
+                    </ul>
+                </div>
+                <div class="col-6">
+                    <ul>
+                        <li><a href="{{ url('tutor-apply-steps') }}">Register as a tutor</a></li>
+                        {{-- <li><a href="">Testimonials & press</a></li> --}}
+                        <li><a href="{{ url('/videos-guides') }}">Using the Online Lesson Space</a></li>
+                        <li><a href="{{ url('/sitemap') }}">Sitemap</a></li>
+                    </ul>
+                </div>
             </div>
         </div>
-    </form>
 
-</div>
+        <form id="newsletterForm" action="{{ url('send/newsletter') }}" method="POST"
+            style="display: contents;">
+            @csrf
+            <div class="col-12 col-md-5 col-xl-5 py-4 py-md-0">
+                <h5>Subscription for newsletter</h5>
+                <p>Subscribe to our newsletter for exclusive updates, offers, and insights delivered straight to your inbox. Stay informed and be part of our community!
+                </p>
+                <div class="input-group input-group-lg">
+                    <input type="text" class="form-control email-input" name="email"
+                        placeholder="Enter email address">
+                    <span class="input-group-text input-group-sm border-0 px-2" style="cursor: pointer"
+                        id="bg-color">
+                        <button class="btn bg-transparent px-2" type="submit">
+                            <img src="{{ asset('assets/images/Icon (1).png') }}" alt="" srcset="">
+                        </button>
+                    </span>
+                </div>
+            </div>
+        </form>
+
+    </div>
 </div>
 <!-- bottom footer -->
 <div class="container-fluid">
 
-<div class="row py-2 text-center align-items-lg-center" style="background-color: rgba(0, 0, 0, 0.2);">
-    <div class="col-12 col-lg-6 col-md-5">
-        <h6>© 2023 All Rights Reserved.</h6>
+    <div class="row py-2 text-center align-items-lg-center" style="background-color: rgba(0, 0, 0, 0.2);">
+        <div class="col-12 col-lg-6 col-md-5">
+            <h6>© 247Tutors All Rights Reserved 2024.</h6>
+        </div>
+        <div class="col-12 col-md-7 col-lg-6 d-flex gap-3 bottom-footer-menu justify-content-center">
+            {{-- <h6><a href="">Careers</a></h6> --}}
+            <h6><a href="{{ url('/testimonials') }}" class="">Terms of use</a></h6>
+            <h6><a href="{{ url('/privacypolicy') }}">Privacy policy</a></h6>
+        </div>
     </div>
-    <div class="col-12 col-md-7 col-lg-6 d-flex gap-3 bottom-footer-menu justify-content-center">
-        <h6><a href="">Careers</a></h6>
-        <h6><a href="{{ url('/testimonials') }}" class="text-primary">Terms of use</a></h6>
-        <h6><a href="{{ url('/privacypolicy') }}">Privacy policy</a></h6>
-    </div>
-</div>
 </div>
 </div>
 
 <script src="https://code.jquery.com/jquery-3.6.4.min.js"></script>
 <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.css">
 <script src="https://cdnjs.cloudflare.com/ajax/libs/toastr.js/latest/toastr.min.js"></script>
-@if (Auth::check() && Auth::user()->role_id == 3 && App\Models\TutorSubjectOffer::where('tutor_id', Auth::id())->where('fee', 0)->count() > 0)
-    <script>
-        $(document).ready(function() {
-            toastr.error('Dear Tutor', 'Complete your profile and Your {{ App\Models\TutorSubjectOffer::where('tutor_id', Auth::id())->where('fee', 0)->count() }} Subjects Have zero Fee');
-        });
-    </script>
-@endif
+<script src="http://translate.google.com/translate_a/element.js?cb=loadGoogleTranslate"></script>
+<script>
+    function loadGoogleTranslate() {
+        new google.translate.TranslateElement({
+            pageLanguage: 'en',
+            includedLanguages: 'ar,en,ur,zh-CN'
+        }, 'google_element');
+    }
+</script>
 
 <audio id="bellSound">
-  <source src="{{ asset('assets/bicycle-bell-155622.mp3')}}" type="audio/mpeg">
-  Your browser does not support the audio element.
+<source src="{{ asset('assets/bicycle-bell-155622.mp3') }}" type="audio/mpeg">
+Your browser does not support the audio element.
 </audio>
 
 <script>
-
     $(document).ready(function() {
 
 
@@ -335,44 +425,43 @@
 </script>
 
 @if (Auth::check())
-    <script>
-
-        setInterval(function() {
+<script>
+    setInterval(function() {
         $.ajax({
             url: "{{ url('CounterShow') }}",
             type: 'GET',
             success: function(response) {
-                 var bellAudio = $('#bellSound')[0];
+                var bellAudio = $('#bellSound')[0];
                 $('.messgcount').text('');
                 $('.countBooking').text('');
                 $('.messgcount').hide();
                 $('.countBooking').hide();
-                 var bellSoundPlayed = false;
-                if(response.countmessg != 0){
+                var bellSoundPlayed = false;
+                if (response.countmessg != 0) {
                     // bellAudio.play();
                     // bellSoundPlayed = true;
 
-                $('.messgcount').text(response.countmessg);
-                $('.messgcount').show();
+                    $('.messgcount').text(response.countmessg);
+                    $('.messgcount').show();
                 }
 
-                if(response.countBooking != 0){
-                $('.countBooking').text(response.countBooking);
-                $('.countBooking').show();
+                if (response.countBooking != 0) {
+                    $('.countBooking').text(response.countBooking);
+                    $('.countBooking').show();
                 }
 
             }
         });
     }, 1000);
-    </script>
+</script>
 
-    <script>
+<script>
     var instance = $("[name=sheraz]")
     instance.intlTelInput();
 
     $("[name=sheraz]").on("blur", function() {
-      console.log($(this).val())
-      console.log(instance.intlTelInput('getSelectedCountryData').dialCode) //get counrty code
+        console.log($(this).val())
+        console.log(instance.intlTelInput('getSelectedCountryData').dialCode) //get counrty code
     })
 </script>
 @endif

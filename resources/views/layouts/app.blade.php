@@ -71,12 +71,12 @@
        font-size: 23px;
        cursor: pointer;
      }
-.desktop-closed-message-avatar {
+/* .desktop-closed-message-avatar {
     animation: skew-y-shake 1.3s infinite;
 }
 .desktop-closed-message-avatar{
     top: 18px !important;
-}
+} */
 /*<span id="cookieBanner">*/
 /*@if(request()->segment(1) == '' || request()->segment(1) == 'faq' || request()->segment(1) == 'find-tutor' || request()->segment(1) == 'blogs' || request()->segment(1) == 'prices'|| request()->segment(1) == 'student-apply-steps'|| request()->segment(1) == 'tutor-apply-steps' || request()->segment(1) == 'organization-apply-steps' || request()->segment(1) == 'login-roles' || request()->segment(1) == 'login' || request()->segment(1) == 'sitemap' || request()->segment(1) == 'privacypolicy' )*/
 /*.footer-wrapper{*/
@@ -112,7 +112,7 @@
 }
 .cookiessection{
     width:35%;
-    bottom: 8px;left:22px; 
+    bottom: 8px;left:22px;
 }
 }
 @media screen and (max-width: 430px){
@@ -131,7 +131,7 @@
 }
  .cookiessection{
         width:85%;
-    
+
  }
 }
 
@@ -212,7 +212,7 @@ body { top: 0px !important; }
 
 
     </style>
-    
+
             <style>
         a[id="fr-logo"] {
   display: none !important;
@@ -223,6 +223,15 @@ p[data-f-id="pbf"] {
 a[href*="www.froala.com"] {
   display: none !important;
 }
+
+
+
+
+/* .desktop-closed-message-avatar svg path{
+        fill: #ffffff;
+        d:path('M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z') !important;
+        stroke-width: 0;
+} */
     </style>
 </head>
 <body>
@@ -309,7 +318,7 @@ a[href*="www.froala.com"] {
       cookieBanner.style.display = "block";
     }
   }
-  setTimeout(showCookieBanner, 30000);
+  setTimeout(showCookieBanner, 2000);
 </script>
 <script>
     $(document).ready(function () {
@@ -345,7 +354,7 @@ a[href*="www.froala.com"] {
         $('#cookieNotification').fadeOut();
     }
 </script>
-            
+
         <script>
             $(document).ready(function() {
                 var popupShown = localStorage.getItem('popupShown');
@@ -367,8 +376,18 @@ a[href*="www.froala.com"] {
                     localStorage.setItem('popupShown', true);
                 });
             });
-        </script>
 
+
+        //     function changeSVGPath() {
+        //     var svgPath = document.querySelector('.desktop-closed-message-avatar svg path');
+        //     if (svgPath) {
+        //         svgPath.setAttribute('d', 'M20 2H4c-1.1 0-1.99.9-1.99 2L2 22l4-4h14c1.1 0 2-.9 2-2V4c0-1.1-.9-2-2-2zM6 9h12v2H6V9zm8 5H6v-2h8v2zm4-6H6V6h12v2z');
+        //     }
+        // }
+
+        // // Call the function to change the SVG path
+        // changeSVGPath();
+        </script>
 
 </body>
 </html>

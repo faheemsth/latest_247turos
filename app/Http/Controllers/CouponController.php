@@ -21,14 +21,24 @@ class CouponController extends Controller
         if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
         $coupons = ModelsCoupon::with('user')->get();
 
-        $currentDate = now();
         foreach ($coupons as $coupon) {
-            if ($coupon->valid_to < $currentDate) {
+            $diffInSeconds = strtotime($coupon->valid_from) - strtotime('now');
+            $diffInDays = floor($diffInSeconds / (60 * 60 * 24));
+
+            if (strtotime($coupon->valid_to) < strtotime($coupon->valid_from) || strtotime($coupon->valid_to) == strtotime($coupon->valid_from) || $diffInDays > 0) {
                 $coupon->isExpired = true;
+                if ($diffInDays > 0) {
+                    $coupon->expireMessage = "Future";
+                } else {
+                    $coupon->expireMessage = "Expired";
+                }
             } else {
                 $coupon->isExpired = false;
+                $coupon->expireMessage = "Valid";
             }
         }
+
+
         return view('super-admin.coupon.index', compact('coupons'));
     }
     public function create_coupon(Request $request)
@@ -70,24 +80,6 @@ class CouponController extends Controller
                 $message->from(Auth::user()->email, Auth::user()->first_name . ' ' . Auth::user()->last_name);
             });
 
-
-
-            // $view = \view('pages.mails.copoun',$data);
-            // $view = $view->render();
-            // $mail = new PHPMailer();
-            // $mail->CharSet = "UTF-8";
-            // $mail->setfrom('support@247tutors.com' , '247 Tutors');
-            // $mail->isHTML(true);
-            // $mail->Subject = 'asdasd';
-            // $mail->Body    = $view;
-            // $mail->AltBody = '';
-            // $mail->addaddress('muhammadkashif70000@gmail.com', 'Kashif');
-            // // dd($mail);
-            //   $mail->isHTML(true);
-            //   $mail->msgHTML($view);
-            // if(!$mail->send()) throw new \Exception('Failed to send mail');
-
-
         }
 
         return back()->with('success', 'Successfully created the coupon: ' . $couponCode);
@@ -98,6 +90,11 @@ class CouponController extends Controller
     {
         $coupon = ModelsCoupon::where('code', $request->post('coupon'))
             ->first();
+
+            $diffInSeconds=strtotime($coupon->valid_from) - strtotime('now');
+
+            $diffInDays = floor($diffInSeconds / (60 * 60 * 24));
+
         if (!$coupon) {
             throw ValidationException::withMessages(['coupon' => 'Coupon not found.']);
         }
@@ -106,11 +103,20 @@ class CouponController extends Controller
             throw ValidationException::withMessages(['coupon' => 'Coupon has reached its usage limit.']);
         }
 
-        if ($coupon->valid_to < now()) {
+        if (strtotime($coupon->valid_to) < strtotime($coupon->valid_from) || strtotime($coupon->valid_to) == strtotime($coupon->valid_from) || $diffInDays > '0') {
             throw ValidationException::withMessages(['coupon' => 'Coupon has expired.']);
         }
 
         return $coupon;
     }
+
+
+    public function delete($id)
+    {
+        if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
+        ModelsCoupon::find($id)->delete();
+        return back()->with('success', 'Successfully Delete the coupon');
+    }
+
 
 }

@@ -211,10 +211,16 @@
                                     <div class="col-xl-4 col-lg-4 col-auto ">
                                         @if (Auth::check())
                                             @if (CheckAgeUnder16() && Auth::user()->role_id == 4)
-                                                <a href="javascript::void(0)" onclick="BooTypemodal('{{ $tutor->id}}')"
-                                                    style="text-decoration: none;color: black;">
-                                                    <h5>Book lessons</h5>
-                                                </a>
+                                            @if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+                                            <a style="text-decoration: none;color:#000000b8;">
+                                                <h5 style="background-color:#abff00a3">Book lessons</h5>
+                                            </a>
+                                            @else
+                                            <a href="javascript::void(0)" onclick="BooTypemodal('{{ $tutor->id}}')"
+                                                style="text-decoration: none;color: black;">
+                                                <h5>Book lessons</h5>
+                                            </a>
+                                            @endif
                                             @elseif(Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
                                                 <a href="javascript::void(0)" onclick="BooTypemodal('{{ $tutor->id}}')"
                                                     style="text-decoration: none;color: black;">
@@ -522,6 +528,8 @@
                                     <thead class="qualification">
                                         <tr>
                                             <th scope="col">Subject</th>
+                                            <th scope="col">Language</th>
+
                                             <th scope="col">Qualification</th>
                                             <th scope="col">Fee Per Hour</th>
                                         </tr>
@@ -531,7 +539,7 @@
                                             @foreach ($tutorsubjectoffers as $tutorsubjectoffer)
                                                 <tr>
                                                     <td>{{ optional($tutorsubjectoffer->subject)->name }}</td>
-
+                                                    <td>{{ optional($tutorsubjectoffer->language)->name }}</td>
                                                     <td>{{ $tutorsubjectoffer->levelstring }}</td>
                                                     <td>£{{ $tutorsubjectoffer->fee }}/hr</td>
                                                 </tr>
@@ -558,7 +566,7 @@
 
                             <img src="/assets/images/chat 1.png" alt="">
                             <h5>Let’s Chat with 247tutor</h5>
-                            <p>Have a Chat with 247tutor and see how (and when!) they can Help</p>
+                            <p>Have a Chat with 247tutors and see how (and when!) they can Help</p>
                             <a
                                 href="mailto:@isset($web_settings['Maintopbaremail']) {{ $web_settings['Maintopbaremail'] ?? '' }} @endisset">Let's
                                 Chat</a>
@@ -912,7 +920,7 @@
 
 
         function BooTypemodal(BooTypemodal) {
-            var stripe = '<a  class=" btn px-5 py-2 text-decoration-none btnpay" href="{{ url('tutor/book') }}/' + BooTypemodal + '">Stripe<i class="ms-3 fa-solid fa-chevron-right"></i></a>';
+            var stripe = '<a  class=" btn px-5 py-2 text-decoration-none btnpay" href="{{ url('tutor/book') }}/' + BooTypemodal + '">Card<i class="ms-3 fa-solid fa-chevron-right"></i></a>';
             var wallet = '<a  class="btn px-5 py-2 text-decoration-none btnpay"  href="{{ url('tutor/wallet/book') }}/' + BooTypemodal + '">Wallet<i class="ms-3 fa-solid fa-chevron-right"></i></a>';
 
             $('#stripe').html(stripe);

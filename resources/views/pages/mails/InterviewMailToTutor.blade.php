@@ -136,27 +136,27 @@
                     </tr>
                 </table>
             </td>
-           
+
             </tr>
             <tr>
-            
+
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                         <td align="left" bgcolor="#ffffff"
                             style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;border-top: 3px solid #d4dadf">
-                           
+
                             <h3>
                             I hope this email finds you well. This mail to inform you that your application for the tutor position with 247tutors has been successful, and we would like to schedule an interview with you.
                             <br>
                             <br>
                              We are impressed with your qualifications and experience, and we believe that you would be a valuable addition to our team of tutors. Your application stood out among many, and we are eager to learn more about you and discuss how your skills align with the needs of our organization.
                             </h3>
-                             
+
                              <h4>
                                  Your interview has been scheduled for:
                              </h4>
-                             
+
                              <ul style="padding-left:10px;font-size:17px;">
                                  <li> Date: {{$date}}  </li>
                                  <li> Time: {{$time}} </li>
@@ -178,7 +178,7 @@
                 </table>
             </td>
         </tr>
-           
+
         <tr>
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
@@ -197,7 +197,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">© 2023 247Tutor. All rights reserved.</p>
+                            <p style="margin: 0;">© 2024 247tutors. All rights reserved.</p>
                         </td>
                     </tr>
 

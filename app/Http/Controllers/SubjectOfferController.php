@@ -14,16 +14,17 @@ class SubjectOfferController extends Controller
 {
     public function store(Request $request)
     {
-        
+
        $user = Auth::user();
        $user->subjects =$user->subjects.','.$request->subject_id;
        $user->save();
-        
+
        $subject= new TutorSubjectOffer();
        $subject->tutor_id=Auth::id();
        $subject->level_id= 1;
        $subject->levelstring= $request->level_id;
        $subject->subject_id= $request->subject_id;
+       $subject->language_id= $request->language_id;
        $subject->fee= $request->fee;
        $subject->save();
 
@@ -62,6 +63,7 @@ class SubjectOfferController extends Controller
        $subject->level_id= 1;
        $subject->levelstring= $request->level_id;
        $subject->subject_id= $request->subject_id;
+       $subject->language_id= $request->language_id;
        $subject->fee= $request->fee;
        $subject->save();
 

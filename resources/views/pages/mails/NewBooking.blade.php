@@ -159,19 +159,19 @@
                                         <table border="0" cellpadding="0" cellspacing="0">
                                             <tr>
                                                 <td align="center">
-                                                <a href="{{ $url . '&status=' . $Scheduled }}" 
-                                                    id="acceptRequestButton" 
+                                                <a href="{{ $url . '&status=' . $Scheduled }}"
+                                                    id="acceptRequestButton"
                                                     style="text-decoration: none;padding: 10px;background-color: #15c;color: white;border-radius: 5px;margin-right: 10px;"
                                                     >Accept Booking
                                                 </a>
-                                                <a href="{{ $url . '&status=' . $Cancelled }}" 
-                                                   id="acceptRequestButton" 
+                                                <a href="{{ $url . '&status=' . $Cancelled }}"
+                                                   id="acceptRequestButton"
                                                    style="margin-top: 30px;background-color: crimson;    text-decoration: none;padding: 10px;color: white;border-radius: 5px;"
                                                    >Reject Booking
                                                 </a>
                                                 </td>
                                             </tr>
-                                            
+
                                         </table>
                                     </td>
                                 </tr>
@@ -215,7 +215,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">© 2023 247Tutor. All rights reserved.</p>
+                            <p style="margin: 0;">© 2024 247tutors. All rights reserved.</p>
                         </td>
                     </tr>
 

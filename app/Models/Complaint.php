@@ -17,6 +17,11 @@ class Complaint extends Model
         'file',
         'status',
         'user_id',
-        'role_id'
+        'role_id',
+        'type'
     ];
+    public function Notifier()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

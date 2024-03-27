@@ -43,6 +43,12 @@ class User extends Authenticatable implements MustVerifyEmail
         'parent_authority',
         'email_verified_at',
         'tutor_reschedule_warning',
+        'relation',
+        'org_type',
+        'org_help',
+        'org_role',
+        'get_in_touch',
+        'is_monitor',
     ];
     protected $casts = [
         'email_verified_at' => 'datetime',

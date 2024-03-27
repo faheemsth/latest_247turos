@@ -13,11 +13,11 @@
         <a class="navbar-brand logo-247" href='{{ route('index') }}'><img
                 src="{{ asset('assets/images/247 NEW Logo 1.png') }}" alt="" srcset="" class="img-fluid"></a>
         <div class="d-flex align-items-center gap-md-4">
-            <div class="dropdown d-none d-md-inline-block d-lg-none btn" style="border: 1px solid gray">
+            {{-- tab <div class="dropdown d-none d-md-inline-block d-lg-none btn" style="border: 1px solid gray">
                 <a class="dropdown-toggle me-2 text-dark text-decoration-none" href="#" role="button"
                     id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                    {{-- <img src="{{ asset('assets/images/translation.svg') }}" alt="Translation" width="20"
-                        height="auto"> --}}
+                    <img src="{{ asset('assets/images/translation.svg') }}" alt="Translation" width="20"
+                        height="auto">
                         Translate
                 </a>
                 <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style=" top: 35px !important;">
@@ -26,7 +26,7 @@
                     <li><a class="dropdown-item" href="{{ route('locale', ['locale' => 'chi']) }}" {{ Session::get('locale') == 'chi' ? 'active' : ''}}>Chinese</a></li>
 
                 </ul>
-            </div>
+            </div> --}}
             <button class="navbar-toggler buger-btn" type="button" data-bs-toggle="collapse"
                 data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false"
                 aria-label="Toggle navigation">
@@ -34,7 +34,7 @@
             </button>
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
-            <ul class="navbar-nav m-auto mb-2 mb-lg-0 fw-bold">
+            <ul class="navbar-nav m-auto my-2 fw-bold">
                 <li class="nav-item ">
                     <a class="nav-link {{ request()->routeIs('index') ? 'active' : '' }}" aria-current="page" href='{{ route('index') }}'>Home</a>
                 </li>
@@ -45,9 +45,10 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">How it Works</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href='{{ route('studentApplySteps') }}'>Become a Student</a></li>
-                        <li><a class="dropdown-item" href='{{ route('tutorApplySteps') }}'>Become a Tutor</a></li>
-                        <li><a class="dropdown-item" href='{{ route('organizationApplySteps') }}'>Become an Organization</a>
+                        <li><a class="dropdown-item" href='{{ route('studentApplySteps') }}'>Register as a Student</a></li>
+                        <li><a class="dropdown-item" href='{{ route('tutorApplySteps') }}'>Register as a Tutor</a></li>
+                        {{-- <li><a class="dropdown-item" href='{{ route('parentApplySteps') }}'>Register as a Parent</a></li> --}}
+                           <li><a class="dropdown-item" href='{{ route('organizationApplySteps') }}'>Register as an Organisation</a>
                         </li>
                     </ul>
                 </li>
@@ -66,11 +67,11 @@
                 @if (Auth::user()->role_id != '1' && Auth::user()->role_id != '2' && Auth::check())
                     <div class="col-md-2 d-flex justify-content-end align-items-center header-btn gap-1"
                         style="max-width: max-content;">
-                        <div class="dropdown d-none d-lg-inline-block btn" style="border: 1px solid gray">
+                        {{-- <div class="dropdown d-none d-lg-inline-block btn" style="border: 1px solid gray">
                             <a class="dropdown-toggle me-2 text-dark text-decoration-none" href="#" role="button"
                                 id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                                {{-- <img src="{{ asset('assets/images/translation.svg') }}" alt="Translation" width="20"
-                                    height="auto"> --}}
+                                <img src="{{ asset('assets/images/translation.svg') }}" alt="Translation" width="20"
+                                    height="auto">
                                     Translate
                             </a>
                             <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style=" top: 35px !important;">
@@ -78,7 +79,7 @@
                                 <li><a class="dropdown-item" href="{{ route('locale', ['locale' => 'urd']) }}" {{ Session::get('locale') == 'urd' ? 'active' : ''}}>Urdu</a></li>
                                 <li><a class="dropdown-item" href="{{ route('locale', ['locale' => 'chi']) }}" {{ Session::get('locale') == 'chi' ? 'active' : ''}}>Chinese</a></li>
                             </ul>
-                        </div>
+                        </div> --}}
                         <a href='{{ route('login-roles') }}' class="header-login px-2 py-1 mx-1 btn fw-bold"
                             id="btn-bg" type="submit">Login</a>
                         <div class="dropdown">
@@ -109,11 +110,11 @@
                 @else
                 <div class="col-md-2 d-flex justify-content-end align-items-center header-btn gap-1"
                 style="max-width: max-content;">
-                <div class="dropdown d-none d-lg-inline-block btn" style="border: 1px solid gray">
+                {{-- <div class="dropdown d-none d-lg-inline-block btn" style="border: 1px solid gray">
                     <a class="dropdown-toggle me-2 text-dark text-decoration-none" href="#" role="button"
                         id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false">
-                        {{-- <img src="{{ asset('assets/images/translation.svg') }}" alt="Translation" width="20"
-                            height="auto"> --}}
+                        <img src="{{ asset('assets/images/translation.svg') }}" alt="Translation" width="20"
+                            height="auto">
                             Translate
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="dropdownMenuLink" style=" top: 35px !important;">
@@ -121,7 +122,7 @@
                         <li><a class="dropdown-item" href="{{ route('locale', ['locale' => 'urd']) }}" {{ Session::get('locale') == 'urd' ? 'active' : ''}}>Urdu</a></li>
                         <li><a class="dropdown-item" href="{{ route('locale', ['locale' => 'chi']) }}" {{ Session::get('locale') == 'chi' ? 'active' : ''}}>Chinese</a></li>
                     </ul>
-                </div>
+                </div> --}}
                 <div class="dropdown  d-none d-lg-flex ">
                     <a class="btn   fw-bold dropdown dropdown-second " href="#" role="button"
                         id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"

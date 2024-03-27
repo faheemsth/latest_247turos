@@ -136,22 +136,22 @@
                     </tr>
                 </table>
             </td>
-           
+
             </tr>
             <tr>
-            
+
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
                     <tr>
                     <td align="left" bgcolor="#ffffff"
                             style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; border-top: 3px solid #d4dadf;">
                             <h2 style="margin: 0; font-size: 20px; font-weight: 600; letter-spacing: -1px; line-height: 28px;">
-                                
+
                                 I hope this email finds you well. This mail to inform you that your booking request has been accepted by the tutor.
-                   
+
                                 </h2>
                                 <br>
-                              
+
                                 <h2>
                                     After reviewing your initial request and considering the tutor's availability, they have agreed to accommodate your booking for <strong>{{$Subject}}</strong>, scheduled for   <strong>{{$ScheduleTime}}</strong>. We understand how important it is for you to receive the necessary assistance with your studies, and we are delighted to facilitate this for you.
                                 </h2>
@@ -164,14 +164,14 @@
                                     <li>Subject/Topic: {{$Subject}}</li>
                                     <li>ScheduleTime:{{$ScheduleTime}}</li>
                                     <li>Duration: {{$duration}} minutes</li>
-                                    
+
                                 </ul>
                         </td>
                     </tr>
                 </table>
             </td>
             </tr>
-           
+
         <tr>
             <td align="center" bgcolor="#e9ecef">
                 <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
@@ -190,7 +190,7 @@
                     <tr>
                         <td align="center" bgcolor="#e9ecef"
                             style="padding: 12px 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 14px; line-height: 20px; color: #666;">
-                            <p style="margin: 0;">© 2023 247Tutor. All rights reserved.</p>
+                            <p style="margin: 0;">© 2024 247tutors. All rights reserved.</p>
                         </td>
                     </tr>
 

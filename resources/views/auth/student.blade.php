@@ -65,6 +65,7 @@
         .flag-1 {
             left: -12px;
         }
+
         .flag-2 {
             left: 304px;
         }
@@ -77,26 +78,27 @@
             left: 918px;
         }
 
-        .bar-img{
-            width:15%;
+        .bar-img {
+            width: 15%;
         }
 
 
 
 
-        @media only screen and (min-width: 1440px){
-        .flag-2 {
-            left: 350px;
+        @media only screen and (min-width: 1440px) {
+            .flag-2 {
+                left: 350px;
+            }
+
+            .flag-3 {
+                left: 710px;
+            }
+
+            .flag-4 {
+                left: 1062px;
+            }
         }
 
-        .flag-3 {
-            left: 710px;
-        }
-
-        .flag-4 {
-            left: 1062px;
-        }
-}
         @media only screen and (max-width: 1240px) {
             .flag-2 {
                 left: 250px;
@@ -152,9 +154,10 @@
             .flag-4 {
                 left: 260px;
             }
-            .bar-img{
-            width:40%;
-        }
+
+            .bar-img {
+                width: 40%;
+            }
         }
 
         @media only screen and (max-width: 375px) {
@@ -185,31 +188,32 @@
             }
         }
     </style>
-    <div id="topsscrol"  class="container-fluid ">
-            <div class="row" style="background-color:#dcdcdc8f;">
-                <div class="col-12 py-1" style="text-align:end;">
-                    <a href="{{ url('auth/google?role=').$_GET['role'] }}" class="btn btn-outline-primary px-2 fw-bold py-1">
-                        <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png" style="width: 29px;
+    <div id="topsscrol" class="container-fluid ">
+        <div class="row" style="background-color:#dcdcdc8f;">
+            <div class="col-12 py-1" style="text-align:end;">
+                <a href="{{ url('auth/google?role=') . $_GET['role'] }}" class="btn btn-outline-primary px-2 fw-bold py-1">
+                    <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/c/c1/Google_%22G%22_logo.svg/2048px-Google_%22G%22_logo.svg.png"
+                        style="width: 29px;
                      padding: 3px ;">
-                        Sign-Up With Google</a>
-                    <!--<a href="" class="btn bg-transparent p-0" type="button">-->
-                    <!--    <img src="https://portal.kedasrd.com/images/GButton.png" class="w-25">-->
-                    <!--</a>-->
-                </div>
+                    Sign-Up With Google</a>
+                <!--<a href="" class="btn bg-transparent p-0" type="button">-->
+                <!--    <img src="https://portal.kedasrd.com/images/GButton.png" class="w-25">-->
+                <!--</a>-->
             </div>
+        </div>
     </div>
-    <div  class="container ">
-        
-        
+    <div class="container ">
+
+
         <div class="row ">
             <div class="col-md-12 d-flex justify-content-between align-items-center mt-5 mb-4">
                 <div class="d-flex gap-10">
                     <h3 class="fw-bold mb-0" style="font-size:1.6rem">
-                  <span id="text-color">
-                      STUDENT
-                  </span>   REGISTRATION
-                </h3>
-                <!--<button class="btn btn-primary px-2">Sign-Up With Google</button>-->
+                        <span id="text-color">
+                            STUDENT
+                        </span> REGISTRATION
+                    </h3>
+                    <!--<button class="btn btn-primary px-2">Sign-Up With Google</button>-->
                 </div>
 
                 <!--<img src="{{ asset('assets/images/247 NEW Logo 2.png') }}" alt="Logo" class="bar-img img-fluid" height="auto">-->
@@ -250,7 +254,7 @@
                     <input id="role_id" name="role_id" value="4" type="hidden">
                     <fieldset id="account">
                         <div class="panel-body mt-5 text-center">
-                            <h2 class="text-center fs-1" id="text-color"><strong>Your First Name and Last Name?</strong>
+                            <h2 class="text-center fs-1" id="text-color"><strong>Your First Name and Surname?</strong>
                             </h2><br>
                         </div>
                         <div class="d-flex flex-column flex-md-row ">
@@ -265,8 +269,8 @@
 
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Last Name</label><br>
-                                        <input type="text" id="lname" placeholder="Enter Last Name" name="lname"
+                                        <label class="text-secondary">Surname</label><br>
+                                        <input type="text" id="lname" placeholder="Enter Surname" name="lname"
                                             class="w-100 p-2">
                                     </div>
                                 </div>
@@ -274,7 +278,8 @@
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
                                         <label class="text-secondary">Date Of Birth</label><br>
-                                        <input type="date" id="dob" name="dob" class="w-100 p-2" max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
+                                        <input type="date" id="dob" name="dob" class="w-100 p-2"
+                                            max="{{ \Carbon\Carbon::now()->format('Y-m-d') }}">
                                     </div>
                                 </div>
 
@@ -286,8 +291,8 @@
                             <a href="#" class="link-dark previous btn " id="previous1"><i
                                     class="fa fa-light fa-arrow-left"></i>
                                 Back</a>
-                          <a href="#topsscrol" class="text-decoration-none">  <input type="button" required name="password" class=" next btn btn-primary px-5" value="Next"
-                                id="next1" /></a>
+                            <a href="#topsscrol" class="text-decoration-none"> <input type="button" required
+                                    name="password" class=" next btn btn-primary px-5" value="Next" id="next1" /></a>
                         </div>
                     </fieldset>
 
@@ -345,6 +350,7 @@
                                                         placeholder="Enter Phone Number" class="w-100 p-2">
 
                                                 </span>
+                                                <span id="phone-validation-message" style="color: red;"></span>
                                             </div>
                                         </div>
 
@@ -366,15 +372,17 @@
                             <a href="#" class="link-dark previous btn " id="previous2"><i
                                     class="fa fa-light fa-arrow-left"></i>
                                 Back</a>
-                                <a href="#topsscrol" class="text-decoration-none">  <input type="button" required name="password" class=" next btn btn-primary px-5"
-                                value="Next" id="next2" /></a>
+                            <a href="#topsscrol" class="text-decoration-none"> <input type="button" required
+                                    name="password" class=" next btn btn-primary px-5" value="Next"
+                                    id="next2" /></a>
                         </div>
                     </fieldset>
 
 
                     <fieldset id="subjects">
                         <div class="panel-body mt-5">
-                            <h2 class="text-center fs-1 mb-3" id="text-color"><strong>Which Subject Would You Like Choose?</strong></h2><br>
+                            <h2 class="text-center fs-1 mb-3" id="text-color"><strong>Which Subject Would You Like
+                                    Choose?</strong></h2><br>
                             {{-- <div class="container">
                                 <div class="d-flex flex-wrap justify-content-center">
                                     <a href="javascript:void(0)" data-subject-id="1" style="text-decoration: none">
@@ -429,35 +437,52 @@
                                 <div class="col-12 col-md-12 col-lg-12 col-xl-12 m-auto">
 
                                     <div class="row mt-4 justify-content-center">
-                                        <div class="col-md-5">
-                                            <label class="text-secondary mb-1" style="font-size: 1.6rem;">Subjects</label><br>
-                                            <span class="d-flex">
-                                                @if (!empty($subjects))
-                                                    <select class="w-10 p-2 select2" id="subject" name="subject[]"
-                                                        multiple>
-                                                        @foreach ($subjects as $subject)
-                                                            <option value="{{ $subject->id }}">{{ $subject->name }}
-                                                            </option>
-                                                        @endforeach
-                                                    </select>
-                                                @endif
-                                            </span>
+                                        <div class="col-md-6">
+                                            <label for="">
+                                                <h2>Choose subjects</h2>
+                                            </label>;
+                                            <div class="row">
+                                                <div class="col-auto">
+                                                    <div class="mx-2 text-capitalize mt-3">
+                                                        @if (!empty($subjects))
+                                                            @foreach ($subjects as $key => $subject)
+                                                                @if ($key < 6)
+                                                                    <input type="checkbox" value="{{ $subject->id }}" style="width: 17px;height: 17px;" class="checkbox1" name="subject[]">
+                                                                    <label class="mx-2"><h5 class="text-gray">{{ $subject->name }}</h5></label><br>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <div class="mx-2 text-capitalize mt-3">
+                                                        @if (!empty($subjects))
+                                                            @foreach ($subjects as $key => $subject)
+                                                                @if ($key >= 5)
+                                                                    <input type="checkbox" value="{{ $subject->id }}" style="width: 17px;height: 17px;" class="checkbox1" name="subject[]">
+                                                                    <label class="mx-2"><h5 class="text-gray">{{ $subject->name }}</h5></label><br>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
                             <p style="font-size:20px;font-style:italic"
-                                class="text-center my-5 text-secondary text-italic">We’ll Select Tutors who Specialise in
-                                your Chosen Subject (with A/A*’s to Show for it)!.
+                                class="text-center my-5 text-secondary text-italic">Choose a subject to learn based on your interests, goals, and available resources,<br> while remaining open to exploring new topics.
                             </p>
                         </div>
                         <div class="d-flex col-12 justify-content-center m-auto my-5 gap-2">
                             <a href="#" class="link-dark previous btn " id="previous2"><i
                                     class="fa fa-light fa-arrow-left"></i>
                                 Back</a>
-                                <a href="#topsscrol" class="text-decoration-none">  <input type="button" required name="password" class=" next btn btn-primary px-5"
-                                value="Next" id="next2" /></a>
+                            <a href="#topsscrol" class="text-decoration-none"> <input type="button" required
+                                    name="password" class=" next btn btn-primary px-5" value="Next"
+                                    id="next2" /></a>
                         </div>
                     </fieldset>
 
@@ -470,9 +495,10 @@
                                     <div class="row mt-4 justify-content-center">
                                         <div class="col-md-5">
                                             <label class="text-secondary">Username</label><br>
-                                                <input type="text" id="username" name="username"
-                                                    placeholder="Enter Username" class="w-100 p-2">
-                                                    <span id="username-validation-message" style="color: red;"></span>
+                                            <input type="text" id="username" name="username"
+                                                placeholder="Enter Username" class="w-100 p-2"
+                                                style="background-color: #f8f8f8;color: gray;border: 1px solid #4F4F4F">
+
                                         </div>
                                     </div>
 
@@ -500,11 +526,12 @@
                             <a href="#" class="link-dark previous btn " id="previous3"><i
                                     class="fa fa-light fa-arrow-left"></i>
                                 Back</a>
-                            <button type="button" class="next btn btn-primary px-5 submit-button" id="register">Submit</button>
+                            <button type="button" class="next btn btn-primary px-5 submit-button"
+                                id="register">Submit</button>
                             <button class="btn btn-primary d-none spiner" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Processing ...
-                        </button>
+                            </button>
                         </div>
                     </fieldset>
                 </form>
@@ -512,31 +539,84 @@
         </div>
     </div>
 
+    <div id="popuptens" class="py-5">
+        <div id="closetens"> <i class="fa-solid fa-xmark"></i></div>
 
+        <div class="row justify-content-center align-items-center">
+            <div class="col-10 text-center my-3" style="color: #423e3e;">
+                <h5 style="
+    line-height: 1.6rem;
+"><i class="fa-solid fa-circle-exclamation text-warning" style="font-size: 24px"></i> Disclaimer you are under the age of 16, <br>
+    please note that you are required to connect your account with that of  <a href="http://127.0.0.1:8000/parent-signup?role=5">your parent or guardian</a>. By continuing to use this platform, you acknowledge and agree to comply with this requirement.
+                </h5>
+                <h6>Thank you for your cooperation.</h6>
+            </div>
+        </div>
+    </div>
 
     <script src="{{ asset('js/timeslot.min.js') }}"></script>
 
-<!-- Include Toastify library -->
+    <!-- Include Toastify library -->
+    <style>
+        #overlaytens {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(0, 0, 0, 0.7);
+        }
 
-<script>
-    $(function() {
-        $('#dob').on('change', function() {
-            var dobValue = $('#dob').val();
-            var dobDate = new Date(dobValue);
+        #popuptens {
+            display: none;
+            position: fixed;
+            top: 50%;
+            z-index: 98765;
+            left: 50%;
+            transform: translate(-50%, -50%);
+            padding: 20px;
+            background: #fff;
+            border: 1px solid #ccc;
+            border-radius: 5px;
+            box-shadow: 0 2px 5px rgba(0, 0, 0, 0.5);
+        }
 
-            if (!isNaN(dobDate)) {
-                var today = new Date();
-                var age = today.getFullYear() - dobDate.getFullYear();
-                if (today.getMonth() < dobDate.getMonth() || (today.getMonth() === dobDate.getMonth() && today.getDate() < dobDate.getDate())) {
-                    age--;
-                }
-                if (age < 16) {
-                    window.location.href = '{{ url('/parent-signup') }}?role=5&message=true'; 
-                }
+        #closetens {
+            position: absolute;
+            top: -3px;
+            right: 4px;
+            font-size: 23px;
+            cursor: pointer;
+        }
+
+        @media screen and (max-width: 430px) {
+            #popuptens {
+                width: 70%;
             }
+
+            .cookiessection {
+                width: 75%;
+                bottom: 2px;
+                left: 0px;
+            }
+        }
+    </style>
+    <script>
+        $(function() {
+            $('#dob').on('change', function() {
+
+            });
         });
-    });
-</script>
+
+        $("#closetens, #overlaytens").click(function() {
+            $("#overlaytens").fadeOut(300);
+            $("#popuptens").fadeOut(300);
+
+            // Set flag in localStorage indicating the popup has been shown
+            localStorage.setItem('popupShown', true);
+        });
+    </script>
 
 
 
@@ -547,8 +627,8 @@
             var max = 999;
             var $username = $('#username');
             $('#lname').on('keyup', function() {
-                $sirname=$(this).val() + Math.floor(Math.random() * (max - min + 1));
-                $sirname1=$sirname.replace(/-/g, '');
+                $sirname = $(this).val() + Math.floor(Math.random() * (max - min + 1));
+                $sirname1 = $sirname.replace(/-/g, '');
                 $username.val($sirname1);
             });
             $username.prop('readonly', true);
@@ -559,59 +639,67 @@
         $(document).ready(function() {
             $('#email').on('keyup', function() {
                 var email = $(this).val();
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    $('#email-validation-message').text("Please include an '@' in the email address. '" +
+                        email + "' is missing an '@'.");
+                    $('#next2').prop('disabled', true);
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'email-check',
+                        data: {
+                            email: email
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            if (response.unique === false) {
+                                $('#email-validation-message').text(
+                                    'This email is already registered.');
+                                $('#next2').prop('disabled', true);
+                            } else {
+                                $('#email-validation-message').text('');
+                                $('#next2').prop('disabled', false);
+                            }
+                        }
+                    });
+                }
+
+
+            });
+        });
+    </script>
+
+    <script>
+        $(document).ready(function() {
+            $('#username').on('keyup', function() {
+                var username = $(this).val();
 
                 $.ajax({
                     type: 'POST',
-                    url: 'email-check',
+                    url: 'username-check',
                     data: {
-                        email: email
+                        username: username
                     },
                     headers: {
                         'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
                     },
                     success: function(response) {
                         if (response.unique === false) {
-                            $('#email-validation-message').text(
-                                'This email is already registered.');
-                            $('#next2').prop('disabled', true);
+                            $('#username-validation-message').text(
+                                'This username is already registered.');
+                            $('#register').prop('disabled', true);
                         } else {
-                            $('#email-validation-message').text('');
-                            $('#next2').prop('disabled', false);
+                            $('#username-validation-message').text('');
+                            $('#register').prop('disabled', false);
                         }
                     }
                 });
             });
         });
     </script>
-
-<script>
-    $(document).ready(function() {
-        $('#username').on('keyup', function() {
-            var username = $(this).val();
-
-            $.ajax({
-                type: 'POST',
-                url: 'username-check',
-                data: {
-                    username: username
-                },
-                headers: {
-                    'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                },
-                success: function(response) {
-                    if (response.unique === false) {
-                        $('#username-validation-message').text(
-                            'This username is already registered.');
-                        $('#register').prop('disabled', true);
-                    } else {
-                        $('#username-validation-message').text('');
-                        $('#register').prop('disabled', false);
-                    }
-                }
-            });
-        });
-    });
-</script>
     <script>
         var picker = '';
         let slots = '';
@@ -641,20 +729,34 @@
                         setProgressBar(form_count);
                     }
                 } else {
-                    Swal.fire({
-                        position: 'center',
-                        icon: 'error',
-                        title: 'Please fill in all required fields.',
-                        showConfirmButton: false,
-                        timer: 2000,
-                        showCloseButton: true
-                    });
+
+                    if ($('#fname').val() === '' || $('#lname').val() === '' || $('#dob').val() === '') {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Please fill in all required fields.',
+                            showConfirmButton: false,
+                            timer: 2000,
+                            showCloseButton: true
+                        });
+                    } else {
+                        var dob = new Date($('#dob').val());
+                        if (dob && new Date() - dob < 1000 * 60 * 60 * 24 * 365.25 * 16) {
+                            isValid = false;
+                            $("#overlaytens, #popuptens").fadeIn(300);
+                        }
+                    }
                 }
             }
 
             function validateStep(step) {
                 var isValid = true;
                 if (step === 1) {
+                    var dobDate = new Date($('#dob').val());
+                    if (!isNaN(dobDate) && new Date().getFullYear() - dobDate.getFullYear() < 16) {
+                        isValid = false;
+                        $("#overlaytens, #popuptens").fadeIn(300);
+                    }
                     if ($('#fname').val() === '' || $('#lname').val() === '' || $('#dob').val() === '') {
                         isValid = false;
                     }
@@ -705,84 +807,116 @@
             });
         });
     </script>
-{{-- fname,lname,dob,code,phone,email,subject,username,password,confirm-password --}}
-<script>
-    $(document).ready(function() {
-        $('#register').click(function() {
+    {{-- fname,lname,dob,code,phone,email,subject,username,password,confirm-password --}}
+    <script>
+        $(document).ready(function() {
+            $('#phone').on('keyup', function() {
+                var phoneNumber = $(this).val();
 
-            var data ={
-                'fname' : $('#fname').val(),
-                'lname' : $('#lname').val(),
-                'dob'   : $('#dob').val(),
-                'code'   : $('#code').val(),
-                'phone'   : $('#phone').val(),
-                'email'   : $('#email').val(),
-                'subject'   : $('#subject').val(),
-                'username'   : $('#username').val(),
-                'username'   : $('#username').val(),
-                'password'   : $('#passwordUser').val(),
-                'confirm-password'   : $('#confirm-password').val(),
-                'role_id'   : $('#role_id').val(),
+                phoneNumber = phoneNumber.replace(/\D/g, '');
+                $(this).val(phoneNumber);
 
-
-            }
-            var csrfToken = $('meta[name="csrf-token"]').attr('content');
-            
-            
-            if ($('#confirm-password').val() === '' || $('#passwordUser').val() === '')
-            { 
-                Swal.fire({
-                position: 'center',
-                icon: 'error',
-                title: 'Please fill in all the required fields.',
-                showConfirmButton: false,
-                timer: 5000,
-                showCloseButton: true
+                if (phoneNumber.length > 10) {
+                    $('#phone-validation-message').text('');
+                    $('#next2').prop('disabled', false);
+                } else {
+                    $('#phone-validation-message').text('Phone number should be more than 10 characters.');
+                    $('#next2').prop('disabled', true);
+                }
             });
-            }else{
-                      
-            $.ajax({
-                url: '/register',
-                method: 'POST',
-                data: data,
-                headers: {
-                    'X-CSRF-TOKEN': csrfToken
-                },
-                beforeSend:function(){
-                    $('.submit-button').addClass('d-none');
-                    $('.spiner').removeClass('d-none');
-                },
-                success: function(response) {
-                    if(response.status == 200){
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
+            $('#register').click(function() {
+
+                var data = {
+                    'fname': $('#fname').val(),
+                    'lname': $('#lname').val(),
+                    'dob': $('#dob').val(),
+                    'code': $('#code').val(),
+                    'phone': $('#phone').val(),
+                    'email': $('#email').val(),
+                    'subject': $('#subject').val(),
+                    'username': $('#username').val(),
+                    'username': $('#username').val(),
+                    'password': $('#passwordUser').val(),
+                    'confirm-password': $('#confirm-password').val(),
+                    'role_id': $('#role_id').val(),
+
+
+                }
+                var csrfToken = $('meta[name="csrf-token"]').attr('content');
+
+
+                if ($('#confirm-password').val() === '' || $('#passwordUser').val() === '') {
+                    Swal.fire({
+                        position: 'center',
+                        icon: 'error',
+                        title: 'Please fill in all the required fields.',
+                        showConfirmButton: false,
+                        timer: 5000,
+                        showCloseButton: true
+                    });
+                } else {
+
+                    if ($('#confirm-password').val() !== $('#passwordUser').val()) {
                         Swal.fire({
                             position: 'center',
-                            icon: 'success',
-                            title: 'Registration Successful.Please check your email and verify your account to login.',
+                            icon: 'error',
+                            title: 'Password Are Not Same.',
                             showConfirmButton: false,
                             timer: 5000,
                             showCloseButton: true
                         });
-                        window.setTimeout(function(){
+                    } else {
 
-                            // Move to a new location or you can do something else
-                            window.location.href = 'login';
+                        $.ajax({
+                            url: '/register',
+                            method: 'POST',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken
+                            },
+                            beforeSend: function() {
+                                $('.submit-button').addClass('d-none');
+                                $('.spiner').removeClass('d-none');
+                            },
+                            success: function(response) {
+                                if (response.status == 200) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: 'Registration Successful.Please check your email and verify your account to login.',
+                                        showConfirmButton: false,
+                                        timer: 5000,
+                                        showCloseButton: true
+                                    });
+                                    window.setTimeout(function() {
 
-                        }, 5000);
+                                        // Move to a new location or you can do something else
+                                        window.location.href = 'login';
 
-                    }else{
-                        Swal.fire({
-                            position: 'center',
-                            icon: 'error',
-                            title: 'Something went wrong!',
-                            showConfirmButton: false,
-                            timer: 2000,
-                            showCloseButton: true
+                                    }, 5000);
+
+                                } else {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'error',
+                                        title: 'Something went wrong!',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                        showCloseButton: true
+                                    });
+                                }
+                            },
                         });
+
                     }
-                },
+
+
+                }
             });
-        }
         });
-    });
-</script>
+    </script>
 @endsection

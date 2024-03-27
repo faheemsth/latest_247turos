@@ -26,7 +26,7 @@ class ForgotPasswordController extends Controller
 
     public function sendResetLinkEmail(Request $request)
     {
-        
+
         $imagePath = public_path('assets/images/247 NEW Logo 1.png');
         try {
             $name=User::where('email',$request->input('email'))->first();
@@ -69,14 +69,14 @@ class ForgotPasswordController extends Controller
         $user = User::where('code', $request->code)->first();
 
         if (!$user) {
-            return redirect()->back()->with('error', 'code is Incorrect.');
+            return redirect()->back()->with('failed', 'code is Incorrect.');
         }
 
         Auth::login($user);
 
         return redirect('dashboard')->with('success', 'Password reset successfully.');
     }
-    
+
     public function ResetPassword(Request $request)
     {
 

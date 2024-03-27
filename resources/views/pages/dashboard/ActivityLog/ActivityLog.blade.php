@@ -122,7 +122,7 @@
             <!-- end message area-->
              <div class="col-md-12  user-table-data col-12 pe-0 pe-md-2">
                 <div class="card p-md-3 p-2">
-                    
+
 
                     <!--<div class="card-header d-flex justify-content-between">-->
                     <!--    <h3 class="col-auto">{{ __('') }}</h3>-->
@@ -133,12 +133,12 @@
                     <!--</div>-->
                     <div class="card-header justify-content-between">
                         <h3>{{ __('Activity Logs') }}</h3>
-                        <a class="btn btn-success px-3 py-1" href="void::javascript(0)" onclick="tableToCSV()"><i class="fa fa-download me-2" style="font-size:16px;"></i>Export</a>
+                        <a class="btn btn-success px-3 py-1" href="{{ url('download') }}" ><i class="fa fa-download me-2" style="font-size:16px;"></i>Export</a>
                     </div>
 
                     <div class="card-body" style="overflow: scroll;">
                         <table id="reviewStudents" class="table table-bordered">
-                   
+
                             <thead>
                                 <tr>
                                     <th>#</th>
@@ -195,9 +195,9 @@
                     			}
                     			csv_data = csv_data.join('\n');
                     			downloadCSVFile(csv_data);
-                    
+
                     		}
-                    
+
                     		function downloadCSVFile(csv_data) {
                     			CSVFile = new Blob([csv_data], {
                     				type: "text/csv"

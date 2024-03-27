@@ -43,13 +43,13 @@
                 style="background-color:  rgba(171, 255, 0, 1);width:750px; ">
                 <div class="row g-0 align-items-center pb-2">
 
-                    <div class="col-md-6 col-border ">
+                    <div class="col-md-6 col-border py-3">
 
 
-                        <img src="./assets/images/Group.png" alt="" id="bg-shape-box">
-                        <img src="./assets/images/student-char.png" class="img-fluid rounded-start " style="height:200px"
+                        <img src="{{ session('login_image1') ?? '' }}" alt="" id="bg-shape-box">
+                        <img src="{{ !empty(session('login_image'))?session('login_image') :asset('assets/images/3.png') }}" class="img-fluid rounded-start " style="height:200px"
                             alt="...">
-                        <img src="./assets/images/pencil.png" alt="" id="bg-shape-pancil">
+                        <img src="{{ session('login_image2') ?? '' }}" alt="" id="bg-shape-pancil">
                         <h5 class="card-title" style="line-height: 2;">
                             @if (session('login_message'))
                                 {{ session('login_message1') }}
@@ -57,8 +57,7 @@
                                 I am a User
                             @endif
                         </h5>
-                        <p class="card-text" style="line-height: 0.3rem;">Have Lesson, Message Your Tutor </p>
-                        <p class="card-text" style="line-height: 0.3rem;">or Watch Your Lesson Back </p>
+                        <p class="card-text" style="line-height: 0.3rem;">{{ session('msg') }} </p>
 
                     </div>
                     <!-- card body details -->
@@ -112,7 +111,7 @@
                     <a href="tel:+447851012039> Need help call us on <strong>+447851012039</strong> or <strong>Email us</strong></a>
                 </div>
                 <div class="col-md-4 col-lg-2 ">
-                    <a href="{{url('/student-apply-steps')}}">Help! I'm an <strong>Adult Learn</strong></a>
+                    <a href="{{url('/student-apply-steps')}}">Help! I'm an <strong>Adult Learner</strong></a>
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-2">
                     <a href="{{url('/tutor-signup')}}">Log in as <strong>Register as Tutor</strong></a>

@@ -47,9 +47,9 @@
                             alt="...">
                         <img src="{{ asset('assets/images/pencil.png')}}" alt="" id="bg-shape-pancil">
                         <h5 class="card-title" style="line-height: 2;">
-                            
+
                                 I am a User
-                            
+
                         </h5>
                         <p class="card-text" style="line-height: 0.3rem;">Have Lesson, Message Your Tutor </p>
                         <p class="card-text" style="line-height: 0.3rem;">or Watch Your Lesson Back </p>
@@ -106,7 +106,7 @@
                     <a href="tel:+447851012039> Need help call us on <strong>+447851012039</strong> or <strong>Email us</strong></a>
                 </div>
                 <div class="col-md-4 col-lg-2 ">
-                    <a href="{{url('/student-apply-steps')}}">Help! I'm an <strong>Adult Learn</strong></a>
+                    <a href="{{url('/student-apply-steps')}}">Help! I'm an <strong>Adult Learner</strong></a>
                 </div>
                 <div class="col-md-4 col-lg-3 col-xl-2">
                     <a href="{{url('/tutor-signup')}}">Log in as <strong>Register as Tutor</strong></a>

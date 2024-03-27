@@ -72,6 +72,14 @@ $groups = App\Models\Group::All();
                     <a class="nav-link {{ request()->routeIs('findTutor') ? 'active' : '' }}"
                         href="{{ url('find-tutor') }}">Find a Tutor</a>
                 </li>
+
+                @if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+                @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/student/payments') }}">Balance over view Report</a>
+                </li>
+                @endif
+
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('findTutor') ? 'active' : '' }}"
                         href="{{ url('students/messages') }}">Messages <span id="msgcount" class="messgcount" style="display: none"></a>
@@ -94,9 +102,12 @@ $groups = App\Models\Group::All();
                        <span id="msgcount" class="countBooking" style="display: none"></span>
                     </a>
                 </li>
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('faq') ? 'active' : '' }}"  href='{{ route('faq') }}' tabindex="-1" aria-disabled="true">FAQs</a>
+                </li>
             </ul>
 
-
+            <div id="google_element"></div>
             <div class="col-md-2 d-flex justify-content-end align-items-center header-btn gap-1"
                 style="max-width: max-content;">
                 <!--<div class="dropdown d-none d-lg-inline-block btn" style="border: 1px solid gray">-->
@@ -110,6 +121,7 @@ $groups = App\Models\Group::All();
                 <!--        <li><a class="dropdown-item" href="#">chinese</a></li>-->
                 <!--    </ul>-->
                 <!--</div>-->
+
                 <div class="dropdown  d-none d-lg-flex ">
                     <a class="btn   fw-bold dropdown dropdown-second " href="#" role="button"
                         id="dropdownMenuLink" data-bs-toggle="dropdown" aria-expanded="false"
@@ -137,7 +149,10 @@ $groups = App\Models\Group::All();
                         <li><a class="dropdown-item" href="{{ url('student/profile') }}"><img
                                     src="{{ asset('assets/images/student 1.png') }}" alt="" srcset="">
                                 Your Profile</a></li>
-                    <li><a class="dropdown-item" href="{{ url('/student/payments') }}"><i class="fa-solid fa-file-invoice-dollar me-2"></i>Billing & Payments</a></li>
+                    @if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+                    @else
+                        <li><a class="dropdown-item" href="{{ url('/student/payments') }}"><i class="fa-solid fa-file-invoice-dollar me-2"></i>Billing & Payments</a></li>
+                    @endif
                     <li><a class="dropdown-item" href="{{ url('complaint') }}"><i class="fa-solid fa-headset me-2"></i>
                     Support</a></li>
                         <li><a class="dropdown-item" href="{{ url('logout') }}"><img

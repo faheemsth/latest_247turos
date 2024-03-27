@@ -110,46 +110,46 @@
                                 {{ Auth::user()->profile_description }}
                             </p>
                         </div>
-                        
-                        
-                        
-                        
-                        
+
+
+
+
+
                         @if(Auth::user()->complaint_stage == 'Personal inform' && Auth::user()->id == Auth::id())
                         <div class=" py-3 mb-3  alert-danger">
                             <h3 class="mx-md-5 mx-2 fw-bold text-dark">Warning by 24/7 Tutor</h3>
                             <h6 class="mx-md-5 mx-2">{{Auth::user()->complaint_stage}}</h6>
                             <p class="mx-md-5 mb-0 mx-2">{{Auth::user()->complaint_message}}</p>
-                            
+
                             <p class="mx-md-5 mb-0 mx-2">{{Carbon\Carbon::parse(Auth::user()->updated_at)->diffForHumans()}}</p>
 
                         </div>
                         @endif
-                        
-                        
+
+
                         @if(Auth::user()->complaint_stage == 'Disclaimer')
                         <div class="personally py-3 mb-3 alert alert-danger">
                             <h3 class="mx-md-4 mx-2">Warning by 24/7 Tutor</h3>
                             <h6 class="mx-md-5 mx-2">{{Auth::user()->complaint_stage}}</h6>
                             <p class="mx-md-5 mb-0 mx-2">{{Auth::user()->complaint_message}}</p>
-                            
+
                             <p class="mx-md-5 mb-0 mx-2">{{Carbon\Carbon::parse(Auth::user()->updated_at)->diffForHumans()}}</p>
 
                         </div>
                         @endif
-                        
-                        
+
+
                         @if(Auth::user()->complaint_stage == 'Blocked')
                         <div class="personally py-3 mb-3 bg-danger">
                             <h3 class="mx-5 mx-2">Warning by 24/7 Tutor</h3>
                             <h6 class="mx-md-5 mx-2">{{Auth::user()->complaint_stage}}</h6>
                             <p class="mx-md-5 mb-0 mx-2">{{Auth::user()->complaint_message}}</p>
-                            
+
                             <p class="mx-md-5 mb-0 mx-2">{{Carbon\Carbon::parse(Auth::user()->updated_at)->diffForHumans()}}</p>
 
                         </div>
                         @endif
-                        
+
 
                         <div class="personally py-4">
 
@@ -167,11 +167,11 @@
 
                         <!-- Review Section  -->
 
-                                    <?php 
+                                    <?php
                                     $StuReviews=App\Models\Booking::with('student')->where('tutor_id',Auth::id())->whereNotNull('student_rating')->get();
                                     $parentReviews=App\Models\Booking::with('parent')->where('tutor_id',Auth::id())->whereNotNull('parent_rating')->get();
                                     ?>
-                                    
+
                     @if(!empty($StuReviews) && !empty($parentReviews))
                         <div class="container-fluid py-5 px-1">
                             <div class="row py-3 justify-content-center">
@@ -217,7 +217,7 @@
                                         @endif
                                        @endforeach
                                       @endif
-                                      
+
                                       @if(!empty($parentReviews))
                                       @foreach($parentReviews as $Review)
                                        @if(!empty(App\Models\User::find($Review->parent_id)))
@@ -378,6 +378,7 @@
                                 <thead class="qualification">
                                     <tr>
                                         <th scope="col">Subject</th>
+                                        <th scope="col">Language</th>
                                         <th scope="col">Qualification</th>
                                         <th scope="col">Fee Per Hour</th>
                                     </tr>
@@ -386,7 +387,10 @@
                                     @if (!empty($tutorsubjectoffers))
                                         @foreach ($tutorsubjectoffers as $tutorsubjectoffer)
                                             <tr>
+
                                                 <td>{{ !empty($tutorsubjectoffer->subject) ? $tutorsubjectoffer->subject->name : '' }}
+                                                </td>
+                                                <td>{{ !empty($tutorsubjectoffer->language) ? $tutorsubjectoffer->language->name : '' }}
                                                 </td>
                                                 <td>{{ !empty($tutorsubjectoffer->levelstring) ? $tutorsubjectoffer->levelstring : $tutorsubjectoffer->levelstring }}
                                                 </td>

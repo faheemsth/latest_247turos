@@ -227,7 +227,7 @@
                     <input id="role_id" name="role_id" value="3" type="hidden">
                     <fieldset id="account">
                         <div class="panel-body mt-5 text-center">
-                            <h2 class="text-center fs-1" id="text-color"><strong>Your First Name and Last Name?</strong>
+                            <h2 class="text-center fs-1" id="text-color"><strong>Your First Name and Surname?</strong>
                             </h2><br>
                         </div>
                         <div class="d-flex flex-column flex-md-row ">
@@ -242,8 +242,8 @@
 
                                 <div class="row mt-4 justify-content-center">
                                     <div class="col-md-5">
-                                        <label class="text-secondary">Last Name<span style="color:red">*</span></label><br>
-                                        <input type="text" id="parentlname" placeholder="Enter Last Name" name="lname"
+                                        <label class="text-secondary">Surname<span style="color:red">*</span></label><br>
+                                        <input type="text" id="parentlname" placeholder="Enter Surname" name="lname"
                                             class="w-100 p-2">
                                     </div>
                                 </div>
@@ -307,6 +307,7 @@
                                                 placeholder="Enter Phone Number" class="w-100 p-2">
 
                                         </span>
+                                        <span id="phone-validation-message" style="color: red;"></span>
                                     </div>
                                 </div>
 
@@ -324,8 +325,7 @@
                     </fieldset>
                     <fieldset id="subjects">
                         <div class="panel-body mt-5">
-                            <h2 class="text-center fs-1" id="text-color"><strong>Which Subject would you Like Help
-                                    with?</strong></h2><br>
+                            <h2 class="text-center fs-1" id="text-color"><strong>What Subjects Can You Tutor?</strong></h2><br>
                             <!-- <div class="container">
                                 <div class="d-flex flex-wrap justify-content-center">
                                     <a href="javascript:void(0)" data-subject-id="1" style="text-decoration: none">
@@ -379,8 +379,8 @@
                                 <div class="col-12 col-md-12 col-lg-12 col-xl-12 m-auto">
 
                                     <div class="row mt-4 justify-content-center">
-                                        <div class="col-md-5">
-                                            <label class="text-secondary">Subjects<span style="color:red">*</span></label><br>
+                                        <div class="col-md-6">
+                                            {{-- <label class="text-secondary">Subjects<span style="color:red">*</span></label><br>
                                             <span class="d-flex">
                                                 @if (!empty($subjects))
                                                     <select class="w-10 p-3 select2" id="subject" name="subject[]"
@@ -391,15 +391,43 @@
                                                         @endforeach
                                                     </select>
                                                 @endif
-                                            </span>
+                                            </span> --}}
+                                            <label for="">
+                                                <h2>Choose subjects</h2>
+                                            </label>;
+                                            <div class="row">
+                                                <div class="col-auto">
+                                                    <div class="mx-2 text-capitalize mt-3">
+                                                        @if (!empty($subjects))
+                                                            @foreach ($subjects as $key => $subject)
+                                                                @if ($key < 6)
+                                                                    <input type="checkbox" value="{{ $subject->id }}" style="width: 17px;height: 17px;" class="checkbox1" name="subject[]">
+                                                                    <label class="mx-2"><h5 class="text-gray">{{ $subject->name }}</h5></label><br>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                                <div class="col-auto">
+                                                    <div class="mx-2 text-capitalize mt-3">
+                                                        @if (!empty($subjects))
+                                                            @foreach ($subjects as $key => $subject)
+                                                                @if ($key >= 5)
+                                                                    <input type="checkbox" value="{{ $subject->id }}" style="width: 17px;height: 17px;" class="checkbox1" name="subject[]">
+                                                                    <label class="mx-2"><h5 class="text-gray">{{ $subject->name }}</h5></label><br>
+                                                                @endif
+                                                            @endforeach
+                                                        @endif
+                                                    </div>
+                                                </div>
+                                            </div>
                                         </div>
                                     </div>
                                 </div>
 
                             </div>
                             <p style="font-size:20px;font-style:italic"
-                                class="text-center my-5 text-secondary text-italic">We’ll Select Tutors who Specialise in
-                                your Chosen Subject (with A/A*’s to Show for it)!.
+                                class="text-center my-5 text-secondary text-italic">Choose a subject for earning that aligns with your interests, market demand, and long-term viability.
                             </p>
                         </div>
                         <div class="d-flex col-12 justify-content-center m-auto my-5 gap-2">
@@ -421,8 +449,7 @@
                                         <div class="col-md-5">
                                             <label class="text-secondary">Username</label><br>
                                             <input type="text" id="username" name="username"
-                                                placeholder="Enter Username" class="w-100 p-2">
-                                            <span id="username-validation-message" style="color: red;"></span>
+                                                placeholder="Enter Username" class="w-100 p-2" style="background-color: #f8f8f8;color: gray;border: 1px solid #4F4F4F">
                                         </div>
                                     </div>
 
@@ -479,12 +506,34 @@
             $username.prop('readonly', true);
         });
     </script>
+        <script>
+            $(document).ready(function() {
+                $('#parentphone').on('keyup', function() {
+                    var phoneNumber = $(this).val();
+
+                    phoneNumber = phoneNumber.replace(/\D/g, '');
+                    $(this).val(phoneNumber);
+
+                    if (phoneNumber.length > 10) {
+                        $('#phone-validation-message').text('');
+                        $('#next1').prop('disabled', false);
+                    } else {
+                        $('#phone-validation-message').text('Phone number should be more than 10 characters.');
+                        $('#next1').prop('disabled', true);
+                    }
+                });
+            });
+        </script>
     <script>
         $(document).ready(function() {
             var email = $('#parentemail').val('');
             $('#parentemail').on('keyup', function() {
                 var email = $(this).val();
-
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    $('#email-validation-message').text("Please include an '@' in the email address. '" + email + "' is missing an '@'.");
+                    $('#next1').prop('disabled', true);
+                }else{
                 $.ajax({
                     type: 'POST',
                     url: 'email-check',
@@ -505,6 +554,8 @@
                         }
                     }
                 });
+              }
+
             });
         });
     </script>
@@ -684,7 +735,7 @@
                         }
                     },
                 });
-                
+
             }
             });
         });

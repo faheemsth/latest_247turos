@@ -44,12 +44,6 @@
                             <a href="{{ route('dashboard') }}"><i class="ik ik-home"></i></a>
                         </li>
                         <li class="breadcrumb-item">
-                            <a href="#">{{ __('Setting') }}</a>
-                        </li>
-                        <li class="breadcrumb-item">
-                            <a href="{{ route('website') }}">{{ __('Website') }}</a>
-                        </li>
-                        <li class="breadcrumb-item">
                             <a href="#">{{ __('Pages') }}</a>
                         </li>
                     </ol>
