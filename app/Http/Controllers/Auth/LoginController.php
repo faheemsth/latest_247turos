@@ -8,6 +8,7 @@ use Illuminate\Foundation\Auth\AuthenticatesUsers;
 use Illuminate\Http\Request;
 use App\Mail\MagicLoginLink;
 use App\Models\User;
+use App\Models\Notification;
 use App\Models\LoginToken;
 use PHPMailer\PHPMailer\PHPMailer;
 use Illuminate\Support\Str;
@@ -88,7 +89,28 @@ class LoginController extends Controller
         $user->code=null;
         $user->code_verify=null;
         $user->save();
-        createActivityLog(Auth::user()->id,"SignUp User ",Auth::user()->first_name .'   '. Auth::user()->last_name."  Logout At ");
+
+        $text='';
+        if($user->role_id == '3')
+        {   $text='Tutor';
+        }elseif($user->role_id == '4'){
+            $text='Student';
+        }elseif($user->role_id == '5'){
+            $text='Parent';
+        }elseif($user->role_id == '6'){
+            $text='Organization';
+        }
+
+
+
+        $noti = new Notification;
+        $noti->user_type = $user->role_id;
+        $noti->user_id = $user->id;
+        $noti->title = $text.'  Logout';
+        $noti->description = $user->username.'User Logout';
+        $noti->save();
+
+
         $this->guard()->logout();
         $request->session()->invalidate();
         $request->session()->regenerateToken();

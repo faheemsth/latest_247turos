@@ -162,7 +162,7 @@
                                         @endforeach
                                     @else
                                         <tr>
-                                            <td colspan="6">Not Record Found </td>
+                                            <td colspan="7">Not Record Found </td>
                                         </tr>
                                     @endif
                                 </tbody>
@@ -199,7 +199,7 @@
                     </div>
                     <div class="row mb-3">
                         <div class="col-lg-8 col-12">
-                            <label for="inputrelation" class="form-label">Relation to Ticket</label>
+                            <label for="inputrelation" class="form-label">Position</label>
                             <select class="form-select" name="relation" id="inputrelation">
                                 <option value="website">Website</option>
                                 <option value="admin">Admin</option>

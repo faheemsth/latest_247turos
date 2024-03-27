@@ -211,10 +211,16 @@
                                     <div class="col-xl-4 col-lg-4 col-auto ">
                                         @if (Auth::check())
                                             @if (CheckAgeUnder16() && Auth::user()->role_id == 4)
-                                                <a href="javascript::void(0)" onclick="BooTypemodal('{{ $tutor->id}}')"
-                                                    style="text-decoration: none;color: black;">
-                                                    <h5>Book lessons</h5>
-                                                </a>
+                                            @if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+                                            <a style="text-decoration: none;color:#000000b8;">
+                                                <h5 style="background-color:#abff00a3">Book lessons</h5>
+                                            </a>
+                                            @else
+                                            <a href="javascript::void(0)" onclick="BooTypemodal('{{ $tutor->id}}')"
+                                                style="text-decoration: none;color: black;">
+                                                <h5>Book lessons</h5>
+                                            </a>
+                                            @endif
                                             @elseif(Auth::user()->role_id == 5 || Auth::user()->role_id == 6)
                                                 <a href="javascript::void(0)" onclick="BooTypemodal('{{ $tutor->id}}')"
                                                     style="text-decoration: none;color: black;">
@@ -522,6 +528,8 @@
                                     <thead class="qualification">
                                         <tr>
                                             <th scope="col">Subject</th>
+                                            <th scope="col">Language</th>
+
                                             <th scope="col">Qualification</th>
                                             <th scope="col">Fee Per Hour</th>
                                         </tr>
@@ -531,7 +539,7 @@
                                             @foreach ($tutorsubjectoffers as $tutorsubjectoffer)
                                                 <tr>
                                                     <td>{{ optional($tutorsubjectoffer->subject)->name }}</td>
-
+                                                    <td>{{ optional($tutorsubjectoffer->language)->name }}</td>
                                                     <td>{{ $tutorsubjectoffer->levelstring }}</td>
                                                     <td>£{{ $tutorsubjectoffer->fee }}/hr</td>
                                                 </tr>

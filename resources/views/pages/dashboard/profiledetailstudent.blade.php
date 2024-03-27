@@ -225,7 +225,8 @@
       </div>
     </div>
 
-
+    @if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+    @else
     <div class="row my-4">
       <form action="{{ url('user-card-create') }}" method="post" class="ps-0">
         @csrf
@@ -273,6 +274,7 @@
       </form>
 
     </div>
+    @endif
   </div>
 
 

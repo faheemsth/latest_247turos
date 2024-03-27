@@ -217,7 +217,7 @@ class RegisterController extends Controller
                     'phone' => $request->input('stucode') . $request->input('stuphone'),
                     'email' => $request->input('stuemail'),
                     'username' => $request->input('stulname').rand ( 100 , 999 ),
-
+                    'is_monitor' => !empty($data['parent_authority']) ? '1':'0',
                     'status' => 'Active',
                     'email_verified_at' => Carbon::now(),
                     'role_id' => '4',
@@ -249,6 +249,7 @@ class RegisterController extends Controller
                 'phone' => $data['code'] . $data['phone'],
                 'email' => $data['email'],
                 'cpfname' => $data['cpfname'],
+                'username' => $data['username'],
                 'cplname' => $data['cplname'],
                 'cpemail' => $data['cpemail'],
                 'zipcode' => $data['zipcode'],
@@ -260,7 +261,7 @@ class RegisterController extends Controller
 
                 'status' => 'Active',
                 'role_id' => $data['role_id'],
-                'password' => Hash::make('1234'),
+                'password' => Hash::make($data['cpassword']),
             ]);
             $ActivityLogs = new ActivityLog;
             $ActivityLogs->user_id = $user->id;

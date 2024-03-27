@@ -23,7 +23,7 @@
     }
     table tr th{
         min-width:150px;
-        
+
     }
 </style>
 
@@ -56,19 +56,19 @@
 
                             @if($tutor->gender == 'Male')
                             <img src="{{ asset('assets/images/male.jpg') }}"
-                                
+
                                 alt="user-profile-image"  style="width: 150px;
     border-radius: 50%;
     height: 150px;">
                             @elseif($tutor->gender == 'Female')
                             <img src="{{ asset('assets/images/female.jpg') }}"
-                                
+
                                 alt="user-profile-image"  style="width: 150px;
     border-radius: 50%;
     height: 150px;">
                             @else
                             <img src="{{ asset('assets/images/default.png') }}"
-                                
+
                                 alt="user-profile-image"  style="width: 150px;
     border-radius: 50%;
     height: 150px;">
@@ -208,9 +208,7 @@
                                                 <label class="form-check-label">Female</label>
                                             </div>
                                             <div>
-                                                <input class="form-check-input bachset" type="radio" value="Others" {{
-                                                    $tutor->gender === 'Others' ? 'checked' : '' }} name="gender"
-                                                value="other">
+                                                <input class="form-check-input bachset" type="radio" value="Other" {{ $tutor->gender === 'Other' ? 'checked' : '' }} name="gender">
                                                 <label class="form-check-label">Others</label>
                                             </div>
                                         </div>
@@ -849,7 +847,7 @@
                                                 <div class="mb-3">
                                                     <label for="zipcodeInput" class="form-label">Comment's
                                                     </label>
-                                                    
+
                                                     <textarea name="complaint_message" class="bachset form-control" required
                                                         id="profile_description" cols="60"
                                                         rows="3">{{ $tutor->complaint_message }}</textarea>
@@ -877,7 +875,7 @@
                                                   <button type="submit" class="py-2 px-3 bg-primary border-0 rounded-3 text-white">Update</button>
                                                </div>
                                          </div>
-                                    
+
                                         </form>
                                     </div>
                                 </div>

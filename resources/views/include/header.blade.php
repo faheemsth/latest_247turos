@@ -20,7 +20,7 @@
         <div class="d-flex justify-content-between">
             <div class="top-menu d-flex align-items-center">
                 <button type="button" class="btn-icon mobile-nav-toggle d-lg-none"><span></span></button>
-
+                <div id="google_element"></div>
                 <div class="header-search">
                     {{-- <div class="input-group">
 

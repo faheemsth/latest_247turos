@@ -19,10 +19,11 @@
         <!-- row 1 -->
 
         <div class="row align-items-md-end align-items-baseline mt-5">
-        @include('include.message')
+            @include('include.message')
 
             <div class="col-md-6 col-12">
-                <h4 id="appendcount">{{ $TutorSubjectOffers->total() }} {{ __('Search Results in') }}<strong></strong> Tutors</h4>
+                <h4 id="appendcount">{{ $TutorSubjectOffers->total() }} {{ __('Search Results in') }}<strong></strong> Tutors
+                </h4>
             </div>
             <div class="col-md-6 col-12">
                 <div class="d-flex gap-2 gap-md-2 justify-content-md-end align-items-baseline">
@@ -62,7 +63,7 @@
                             <option value="Male" data-gender="Male">Male</option>
                             <option value="Female" data-gender="Female">Female</option>
                             <option value="Other" data-gender="Any">Any</option>
-                          </select>
+                        </select>
                     </div>
                     <div class="col-xl-2 col-md-3 col-12 py-2 d-none">
                         <button class="btn filter-search-btn  rounded-0">
@@ -73,7 +74,7 @@
             </div>
             <div class="col-md-2 d-none d-md-flex px-0">
                 <div class="fromhere">
-                    <img src="{{asset('assets/images/Type.png')}}">
+                    <img src="{{ asset('assets/images/Type.png') }}">
                 </div>
             </div>
         </div>
@@ -117,8 +118,7 @@
                                                 Choose Availability
                                             </div>
                                             <svg xmlns="http://www.w3.org/2000/svg" width="12"
-                                                style="margin-left: 10px;" height="8" viewBox="0 0 16 8"
-                                                fill="none">
+                                                style="margin-left: 10px;" height="8" viewBox="0 0 16 8" fill="none">
                                                 <path fill-rule="evenodd" clip-rule="evenodd"
                                                     d="M0.96967 0.21967C1.23594 -0.0465966 1.6526 -0.0708027 1.94621 0.147052L2.03033 0.21967L8 6.189L13.9697 0.21967C14.2359 -0.0465966 14.6526 -0.0708027 14.9462 0.147052L15.0303 0.21967C15.2966 0.485936 15.3208 0.9026 15.1029 1.19621L15.0303 1.28033L8.53033 7.78033C8.26406 8.0466 7.8474 8.0708 7.55379 7.85295L7.46967 7.78033L0.96967 1.28033C0.676777 0.987437 0.676777 0.512563 0.96967 0.21967Z"
                                                     fill="#00918A" />
@@ -491,7 +491,10 @@
                                     <div class="mx-3 text-capitalize">
                                         @if (!empty($Subjects))
                                             @foreach ($Subjects as $key => $Subject)
-                                                <input type="checkbox" id="checksubject{{ $key }}" {{ !empty($_GET['subject']) && $_GET['subject'] == $Subject ? 'checked' : '' }} class="checkbox1" value="{{ $key }}" data-name="{{ $Subject }}">
+                                                <input type="checkbox" id="checksubject{{ $key }}"
+                                                    {{ !empty($_GET['subject']) && $_GET['subject'] == $Subject ? 'checked' : '' }}
+                                                    class="checkbox1" value="{{ $key }}"
+                                                    data-name="{{ $Subject }}">
                                                 <label for="checksubject{{ $key }}"
                                                     class="mx-2">{{ $Subject }}</label><br>
                                             @endforeach
@@ -500,6 +503,27 @@
 
 
                                 </div>
+
+                                <div class="check my-2">
+                                    <label for="">
+                                        <h5>Choose Languages</h5>
+                                    </label>
+
+                                    <div class="mx-3 text-capitalize">
+                                        @if (!empty($Languages))
+                                            @foreach ($Languages as $key => $Language)
+                                                <input type="checkbox" id="checkLanguage{{ $key }}"
+                                                    {{ !empty($_GET['Language']) && $_GET['Language'] == $Language ? 'checked' : '' }}
+                                                    class="checkbox12" value="{{ $key }}"
+                                                    data-Language="{{ $Language }}">
+                                                <label for="checkLanguage{{ $key }}"
+                                                    class="mx-2">{{ $Language }}</label><br>
+                                            @endforeach
+                                        @endif
+                                    </div>
+
+                                </div>
+
                                 <div class="range my-2">
                                     <label for="">
                                         <h5>Price</h5>
@@ -585,8 +609,8 @@
                                                             style="    width:100%;height: 140px;" class="rounded-3">
                                                     @else
                                                         <img src="{{ asset('assets/images/default.png') }}"
-                                                            alt=""
-                                                            style="    width:100%;height: 140px;" class="rounded-3">
+                                                            alt="" style="    width:100%;height: 140px;"
+                                                            class="rounded-3">
                                                     @endif
                                                 @endif
                                             </div>
@@ -594,32 +618,37 @@
                                                 class="col-md-9 col-lg-8 col-xl-9 justify-content-lg-start mt-4 mt-md-0 pt-3">
                                                 <div class="row">
                                                     <div class="col-md-7">
-                                                        <div class="d-flex justify-content-between pb-1 align-items-baseline">
+                                                        <div
+                                                            class="d-flex justify-content-between pb-1 align-items-baseline">
 
                                                             <div class="d-flex align-items-center text-capitalize">
-                                                                <h4 class=" mb-0 d-none d-md-inline-block">{{ !empty($tutor) ? $tutor->username : '' }}
+                                                                <h4 class=" mb-0 d-none d-md-inline-block">
+                                                                    {{ !empty($tutor) ? $tutor->username : '' }}
                                                                 </h4>
-                                                                <h5 class="mb-0 d-md-none">{{ !empty($tutor) ? $tutor->username : '' }}</h5>
+                                                                <h5 class="mb-0 d-md-none">
+                                                                    {{ !empty($tutor) ? $tutor->username : '' }}</h5>
                                                                 <img src="./assets/images/Verified-p.png"
                                                                     class="correctiocn mx-1" alt="">
                                                             </div>
                                                             <div class="d-sm-block d-md-none">
-                                                              <a
-                                                        href="{{ url('likeDislike?tutor=') . (!empty($tutor) ? $tutor->id : '') }}"
-                                                        style="text-decoration: none;color: inherit;">
-                                                                  @php
-                                                            $tutorId = !empty($tutor) ? $tutor->id : '';
-                                                            $action = App\Models\LikeDislike::where('to_user_id', $tutorId)
-                                                                ->where('from_user_id', Auth::id())
-                                                                ->first();
-                                                        @endphp
-                                                        @if (!empty($action) && $action->action == '1')
-                                                            <span class="text-danger">❤</span>
-                                                        @else
-                                                            <span class="text-default">❤</span>
-                                                        @endif
-                                                        Saved
-                                                        </a>
+                                                                <a href="{{ url('likeDislike?tutor=') . (!empty($tutor) ? $tutor->id : '') }}"
+                                                                    style="text-decoration: none;color: inherit;">
+                                                                    @php
+                                                                        $tutorId = !empty($tutor) ? $tutor->id : '';
+                                                                        $action = App\Models\LikeDislike::where(
+                                                                            'to_user_id',
+                                                                            $tutorId,
+                                                                        )
+                                                                            ->where('from_user_id', Auth::id())
+                                                                            ->first();
+                                                                    @endphp
+                                                                    @if (!empty($action) && $action->action == '1')
+                                                                        <span class="text-danger">❤</span>
+                                                                    @else
+                                                                        <span class="text-default">❤</span>
+                                                                    @endif
+                                                                    Saved
+                                                                </a>
                                                             </div>
                                                         </div>
                                                         <h6 style="font-weight: 500;color:#3d3d3d;">
@@ -628,7 +657,8 @@
                                                     <div class="col-md-5">
                                                         <div class="row" style="text-align:inline-end;">
 
-                                                            <div class="col-12 dollor text-end pe-3 d-none d-md-inline-block">
+                                                            <div
+                                                                class="col-12 dollor text-end pe-3 d-none d-md-inline-block">
 
                                                                 @if (
                                                                     \App\Models\TutorSubjectOffer::where('tutor_id', $tutor->id)->max('fee') != 0 &&
@@ -649,10 +679,12 @@
                                                     </div>
                                                 </div>
                                                 <div class="d-flex py-ld-3 align-items-center justify-content-between">
-                                                    <p class="d-none d-md-inline-block one px-5 py-2 alert alert-{{ !empty($tutor) && $tutor->status == 'Active' ? 'success' : 'danger' }}">
+                                                    <p
+                                                        class="d-none d-md-inline-block one px-5 py-2 alert alert-{{ !empty($tutor) && $tutor->status == 'Active' ? 'success' : 'danger' }}">
                                                         {{ !empty($tutor) ? $tutor->status : 'Pending' }}
                                                     </p>
-                                                    <p class="d-md-none one px-4 py-1 alert alert-{{ !empty($tutor) && $tutor->status == 'Active' ? 'success' : 'danger' }}">
+                                                    <p
+                                                        class="d-md-none one px-4 py-1 alert alert-{{ !empty($tutor) && $tutor->status == 'Active' ? 'success' : 'danger' }}">
                                                         {{ !empty($tutor) ? $tutor->status : 'Pending' }}
                                                     </p>
                                                     <div class="dollor text-end pe-md-3 d-md-none">
@@ -678,7 +710,10 @@
                                                         style="text-decoration: none;color: inherit;">
                                                         @php
                                                             $tutorId = !empty($tutor) ? $tutor->id : '';
-                                                            $action = App\Models\LikeDislike::where('to_user_id', $tutorId)
+                                                            $action = App\Models\LikeDislike::where(
+                                                                'to_user_id',
+                                                                $tutorId,
+                                                            )
                                                                 ->where('from_user_id', Auth::id())
                                                                 ->first();
                                                         @endphp
@@ -741,6 +776,11 @@
                     var selectedSubjects = $('.checkbox1:checked').map(function() {
                         return this.value;
                     }).get();
+//sheraz
+                    var selectedLanguages = $('.checkbox12:checked').map(function() {
+                        return this.value;
+                    }).get();
+
                     var max_price = $('#max_price').val();
                     var min_price = $('#min_price').val();
 
@@ -763,9 +803,10 @@
                             query: query,
                             level: level,
                             priceSort: priceSort,
-                            deliveryMethod:deliveryMethod,
-                            genderSelect:genderSelect,
+                            deliveryMethod: deliveryMethod,
+                            genderSelect: genderSelect,
                             subjects: selectedSubjects,
+                            languages: selectedLanguages,
                             max_price: max_price,
                             min_price: min_price,
 
@@ -799,8 +840,9 @@
                                 qcomashow + gender1 + '</strong> Tutors';
                             $('#appendcount').html(searchResultText);
 
-                            getPaginatedData(page, query, level,priceSort,deliveryMethod,genderSelect, selectedSubjects, max_price,
-                                min_price, sort, zipcode, gender);
+                            getPaginatedData(page, query, level, priceSort, deliveryMethod,
+                                genderSelect, selectedSubjects, max_price,
+                                min_price, sort, zipcode, gender,selectedLanguages);
                         }
                     });
                 }, 300);
@@ -808,15 +850,15 @@
 
             var subject = {!! json_encode(!empty($_GET['subject']) ? $_GET['subject'] : '') !!};
 
-            $('#search, .zipcode, .Education_level, #priceSort, #deliveryMethod, #genderSelect, .checkbox1, input[name="only"], #max_price, #min_price, #dropdown-item, .applyButton')
+            $('#search, .zipcode, .Education_level, #priceSort, #deliveryMethod, #genderSelect, .checkbox1, .checkbox12, input[name="only"], #max_price, #min_price, #dropdown-item, .applyButton')
                 .on('keyup change click', function() {
                     var sort = $(this).text().trim();
 
                     var firstTen = sort.substring(0, 5);
 
                     if (firstTen === 'Level' || firstTen === 'Apply' || firstTen === 'Selec') {
-                            sort = '';
-                        }
+                        sort = '';
+                    }
                     debounceAjax(sort);
                 });
 
@@ -838,6 +880,9 @@
                 var selectedSubjects = $('.checkbox1:checked').map(function() {
                     return this.value;
                 }).get();
+                var selectedLanguages = $('.checkbox12:checked').map(function() {
+                    return this.value;
+                }).get();
                 var max_price = $('#max_price').val();
                 var min_price = $('#min_price').val();
                 $('input[name="availability"]:checked').each(function() {
@@ -851,13 +896,15 @@
                     });
                 });
                 updateSelectedCriteria();
-                getPaginatedData(page, query, level, priceSort,deliveryMethod,genderSelect, selectedSubjects, max_price, min_price, sort, zipcode,
-                    gender, selectedValues);
+                getPaginatedData(page, query, level, priceSort, deliveryMethod, genderSelect,
+                    selectedSubjects, max_price, min_price, sort, zipcode,
+                    gender, selectedValues,selectedLanguages);
             });
             // Rest of your code...
 
-            function getPaginatedData(page, query, level, priceSort,deliveryMethod,genderSelect, selectedSubjects, max_price, min_price, sort, zipcode,
-                gender, selectedValues) {
+            function getPaginatedData(page, query, level, priceSort, deliveryMethod, genderSelect, selectedSubjects,
+                max_price, min_price, sort, zipcode,
+                gender, selectedValues,selectedLanguages) {
                 $.ajax({
                     url: '{{ url('find-tutor') }}?page=' + page,
                     type: 'GET',
@@ -865,9 +912,12 @@
                         query: query,
                         level: level,
                         priceSort: priceSort,
-                        deliveryMethod:deliveryMethod,
-                        genderSelect:genderSelect,
+                        deliveryMethod: deliveryMethod,
+                        genderSelect: genderSelect,
                         subjects: selectedSubjects,
+                        languages: selectedLanguages,
+
+
                         max_price: max_price,
                         min_price: min_price,
                         zipcode: zipcode,
@@ -902,6 +952,14 @@
             function updateSelectedCriteria() {
                 selectedCriteria = [];
                 $('.checkbox1:checked').each(function() {
+                    selectedCriteria.push(
+                        '<a class="py-1 px-3 border-muted border fw-bold rounded-2 text-dark" style="text-decoration: none;">' +
+                        '<small>' + $(this).next().text() +
+                        '</small> <img src="./assets/images/cross.png"></a>');
+                });
+
+
+                $('.checkbox12:checked').each(function() {
                     selectedCriteria.push(
                         '<a class="py-1 px-3 border-muted border fw-bold rounded-2 text-dark" style="text-decoration: none;">' +
                         '<small>' + $(this).next().text() +
@@ -1001,6 +1059,13 @@
                     }
                 }).get();
 
+                var selectedLanguages = $('.checkbox12:checked').map(function() {
+                    if ($(this).data("Language") !== remover) {
+                        return this.value;
+                    }
+                }).get();
+
+
                 if (remover === gender) {
                     $('input[name="only"]:checked').prop('checked', false);
                 }
@@ -1051,6 +1116,13 @@
                         this.checked = false;
                     }
                 });
+
+                $('.checkbox12:checked').each(function() {
+                    if ($(this).data("Language") === remover) {
+                        this.checked = false;
+                    }
+                });
+
                 if (remover === level) {
                     var level = $('.Education_level').val('');
                 }
@@ -1065,6 +1137,7 @@
                         min_price: min_price,
                         zipcode: zipcode,
                         subjects: selectedSubjects,
+                        languages: selectedLanguages,
                         subject: subject,
 
                     },

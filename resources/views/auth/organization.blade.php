@@ -386,6 +386,8 @@
                                                 placeholder="Enter Phone Number" class="w-100 p-2">
 
                                         </span>
+                                        <span id="phone-validation-message" style="color: red;"></span>
+
                                     </div>
                                 </div>
 
@@ -417,7 +419,7 @@
                                 Back</a>
                             <a href="#toplinkup" class="text-decoration-none">
                                 <input type="button" required name="password" class=" next btn btn-primary px-5"
-                                    value="Next" id="next1" /></a>
+                                    value="Next" id="next2" /></a>
                         </div>
                     </fieldset>
                     <fieldset id="personal">
@@ -446,7 +448,8 @@
                                         <div class="col-md-5">
                                             <label class="text-secondary">Role in ORGANISATION</label><br>
                                             <span class="d-flex">
-                                                <input type="text" id="org_role" name="org_role" placeholder="Enter Role" class="w-100 p-2">
+                                                <input type="text" id="org_role" name="org_role"
+                                                    placeholder="Enter Role" class="w-100 p-2">
                                             </span>
                                         </div>
                                     </div>
@@ -485,12 +488,57 @@
                             <a href="#" class="link-dark previous btn " id="previous3"><i
                                     class="fa fa-light fa-arrow-left"></i>
                                 Back</a>
+
+                            <a href="#toplinkup" class="text-decoration-none">
+                                <input type="button" required name="password" class=" next btn btn-primary px-5"
+                                    value="Next" id="next3" /></a>
+                        </div>
+                    </fieldset>
+                    <fieldset id="personal">
+                        <div class="panel-body mt-5">
+                            <h2 class="text-center fs-1" id="text-color"><strong>Contact Personal Information</strong>
+                            </h2><br>
+                            <div class="d-flex flex-column flex-md-row ">
+                                <div class="col-md-12 col-12 ">
+
+                                    <div class="row mt-4 justify-content-center">
+                                        <div class="col-md-5">
+                                            <label class="text-secondary">Username</label><br>
+                                            <input type="text" id="orgusername" name="username"
+                                                placeholder="Enter Username" class="w-100 p-2"
+                                                style="background-color: #f8f8f8;color: gray;border: 1px solid #4F4F4F">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4 justify-content-center">
+                                        <div class="col-md-5">
+                                            <label class="text-secondary">Password</label><br>
+                                            <input type="password" id="fpassword" name="fpassword"
+                                                placeholder="Enter Password" class="w-100 p-2">
+                                        </div>
+                                    </div>
+
+                                    <div class="row mt-4 justify-content-center">
+                                        <div class="col-md-5">
+                                            <label class="text-secondary">Confirm Password</label><br>
+                                            <input type="password" id="cpassword" name="cpassword"
+                                                placeholder="Enter Confirm Password" class="w-100 p-2">
+                                        </div>
+                                    </div>
+
+                                </div>
+                            </div>
+                        </div>
+                        <div class="d-flex col-12 justify-content-center m-auto my-5 gap-2">
+                            <a href="#" class="link-dark previous btn " id="previous3"><i
+                                    class="fa fa-light fa-arrow-left"></i>
+                                Back</a>
                             <button type="button" class="next btn btn-primary px-5 submit-button"
                                 id="register">Submit</button>
                             <button class="btn btn-primary d-none spiner" type="button" disabled>
                                 <span class="spinner-border spinner-border-sm" role="status" aria-hidden="true"></span>
                                 Processing ...
-                                </button>
+                            </button>
                         </div>
                     </fieldset>
                 </form>
@@ -498,34 +546,56 @@
         </div>
     </div>
 
-
+    <script>
+        $(function() {
+            var min = 001;
+            var max = 999;
+            var $username = $('#orgusername');
+            $('#cplname').on('keyup', function() {
+                $sirname = $(this).val() + Math.floor(Math.random() * (max - min + 1));
+                $sirname1 = $sirname.replace(/-/g, '');
+                $username.val($sirname1);
+            });
+            $username.prop('readonly', true);
+        });
+    </script>
 
     <script src="{{ asset('js/timeslot.min.js') }}"></script>
     <script>
         $(document).ready(function() {
             $('#parentemail').on('keyup', function() {
                 var email = $(this).val();
+                if (email.length > 6) {
+                    var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                    if (!emailPattern.test(email)) {
+                        $('#email-validation-message').text(
+                            "Please include an '@' in the email address. '" + email +
+                            "' is missing an '@'.");
+                        $('#next2').prop('disabled', true);
+                    } else {
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'email-check',
-                    data: {
-                        email: email
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.unique === false) {
-                            $('#email-validation-message').text(
-                                'This email is already registered.');
-                            $('#next1').prop('disabled', true);
-                        } else {
-                            $('#email-validation-message').text('');
-                            $('#next1').prop('disabled', false);
-                        }
+                        $.ajax({
+                            type: 'POST',
+                            url: 'email-check',
+                            data: {
+                                email: email
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                                if (response.unique === false) {
+                                    $('#email-validation-message').text(
+                                        'This email is already registered.');
+                                    $('#next2').prop('disabled', true);
+                                } else {
+                                    $('#email-validation-message').text('');
+                                    $('#next2').prop('disabled', false);
+                                }
+                            }
+                        });
                     }
-                });
+                }
             });
         });
     </script>
@@ -534,30 +604,63 @@
         $(document).ready(function() {
             $('#cpemail').on('keyup', function() {
                 var email = $(this).val();
+                var parentemail = $('#parentemail').val();
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    $('#cpemail-validation-message').text("Please include an '@' in the email address. '" +
+                        email + "' is missing an '@'.");
+                    $('#next3').prop('disabled', true);
+                } else {
 
-                $.ajax({
-                    type: 'POST',
-                    url: 'email-check',
-                    data: {
-                        email: email
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.unique === false) {
-                            $('#cpemail-validation-message').text(
-                                'This email is already registered.');
-                            $('#register').prop('disabled', true);
-                        } else {
-                            $('#cpemail-validation-message').text('');
-                            $('#register').prop('disabled', false);
-                        }
+                    if (email === parentemail) {
+                        $('#cpemail-validation-message').text(
+                            'This email is already registered.');
+                        $('#next3').prop('disabled', true);
+                    } else {
+
+                        $.ajax({
+                            type: 'POST',
+                            url: 'email-check',
+                            data: {
+                                email: email
+                            },
+                            headers: {
+                                'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                            },
+                            success: function(response) {
+                                if (response.unique === false) {
+                                    $('#cpemail-validation-message').text(
+                                        'This email is already registered.');
+                                    $('#next3').prop('disabled', true);
+                                } else {
+                                    $('#cpemail-validation-message').text('');
+                                    $('#next3').prop('disabled', false);
+                                }
+                            }
+                        });
                     }
-                });
+                }
             });
         });
     </script>
+        <script>
+            $(document).ready(function() {
+                $('#parentphone').on('keyup', function() {
+                    var phoneNumber = $(this).val();
+
+                    phoneNumber = phoneNumber.replace(/\D/g, '');
+                    $(this).val(phoneNumber);
+
+                    if (phoneNumber.length > 10) {
+                        $('#phone-validation-message').text('');
+                        $('#next2').prop('disabled', false);
+                    } else {
+                        $('#phone-validation-message').text('Phone number should be more than 10 characters.');
+                        $('#next2').prop('disabled', true);
+                    }
+                });
+            });
+        </script>
     <script>
         var picker = '';
         let slots = '';
@@ -602,12 +705,18 @@
                 var isValid = true;
                 if (step === 2) {
                     if ($('#parentfname').val() === '' || $('#parentlname').val() === '' || $('#parentemail')
-                    .val() === '' || $('#parentphone').val() === '' || $('#address').val() === '' || $('#zipcode')
+                        .val() === '' || $('#parentphone').val() === '' || $('#address').val() === '' || $(
+                            '#zipcode')
                         .val() === '') {
                         isValid = false;
                     }
                 } else if (step === 3) {
-                    if ($('#cpfname').val() === '' || $('#cplname').val() === '' || $('#cpemail').val() === '') {
+                    if ($('#org_help').val() === '' || $('#cpfname').val() === '' || $('#cplname').val() === '' ||
+                        $('#cpemail').val() === '' || $('#get_in_touch').val() === '') {
+                        isValid = false;
+                    }
+                } else if (step === 4) {
+                    if ($('#fpassword').val() === '' || $('#cpassword').val() === '') {
                         isValid = false;
                     }
                 }
@@ -646,8 +755,7 @@
         $(document).ready(function() {
             $('#register').click(function() {
                 var formData = $('#registration-form').serialize();
-                if ($('#cpfname').val() === '' || $('#cplname').val() === '' || $('#cpemail').val() ===
-                    '' || $('#org_role').val() === '' || $('#org_help').val() === '' || $('#get_in_touch').val() === '') {
+                if ($('#fpassword').val() === '' || $('#cpassword').val() === '') {
                     Swal.fire({
                         position: 'center',
                         icon: 'error',
@@ -658,44 +766,57 @@
                     });
                 } else {
 
+                    if ($('#fpassword').val() !== $('#cpassword').val()) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Password Are Not Same.',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            showCloseButton: true
+                        });
+                    } else {
+                        $.ajax({
+                            url: '/register',
+                            method: 'POST',
+                            data: formData,
+                            beforeSend: function() {
+                                $('.submit-button').addClass('d-none');
+                                $('.spiner').removeClass('d-none');
+                            },
+                            success: function(response) {
+                                if (response.status == 200) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: 'Registration Successful.Please check your email and verify your account to login.',
+                                        showConfirmButton: false,
+                                        timer: 5000,
+                                        showCloseButton: true
+                                    });
+                                    window.setTimeout(function() {
 
-                    $.ajax({
-                        url: '/register',
-                        method: 'POST',
-                        data: formData,
-                        beforeSend: function() {
-                            $('.submit-button').addClass('d-none');
-                            $('.spiner').removeClass('d-none');
-                        },
-                        success: function(response) {
-                            if (response.status == 200) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: 'Registration Successful.Please check your email and verify your account to login.',
-                                    showConfirmButton: false,
-                                    timer: 5000,
-                                    showCloseButton: true
-                                });
-                                window.setTimeout(function() {
+                                        // Move to a new location or you can do something else
+                                        window.location.href = 'login';
 
-                                    // Move to a new location or you can do something else
-                                    window.location.href = 'login';
+                                    }, 5000);
 
-                                }, 5000);
+                                } else {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'error',
+                                        title: 'Something went wrong!',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                        showCloseButton: true
+                                    });
+                                }
+                            },
+                        });
 
-                            } else {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'error',
-                                    title: 'Something went wrong!',
-                                    showConfirmButton: false,
-                                    timer: 2000,
-                                    showCloseButton: true
-                                });
-                            }
-                        },
-                    });
+                    }
+
+
 
                 }
             });

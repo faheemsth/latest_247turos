@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Cookie;
 use Carbon\Carbon;
 use Illuminate\Support\Str;
 use App\Models\Wallet;
+use App\Models\Notification;
 
 class LoginWithGoogleController extends Controller
 {
@@ -73,7 +74,15 @@ class LoginWithGoogleController extends Controller
                            $wallet->user_id = $newUser->id;
                            $wallet->wallet_id = Str::uuid()->toString();
                            $wallet->save();
-                           createNotification($newUser->role_id,$newUser->id,'Tutor Signup','Comptaint By ' .$newUser->username);
+
+
+                                $noti = new Notification;
+                                $noti->user_type = $newUser->role_id;
+                                $noti->user_id = $newUser->id;
+                                $noti->title = 'Tutor Signup';
+                                $noti->description = $newUser->username.'New User Signup';
+                                $noti->save();
+
                             $ActivityLogs = new ActivityLog;
                             $ActivityLogs->user_id = $newUser->id;
                             $ActivityLogs->title = "New Tutor";
@@ -110,6 +119,15 @@ class LoginWithGoogleController extends Controller
                            $wallet->user_id = $newUser->id;
                            $wallet->wallet_id = Str::uuid()->toString();
                            $wallet->save();
+
+
+                                $noti = new Notification;
+                                $noti->user_type = $newUser->role_id;
+                                $noti->user_id = $newUser->id;
+                                $noti->title = 'Student Signup';
+                                $noti->description = $newUser->username.'New User Signup';
+                                $noti->save();
+
 
                             $ActivityLogs = new ActivityLog;
                             $ActivityLogs->user_id = $newUser->id;
@@ -148,6 +166,13 @@ class LoginWithGoogleController extends Controller
                            $wallet->wallet_id = Str::uuid()->toString();
                            $wallet->save();
 
+                                $noti = new Notification;
+                                $noti->user_type = $newUser->role_id;
+                                $noti->user_id = $newUser->id;
+                                $noti->title = 'Parent Signup';
+                                $noti->description = $newUser->username.'New User Signup';
+                                $noti->save();
+
                             $ActivityLogs = new ActivityLog;
                             $ActivityLogs->user_id = $newUser->id;
                             $ActivityLogs->title = "New Parent";
@@ -184,6 +209,14 @@ class LoginWithGoogleController extends Controller
                            $wallet->user_id = $newUser->id;
                            $wallet->wallet_id = Str::uuid()->toString();
                            $wallet->save();
+
+                                $noti = new Notification;
+                                $noti->user_type = $newUser->role_id;
+                                $noti->user_id = $newUser->id;
+                                $noti->title = 'Organization Signup';
+                                $noti->description = $newUser->username.'New User Signup';
+                                $noti->save();
+
 
                             $ActivityLogs = new ActivityLog;
                             $ActivityLogs->user_id = $newUser->id;

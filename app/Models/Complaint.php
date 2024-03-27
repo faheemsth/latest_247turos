@@ -20,4 +20,8 @@ class Complaint extends Model
         'role_id',
         'type'
     ];
+    public function Notifier()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
 }

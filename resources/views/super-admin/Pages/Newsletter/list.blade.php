@@ -63,6 +63,7 @@
                         <h3 class="col-auto">{{ __('Newsletter') }}</h3>
                         <!--<form method="GET" action="" class="col-12 d-flex  align-items-center gap-2">-->
                             <button id="copy-all-emails" class="btn-sm btn-primary ">Copy All Emails</button>
+                            <a class="btn-sm btn-primary" href="{{ url('newsletter/create') }}">Create Newsletter</a>
                         <!--    <select class="form-control" name="date">-->
                         <!--        <option value="">All</option>-->
                         <!--        <option value="Today" {{ !empty($_GET['date']) && $_GET['date'] == 'Today' ? 'selected':'' }}>Today</option>-->

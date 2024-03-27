@@ -92,6 +92,10 @@ class StudentController extends Controller
         if(Auth::user()->role_id != 4){
                 return  redirect('/dashboard');
         }
+        if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+        {
+            return  redirect('/dashboard');
+        }
         $bookings = Booking::where('student_id','=', Auth::user()->id)
             ->with(['student', 'tutor', 'subjects'])
             ->get();
@@ -101,6 +105,11 @@ class StudentController extends Controller
 
     public function book_tutor($id)
     {
+        if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+        {
+            return  redirect('/dashboard');
+        }
+
         $tutor = User::find($id);
         $students = User::where('parent_id', Auth::id())->get();
         $dayOfTheWeek = Carbon::now()->dayOfWeek;
@@ -126,6 +135,11 @@ class StudentController extends Controller
 
     public function book_tutor_wallet($id)
     {
+        if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
+        {
+            return  redirect('/dashboard');
+        }
+
         $tutor = User::find($id);
         $students = User::where('parent_id', Auth::id())->get();
         $dayOfTheWeek = Carbon::now()->dayOfWeek;
@@ -223,7 +237,7 @@ class StudentController extends Controller
         $user->email = $request->input('email');
         $user->username = $request->input('last_name').rand ( 100 , 999 );
         $user->dob = '2000-01-01';
-        $user->phone = '123456789';
+        $user->phone = Auth::user()->phone;
         $user->password = Hash::make($request->password);
         $user->facebook_link = 'https://www.google.com';
         $user->linkedin_link = 'https://www.google.com';
@@ -234,6 +248,7 @@ class StudentController extends Controller
         $user->image = 'pic.jpg';
         $user->status = 'Active';
         $user->address = 'test';
+        $user->is_monitor = $request->input('is_monitor') == "on" ? '1' : '0';
         $user->parent_id = Auth::id();
         $user->save();
         $data=['token' => $user->password, 'user' => $user];

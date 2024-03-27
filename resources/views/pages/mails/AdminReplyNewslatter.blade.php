@@ -108,7 +108,7 @@
 <body style="background-color: #e9ecef;">
     <div class="preheader"
         style="display: none; max-width: 0; max-height: 0; overflow: hidden; font-size: 1px; line-height: 1px; color: #fff; opacity: 0;">
-        Reminder: Withdrawal Available for Your Booking Amount
+
     </div>
     <table border="0" cellpadding="0" cellspacing="0" width="100%">
         <tr>
@@ -131,7 +131,7 @@
                     <tr>
                         <td align="left" bgcolor="#ffffff"
                             style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;">
-                              <h1 style="text-transform: capitalize;">Dear {{ $student }},</h1>
+                              <h2 style="text-transform: capitalize;">{{ $tutorMessage }}</h2>
                         </td>
                     </tr>
                 </table>
@@ -145,41 +145,13 @@
                     <tr>
                         <td align="left" bgcolor="#ffffff"
                             style="padding: 36px 24px 0; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif;border-top: 3px solid #d4dadf">
-
-                            <h3 style="font-size:1.2rem;font-weight:500;">
-                            I hope this email finds you well. We wanted to inform you that you will soon be able to withdraw the booking amount from your recent tutoring sessions on the 247Tutors platform.
-                            </h3>
-
-                             <h3 style="font-size:1.2rem;font-weight:500;">
-                            As per our policy, booking amounts are held for a period of 7 days after the completion of tutoring sessions to ensure the smooth resolution of any issues or disputes that may arise.
-                            </h3>
-
-                             <h3 style="font-size:1.2rem;font-weight:500;">
-                            We are pleased to inform you that the 7-day period for your recent sessions is coming to an end. You will be able to initiate the withdrawal process and transfer the funds to your preferred account starting from {!! date('d-m-Y', strtotime($date)) !!}. Please ensure that your withdrawal details are up to date to facilitate a seamless transaction.
-                            </h3>
+                            {!! $content !!}
 
                         </td>
                     </tr>
                 </table>
             </td>
-
-
             </tr>
-
-        <tr>
-            <td align="center" bgcolor="#e9ecef">
-                <table border="0" cellpadding="0" cellspacing="0" width="100%" style="max-width: 600px;">
-                    <tr>
-                        <td align="left" bgcolor="#ffffff"
-                            style="padding: 24px; font-family: 'Source Sans Pro', Helvetica, Arial, sans-serif; font-size: 17px;  ">
-                             <h3 style="font-size:1.2rem;font-weight:500;">
-                             Thank you for your dedication and commitment to providing quality tutoring services on our platform. We appreciate your cooperation and look forward to continuing our partnership.
-                            </h3>
-                        </td>
-                    </tr>
-                </table>
-            </td>
-        </tr>
 
         <tr>
             <td align="center" bgcolor="#e9ecef">
@@ -209,5 +181,15 @@
         </tr>
     </table>
 </body>
-
+<style>
+    a[id="fr-logo"] {
+      display: none !important;
+    }
+    p[data-f-id="pbf"] {
+      display: none !important;
+    }
+    a[href*="www.froala.com"] {
+      display: none !important;
+    }
+    </style>
 </html>

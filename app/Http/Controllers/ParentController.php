@@ -130,6 +130,21 @@ class ParentController extends Controller
         return view('pages.parent.payments',get_defined_vars());
     }
 
+    public function set_is_monitor(Request $request){
+        $user = User::find($request->id);
+
+        if($user) {
+            $new_value = $user->is_monitor == '0' ? '1' : '0';
+            $user->is_monitor = $new_value;
+            $user->save();
+
+            return response()->json(["status" => "success"]);
+        } else {
+            return response()->json(["status" => "error", "message" => "User not found"], 404);
+        }
+    }
+
+
 
 
 

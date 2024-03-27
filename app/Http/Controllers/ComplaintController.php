@@ -35,7 +35,7 @@ class ComplaintController extends Controller
             return redirect('dashboard');
         }
 
-        $Complaints = Complaint::query()->paginate(3);
+        $Complaints = Complaint::query()->paginate(25);
         if ($request->ajax()) {
             $Complaints = Complaint::query()
                 ->when($request->seach_term, function ($q) use ($request) {
@@ -43,9 +43,9 @@ class ComplaintController extends Controller
                         ->orWhere('booking_id', 'like', '%' . $request->seach_term . '%');
                 })
                 ->when($request->status, function ($q) use ($request) {
-                    $q->where('role_id', $request->status);
+                    $q->where('type', $request->status);
                 })
-                ->paginate(3);
+                ->paginate(25);
             return view('pages.dashboard.complaintlog.ajax', compact('Complaints'))->render();
         }
 
@@ -219,6 +219,10 @@ class ComplaintController extends Controller
         $html .= '<tr class="pb-3 m-4">
                     <td class="pe-5">Status :</td>
                     <td>' . $complaint->status . '</td>
+                </tr>';
+        $html .= '<tr class="pb-3 m-4">
+                    <td class="pe-5">Type :</td>
+                    <td>' . $complaint->type . '</td>
                 </tr>';
 
         $html .= '<tr class="pb-3 m-4">

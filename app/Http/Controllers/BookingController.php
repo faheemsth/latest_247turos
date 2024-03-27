@@ -46,7 +46,7 @@ class BookingController extends Controller
         }
         $status = $request->input('status');
         $search = $request->input('seach_term');
-        $bookings = Booking::join('transactions', 'bookings.id', '=', 'transactions.booking_id')->with(['student', 'tutor', 'subjects'])->paginate(3);
+        $bookings = Booking::join('transactions', 'bookings.id', '=', 'transactions.booking_id')->with(['student', 'tutor', 'subjects'])->paginate(25);
         if ($request->ajax()) {
             $booking = Booking::join('transactions', 'bookings.id', '=', 'transactions.booking_id')->with(['student', 'tutor', 'subjects']);
             if (!empty($status)) {
@@ -61,7 +61,7 @@ class BookingController extends Controller
                     $query->where('name', 'like', '%' . $search . '%');
                 });
             }
-            $bookings = $booking->paginate(3);
+            $bookings = $booking->paginate(25);
             return view('pages.dashboard.booking.ajaxbooking', compact('bookings'))->render();
         }
         return view('pages.dashboard.booking.booking', compact('bookings'));
@@ -203,6 +203,8 @@ class BookingController extends Controller
                 return redirect('parent/profile')->with('success', 'You Have Booked This Tutor');
             }
             if ($request->amount > 0) {
+
+                createNotification(Auth::user()->role_id, Auth::id(), 'New Booking', 'Booking By ' . Auth::user()->username);
 
                 $customer = Stripe\Customer::create(
                     array(
@@ -372,6 +374,7 @@ class BookingController extends Controller
         $Wallet = Wallet::where('user_id', Auth::id())->first();
         if (!empty($Wallet)) {
             if ($Wallet->net_income > 0 && $Wallet->net_income >= $request->amount) {
+                createNotification(Auth::user()->role_id, Auth::id(), 'New Booking', 'Booking By ' . Auth::user()->username);
                 $student = Auth::user();
                 $data = [
                     'tutorMessage' => 'Your Booking Reschedule Request Accepted',
@@ -616,6 +619,7 @@ class BookingController extends Controller
             'ScheduleTime' => $request->date . ' ' . $request->time,
         ];
 
+        createNotification(Auth::user()->role_id, Auth::id(), 'New Booking', 'Booking By ' . Auth::user()->username);
         $environment = env('APP_ENV', 'local');
         if ($environment == 'local') {
             Mail::send('pages.mails.NewBooking', $data, function ($message) use ($tutor, $user, $subject) {
@@ -859,7 +863,7 @@ class BookingController extends Controller
                     throw new \Exception('Failed to send mail');
             }
 
-
+            createNotification(Auth::user()->role_id, Auth::id(), $request->status.' Booking', 'By ' . Auth::user()->username);
             Booking::where('uuid', $request->id)->where('tutor_id', $request->tutorId)
                 ->update([
                     'status' => $request->status,
@@ -912,7 +916,7 @@ class BookingController extends Controller
             if ($student->booking_cancellation_count == 3) {
                 return redirect('bookings')->with('failed', 'Your cancellation limit exceeded please contact admin.');
             }
-
+            createNotification(Auth::user()->role_id, Auth::id(), $request->status.' Booking', 'By ' . Auth::user()->username);
             Booking::where('uuid', $request->id)->where('tutor_id', $request->tutorId)
                 ->update([
                     'status' => $request->status,
@@ -1083,6 +1087,7 @@ class BookingController extends Controller
 
     public function booking_status_compeleted(Request $request)
     {
+        createNotification(Auth::user()->role_id, Auth::id(), $request->status.' Booking', 'By ' . Auth::user()->username);
         Booking::where('uuid', $request->id)->where('tutor_id', $request->tutorId)
             ->update([
                 'status' => $request->status,
@@ -1101,6 +1106,7 @@ class BookingController extends Controller
 
         $Transaction = Transaction::where('booking_id', $Booking->id)->first();
         if (empty(PendingPayment::where('booking_id', $Booking->id)->first()) && $Transaction) {
+
             //  dd($Transaction);
             $PendingPayment = new PendingPayment;
             $PendingPayment->tutor_id = $request->tutorId;
@@ -1238,6 +1244,7 @@ class BookingController extends Controller
                 'request_refound' => '1',
             ]);
 
+        createNotification(Auth::user()->role_id, Auth::id(), 'Refound Request', 'By ' . Auth::user()->username);
 
         $bookingId = $request->id;
         $existingRefound = Refound::where('bookingId', $bookingId)->first();
@@ -1498,7 +1505,7 @@ class BookingController extends Controller
 
         if ($booking) {
             $user = \Auth::user();
-
+            createNotification(Auth::user()->role_id, Auth::id(), 'Rescheduled Meeting', 'By ' . Auth::user()->username);
             if ($user->role_id == 3 && $booking->tutor_id == $user->id) {
                 $this->rescheduleMeet($booking, $request->date, $request->time);
                 // Send mail code
@@ -1803,6 +1810,9 @@ class BookingController extends Controller
             if (empty($booking)) {
                 return redirect('bookings')->with('error', 'Reschedule meeting not Create');
             }
+            $tempSlots = TempSlot::where('date',$booking_reschedule->booking_date)->where('slot',$booking_reschedule->booking_time)->where('tutor_id',$booking_reschedule->tutor_id)->first();
+
+            createNotification(Auth::user()->role_id, Auth::id(), 'Apperove Rescheduled Meeting', 'By ' . Auth::user()->username);
 
             $ActivityLogs = new ActivityLog;
             $ActivityLogs->user_id = Auth::id();
@@ -1839,6 +1849,11 @@ class BookingController extends Controller
                 ];
             }
             if ($booking_reschedule) {
+                if (!empty($tempSlots)) {
+                    $tempSlots->date = $booking->booking_date;
+                    $tempSlots->slot = $booking->booking_time;
+                    $tempSlots->save();
+                }
                 if ($booking) {
                     $booking_reschedule->booking_date = $booking->booking_date;
                     $booking_reschedule->booking_time = $booking->booking_time;
@@ -2209,6 +2224,8 @@ class BookingController extends Controller
                 "customer" => $customer->id,
                 "description" => "",
             ]);
+
+            createNotification(Auth::user()->role_id, Auth::id(), 'Add Amount To Wallet', 'By ' . Auth::user()->username);
         }
         return back()->with('success', 'Add Amount In Wallet Successfully');
     }
@@ -2344,7 +2361,7 @@ class BookingController extends Controller
                         $Booking->request_refound = "2";
                         $Booking->save();
 
-
+                        createNotification($student->role_id, $student->id, 'Amount to be refunded', 'By ' . $student->username);
 
                         // student
                         $view = view('pages.mails.RefundPaidStudent', $data)->render();
@@ -2404,7 +2421,7 @@ class BookingController extends Controller
                 }
                 // end paid
             } elseif ($request->status == 'Processing') {
-
+                createNotification($student->role_id, $student->id, 'Refunded Request Processing', 'By ' . $student->username);
                 // student
                 $view = view('pages.mails.RefundProcessingStudent', $data)->render();
                 $mail = new PHPMailer(true);

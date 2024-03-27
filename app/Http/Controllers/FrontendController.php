@@ -14,6 +14,7 @@ use App\Models\Availability;
 use App\Models\Booking;
 use App\Models\Chat;
 use App\Models\BlogReply;
+use App\Models\Language;
 use Illuminate\Http\Request;
 use App\Models\TutorSubjectOffer;
 use Illuminate\Support\Facades\DB;
@@ -21,7 +22,7 @@ use App\Models\Newsletter;
 use Illuminate\Support\Facades\Auth;
 use Illuminate\Support\Facades\Mail;
 use PHPMailer\PHPMailer\PHPMailer;
-
+use App\Models\Notification;
 
 class FrontendController extends Controller
 {
@@ -49,11 +50,12 @@ class FrontendController extends Controller
     {
         $levels = Level::all();
         $Subjects = Subject::distinct('name')->pluck('name','id');
+        $Languages = Language::distinct('name')->pluck('name','id');
         $TutorSubjectOffers = TutorSubjectOffer::find_tutor($request);
         if ($request->ajax()) {
-            return view('frontend.ajax', compact('TutorSubjectOffers', 'levels', 'Subjects'));
+            return view('frontend.ajax', compact('TutorSubjectOffers', 'levels', 'Subjects','Languages'));
         }
-        return view('frontend.find-tutor', compact('TutorSubjectOffers', 'levels', 'Subjects'));
+        return view('frontend.find-tutor', compact('TutorSubjectOffers', 'levels', 'Subjects','Languages'));
     }
 
     public function studentApplySteps()
@@ -189,7 +191,7 @@ class FrontendController extends Controller
     {
         $tutor = User::find($id);
         $subjects = Subject::with('level')->get();
-        $tutorsubjectoffers = TutorSubjectOffer::where('tutor_id', $tutor->id)->with(['level', 'tutor', 'subject'])->get();
+        $tutorsubjectoffers = TutorSubjectOffer::where('tutor_id', $tutor->id)->with(['level', 'tutor', 'subject','language'])->get();
         $availabilitys = Availability::where('tutor_id', $tutor->id)->get();
         $TutorQualifications=TutorQualification::where('tutor_id',$id)->get();
         $students = array();
@@ -269,6 +271,13 @@ class FrontendController extends Controller
         }
 
         // If validation passes, proceed with saving the data
+        $noti = new Notification;
+        $noti->user_type = 0;
+        $noti->user_id = Auth::id();
+        $noti->title = 'Newsletter';
+        $noti->description = 'Create New Newsletter';
+        $noti->save();
+
         $data = new Newsletter;
         $data->email = $request->email;
         $data->save();
@@ -302,10 +311,53 @@ class FrontendController extends Controller
 
         }
 
-        $blogs=$blogs->paginate(5);
+        $blogs=$blogs->get();
         return view('super-admin.Pages.Newsletter.list', compact('blogs'));
 
     }
+
+
+    public function NewsletterCreate(Request $request)
+    {
+        return view('super-admin.Pages.Newsletter.create');
+    }
+
+    public function NewsletterSend(Request $request)
+    {
+        $blogs = Newsletter::all();
+        foreach($blogs as $blog){
+
+            $data = [
+            'tutorMessage' => 'Thank You for Subscribing to Our Newsletter!',
+            'content'=> $request->content
+            ];
+            $imagePath = public_path('assets/images/247 NEW Logo 1.png');
+            $view = \view('pages.mails.newslatter', $data);
+            $view = $view->render();
+
+            $mail = new PHPMailer();
+            $mail->CharSet = "UTF-8";
+
+            $mail->setfrom('support@247tutors.com', '247 Tutors');
+            $mail->AddEmbeddedImage($imagePath, 'logo');
+
+            $mail->isHTML(true);
+            $mail->Subject = $request->Subject;
+            $mail->Body = $view;
+            $mail->AltBody = '';
+            $mail->addaddress($blog->email,'test');
+            $mail->isHTML(true);
+            $mail->msgHTML($view);
+
+            if (!$mail->send())
+                throw new \Exception('Failed to send mail');
+
+        }
+        return back();
+
+    }
+
+
 
         public function deleteNewsletter($id)
         {

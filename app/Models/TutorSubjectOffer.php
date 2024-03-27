@@ -24,6 +24,11 @@ class TutorSubjectOffer extends Model
     {
         return $this->belongsTo(Subject::class, 'subject_id');
     }
+
+    public function language()
+    {
+        return $this->belongsTo(Language::class, 'language_id');
+    }
     public function transactions()
     {
         return $this->hasMany(Transaction::class, 'subject_id', 'subject');
@@ -44,6 +49,8 @@ class TutorSubjectOffer extends Model
 
         $gender = $request->input('gender');
         $selectedSubjects = $request->input('subjects');
+        $selectedLanguages = $request->input('languages');
+
         $subject = $request->input('subject');
         $minPrice = floatval($request->input('min_price'));
         $zipcode = $request->input('zipcode');
@@ -101,6 +108,16 @@ class TutorSubjectOffer extends Model
                 $query->whereIn('subject_id', array_values($selectedSubjects));
             });
         }
+
+        // search selectedSubjects
+        if (!empty($selectedLanguages)) {
+            $tutor->whereHas('tutorSubjectOffers', function ($query) use ($selectedLanguages) {
+                $query->whereIn('language_id', array_values($selectedLanguages));
+            });
+        }
+
+
+
         // search level
         if (!empty($level)) {
             $tutor->whereHas('tutorSubjectOffers', function ($query) use ($level) {

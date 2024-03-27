@@ -350,6 +350,7 @@
                                                         placeholder="Enter Phone Number" class="w-100 p-2">
 
                                                 </span>
+                                                <span id="phone-validation-message" style="color: red;"></span>
                                             </div>
                                         </div>
 
@@ -638,27 +639,35 @@
         $(document).ready(function() {
             $('#email').on('keyup', function() {
                 var email = $(this).val();
-
-                $.ajax({
-                    type: 'POST',
-                    url: 'email-check',
-                    data: {
-                        email: email
-                    },
-                    headers: {
-                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                    },
-                    success: function(response) {
-                        if (response.unique === false) {
-                            $('#email-validation-message').text(
-                                'This email is already registered.');
-                            $('#next2').prop('disabled', true);
-                        } else {
-                            $('#email-validation-message').text('');
-                            $('#next2').prop('disabled', false);
+                var emailPattern = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
+                if (!emailPattern.test(email)) {
+                    $('#email-validation-message').text("Please include an '@' in the email address. '" +
+                        email + "' is missing an '@'.");
+                    $('#next2').prop('disabled', true);
+                } else {
+                    $.ajax({
+                        type: 'POST',
+                        url: 'email-check',
+                        data: {
+                            email: email
+                        },
+                        headers: {
+                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                        },
+                        success: function(response) {
+                            if (response.unique === false) {
+                                $('#email-validation-message').text(
+                                    'This email is already registered.');
+                                $('#next2').prop('disabled', true);
+                            } else {
+                                $('#email-validation-message').text('');
+                                $('#next2').prop('disabled', false);
+                            }
                         }
-                    }
-                });
+                    });
+                }
+
+
             });
         });
     </script>
@@ -801,6 +810,24 @@
     {{-- fname,lname,dob,code,phone,email,subject,username,password,confirm-password --}}
     <script>
         $(document).ready(function() {
+            $('#phone').on('keyup', function() {
+                var phoneNumber = $(this).val();
+
+                phoneNumber = phoneNumber.replace(/\D/g, '');
+                $(this).val(phoneNumber);
+
+                if (phoneNumber.length > 10) {
+                    $('#phone-validation-message').text('');
+                    $('#next2').prop('disabled', false);
+                } else {
+                    $('#phone-validation-message').text('Phone number should be more than 10 characters.');
+                    $('#next2').prop('disabled', true);
+                }
+            });
+        });
+    </script>
+    <script>
+        $(document).ready(function() {
             $('#register').click(function() {
 
                 var data = {
@@ -833,46 +860,61 @@
                     });
                 } else {
 
-                    $.ajax({
-                        url: '/register',
-                        method: 'POST',
-                        data: data,
-                        headers: {
-                            'X-CSRF-TOKEN': csrfToken
-                        },
-                        beforeSend: function() {
-                            $('.submit-button').addClass('d-none');
-                            $('.spiner').removeClass('d-none');
-                        },
-                        success: function(response) {
-                            if (response.status == 200) {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'success',
-                                    title: 'Registration Successful.Please check your email and verify your account to login.',
-                                    showConfirmButton: false,
-                                    timer: 5000,
-                                    showCloseButton: true
-                                });
-                                window.setTimeout(function() {
+                    if ($('#confirm-password').val() !== $('#passwordUser').val()) {
+                        Swal.fire({
+                            position: 'center',
+                            icon: 'error',
+                            title: 'Password Are Not Same.',
+                            showConfirmButton: false,
+                            timer: 5000,
+                            showCloseButton: true
+                        });
+                    } else {
 
-                                    // Move to a new location or you can do something else
-                                    window.location.href = 'login';
+                        $.ajax({
+                            url: '/register',
+                            method: 'POST',
+                            data: data,
+                            headers: {
+                                'X-CSRF-TOKEN': csrfToken
+                            },
+                            beforeSend: function() {
+                                $('.submit-button').addClass('d-none');
+                                $('.spiner').removeClass('d-none');
+                            },
+                            success: function(response) {
+                                if (response.status == 200) {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'success',
+                                        title: 'Registration Successful.Please check your email and verify your account to login.',
+                                        showConfirmButton: false,
+                                        timer: 5000,
+                                        showCloseButton: true
+                                    });
+                                    window.setTimeout(function() {
 
-                                }, 5000);
+                                        // Move to a new location or you can do something else
+                                        window.location.href = 'login';
 
-                            } else {
-                                Swal.fire({
-                                    position: 'center',
-                                    icon: 'error',
-                                    title: 'Something went wrong!',
-                                    showConfirmButton: false,
-                                    timer: 2000,
-                                    showCloseButton: true
-                                });
-                            }
-                        },
-                    });
+                                    }, 5000);
+
+                                } else {
+                                    Swal.fire({
+                                        position: 'center',
+                                        icon: 'error',
+                                        title: 'Something went wrong!',
+                                        showConfirmButton: false,
+                                        timer: 2000,
+                                        showCloseButton: true
+                                    });
+                                }
+                            },
+                        });
+
+                    }
+
+
                 }
             });
         });

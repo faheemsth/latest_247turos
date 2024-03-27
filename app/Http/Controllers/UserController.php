@@ -327,6 +327,8 @@ class UserController extends Controller
         $edituser = User::where('id', $id)->first();
         $admin = User::where('role_id', 1)->first();
 
+        createNotification($edituser->role_id,$id,'Verify Application',$edituser->username.' Has Verify His Application');
+
         $findApplication = TutorApplication::where('tutor_id', $id)->first();
         if(!empty($findApplication)){
           if (($findApplication->user_id_status == 'pending' || $findApplication->user_id_status == 'rejected')
