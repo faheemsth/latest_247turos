@@ -97,7 +97,12 @@
                                                     @if (empty($Complaint->booking_id))
                                                         N/A
                                                     @else
-                                                        {{ $Complaint->booking_id }}
+
+                                                        @php
+                                                            $user = App\Models\User::find($Complaint->booking_id);
+                                                            echo $user ? ($user->username ?: $user->first_name.' '.$user->last_name) : $Complaint->booking_id;
+                                                        @endphp
+
                                                     @endif
                                                 </td>
                                                 <td>

@@ -149,7 +149,12 @@
                                                 <td>{{ $Complaint->TicketID }}</td>
                                                 <td>{{ $Complaint->subject }}</td>
                                                 <td>{{ $Complaint->type }}</td>
-                                                <td>{{ $Complaint->booking_id }}</td>
+                                                <td>
+                                                    @php
+                                                    $user = App\Models\User::find($Complaint->booking_id);
+                                                    echo $user ? ($user->username ?: $user->first_name.' '.$user->last_name) : $Complaint->booking_id;
+                                                    @endphp
+                                                </td>
                                                 <td>{{ $Complaint->issues_detail }}</td>
                                                 <td>
                                                     <!--<span class="badge badge-danger" style="background-color: green">{{ $Complaint->status }}</span>-->

@@ -56,97 +56,147 @@ class ComplaintController extends Controller
     public function SubmitComptaint(Request $request)
     {
         $imagePath = public_path('assets/images/247 NEW Logo 1.png');
-        $booking = !empty($request->booking_id) ? Complaint::where('booking_id', $request->booking_id)->first() :'';
-        if (!empty($booking)) {
-            return back()->with('error', 'This Complaint Already Exist');
-        }
-        $data = $request->all();
-        $imageName = null;
+        if ($request->relation == 'tutor') {
+            $booking = !empty($request->booking_id) ? Complaint::where('booking_id', $request->booking_id)->first() : '';
+            if (!empty($booking)) {
+                return back()->with('error', 'This Complaint Already Exist');
+            }
+            $data = $request->all();
+            $imageName = null;
 
-        if ($request->hasFile('file')) {
-            $file = $request->file('file');
-            $imageName = time() . '_' . $file->getClientOriginalName();
-            $file->move(public_path('images'), $imageName);
-        }
-        $data['file'] = $imageName;
-        $data['user_id'] = Auth::id();
-        $data['role_id'] = Auth::user()->role_id;
-        $data['type'] = $request->relation;
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $imageName = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('images'), $imageName);
+            }
+            $data['file'] = $imageName;
+            $data['user_id'] = Auth::id();
+            $data['role_id'] = Auth::user()->role_id;
+            $data['type'] = $request->relation;
 
-        $complant = Complaint::create($data);
+            $complant = Complaint::create($data);
 
-        $ActivityLogs = new ActivityLog;
-        $ActivityLogs->user_id = Auth::id();
-        $ActivityLogs->title = "Complaint Created";
-        $ActivityLogs->description = "#" . $complant->TicketID . " This Ticket Id Created By " . Auth::user()->first_name . "  " . Auth::user()->last_name;
-        $ActivityLogs->save();
-
-
-        $tutor = User::find(optional($booking)->tutor_id);
-        if (Auth::user()->role_id == 5) {
-            $student = User::find(optional($booking)->parent_id);
-        } else {
-            $student = User::find(optional($booking)->student_id);
-        }
-        if (!empty($tutor) && !empty($student)) {
-            $data = [
-                'tutorMessage' => 'Your Complaint Has Successfully Submited',
-                'student' => $student->first_name . ' ' . $student->last_name,
-                'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
-                'complant' => $data['issues_detail']
-            ];
-
-            // Student
-
-            $view = \view('pages.mails.ComplaintByStudent', $data);
-            $view = $view->render();
-
-            $mail = new PHPMailer();
-            $mail->CharSet = "UTF-8";
-
-            $mail->setfrom('support@247tutors.com', '247 Tutors');
-
-            $mail->isHTML(true);
-            $mail->Subject = Auth::user()->first_name . ' ' . Auth::user()->last_name . ' Student Complaint Submission on 247Tutor';
-            $mail->Body = $view;
-            $mail->AddEmbeddedImage($imagePath, 'logo');
-            $mail->AltBody = '';
-            $mail->addaddress(!empty($tutor) ? $tutor->email : '', $tutor->first_name . ' ' . $tutor->last_name);
-            $mail->isHTML(true);
-            $mail->msgHTML($view);
-
-            if (!$mail->send())
-                throw new \Exception('Failed to send mail');
+            $ActivityLogs = new ActivityLog;
+            $ActivityLogs->user_id = Auth::id();
+            $ActivityLogs->title = "Complaint Created";
+            $ActivityLogs->description = "#" . $complant->TicketID . " This Ticket Id Created By " . Auth::user()->first_name . "  " . Auth::user()->last_name;
+            $ActivityLogs->save();
 
 
+            $tutor = User::find(optional($booking)->tutor_id);
+            if (Auth::user()->role_id == 5) {
+                $student = User::find(optional($booking)->parent_id);
+            } else {
+                $student = User::find(optional($booking)->student_id);
+            }
+            if (!empty($tutor) && !empty($student)) {
+                $data = [
+                    'tutorMessage' => 'Your Complaint Has Successfully Submited',
+                    'student' => $student->first_name . ' ' . $student->last_name,
+                    'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
+                    'complant' => $data['issues_detail']
+                ];
 
-            // Tutor
-            $view = \view('pages.mails.ComplaintByTutor', $data);
-            $view = $view->render();
+                // Student
 
-            $mail = new PHPMailer();
-            $mail->CharSet = "UTF-8";
+                $view = \view('pages.mails.ComplaintByStudent', $data);
+                $view = $view->render();
 
-            $mail->setfrom('support@247tutors.com', '247 Tutors');
+                $mail = new PHPMailer();
+                $mail->CharSet = "UTF-8";
 
-            $mail->isHTML(true);
-            $mail->Subject = "Successful Submission of Your Complaint";
-            $mail->Body = $view;
-            $mail->AddEmbeddedImage($imagePath, 'logo');
-            $mail->AltBody = '';
-            $mail->addaddress(!empty($student) ? $student->email : '', $student->first_name . ' ' . $student->last_name);
-            $mail->isHTML(true);
-            $mail->msgHTML($view);
+                $mail->setfrom('support@247tutors.com', '247 Tutors');
 
-            if (!$mail->send())
-                throw new \Exception('Failed to send mail');
-        } else {
+                $mail->isHTML(true);
+                $mail->Subject = Auth::user()->first_name . ' ' . Auth::user()->last_name . ' Student Complaint Submission on 247Tutor';
+                $mail->Body = $view;
+                $mail->AddEmbeddedImage($imagePath, 'logo');
+                $mail->AltBody = '';
+                $mail->addaddress(!empty($tutor) ? $tutor->email : '', $tutor->first_name . ' ' . $tutor->last_name);
+                $mail->isHTML(true);
+                $mail->msgHTML($view);
+
+                if (!$mail->send())
+                    throw new \Exception('Failed to send mail');
+
+
+
+                // Tutor
+                $view = \view('pages.mails.ComplaintByTutor', $data);
+                $view = $view->render();
+
+                $mail = new PHPMailer();
+                $mail->CharSet = "UTF-8";
+
+                $mail->setfrom('support@247tutors.com', '247 Tutors');
+
+                $mail->isHTML(true);
+                $mail->Subject = "Successful Submission of Your Complaint";
+                $mail->Body = $view;
+                $mail->AddEmbeddedImage($imagePath, 'logo');
+                $mail->AltBody = '';
+                $mail->addaddress(!empty($student) ? $student->email : '', $student->first_name . ' ' . $student->last_name);
+                $mail->isHTML(true);
+                $mail->msgHTML($view);
+
+                if (!$mail->send())
+                    throw new \Exception('Failed to send mail');
+            } else {
+
+                $data = [
+                    'tutorMessage' => 'Your Complaint Has Successfully Submited',
+                    'student' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+                    'tutor' => '',
+                    'complant' => $data['issues_detail']
+                ];
+
+                // Tutor
+                $view = \view('pages.mails.ComplaintByTutor', $data);
+                $view = $view->render();
+
+                $mail = new PHPMailer();
+                $mail->CharSet = "UTF-8";
+
+                $mail->setfrom('support@247tutors.com', '247 Tutors');
+
+                $mail->isHTML(true);
+                $mail->Subject = "Successful Submission of Your Complaint";
+                $mail->Body = $view;
+                $mail->AddEmbeddedImage($imagePath, 'logo');
+                $mail->AltBody = '';
+                $mail->addaddress(!empty(Auth::user()) ? Auth::user()->email : '', Auth::user()->first_name . ' ' . Auth::user()->last_name);
+                $mail->isHTML(true);
+                $mail->msgHTML($view);
+
+                if (!$mail->send())
+                    throw new \Exception('Failed to send mail');
+            }
+
+            createNotification(Auth::user()->role_id, Auth::id(), 'Complaint', 'Complaint By ' . Auth::user()->username);
+            return back()->with('success', 'Complaint submitted successfully');
+        } else if ($request->relation == 'website' || $request->relation == 'admin') {
+            createNotification(Auth::user()->role_id, Auth::id(), 'Complaint', 'Complaint By ' . Auth::user()->username);
+            $data = $request->all();
+            $imageName = null;
+
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $imageName = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('images'), $imageName);
+            }
+            $data['file'] = $imageName;
+            $data['user_id'] = Auth::id();
+            $data['role_id'] = Auth::user()->role_id;
+            $data['type'] = $request->relation;
+
+            $complant = Complaint::create($data);
+
 
             $data = [
                 'tutorMessage' => 'Your Complaint Has Successfully Submited',
                 'student' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
                 'tutor' => '',
-                'complant' => $data['issues_detail']
+                'complant' => $request->issues_detail
             ];
 
             // Tutor
@@ -169,10 +219,123 @@ class ComplaintController extends Controller
 
             if (!$mail->send())
                 throw new \Exception('Failed to send mail');
-        }
 
-        createNotification(Auth::user()->role_id, Auth::id(), 'Complaint', 'Complaint By ' . Auth::user()->username);
-        return back()->with('success', 'Complaint submitted successfully');
+
+            $data = [
+                'tutorMessage' => 'Your Complaint Has Successfully Submited',
+                'student' => User::where('role_id', 1)->first()->first_name . ' ' . User::where('role_id', 1)->first()->last_name,
+                'tutor' => '',
+                'complant' => $request->issues_detail
+            ];
+
+            // admin
+            $view = \view('pages.mails.ComplaintByTutorForAdminAndWeb', $data);
+            $view = $view->render();
+
+            $mail = new PHPMailer();
+            $mail->CharSet = "UTF-8";
+
+            $mail->setfrom('support@247tutors.com', '247 Tutors');
+
+            $mail->isHTML(true);
+            $mail->Subject = "Successful Submission of Your Complaint";
+            $mail->Body = $view;
+            $mail->AddEmbeddedImage($imagePath, 'logo');
+            $mail->AltBody = '';
+            $mail->addaddress(!empty(User::where('role_id', 1)->first()) ? User::where('role_id', 1)->first()->email : '', User::where('role_id', 1)->first()->first_name . ' ' . User::where('role_id', 1)->first()->last_name);
+            $mail->isHTML(true);
+            $mail->msgHTML($view);
+
+            if (!$mail->send())
+                throw new \Exception('Failed to send mail');
+
+            return back()->with('success', 'Complaint submitted successfully');
+        } else if ($request->relation == 'organization') {
+
+            $tutor = User::find(Auth::user()->parent_id);
+            if (empty($tutor)) {
+                return back()->with('error', 'Sorry You Did Not have Organization');
+            }
+            $student = Auth::user();
+
+            $data = [
+                'tutorMessage' => 'Your Complaint Has Successfully Submited',
+                'student' => $student->first_name . ' ' . $student->last_name,
+                'tutor' => $tutor->first_name . ' ' . $tutor->last_name,
+                'complant' => $request->issues_detail
+            ];
+
+            // Student
+
+            $view = \view('pages.mails.ComplaintByStudentForOrganization', $data);
+            $view = $view->render();
+
+            $mail = new PHPMailer();
+            $mail->CharSet = "UTF-8";
+
+            $mail->setfrom('support@247tutors.com', '247 Tutors');
+
+            $mail->isHTML(true);
+            $mail->Subject = Auth::user()->first_name . ' ' . Auth::user()->last_name . ' Student Complaint Submission on 247Tutor';
+            $mail->Body = $view;
+            $mail->AddEmbeddedImage($imagePath, 'logo');
+            $mail->AltBody = '';
+            $mail->addaddress(!empty($tutor) ? $tutor->email : '', $tutor->first_name . ' ' . $tutor->last_name);
+            $mail->isHTML(true);
+            $mail->msgHTML($view);
+
+            if (!$mail->send())
+                throw new \Exception('Failed to send mail');
+
+
+
+            createNotification(Auth::user()->role_id, Auth::id(), 'Complaint', 'Complaint By ' . Auth::user()->username);
+            $data = $request->all();
+            $imageName = null;
+
+            if ($request->hasFile('file')) {
+                $file = $request->file('file');
+                $imageName = time() . '_' . $file->getClientOriginalName();
+                $file->move(public_path('images'), $imageName);
+            }
+            $data['file'] = $imageName;
+            $data['user_id'] = Auth::id();
+            $data['role_id'] = Auth::user()->role_id;
+            $data['type'] = $request->relation;
+            $data['booking_id'] = Auth::user()->parent_id;
+
+            $complant = Complaint::create($data);
+
+
+            $data = [
+                'tutorMessage' => 'Your Complaint Has Successfully Submited',
+                'student' => Auth::user()->first_name . ' ' . Auth::user()->last_name,
+                'tutor' => '',
+                'complant' => $request->issues_detail
+            ];
+
+            // Tutor
+            $view = \view('pages.mails.ComplaintByTutor', $data);
+            $view = $view->render();
+
+            $mail = new PHPMailer();
+            $mail->CharSet = "UTF-8";
+
+            $mail->setfrom('support@247tutors.com', '247 Tutors');
+
+            $mail->isHTML(true);
+            $mail->Subject = "Successful Submission of Your Complaint";
+            $mail->Body = $view;
+            $mail->AddEmbeddedImage($imagePath, 'logo');
+            $mail->AltBody = '';
+            $mail->addaddress(!empty(Auth::user()) ? Auth::user()->email : '', Auth::user()->first_name . ' ' . Auth::user()->last_name);
+            $mail->isHTML(true);
+            $mail->msgHTML($view);
+
+            if (!$mail->send())
+                throw new \Exception('Failed to send mail');
+            return back()->with('success', 'Complaint submitted successfully');
+        }
     }
 
     public function MarkAsRead($id)
@@ -191,8 +354,8 @@ class ComplaintController extends Controller
     {
         $html = "";
         $complaint = Complaint::find($request->id);
-        $notifications = Notification::where('user_id',$complaint->user_id)->first();
-        $notifications->is_read=1;
+        $notifications = Notification::where('user_id', $complaint->user_id)->first();
+        $notifications->is_read = 1;
         $notifications->save();
         $html .= '<tr>
                     <td class="pe-5">Ticket No :</td>
@@ -212,9 +375,9 @@ class ComplaintController extends Controller
                 </tr>';
         }
         $html .= '<tr class="pb-3 m-4">
-                    <td class="pe-5">Booking Id :</td>
-                   <td>' .  ($complaint->booking_id ?  $complaint->booking_id : 'N/A') . '</td>
-                </tr>';
+        <td class="pe-5">Booking Id :</td>
+        <td>' .  ($complaint->booking_id && User::find($complaint->booking_id) ? (User::find($complaint->booking_id)->username ?: User::find($complaint->booking_id)->first_name . ' ' . User::find($complaint->booking_id)->last_name) : 'N/A') . '</td>
+    </tr>';
 
         $html .= '<tr class="pb-3 m-4">
                     <td class="pe-5">Status :</td>
@@ -329,6 +492,8 @@ class ComplaintController extends Controller
                 $mail->msgHTML($view);
                 $mail->send();
             } else {
+
+
 
                 $data = [
                     'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
