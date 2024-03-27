@@ -75,7 +75,7 @@ $groups = App\Models\Group::All();
                     <a class="nav-link active" aria-current="page" href="{{ url('tutor/home') }}">Home</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/tutor/payments') }}">Balance over view Report</a>
+                    <a class="nav-link" href="{{ url('/tutor/payments') }}">Balance Overview</a>
                 </li>
                 </li>
                 <li class="nav-item">

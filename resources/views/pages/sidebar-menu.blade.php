@@ -127,8 +127,11 @@
             <span class="fa-solid fa-file-invoice"
                 style="color: rgb(50 50 50 / 94%);font-size: 16px ;padding-left:2px;padding-right:12px;"></span>
             Privacy policy</a>
-
-        {{-- <a href="{{ route('documentTypes') }}" class="menu-item {{ $segment2 == 'document_types' ? 'active' : '' }}">Document Types</a> --}}
+        <a href="{{ url('setting/earnings') }}"
+            class=" d-flex align-items-center menu-item {{ $segment2 == 'earnings' ? 'active' : '' }}">
+            <span class="fa-solid fa-file-invoice"
+                style="color: rgb(50 50 50 / 94%);font-size: 16px ;padding-left:2px;padding-right:12px;"></span>
+                Admin Earnings Percentage</a>
     </div>
 </div>
 

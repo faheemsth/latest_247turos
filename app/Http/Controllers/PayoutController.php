@@ -2,6 +2,8 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\AdminEarning;
+use App\Models\EarningPercentage;
 use Illuminate\Http\Request;
 use Srmklive\PayPal\Facades\Paypal;
 use Srmklive\PayPal\Services\PayPal as PayPalClient;
@@ -157,7 +159,18 @@ class PayoutController extends Controller
                 $mail->msgHTML($view);
                 $mail->send();
 
-                $wallet->net_income += $PendingPayment->amount;
+                $earningPercentage = EarningPercentage::first();
+                $AdminEarning = New AdminEarning;
+
+                if ($earningPercentage !== null) {
+                    $taxAmount = $PendingPayment->amount * ($earningPercentage->percentage / 100);
+                    $AdminEarning->amount = $taxAmount;
+                    $AdminEarning->save();
+                    $netAmount = $PendingPayment->amount - $taxAmount;
+                } else {
+                    $netAmount = $PendingPayment->amount;
+                }
+                $wallet->net_income += $netAmount;
                 $PendingPayment->amount -= $PendingPayment->amount;
                 $PendingPayment->status = 'Paid';
                 $wallet->save();

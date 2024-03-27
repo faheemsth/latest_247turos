@@ -273,7 +273,7 @@
                         <div class="d-flex align-items-end justify-content-between mt-2">
                             <div>
                                 <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value"
-                                        data-target="">£0.00</span>
+                                        data-target="">£{{ $AdminEarning }}</span>
                                 </h4>
                                 <a href="" class="text-decoration-underline text-muted">View Net
                                     Earnings</a>

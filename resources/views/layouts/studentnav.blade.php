@@ -76,7 +76,7 @@ $groups = App\Models\Group::All();
                 @if(Auth::user()->parent_id  != null && Auth::user()->is_monitor == '0')
                 @else
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/student/payments') }}">Balance over view Report</a>
+                    <a class="nav-link" href="{{ url('/student/payments') }}">Balance Overview</a>
                 </li>
                 @endif
 

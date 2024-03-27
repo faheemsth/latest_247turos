@@ -45,7 +45,9 @@ use App\Http\Controllers\Auth\ResetPasswordController;
 use App\Http\Controllers\Auth\ForgotPasswordController;
 use App\Http\Controllers\InterviewController;
 use App\Http\Controllers\ReviewsController;
+use App\Http\Controllers\EarnController;
 use App\Models\ActivityLog;
+use App\Models\AdminEarning;
 use App\Models\Notification;
 
 use Carbon\Carbon;
@@ -312,6 +314,7 @@ Route::group(['middleware' => 'auth'], function () {
                 $Cancelled = Booking::where('status', "Cancelled")->get();
                 $InProcess = Booking::where('status', "In Process")->get();
                 $Scheduled = Booking::where('status', "Scheduled")->get();
+                $AdminEarning = round(AdminEarning::sum('amount'), 3);
                 $Pending = Booking::where('status', "Pending")->get();
                 $request_refound = Booking::where('request_refound', "2")->get();
                 $notifications = Notification::with('Notifier')->where('is_read', 0)->where('title', 'Comptaint')->whereHas('Notifier', function ($query) {
@@ -320,7 +323,7 @@ Route::group(['middleware' => 'auth'], function () {
                 $Complaint = App\Models\Complaint::with('Notifier')->whereHas('Notifier', function ($query) {
                     $query->whereNotNull('id');
                 })->paginate(5);
-                return view('super-admin.dashboard', compact('Complaint', 'request_refound', 'notifications', 'org', 'students', 'tutors', 'parents', 'recents', 'Completed', 'Cancelled', 'InProcess', 'Scheduled', 'Pending'));
+                return view('super-admin.dashboard', compact('Complaint', 'request_refound', 'notifications', 'org', 'students', 'tutors', 'parents', 'recents', 'Completed', 'Cancelled', 'InProcess', 'Scheduled', 'Pending','AdminEarning'));
             } elseif ($request->user()->role_id == 2) {
                 return redirect('admin_dashboard');
             } elseif ($request->user()->role_id == 3) {
@@ -424,6 +427,10 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/newsletter/create', [FrontendController::class, 'NewsletterCreate'])->name('Newsletter.Create');
         Route::post('/Newsletter/Send', [FrontendController::class, 'NewsletterSend'])->name('Newsletter.Send');
         Route::get('/setting/pages', [PageController::class, 'setting'])->name('website');
+       // super admin dashboard percentage
+        Route::get('/setting/earnings', [EarnController::class,'index'])->name('setting.earnings');
+        Route::post('/create/percentage', [EarnController::class,'create'])->name('create.percentage');
+
         Route::get('/setting/blog', [PageController::class, 'bloglisting'])->name('bloglist');
 
 

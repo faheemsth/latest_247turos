@@ -87,7 +87,7 @@ $groups = App\Models\Group::All();
                 </li>
                 @endif
                 <li class="nav-item">
-                    <a class="nav-link" href="{{ url('/parent/payments') }}">Balance over view Report</a>
+                    <a class="nav-link" href="{{ url('/parent/payments') }}">Balance Overview</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('findTutor') ? 'active' : '' }}"

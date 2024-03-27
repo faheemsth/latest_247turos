@@ -319,36 +319,25 @@
                         <li><a href="">Careers</a></li>
                         <li><a href="{{ url('blogs') }}">Blog</a></li>
                         <li><a href="{{ route('faq') }}">F.A.Q</a></li>
-                        <li><a href="{{ url('/privacypolicy') }}">Safegeuarding policy</a></li>
+                        <li><a href="{{ url('/privacypolicy') }}">Privacy Policy</a></li>
                     </ul>
                 </div>
                 <div class="col-6">
                     <ul>
-                        <li><a href="{{ url('tutor-apply-steps') }}">Become a tutor</a></li>
-                        <li><a href="">Testimonials & press</a></li>
+                        <li><a href="{{ url('tutor-apply-steps') }}">Register as a tutor</a></li>
+                        {{-- <li><a href="">Testimonials & press</a></li> --}}
                         <li><a href="{{ url('/videos-guides') }}">Using the Online Lesson Space</a></li>
                         <li><a href="{{ url('/sitemap') }}">Sitemap</a></li>
                     </ul>
                 </div>
             </div>
         </div>
-        <div class="col-12 col-lg-4 col-xl-3 py-3 d-none">
-            <h5>Get mobile app</h5>
-            <p>Take education on the go. Get our mobile app for FREE! on your Apple and android devices</p>
-            <div>
-                <a href="">
-                    <img src="./assets/images/iOS.png" alt="">
-                </a>
-                <a href="">
-                    <img src="./assets/images/Android.png" alt="" srcset="">
-                </a>
-            </div>
-        </div>
+     
         <form id="newsletterForm" action="{{ url('send/newsletter') }}" method="POST"
             style="display: contents;">
             @csrf
             <div class="col-12 col-md-5 col-xl-5 py-4 py-md-0">
-                <h5>Signup for newsletter</h5>
+                <h5>Subscription for newsletter</h5>
                 <p>Corrupti quolores etmquasa molestias epturite sinteam occaecati amet cupiditate mikume molareshe.
                 </p>
                 <div class="input-group input-group-lg">
@@ -371,7 +360,7 @@
 
     <div class="row py-2 text-center align-items-lg-center" style="background-color: rgba(0, 0, 0, 0.2);">
         <div class="col-12 col-lg-6 col-md-5">
-            <h6>© 2023 All Rights Reserved.</h6>
+            <h6>© 247Tutors All Rights Reserved 2024.</h6>
         </div>
         <div class="col-12 col-md-7 col-lg-6 d-flex gap-3 bottom-footer-menu justify-content-center">
             <h6><a href="">Careers</a></h6>
