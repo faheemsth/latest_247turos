@@ -98,9 +98,11 @@
                 <img src="{{ asset('assets/images/icons8-online-class-60 1.png') }}" class="card-img-top" style="width: 50px" />
             </div>
             <div class="card-body">
+                <a  @if (Auth::check()) href="{{ url($url) }}" class="text-decoration-none" @else @endif >
                 <h5 class="card-title p-1" style="background-color: #0096ff; border-radius: 5px">
                     Take Free Demo
                 </h5>
+                </a>
                 <p class="card-text">
                     @isset($web_settings['org_three']) {{$web_settings['org_three'] ?? '' }} @endisset
                 </p>
@@ -118,9 +120,11 @@
                 <img src="{{ asset('assets/images/icons8-tuition-30 1.png') }}" class="card-img-top" style="width: 50px" />
             </div>
             <div class="card-body">
+                <a  @if (Auth::check()) href="{{ url($url) }}" class="text-decoration-none" @else @endif >
                 <h5 class="card-title p-1" style="background-color: #0096ff; border-radius: 5px">
                     Start Tuition
                 </h5>
+                </a>
                 <p class="card-text">
                     @isset($web_settings['org_four']) {{$web_settings['org_four'] ?? '' }} @endisset
                 </p>

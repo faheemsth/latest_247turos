@@ -25,8 +25,8 @@ class BlogController extends Controller
 
         // Resize the image
         $srcImage = imagecreatefromstring(file_get_contents($image->getRealPath()));
-        $resizedImage = imagecreatetruecolor(2000, 1500);
-        imagecopyresampled($resizedImage, $srcImage, 0, 0, 0, 0, 2000, 1500, imagesx($srcImage), imagesy($srcImage));
+        $resizedImage = imagecreatetruecolor(2500, 1500);
+        imagecopyresampled($resizedImage, $srcImage, 0, 0, 0, 0, 2500, 1500, imagesx($srcImage), imagesy($srcImage));
         imagejpeg($resizedImage, public_path('images/' . $imageName));
         imagedestroy($srcImage);
         imagedestroy($resizedImage);
@@ -70,8 +70,8 @@ class BlogController extends Controller
 
             // Resize the image
             $srcImage = imagecreatefromstring(file_get_contents($image->getRealPath()));
-            $resizedImage = imagecreatetruecolor(2000, 1500);
-            imagecopyresampled($resizedImage, $srcImage, 0, 0, 0, 0, 2000, 1500, imagesx($srcImage), imagesy($srcImage));
+            $resizedImage = imagecreatetruecolor(2500, 1500);
+            imagecopyresampled($resizedImage, $srcImage, 0, 0, 0, 0, 2500, 1500, imagesx($srcImage), imagesy($srcImage));
             imagejpeg($resizedImage, public_path('images/' . $imageName));
             imagedestroy($srcImage);
             imagedestroy($resizedImage);

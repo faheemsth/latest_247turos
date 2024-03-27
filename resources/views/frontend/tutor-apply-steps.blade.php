@@ -1,26 +1,4 @@
-{{-- @extends('layouts.app')
-@section('content')
-    @if (Auth::check())
-        @if (Auth::user()->role_id == '4')
-            @include('layouts.studentnav')
-        @elseif (Auth::user()->role_id == '3')
-            @include('layouts.tutornav')
-        @elseif (Auth::user()->role_id == '5')
-            @include('layouts.parentnav')
-        @elseif (Auth::user()->role_id == '1' || Auth::user()->role_id == '2')
-            @include('layouts.navbar')
-        @endif
-    @else
-        @include('layouts.navbar')
-    @endif
-    @php
-    $pathSegments = request()->segments();
-    $headerfooter = \App\Models\Page::where('page_name', $pathSegments[0])->first();
 
-    @endphp
-    <!-- Tutor apply step cards end -->
-    {!! $headerfooter->tutor_apply_steps !!}
-    @endsection --}}
 @extends('layouts.app')
 @section('content')
 @if (Auth::check())
@@ -125,9 +103,11 @@
                 <img src="{{ asset('assets/images/icons8-online-class-60 1.png') }}" class="card-img-top" style="width: 50px" />
             </div>
             <div class="card-body">
+                <a  @if (Auth::check()) href="{{ url($url) }}" class="text-decoration-none" @else @endif >
                 <h5 class="card-title p-1" style="background-color: #0096ff; border-radius: 5px">
                     Take Free Demo
                 </h5>
+                </a>
                 <p class="card-text">
                     @isset($web_settings['tutor_three']) {{$web_settings['tutor_three'] ?? '' }} @endisset
                 </p>
@@ -145,9 +125,11 @@
                 <img src="{{ asset('assets/images/icons8-tuition-30 1.png') }}" class="card-img-top" style="width: 50px" />
             </div>
             <div class="card-body">
+                <a  @if (Auth::check()) href="{{ url($url) }}" class="text-decoration-none" @else @endif >
                 <h5 class="card-title p-1" style="background-color: #0096ff; border-radius: 5px">
                     Start Tuition
                 </h5>
+                </a>
                 <p class="card-text">
                     @isset($web_settings['tutor_four']) {{$web_settings['tutor_four'] ?? '' }} @endisset
                 </p>

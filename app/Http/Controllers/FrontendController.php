@@ -43,57 +43,97 @@ class FrontendController extends Controller
         }
         $TutorSubjectOffers = TutorSubjectOffer::all();
         $stu_tutor_count = User::whereIn('role_id', [3, 4])->count();
-        return view('frontend.home', compact('Subjects','subjectCounts','TutorSubjectOffers','stu_tutor_count'));
+        return view('frontend.home', compact('Subjects', 'subjectCounts', 'TutorSubjectOffers', 'stu_tutor_count'));
     }
 
     public function findTutor(Request $request)
     {
         $levels = Level::all();
-        $Subjects = Subject::distinct('name')->pluck('name','id');
-        $Languages = Language::distinct('name')->pluck('name','id');
+        $Subjects = Subject::distinct('name')->pluck('name', 'id');
+        $Languages = Language::distinct('name')->pluck('name', 'id');
         $TutorSubjectOffers = TutorSubjectOffer::find_tutor($request);
         if ($request->ajax()) {
-            return view('frontend.ajax', compact('TutorSubjectOffers', 'levels', 'Subjects','Languages'));
+            return view('frontend.ajax', compact('TutorSubjectOffers', 'levels', 'Subjects', 'Languages'));
         }
-        return view('frontend.find-tutor', compact('TutorSubjectOffers', 'levels', 'Subjects','Languages'));
+        return view('frontend.find-tutor', compact('TutorSubjectOffers', 'levels', 'Subjects', 'Languages'));
     }
 
     public function studentApplySteps()
     {
-        return view('frontend/student-apply-steps');
+        $url = 'find-tutor';
+        if (Auth::check()) {
+
+            $subject = explode(',', Auth::user()->subjects)[0] ?? null;
+            $tutor = TutorSubjectOffer::where('subject_id', $subject)
+                ->with(['level', 'tutor', 'subject', 'language'])
+                ->when($subject, function ($query) {
+                    $query->whereHas('tutor');
+                })
+                ->first();
+            if (!empty($tutor)) {
+                $url = 'tutor/profile/' . $tutor->tutor_id;
+            }
+        }
+        return view('frontend/student-apply-steps',compact('url'));
     }
 
     public function tutorApplySteps()
     {
-        return view('frontend/tutor-apply-steps');
+        $url = 'find-tutor';
+        if (Auth::check()) {
+
+            $subject = explode(',', Auth::user()->subjects)[0] ?? null;
+            $tutor = TutorSubjectOffer::where('subject_id', $subject)
+                ->with(['level', 'tutor', 'subject', 'language'])
+                ->when($subject, function ($query) {
+                    $query->whereHas('tutor');
+                })
+                ->first();
+            if (!empty($tutor)) {
+                $url = 'tutor/profile/' . $tutor->tutor_id;
+            }
+        }
+        return view('frontend/tutor-apply-steps',compact('url'));
     }
 
     public function organizationApplySteps()
     {
-        return view('frontend.organization-apply-steps');
+        $url = 'find-tutor';
+        if (Auth::check()) {
+
+            $subject = explode(',', Auth::user()->subjects)[0] ?? null;
+            $tutor = TutorSubjectOffer::where('subject_id', $subject)
+                ->with(['level', 'tutor', 'subject', 'language'])
+                ->when($subject, function ($query) {
+                    $query->whereHas('tutor');
+                })
+                ->first();
+            if (!empty($tutor)) {
+                $url = 'tutor/profile/' . $tutor->tutor_id;
+            }
+        }
+        return view('frontend.organization-apply-steps',compact('url'));
     }
 
 
-   public function CommentsStore(Request $request,$id)
+    public function CommentsStore(Request $request, $id)
     {
-        if(Auth::check()){
-         $BlogReply= new BlogReply;
-         $BlogReply->post_id= $id;
-         $BlogReply->user_id= Auth::id();
-         $BlogReply->reply= $request->comment_text;
-         $BlogReply->save();
-         return back()->with('success','Comment Successfully');
-        }else{
+        if (Auth::check()) {
+            $BlogReply = new BlogReply;
+            $BlogReply->post_id = $id;
+            $BlogReply->user_id = Auth::id();
+            $BlogReply->reply = $request->comment_text;
+            $BlogReply->save();
+            return back()->with('success', 'Comment Successfully');
+        } else {
             return redirect('login');
         }
-
     }
 
     public function likepost($id)
     {
-        if(!Auth::check())
-        {
-           return redirect('login');
+        if (!Auth::check()) {
+            return redirect('login');
         }
 
         $blog = Blog::find($id);
@@ -101,26 +141,25 @@ class FrontendController extends Controller
             $blog->is_like += 1;
             $blog->is_like_by = Auth::id();
             $blog->save();
-            return back()->with('success','Like Successfully');
+            return back()->with('success', 'Like Successfully');
         } else {
-            return back()->with('error','You Have Already Like');
+            return back()->with('error', 'You Have Already Like');
         }
     }
 
     public function unlikepost($id)
     {
-        if(!Auth::check())
-        {
-           return redirect('login');
+        if (!Auth::check()) {
+            return redirect('login');
         }
-        $blog = Blog::where('id',$id)->first();
+        $blog = Blog::where('id', $id)->first();
         if ($blog) {
             $blog->is_like -= 1;
             $blog->is_like_by = null;
             $blog->save();
-            return back()->with('error','Unlike Successfully');
+            return back()->with('error', 'Unlike Successfully');
         } else {
-            return back()->with('error','You Have Already Like');
+            return back()->with('error', 'You Have Already Like');
         }
     }
 
@@ -128,8 +167,8 @@ class FrontendController extends Controller
     public function singlepost($id)
     {
         $blog = Blog::find($id);
-        $reply=BlogReply::where('post_id',$id)->where('status','Active')->get();
-        return view('frontend.singlepost',compact('blog','reply'));
+        $reply = BlogReply::where('post_id', $id)->where('status', 'Active')->get();
+        return view('frontend.singlepost', compact('blog', 'reply'));
     }
 
     public function prices()
@@ -177,17 +216,17 @@ class FrontendController extends Controller
     {
         $tutor = User::find($id);
         $subjects = Subject::with('level')->get();
-        $tutorsubjectoffers = TutorSubjectOffer::where('tutor_id', $tutor->id)->with(['level', 'tutor', 'subject','language'])->get();
+        $tutorsubjectoffers = TutorSubjectOffer::where('tutor_id', $tutor->id)->with(['level', 'tutor', 'subject', 'language'])->get();
         $availabilitys = Availability::where('tutor_id', $tutor->id)->get();
-        $TutorQualifications=TutorQualification::where('tutor_id',$id)->get();
+        $TutorQualifications = TutorQualification::where('tutor_id', $id)->get();
         $students = array();
         if (Auth::check() && Auth::user()->role_id == 5) {
             $students = User::where('role_id', '4')->where('parent_id', Auth::id())->get();
-            return view('pages.dashboard.profiletutor', compact('TutorQualifications','availabilitys', 'tutor', 'subjects', 'tutorsubjectoffers','students'));
+            return view('pages.dashboard.profiletutor', compact('TutorQualifications', 'availabilitys', 'tutor', 'subjects', 'tutorsubjectoffers', 'students'));
         }
         $AllSubjects = Subject::distinct('name')->pluck('name');
 
-        return view('pages.dashboard.profiletutor', compact('TutorQualifications','availabilitys', 'tutor', 'subjects', 'tutorsubjectoffers','students','AllSubjects'));
+        return view('pages.dashboard.profiletutor', compact('TutorQualifications', 'availabilitys', 'tutor', 'subjects', 'tutorsubjectoffers', 'students', 'AllSubjects'));
     }
     public function likeDislike(Request $request)
     {
@@ -222,7 +261,7 @@ class FrontendController extends Controller
         $ActivityLogs = new ActivityLog;
         $ActivityLogs->user_id = Auth::id() ?? null;
         $ActivityLogs->title = "Newsletter Email ";
-        $ActivityLogs->description = "Newsletter By  ".$request->email;
+        $ActivityLogs->description = "Newsletter By  " . $request->email;
         $ActivityLogs->save();
 
 
@@ -230,7 +269,7 @@ class FrontendController extends Controller
         if ($environment == 'local') {
             // Send email to tutor
             Mail::send('pages.mails.newslatter', $data, function ($message) use ($request) {
-                $message->to(User::where('role_id',1)->first()->email,'Admin')
+                $message->to(User::where('role_id', 1)->first()->email, 'Admin')
                     ->subject('New User Newslatter Messages');
                 $message->from($request->email, $request->email);
             });
@@ -274,7 +313,9 @@ class FrontendController extends Controller
 
     public function list(Request $request)
     {
-        if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
+        if (Auth::user()->role_id != 1) {
+            return redirect('dashboard');
+        }
         $blogs = Newsletter::query();
         $search = $request->input('search');
         if (!empty($search)) {
@@ -283,23 +324,21 @@ class FrontendController extends Controller
 
         if (!empty($request->input('date'))) {
 
-            if($request->input('date') == 'Today'){
+            if ($request->input('date') == 'Today') {
                 $blogs->whereDate('created_at', today());
             }
 
-            if($request->input('date') == '15 Days'){
+            if ($request->input('date') == '15 Days') {
                 $blogs->whereDate('created_at', '>=', now()->subDays(15));
             }
 
-            if($request->input('date') == '30 Days'){
+            if ($request->input('date') == '30 Days') {
                 $blogs->whereDate('created_at', '>=', now()->subDays(30));
             }
-
         }
 
-        $blogs=$blogs->get();
+        $blogs = $blogs->get();
         return view('super-admin.Pages.Newsletter.list', compact('blogs'));
-
     }
 
 
@@ -311,11 +350,11 @@ class FrontendController extends Controller
     public function NewsletterSend(Request $request)
     {
         $blogs = Newsletter::all();
-        foreach($blogs as $blog){
+        foreach ($blogs as $blog) {
 
             $data = [
-            'tutorMessage' => 'Thank You for Subscribing to Our Newsletter!',
-            'content'=> $request->content
+                'tutorMessage' => 'Thank You for Subscribing to Our Newsletter!',
+                'content' => $request->content
             ];
             $imagePath = public_path('assets/images/247 NEW Logo 1.png');
             $view = \view('pages.mails.newslatter', $data);
@@ -331,53 +370,52 @@ class FrontendController extends Controller
             $mail->Subject = $request->Subject;
             $mail->Body = $view;
             $mail->AltBody = '';
-            $mail->addaddress($blog->email,'test');
+            $mail->addaddress($blog->email, 'test');
             $mail->isHTML(true);
             $mail->msgHTML($view);
 
             if (!$mail->send())
                 throw new \Exception('Failed to send mail');
-
         }
         return back();
-
     }
 
 
 
-        public function deleteNewsletter($id)
-        {
-            if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
-            $newsletter = Newsletter::find($id);
-            if (!$newsletter) {
-                return back()->with('error', 'Sorry Newsletter Not Found');
-            } else {
-                $newsletter->delete();
-                return back()->with('success', 'Newsletter deleted successfully');
-            }
+    public function deleteNewsletter($id)
+    {
+        if (Auth::user()->role_id != 1) {
+            return redirect('dashboard');
         }
-
-
-
-
-    public function CounterShow(){
-     $countmessg = Chat::where('reciver_id', Auth::id())
-    ->where('status', 0)
-    ->select('sender_id')
-    ->groupBy('sender_id')
-    ->with('sender')
-    ->count();
-    if(Auth::user()->role_id == 4){
-    $countBooking = Booking::where('student_id', Auth::id())->where('status', 'Pending')->count();
+        $newsletter = Newsletter::find($id);
+        if (!$newsletter) {
+            return back()->with('error', 'Sorry Newsletter Not Found');
+        } else {
+            $newsletter->delete();
+            return back()->with('success', 'Newsletter deleted successfully');
+        }
     }
-    if(Auth::user()->role_id == 3){
-    $countBooking = Booking::where('tutor_id', Auth::id())->where('status', 'Pending')->count();
 
-    }
-    if(Auth::user()->role_id == 5 || Auth::user()->role_id == 6){
-        $countBooking = Booking::where('parent_id', Auth::id())->where('status', 'Pending')->count();
 
-    }
-    return response()->json(['countmessg' => $countmessg, 'countBooking' => $countBooking]);
+
+
+    public function CounterShow()
+    {
+        $countmessg = Chat::where('reciver_id', Auth::id())
+            ->where('status', 0)
+            ->select('sender_id')
+            ->groupBy('sender_id')
+            ->with('sender')
+            ->count();
+        if (Auth::user()->role_id == 4) {
+            $countBooking = Booking::where('student_id', Auth::id())->where('status', 'Pending')->count();
+        }
+        if (Auth::user()->role_id == 3) {
+            $countBooking = Booking::where('tutor_id', Auth::id())->where('status', 'Pending')->count();
+        }
+        if (Auth::user()->role_id == 5 || Auth::user()->role_id == 6) {
+            $countBooking = Booking::where('parent_id', Auth::id())->where('status', 'Pending')->count();
+        }
+        return response()->json(['countmessg' => $countmessg, 'countBooking' => $countBooking]);
     }
 }
