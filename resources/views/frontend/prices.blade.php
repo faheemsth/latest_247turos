@@ -44,16 +44,16 @@
 
       <div class="boxes-center">
         <div class="price-boxes row d-flex justify-content-center mt-5">
-          <a href="{{ url('find-tutor?min_price=20&max_price=29') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3" id="box1">
-            <h2><b>£20 - £29</b></h2>
+          <a href="{{ url('find-tutor?min_price=19&max_price=29') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3" id="box1">
+            <h2><b>£19 - £29</b></h2>
             <p>@isset($web_settings['pricecard1_desc']) {{$web_settings['pricecard1_desc'] ?? '' }} @endisset</p>
           </a>
-          <a href="{{ url('find-tutor?min_price=40&max_price=87') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3 text-white" id="box2" style="color: white;">
-            <h2><b>£40 - £87</b></h2>
+          <a href="{{ url('find-tutor?min_price=30&max_price=39') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3 text-white" id="box2" style="color: white;">
+            <h2><b>£30 - £39</b></h2>
             <p>@isset($web_settings['pricecard2_desc']) {{$web_settings['pricecard2_desc'] ?? '' }} @endisset</p>
           </a>
-          <a href="{{ url('find-tutor?min_price=90&max_price=119') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3" id="box3">
-            <h2><b>£90 - £119</b></h2>
+          <a href="{{ url('find-tutor?min_price=40&max_price=49') }}" class="text-decoration-none p-box col-sm-6 col-md-4 col-lg-3" id="box3">
+            <h2><b>£40 - £49</b></h2>
             <p>@isset($web_settings['pricecard3_desc']) {{$web_settings['pricecard3_desc'] ?? '' }} @endisset</p>
           </a>
         </div>
@@ -63,7 +63,7 @@
     </div>
 
 
-    <div class="boxcontent container w-75 mt-4">
+    <div class="boxcontent container w-75 mt-4 d-none">
         <p> @isset($web_settings['price_desc']) {{$web_settings['price_desc'] ?? '' }} @endisset</p>
       </div>
       <div class="find-tutor-budget mt-5 mb-4 py-3">

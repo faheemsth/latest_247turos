@@ -70,6 +70,20 @@ class FrontendController extends Controller
     {
         return view('frontend.organization-apply-steps');
     }
+    public function parentApplySteps()
+    {
+        return view('frontend.parent-apply-steps');
+    }
+
+    public function codestudent()
+    {
+        return view('frontend.codestudent');
+    }
+
+    public function codetutor()
+    {
+        return view('frontend.codetutor');
+    }
 
 
    public function CommentsStore(Request $request,$id)

@@ -53,12 +53,12 @@
                         <li><a href="{{url('/')}}" class="text-decoration-none">Home page</a></li>
                         <li><a href="{{url('/student-apply-steps')}}" class="text-decoration-none">How it works</a></li>
                         <li><a href="{{url('/prices')}}" class="text-decoration-none">Pricing</a></li>
-                        <li><a href="{{url('/faq')}}" class="text-decoration-none">About</a></li>
+                        {{-- <li><a href="{{url('/faq')}}" class="text-decoration-none">About</a></li> --}}
                         <!--<li><a href="{{url('/')}}" class="text-decoration-none">Contact</a></li>-->
                         <li><a href="{{url('/tutor-apply-steps')}}" class="text-decoration-none">Becoming a tutor</a></li>
                         <!--<li><a href="{{url('/')}}" class="text-decoration-none">Schools</a></li>-->
                         <li><a href="{{url('/blogs')}}" class="text-decoration-none">Blog</a></li>
-                        <li><a href="{{url('/blogs')}}" class="text-decoration-none">Subject answers</a></li>
+                        {{-- <li><a href="{{url('/blogs')}}" class="text-decoration-none">Subject answers</a></li> --}}
                         <!--<li><a href="{{url('/')}}" class="text-decoration-none">Reviews of tutors</a></li>-->
                     </ul>
                 </div>
@@ -91,9 +91,9 @@
                 <div class="col-md-3 col-12">
                     <h4 class="pb-2 fw-bold">Find a tutor</h4>
                     <ul class="sitelinks">
-                        <li><a href="#!" class="text-decoration-none">View tutors</a></li>
-                        <li><a href="#!" class="text-decoration-none">Send a tutor request</a></li>
-                        <li><a href="#!" class="text-decoration-none">Tutoring around the UK</a></li>
+                        <li><a href="{{ url('/find-tutor') }}" class="text-decoration-none">View tutors</a></li>
+                        <li><a href="{{ url('/find-tutor') }}" class="text-decoration-none">Send a tutor request</a></li>
+                        <li><a href="{{ url('/find-tutor') }}" class="text-decoration-none">Tutoring around the UK</a></li>
                     </ul>
                 </div>
                 <div class="col-md-3 col-12">
@@ -101,13 +101,13 @@
                     <ul class="sitelinks">
                         <li><a href="{{url('/faq')}}" class="text-decoration-none">FAQ's</a></li>
                         <li><a href="{{url('/privacy-policy')}}" class="text-decoration-none">Private Policy</a></li>
-                        <li><a href="{{url('/testimonials')}}" class="text-decoration-none">Terms and Conditions</a></li>
-                        <li><a href="#!" class="text-decoration-none">Press</a></li>
-                        <li><a href="#!" class="text-decoration-none">Online Safety</a></li>
+                        <li><a href="{{url('/terms-and-conditions')}}" class="text-decoration-none">Terms and Conditions</a></li>
+                        {{-- <li><a href="#!" class="text-decoration-none">Press</a></li> --}}
+                        {{-- <li><a href="#!" class="text-decoration-none">Online Safety</a></li> --}}
                         {{-- <li><a href="{{url('/privacy-policy')}}" class="text-decoration-none">Safeguarding Policy</a></li> --}}
                         {{-- <li><a href="#!" class="text-decoration-none">Safeguarding Procedures</a></li> --}}
                         <li><a href="{{url('/videos-guides')}}" class="text-decoration-none">Lesson space Demo</a></li>
-                        <li><a href="#!" class="text-decoration-none">Using a Tablet</a></li>
+                        {{-- <li><a href="#!" class="text-decoration-none">Using a Tablet</a></li> --}}
                     </ul>
                 </div>
             </div>

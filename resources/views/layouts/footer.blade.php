@@ -115,7 +115,7 @@
         </div>
     </div>
     <!-- Middle-Footer -->
-    <div class="container border-top p-md-3 py-3">
+    <div class="container border-top p-md-3 py-3 d-none">
         <div class="row">
             <div class="col col-md-12">
                 <h5>Tutor by subjects</h5>
@@ -204,8 +204,8 @@
             </div>
         @endif
     </div>
-</div>
-</div>
+    </div>
+    </div>
 <!-- last footer section -->
 <div class="container border-top p-md-3 pt-4">
 <div class="row justify-content-beetween">
@@ -217,12 +217,12 @@
                     {{-- <li><a href="">Careers</a></li> --}}
                     <li><a href="{{ url('blogs') }}">Blog</a></li>
                     <li><a href="{{ route('faq') }}">F.A.Q</a></li>
-                    <li><a href="{{ url('/privacy-policy') }}">privacy policy</a></li>
+                    <li><a href="{{ url('/privacy-policy') }}">Privacy Policy</a></li>
                 </ul>
             </div>
             <div class="col-6">
                 <ul>
-                    <li><a href="{{ url('tutor-apply-steps') }}">Become a tutor</a></li>
+                    <li><a href="{{ url('tutor-apply-steps') }}">Register as a tutor</a></li>
                     {{-- <li><a href="">Testimonials & press</a></li> --}}
                     <li><a href="{{ url('/videos-guides') }}">Using the Online Lesson Space</a></li>
                     <li><a href="{{ url('/sitemap') }}">Sitemap</a></li>
@@ -274,8 +274,8 @@
     </div>
     <div class="col-12 col-md-7 col-lg-6 d-flex gap-3 bottom-footer-menu justify-content-center">
         {{-- <h6><a href="">Careers</a></h6> --}}
-        <h6><a href="{{ url('/testimonials') }}">Terms of use</a></h6>
-        <h6><a href="{{ url('/privacy-policy') }}">Privacy policy</a></h6>
+        <h6><a href="{{ url('/terms-and-conditions') }}">Terms of use</a></h6>
+        <h6><a href="{{ url('/privacy-policy') }}">Privacy Policy</a></h6>
     </div>
 </div>
 </div>

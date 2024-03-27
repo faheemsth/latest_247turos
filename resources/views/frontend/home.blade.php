@@ -154,11 +154,11 @@ and (max-width : 430px){
                             <a type="button" href='{{ route('studentApplySteps') }}' class="padd btn px-4 py-2 mb-2"
                                 style="background:linear-gradient(93.86deg, #063B00 9.41%, #000000 98.3%);
                                 ;
-                                font-size: 16px;color: white; border: none;">Become
+                                font-size: 16px;color: white; border: none;">Register as
                                 a Student <i class="fa-solid fa-chevron-right"></i></a>
                                 <a type="button" href='{{ route('tutorApplySteps') }}' class="padd2 btn px-5 py-2 mb-2"
                                 style="border: 1px solid lightgray;
-                          font-size: 16px;font-family:'Outfit', sans-serif;">Become
+                          font-size: 16px;font-family:'Outfit', sans-serif;">Register as
                                 a Tutor
                                 {{-- <span style="color:rgba(29, 161, 242, 1);">It’s Free <i class="fa-solid fa-exclamation"></i>
                                 </span> --}}
@@ -166,16 +166,16 @@ and (max-width : 430px){
                             </a><br>
                             <a type="button" href='{{ route('organizationApplySteps') }}' class="padd1 btn px-4 py-2 mb-2"
                                 style="border: 1px solid lightgray;
-                          font-size: 16px;font-family:'Outfit', sans-serif;">Become
+                          font-size: 16px;font-family:'Outfit', sans-serif;">Register as
                                 a Organisation
                                 {{-- <span style="color:rgba(29, 161, 242, 1);">It’s Free <i class="fa-solid fa-exclamation"></i>
                                 </span> --}}
                                 <i class="fa-solid fa-chevron-right"></i>
                             </a>
                                 <a type="button" href='{{ route('organizationApplySteps') }}' class="padd3 btn px-4 py-2 mb-2"
-                                style="background:linear-gradient(93.86deg, #063B00 9.41%, #000000 98.3%);
-                                ;
-                                font-size: 16px;color: white; border: none;">Become
+                                style="border: 1px solid lightgray;
+                                font-size: 16px;font-family:'Outfit', sans-serif;
+                                font-size: 16px;">Register as
                                 a Parent  <i class="fa-solid fa-chevron-right"></i></a>
 
                             <p class="d-flex align-items-center gap-1">

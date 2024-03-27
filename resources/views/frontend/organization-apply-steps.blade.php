@@ -14,6 +14,11 @@
         @include('layouts.navbar')
     @endif
     <style>
+         .linkbtns{
+        background-color: #ABFF00;
+        color: #0096ff;
+        border-radius: 5px;
+    }
     @media only screen and (max-width:430px){
         .stepcard{
             margin:10px auto;
@@ -50,7 +55,7 @@
             <div
                 style="
               width: 100px;
-              background: #abfe10;
+              background: #0096ff;
               padding: 20px;
               border-radius: 50%;
               height: 90px;
@@ -60,7 +65,7 @@
             </div>
             <div class="card-body">
                 <a href="{{ url('/select-user-type') }}" class="text-decoration-none">
-                <h5 class="card-title p-1 text-dark" style="background-color: #0096ff; border-radius: 5px">
+                <h5 class="card-title p-1 linkbtns">
                     Get Started
                 </h5></a>
                 <p class="card-text">@isset($web_settings['org_one']) {{$web_settings['org_one'] ?? '' }} @endisset</p>
@@ -70,7 +75,7 @@
             <div
                 style="
               width: 100px;
-              background: #abfe10;
+              background: #0096ff;
               padding: 20px;
               border-radius: 50%;
               height: 90px;
@@ -86,11 +91,11 @@
                 </p>
             </div>
         </div> --}}
-        <div class="card border-0 d-flex align-items-center text-center stepcard" style="width: 18rem; margin-top: 6%">
+        <div class="card border-0 d-flex align-items-center text-center stepcard" style="width: 18rem; margin-top: 6.5%">
             <div
                 style="
               width: 100px;
-              background: #abfe10;
+              background: #0096ff;
               padding: 20px;
               border-radius: 50%;
               height: 90px;
@@ -98,7 +103,7 @@
                 <img src="{{ asset('assets/images/icons8-online-class-60 1.png') }}" class="card-img-top" style="width: 50px" />
             </div>
             <div class="card-body">
-                <h5 class="card-title p-1" style="background-color: #0096ff; border-radius: 5px">
+                <h5 class="card-title p-1 linkbtns text-dark" >
                     Take Free Demo
                 </h5>
                 <p class="card-text">
@@ -106,11 +111,11 @@
                 </p>
             </div>
         </div>
-        <div class="card border-0 d-flex align-items-center text-center stepcard" style="width: 18rem; margin-top: 3%">
+        <div class="card border-0 d-flex align-items-center text-center stepcard" style="width: 18rem; margin-top: 4%">
             <div
                 style="
               width: 100px;
-              background: #abfe10;
+              background: #0096ff;
               padding: 20px;
               border-radius: 50%;
               height: 90px;
@@ -118,7 +123,7 @@
                 <img src="{{ asset('assets/images/icons8-tuition-30 1.png') }}" class="card-img-top" style="width: 50px" />
             </div>
             <div class="card-body">
-                <h5 class="card-title p-1" style="background-color: #0096ff; border-radius: 5px">
+                <h5 class="card-title p-1 linkbtns text-dark" >
                     Start Tuition
                 </h5>
                 <p class="card-text">

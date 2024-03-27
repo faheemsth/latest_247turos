@@ -49,7 +49,7 @@ class BotManController extends Controller
         $botman->ask("What's your name?", function (Answer $answer) {
             $name = $answer->getText();
             Session::put('name', $name);
-            $this->say('How i can help you,' . $name . '?');
+            $this->say('How I can assist you,' . $name . '?');
         });
     }
 

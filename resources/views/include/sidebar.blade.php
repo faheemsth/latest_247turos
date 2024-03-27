@@ -327,7 +327,7 @@
             </div> --}}
 
              <div
-                class="nav-item {{ $segment1 == 'tutors' || $segment1 == 'organizations' || $segment1 == 'users' || $segment1 == 'parents' || $segment1 == 'students' || $segment1 == 'user' || $segment1 == 'interview' ? 'active open' : '' }} has-sub">
+                class="nav-item {{ $segment1 == 'tutors' || $segment1 == 'organizations' || $segment1 == 'users' || $segment1 == 'parents' || $segment1 == 'students' || $segment1 == 'user'  ? 'active open' : '' }} has-sub">
                 <a href="#" id="user-dropdown-toggle">
                     <span class="fa-solid fa-users" style="font-size: 14px; padding-right:5px;"></span> {{ ('Users') }}</a>
                 <div class="submenu-content">
@@ -343,10 +343,10 @@
                            <span class="fa-solid fa-user-group " style="color: rgba(80, 80, 80, 0.87);font-size: 13px;padding-right:6px;"></span>
                             {{('Tutors') }}</a>
 
-                        <a href="{{ url('interview') }}"
+                        {{-- <a href="{{ url('interview') }}"
                             class="menu-item {{ $segment1 == 'interview' ? 'active' : '' }} d-flex align-items-center">
                            <span class="fa-solid fa-people-arrows" style="color: rgba(80, 80, 80, 0.87);font-size: 13px; padding-right:7px;"></span>
-                            {{('Interviews') }}</a>
+                            {{('Interviews') }}</a> --}}
                     @endcan
                     <!-- only those have manage_role permission will get access -->
                     @can('manage_roles')

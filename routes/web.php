@@ -120,6 +120,7 @@ Route::get('/find-tutor', [FrontendController::class, 'findTutor'])->name('findT
 Route::get('/student-apply-steps', [FrontendController::class, 'studentApplySteps'])->name('studentApplySteps');
 Route::get('/tutor-apply-steps', [FrontendController::class, 'tutorApplySteps'])->name('tutorApplySteps');
 Route::get('/organization-apply-steps', [FrontendController::class, 'organizationApplySteps'])->name('organizationApplySteps');
+// Route::get('/parent-apply-steps', [FrontendController::class, 'parentApplySteps'])->name('parentApplySteps');
 Route::get('/prices', [FrontendController::class, 'prices'])->name('prices');
 Route::get('/blogs', [FrontendController::class, 'blogs'])->name('blogs');
 Route::get('/single-post/{id}', [FrontendController::class, 'singlepost'])->name('post');
@@ -127,6 +128,10 @@ Route::get('/like/post/{id}', [FrontendController::class, 'likepost'])->name('li
 Route::get('/unlike/post/{id}', [FrontendController::class, 'unlikepost'])->name('unlikepost');
 
 Route::post('/comments/store/{id}', [FrontendController::class, 'CommentsStore'])->name('CommentsStore');
+
+Route::get('/codesofconduct/tutors', [FrontendController::class, 'codetutor'])->name('codetutor');
+Route::get('/codesofconduct/students', [FrontendController::class, 'codestudent'])->name('codestudent');
+
 
 
 Route::get('/faq', [FrontendController::class, 'faq'])->name('faq');
@@ -142,7 +147,7 @@ Route::get('/privacy-policy', function () {
 Route::get('/sitemap', function () {
     return view('frontend.sitemap');
 });
-Route::get('/testimonials', function () {
+Route::get('/terms-and-conditions', function () {
     $TermsAndCondition=App\Models\TermsAndCondition::where('status','terms_condition')->get();
     return view('frontend.testimonials',compact('TermsAndCondition'));
 });

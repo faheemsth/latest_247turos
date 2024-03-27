@@ -99,7 +99,7 @@ function roleget(role) {
 
     } else if (role === '6') {
         message = 'Organisation Log In';
-        message1 = 'I am a Organisation';
+        message1 = 'I am an Organisation';
         msg='Empower your organisation with top-tier tutors';
         id = 6;
 

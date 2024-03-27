@@ -45,9 +45,10 @@
                     <a class="nav-link dropdown-toggle" href="#" id="navbarDropdown" role="button"
                         data-bs-toggle="dropdown" aria-expanded="false">How it Works</a>
                     <ul class="dropdown-menu" aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href='{{ route('studentApplySteps') }}'>Become a Student</a></li>
-                        <li><a class="dropdown-item" href='{{ route('tutorApplySteps') }}'>Become a Tutor</a></li>
-                        <li><a class="dropdown-item" href='{{ route('organizationApplySteps') }}'>Become an Organisation</a>
+                        <li><a class="dropdown-item" href='{{ route('studentApplySteps') }}'>Register as a Student</a></li>
+                        <li><a class="dropdown-item" href='{{ route('tutorApplySteps') }}'>Register as a Tutor</a></li>
+                        {{-- <li><a class="dropdown-item" href='{{ route('parentApplySteps') }}'>Register as a Parent</a></li> --}}
+                           <li><a class="dropdown-item" href='{{ route('organizationApplySteps') }}'>Register as an Organisation</a>
                         </li>
                     </ul>
                 </li>

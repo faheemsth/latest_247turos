@@ -275,7 +275,7 @@
                                 <h4 class="fs-22 fw-semibold ff-secondary mb-2"><span class="counter-value"
                                         data-target="">£0.00</span>
                                 </h4>
-                                <a href="" class="text-decoration-underline text-muted">View Net
+                                <a href="" class="text-decoration-underline text-muted">View
                                     Earnings</a>
                             </div>
                             <div class="avatar-sm flex-shrink-0">
@@ -713,7 +713,7 @@
                                                         {{ $recent->first_name . '  ' . $recent->last_name }}</div>
                                                 </div>
                                             </td>
-                                            <td style="text-align: center;">
+                                            <td >
 
                                                 @if ($recent->role_id == '4')
                                                     Student

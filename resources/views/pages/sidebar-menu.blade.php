@@ -9,6 +9,11 @@
     }
 </style>
 {{-- coupons --}}
+<div class="nav-item {{ $segment1 == 'interview' ? 'active' : '' }}">
+    <a href="{{ url('interview') }}">
+        <span class="fa-solid fa-people-arrows" style="color: rgb(50 50 50 / 94%);font-size: 13px; padding-right:7px;"></span>
+        {{('Interviews') }}</a>
+</div>
 
 <div class="nav-item {{ $segment1 == 'AdminBookings' ? 'active' : '' }}">
     <a href="{{ url('AdminBookings') }}">
@@ -90,27 +95,27 @@
     <div class="submenu-content" id="setting-dropdown-content">
         <!-- Only those with manage_user permission will get access -->
         <a href="{{ route('website') }}" class="d-flex align-items-center menu-item {{ $segment2 == 'pages' ? 'active' : '' }}">
-            <span class="fa-solid fa-pager"  style="color: rgb(50 50 50 / 94%);font-size: 15px; padding-left:1px; padding-right:8px;"></span>
+            <span class="fa-solid fa-pager"  style="color: rgba(80, 80, 80, 0.87);font-size: 15px; padding-left:1px; padding-right:8px;"></span>
             Website</a>
         <a href="{{ route('bloglist') }}" class=" d-flex align-items-center menu-item {{ $segment2 == 'blog' ? 'active' : '' }}">
-            <span class="fa-solid fa-newspaper" style="color: rgb(50 50 50 / 94%);font-size: 15px ; padding-left:1px;padding-right:8px;"></span>
+            <span class="fa-solid fa-newspaper" style="color: rgba(80, 80, 80, 0.87);font-size: 15px ; padding-left:1px;padding-right:8px;"></span>
             Blogs</a>
             <a href="{{ route('newsletter.list') }}" class="menu-item {{ $segment1 == 'newsletter' ? 'active' : '' }}">
 
-                <span class="fa-solid fa-envelopes-bulk" style="color: rgb(50 50 50 / 94%);font-size: 14px;padding-right:6px;"></span>Newsletters</a>
+                <span class="fa-solid fa-envelopes-bulk" style="color: rgba(80, 80, 80, 0.87);font-size: 14px;padding-right:6px;"></span>Newsletters</a>
                 <a href="{{ route('commentlist') }}" class=" d-flex align-items-center menu-item {{ $segment2 == 'blog-comments' ? 'active' : '' }}">
-            <span class="fa-solid fa-comments"  style="color: rgb(50 50 50 / 94%);font-size: 14px ;padding-right:6px;"></span>
+            <span class="fa-solid fa-comments"  style="color: rgba(80, 80, 80, 0.87);font-size: 14px ;padding-right:6px;"></span>
             Comments</a>
 
 
             <a href="{{ url('admin/terms_condition') }}" class=" d-flex align-items-center menu-item {{ $segment2 == 'terms_condition' ? 'active' : '' }}">
-            <span class="fa-solid fa-file-shield"  style="color: rgb(50 50 50 / 94%);font-size: 15px ;padding-left:2px;padding-right:6px;"></span>
+            <span class="fa-solid fa-file-shield"  style="color: rgba(80, 80, 80, 0.87);font-size: 15px ;padding-left:2px;padding-right:6px;"></span>
             Terms Conditions</a>
 
 
             <a href="{{ url('admin/privacy_policy') }}" class=" d-flex align-items-center menu-item {{ $segment2 == 'privacy_policy' ? 'active' : '' }}">
-            <span class="fa-solid fa-file-invoice"  style="color: rgb(50 50 50 / 94%);font-size: 16px ;padding-left:2px;padding-right:12px;"></span>
-            Privacy policy</a>
+            <span class="fa-solid fa-file-invoice"  style="color: rgba(80, 80, 80, 0.87);font-size: 16px ;padding-left:2px;padding-right:12px;"></span>
+            Privacy Policy</a>
 
         {{-- <a href="{{ route('documentTypes') }}" class="menu-item {{ $segment2 == 'document_types' ? 'active' : '' }}">Document Types</a> --}}
     </div>
