@@ -622,6 +622,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('/student_profile/{id}', [StudentController::class, 'student_profile_get']);
         Route::get('parent/home', [StudentController::class, 'Parenthome']);
         Route::get('student/home', [StudentController::class, 'Studenthome']);
+        Route::get('is_verified_account', [StudentController::class, 'is_verified_account']);
         Route::get('organization/students', [ParentController::class, 'org_students']);
 
         Route::get('/organization/payments', [ParentController::class, 'org_payments']);

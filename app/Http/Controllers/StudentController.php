@@ -450,4 +450,11 @@ class StudentController extends Controller
         return view('include.singlechat');
     }
 
+    public  function is_verified_account(){
+        $user = Auth::user();
+        $user->is_verified_account = '1';
+        $user->save();
+        return response()->json(['message' => 'Account verification status updated successfully']);
+    }
+
 }

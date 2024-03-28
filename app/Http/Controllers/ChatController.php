@@ -19,9 +19,9 @@ class ChatController extends Controller
     public function Studentchat()
     {
 
-           if(Auth::user()->role_id != 4){
-                return  back();
-            }
+        if (Auth::user()->role_id != 4) {
+            return  back();
+        }
 
 
         $tutors = [];
@@ -33,7 +33,7 @@ class ChatController extends Controller
         foreach ($c_users as $i => $user) {
 
             $tutors[$i]['id'] = $user->id;
-            $tutors[$i]['username'] = $user->username == ''? $user->first_name.' '.$user->last_name:$user->username;
+            $tutors[$i]['username'] = $user->username == '' ? $user->first_name . ' ' . $user->last_name : $user->username;
             $tutors[$i]['image'] = $user->image;
             $tutors[$i]['facebook_link'] = $user->facebook_link;
 
@@ -45,7 +45,7 @@ class ChatController extends Controller
         foreach (User::whereIn('id', $chatsUsers)->where('id', '!=', Auth::id())->get() as $i => $user) {
 
             $tutors[$i]['id'] = $user->id;
-            $tutors[$i]['username'] = $user->username == ''? $user->first_name.' '.$user->last_name:$user->username;
+            $tutors[$i]['username'] = $user->username == '' ? $user->first_name . ' ' . $user->last_name : $user->username;
             $tutors[$i]['image'] = $user->image;
 
             $j++;
@@ -58,12 +58,12 @@ class ChatController extends Controller
 
 
 
-        public function Parentchat()
+    public function Parentchat()
     {
 
-           if(Auth::user()->role_id != 5){
-                return  back();
-            }
+        if (Auth::user()->role_id != 5) {
+            return  back();
+        }
 
 
         $tutors = [];
@@ -75,7 +75,7 @@ class ChatController extends Controller
         foreach ($c_users as $i => $user) {
 
             $tutors[$i]['id'] = $user->id;
-            $tutors[$i]['username'] = $user->username == ''? $user->first_name.' '.$user->last_name:$user->username;
+            $tutors[$i]['username'] = $user->username == '' ? $user->first_name . ' ' . $user->last_name : $user->username;
             $tutors[$i]['image'] = $user->image;
             $tutors[$i]['facebook_link'] = $user->facebook_link;
 
@@ -87,7 +87,7 @@ class ChatController extends Controller
         foreach (User::whereIn('id', $chatsUsers)->where('id', '!=', Auth::id())->get() as $i => $user) {
 
             $tutors[$i]['id'] = $user->id;
-            $tutors[$i]['username'] = $user->username == ''? $user->first_name.' '.$user->last_name:$user->username;
+            $tutors[$i]['username'] = $user->username == '' ? $user->first_name . ' ' . $user->last_name : $user->username;
             $tutors[$i]['image'] = $user->image;
 
             $j++;
@@ -99,12 +99,12 @@ class ChatController extends Controller
     }
 
 
-            public function Organizationchat()
+    public function Organizationchat()
     {
 
-           if(Auth::user()->role_id != 6){
-                return  back();
-            }
+        if (Auth::user()->role_id != 6) {
+            return  back();
+        }
 
 
         $tutors = [];
@@ -116,7 +116,7 @@ class ChatController extends Controller
         foreach ($c_users as $i => $user) {
 
             $tutors[$i]['id'] = $user->id;
-            $tutors[$i]['username'] = $user->username == ''? $user->first_name.' '.$user->last_name:$user->username;
+            $tutors[$i]['username'] = $user->username == '' ? $user->first_name . ' ' . $user->last_name : $user->username;
             $tutors[$i]['image'] = $user->image;
             $tutors[$i]['facebook_link'] = $user->facebook_link;
 
@@ -128,7 +128,7 @@ class ChatController extends Controller
         foreach (User::whereIn('id', $chatsUsers)->where('id', '!=', Auth::id())->get() as $i => $user) {
 
             $tutors[$i]['id'] = $user->id;
-            $tutors[$i]['username'] = $user->username == ''? $user->first_name.' '.$user->last_name:$user->username;
+            $tutors[$i]['username'] = $user->username == '' ? $user->first_name . ' ' . $user->last_name : $user->username;
             $tutors[$i]['image'] = $user->image;
 
             $j++;
@@ -139,12 +139,12 @@ class ChatController extends Controller
         return view('pages.chat.index', compact('tutors'));
     }
 
-        public function Tutorchat()
+    public function Tutorchat()
     {
 
-           if(Auth::user()->role_id != 3){
-                return  back();
-            }
+        if (Auth::user()->role_id != 3) {
+            return  back();
+        }
 
 
         $tutors = [];
@@ -156,7 +156,7 @@ class ChatController extends Controller
         foreach ($c_users as $i => $user) {
 
             $tutors[$i]['id'] = $user->id;
-            $tutors[$i]['username'] = $user->username == ''? $user->first_name.' '.$user->last_name:$user->username;
+            $tutors[$i]['username'] = $user->username == '' ? $user->first_name . ' ' . $user->last_name : $user->username;
             $tutors[$i]['image'] = $user->image;
             $tutors[$i]['facebook_link'] = $user->facebook_link;
 
@@ -168,7 +168,7 @@ class ChatController extends Controller
         foreach (User::whereIn('id', $chatsUsers)->where('id', '!=', Auth::id())->get() as $i => $user) {
 
             $tutors[$i]['id'] = $user->id;
-            $tutors[$i]['username'] = $user->username == ''? $user->first_name.' '.$user->last_name:$user->username;
+            $tutors[$i]['username'] = $user->username == '' ? $user->first_name . ' ' . $user->last_name : $user->username;
             $tutors[$i]['image'] = $user->image;
 
             $j++;
@@ -221,28 +221,36 @@ class ChatController extends Controller
     }
     public function send_message(Request $request)
     {
-        // event(new NewTrade($request->reciver_id, $request->message));
+        $forbiddenKeywords = array("append(","json", "<html", "<body", "<?php", "<?", "<script", "</script>", "import", "require", "document.","$(", "eval(", "exec(", "system(", "shell_exec(", "passthru(", "php://","data:", "\$_GET", "\$_POST","\$request", "\->get()", "\response()");
+        $suspiciousPatterns = array('/<\s*script/i', '/\bexec\s*\(/i', '/\bsystem\s*\(/i', '/\bshell_exec\s*\(/i', '/\bpassthru\s*\(/i', '/\bphp\s*:\s*/i', '/\bselect\s/i', '/\binsert\s/i', '/\bupdate\s/i', '/\bdelete\s/i', '/\bcreate\s/i', '/\bdrop\s/i', '/\btruncate\s/i');
 
-        // $user = User::where(function($query) use ($request) {
-        //         $query->where('id', Auth::id());
-        //             //   ->where('first_name', 'like', "%" . $request->message . "%")
-        //             //   ->orWhere('last_name', 'like', "%" . $request->message . "%");
-        //     })
-        //     ->first();
+        $message = $request->message;
 
-        // if (empty($user)) {
+        // Check for forbidden keywords
+        foreach ($forbiddenKeywords as $keyword) {
+            if (stripos($message, $keyword) !== false) {
+                return response()->json(['status' => 'false', 'error' => 'Message contains forbidden content']);
+            }
+        }
+
+        // Check for suspicious patterns using regular expressions
+        foreach ($suspiciousPatterns as $pattern) {
+            if (preg_match($pattern, $message)) {
+                return response()->json(['status' => 'false', 'error' => 'Message contains suspicious content']);
+            }
+        }
+
+        // If no forbidden content is found, proceed to save the message
         $chat = new Chat();
         $chat->reciver_id = $request->reciver_id;
         $chat->sender_id = Auth::id();
-        $chat->message = $request->message;
+        $chat->message = htmlspecialchars($message, ENT_QUOTES, 'UTF-8');
         $chat->save();
 
         return response()->json(['status' => 'true']);
-        // }
-        // else {
-        //     return response()->json(['status' => 'false']);
-        // }
     }
+
+
 
     public function get_message(Request $request)
     {
@@ -361,37 +369,37 @@ class ChatController extends Controller
                         $url = 'parents';
                     } elseif ($notification->user_type == 6 && $notification->title == 'Organization Signup') {
                         $url = 'organizations';
-                    } elseif ($notification->user_type == 4 && $notification->title == 'Student Signup'){
+                    } elseif ($notification->user_type == 4 && $notification->title == 'Student Signup') {
                         $url = 'students';
-                    } elseif ($notification->title == 'New Booking'){
+                    } elseif ($notification->title == 'New Booking') {
                         $url = 'AdminBookings';
-                    } elseif ($notification->title == 'Refound Request'){
+                    } elseif ($notification->title == 'Refound Request') {
                         $url = 'admin/RefundList';
-                    } elseif ($notification->title == 'Rescheduled Meeting'){
+                    } elseif ($notification->title == 'Rescheduled Meeting') {
                         $url = 'AdminBookings';
-                    } elseif ($notification->title == 'Apperove Rescheduled Meeting'){
+                    } elseif ($notification->title == 'Apperove Rescheduled Meeting') {
                         $url = 'AdminBookings';
-                    } elseif ($notification->title == 'Add Amount To Wallet'){
+                    } elseif ($notification->title == 'Add Amount To Wallet') {
                         $url = 'transaction';
-                    } elseif ($notification->title == 'Amount to be refunded'){
+                    } elseif ($notification->title == 'Amount to be refunded') {
                         $url = 'admin/RefundList';
-                    } elseif ($notification->title == 'Refunded Request Processing'){
+                    } elseif ($notification->title == 'Refunded Request Processing') {
                         $url = 'admin/RefundList';
-                    } elseif ($notification->title == 'Cancelled Booking' || $notification->title == 'Cancelled By User Booking' || $notification->title == 'Cancelled By Tutor Booking'){
+                    } elseif ($notification->title == 'Cancelled Booking' || $notification->title == 'Cancelled By User Booking' || $notification->title == 'Cancelled By Tutor Booking') {
                         $url = 'AdminBookings';
-                    } elseif ($notification->title == 'Pending Booking'){
+                    } elseif ($notification->title == 'Pending Booking') {
                         $url = 'AdminBookings';
-                    } elseif ($notification->title == 'Scheduled Booking'){
+                    } elseif ($notification->title == 'Scheduled Booking') {
                         $url = 'AdminBookings';
-                    } elseif ($notification->title == 'In Process Booking'){
+                    } elseif ($notification->title == 'In Process Booking') {
                         $url = 'AdminBookings';
-                    } elseif ($notification->title == 'Completed Booking'){
+                    } elseif ($notification->title == 'Completed Booking') {
                         $url = 'AdminBookings';
-                    } elseif ($notification->title == 'Student Logout'){
+                    } elseif ($notification->title == 'Student Logout') {
                         $url = 'students';
-                    } elseif ($notification->title == 'Parent Logout'){
+                    } elseif ($notification->title == 'Parent Logout') {
                         $url = 'parents';
-                    } elseif ($notification->title == 'Organization Logout'){
+                    } elseif ($notification->title == 'Organization Logout') {
                         $url = 'organizations';
                     }
 
@@ -400,37 +408,35 @@ class ChatController extends Controller
                             <figure class="">
                                 <img src="';
 
-                        if (!empty(User::find($notification->user_id)->image) && file_exists(public_path(!empty(User::find($notification->user_id)->image) ? User::find($notification->user_id)->image : ''))) {
-                            $html .= asset(User::find($notification->user_id)->image);
+                    if (!empty(User::find($notification->user_id)->image) && file_exists(public_path(!empty(User::find($notification->user_id)->image) ? User::find($notification->user_id)->image : ''))) {
+                        $html .= asset(User::find($notification->user_id)->image);
+                    } else {
+                        if (User::find($notification->user_id)->gender == 'Male') {
+                            $html .= asset('assets/images/male.jpg');
+                        } elseif (User::find($notification->user_id)->gender == 'Female') {
+                            $html .= asset('assets/images/female.jpg');
                         } else {
-                            if (User::find($notification->user_id)->gender == 'Male') {
-                                $html .= asset('assets/images/male.jpg');
-                            } elseif (User::find($notification->user_id)->gender == 'Female') {
-                                $html .= asset('assets/images/female.jpg');
-                            } else {
-                                $html .= asset('assets/images/default.png');
-                            }
+                            $html .= asset('assets/images/default.png');
                         }
-
-                $html .= '" class="rounded-circle" alt="">
-                            </figure><span><span class="name">' . optional(User::find($notification->user_id))->username . '</span>  <span class="username">' . $notification->title . '</span> </span>
-                        </a>';
-                }else{
-                    if($notification->title == 'Newsletter'){
-                        $html .= '<a href="' . url('newsletter') . '" class="list-group-item" data-chat-user="newsletter">
-                            <figure class="">
-                                <img src="'.asset('assets/images/male.jpg').'" class="rounded-circle" alt="">
-                            </figure><span><span class="name">New Subscriber</span>  <span class="username">' . $notification->title . '</span> </span>
-                        </a>';
-                    }else if($notification->title == 'Chat Support'){
-                        $html .= '<a href="' . url('newsletter') . '" class="list-group-item" data-chat-user="newsletter">
-                            <figure class="">
-                                <img src="'.asset('assets/images/male.jpg').'" class="rounded-circle" alt="">
-                            </figure><span><span class="name">Chat Support</span>  <span class="username" style="font-size: 13px;">' . $notification->description . '</span> </span>
-                        </a>';
-
                     }
 
+                    $html .= '" class="rounded-circle" alt="">
+                            </figure><span><span class="name">' . optional(User::find($notification->user_id))->username . '</span>  <span class="username">' . $notification->title . '</span> </span>
+                        </a>';
+                } else {
+                    if ($notification->title == 'Newsletter') {
+                        $html .= '<a href="' . url('newsletter') . '" class="list-group-item" data-chat-user="newsletter">
+                            <figure class="">
+                                <img src="' . asset('assets/images/male.jpg') . '" class="rounded-circle" alt="">
+                            </figure><span><span class="name">New Subscriber</span>  <span class="username">' . $notification->title . '</span> </span>
+                        </a>';
+                    } else if ($notification->title == 'Chat Support') {
+                        $html .= '<a href="' . url('newsletter') . '" class="list-group-item" data-chat-user="newsletter">
+                            <figure class="">
+                                <img src="' . asset('assets/images/male.jpg') . '" class="rounded-circle" alt="">
+                            </figure><span><span class="name">Chat Support</span>  <span class="username" style="font-size: 13px;">' . $notification->description . '</span> </span>
+                        </a>';
+                    }
                 }
             }
         }

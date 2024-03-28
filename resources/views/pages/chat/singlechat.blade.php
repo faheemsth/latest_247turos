@@ -191,7 +191,7 @@
                         if (response.status === 'true') {
                             // location.reload();
                         } else {
-                            showError('Error: Something went wrong.');
+                            showError('Error:'+response.error);
                         }
                     },
                     error: function(jqXHR, textStatus, errorThrown) {

@@ -269,4 +269,64 @@ and (max-width : 425px){
         });
     }, 1000);
     </script>
+        @if (Auth::check() && Auth::user()->is_verified_account == '0')
+        <div class="modal fade" id="myModal" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header">
+                        <h5 class="modal-title" id="exampleModalLabel">Welcome 247Tutor!</h5>
+                        <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"
+                            onclick="IsVerifiedAccount()"></button>
+                    </div>
+                    <div class="modal-body">
+                        <i class="fas fa-check-circle fa-5x mb-3" style="color: rgba(171, 255, 0, 1);"></i>
+                        <!-- Big tick FontAwesome icon -->
+                        <p class="mb-0">Your email has been successfully verified!</p>
+                        <p class="mb-0">You are now ready to access all features and services.</p>
+                    </div>
+                </div>
+            </div>
+        </div>
+        <style>
+            .modal-content {
+                border-radius: 10px;
+                box-shadow: 0 8px 16px rgba(0, 0, 0, 0.2);
+            }
+
+            .modal-header {
+                border-bottom: none;
+                padding: 20px;
+            }
+
+            .modal-title {
+                font-weight: bold;
+                color: #333;
+            }
+
+            .modal-body {
+                padding: 20px;
+                text-align: center;
+            }
+
+            .btn-close {
+                color: #333;
+            }
+        </style>
+        <script>
+            $(window).on('load', function() {
+                $('#myModal').modal('show');
+            });
+        </script>
+        <script>
+            function IsVerifiedAccount() {
+                $.ajax({
+                    url: "{{ url('is_verified_account') }}",
+                    type: 'GET',
+                    success: function(response) {
+
+                    },
+                });
+            }
+        </script>
+    @endif
 @endsection
