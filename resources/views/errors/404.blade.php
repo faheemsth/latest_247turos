@@ -26,10 +26,8 @@
     <div class="container py-5">
         <div class="row  justify-content-center text-center py-5">
             <div class="col-md-6 py-5">
-                <h1>Error</h1>
-                <p>An error occurred:</p>
                 <p class="fw-bolder" style="font-size:3rem;">{{ $exception }}</p>
-                <a href="{{ url('/') }}">Go to Home Page</a>
+                <a href="{{ url('/') }}"  class="btn btn-default" style="background-color: rgba(171, 255, 0, 1)">Go to Home Page</a>
             </div>
         </div>
     </div>

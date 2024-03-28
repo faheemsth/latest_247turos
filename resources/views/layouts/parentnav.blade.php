@@ -78,21 +78,41 @@ $groups = App\Models\Group::All();
         </div>
         <div class="collapse navbar-collapse" id="navbarSupportedContent">
             <ul class="navbar-nav m-auto mb-2 mb-lg-0 fw-bold">
+                @if(\Auth::user()->role_id != 6)
                 <li class="nav-item active">
                     <a class="nav-link active" aria-current="page" href="{{ url('parent/home') }}">Home</a>
                 </li>
+                @else
+                <li class="nav-item active">
+                    <a class="nav-link active" aria-current="page" href="{{ url('organization/home') }}">Home</a>
+                </li>
+                @endif
                 @if(\Auth::user()->role_id != 6)
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('find-tutor') }}">Find a Tutor</a>
                 </li>
                 @endif
+
+                @if(\Auth::user()->role_id != 6)
                 <li class="nav-item">
                     <a class="nav-link" href="{{ url('/parent/payments') }}">Balance Overview</a>
                 </li>
+                @else
+                <li class="nav-item">
+                    <a class="nav-link" href="{{ url('/organization/payments') }}">Balance Overview</a>
+                </li>
+                @endif
+                @if(\Auth::user()->role_id != 6)
                 <li class="nav-item">
                     <a class="nav-link {{ request()->routeIs('findTutor') ? 'active' : '' }}"
                         href="{{ url('parent/messages') }}">Messages <span id="msgcount" class="messgcount" style="display: none"></a>
                 </li>
+                @else
+                <li class="nav-item">
+                    <a class="nav-link {{ request()->routeIs('findTutor') ? 'active' : '' }}"
+                        href="{{ url('organization/messages') }}">Messages <span id="msgcount" class="messgcount" style="display: none"></a>
+                </li>
+                @endif
                 {{-- <div class="dropdown  d-none d-lg-flex ">
                     <a class="nav-link dropdown dropdown-second" href="#" tabindex="-1" id="dropdownMenuLink"
                         data-bs-toggle="dropdown" aria-expanded="false" aria-disabled="true">Messages
