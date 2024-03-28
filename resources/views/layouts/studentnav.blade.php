@@ -24,6 +24,12 @@ $groups = App\Models\Group::All();
         font-size: 13px;
         padding-top: 0px;
     }
+    
+    .navbar-nav .nav-item .nav-link:active {
+        color: blue !important; /* Background color of the clicked button */
+}
+
+    
      @media screen and (max-width: 425px){
     .name-logo {
         display:none !important;
@@ -65,7 +71,7 @@ $groups = App\Models\Group::All();
         <div class="collapse navbar-collapse align-items-center" id="navbarSupportedContent">
             <ul class="navbar-nav m-auto mb-2 mb-lg-0 fw-bold">
                 <li class="nav-item active">
-                    <a class="nav-link {{ request()->routeIs('findTutor') ? 'active' : '' }}" aria-current="page"
+                    <a class="nav-link {{ request()->routeIs('studenthome') ? 'active' : '' }}" aria-current="page"
                         href="{{ url('student/home') }}">Home</a>
                 </li>
                 <li class="nav-item">
@@ -81,7 +87,7 @@ $groups = App\Models\Group::All();
                 @endif
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('findTutor') ? 'active' : '' }}"
+                    <a class="nav-link {{ request()->routeIs('studentchat') ? 'active' : '' }}"
                         href="{{ url('students/messages') }}">Messages <span id="msgcount" class="messgcount" style="display: none"></a>
                 </li>
 
@@ -97,7 +103,7 @@ $groups = App\Models\Group::All();
                 </ul>
 
                 <li class="nav-item">
-                    <a class="nav-link {{ request()->routeIs('findTutor') ? 'active' : '' }}"
+                    <a class="nav-link {{ request()->routeIs('bookings') ? 'active' : '' }}"
                         href="{{ url('bookings') }}" tabindex="-1" aria-disabled="true">Bookings
                        <span id="msgcount" class="countBooking" style="display: none"></span>
                     </a>
