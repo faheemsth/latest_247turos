@@ -62,8 +62,8 @@
                                 @forelse($Parents as $Parent)
                                     <tr>
                                         <td>{{ $loop->index + 1 }}</td>
-                                        <td>{{ $Parent->first_name }}</td>
-                                        {{-- <td>{{ $Parent->last_name }}</td> --}}
+                                        <td><a href="{{ url('ParentProfile/').'/'.$Parent->id}}">{{ !empty($Parent->username) ? $Parent->username : $Parent->first_name .'  '.$Parent->last_name }}</a></td>
+
                                         <td>{{ $Parent->email }}</td>
                                         <td>
                                             @if(empty($Parent->email_verified_at))

@@ -11,6 +11,7 @@ use App\Models\TutorQualification;
 use App\Models\TutorSubjectOffer;
 use App\Models\User;
 use App\Models\Availability;
+use App\Models\Complaint;
 use App\Models\Notification;
 use DataTables;
 use Illuminate\Http\RedirectResponse;
@@ -176,6 +177,19 @@ class UserController extends Controller
     }
 
 
+    public function ParentProfile($id)
+    {
+        if (Auth::user()->role_id != 1) { return redirect('dashboard'); }
+        $complaintUser=Complaint::where('booking_id',$id)->get();
+        $tutor = User::find($id);
+        if(empty($tutor)){
+            return back()->with('failed', 'Tutor Not Found');
+        }
+        return view('super-admin.Pages.organization.Tutorprofile', get_defined_vars());
+    }
+
+
+
 
 
 
@@ -329,15 +343,18 @@ class UserController extends Controller
 
         createNotification($edituser->role_id,$id,'Verify Application',$edituser->username.' Has Verify His Application');
 
-        $findApplication = TutorApplication::where('tutor_id', $id)->first();
-        if(!empty($findApplication)){
-          if (($findApplication->user_id_status == 'pending' || $findApplication->user_id_status == 'rejected')
-            || ($findApplication->address_proof_status == 'pending' || $findApplication->address_proof_status == 'rejected') || ($findApplication->selfie_status == 'pending' || $findApplication->selfie_status == 'rejected') || ($findApplication->enhaced_dbs_status == 'pending' || $findApplication->enhaced_dbs_status == 'rejected')
-          ) {
-            return back()->with('failed', 'Please first Approved Document !');
-          }
-        }else{
-            return back()->with('failed', 'Tutor not have Any Document !');
+        if($edituser->role_id != '6')
+        {
+            $findApplication = TutorApplication::where('tutor_id', $id)->first();
+            if(!empty($findApplication)){
+              if (($findApplication->user_id_status == 'pending' || $findApplication->user_id_status == 'rejected')
+                || ($findApplication->address_proof_status == 'pending' || $findApplication->address_proof_status == 'rejected') || ($findApplication->selfie_status == 'pending' || $findApplication->selfie_status == 'rejected') || ($findApplication->enhaced_dbs_status == 'pending' || $findApplication->enhaced_dbs_status == 'rejected')
+              ) {
+                return back()->with('failed', 'Please first Approved Document !');
+              }
+            }else{
+                return back()->with('failed', 'Tutor not have Any Document !');
+            }
         }
 
 

@@ -495,27 +495,76 @@ class ComplaintController extends Controller
 
 
 
-                $data = [
-                    'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
-                    'student' => $student->first_name . ' ' . $student->last_name,
-                ];
+                    $data = [
+                        'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
+                        'student' => $student->first_name . ' ' . $student->last_name,
+                    ];
 
-                // student
-                $view = view('pages.mails.ComplaintProcessingStudent', $data)->render();
-                $mail = new PHPMailer(true);
-                $mail->CharSet = 'UTF-8';
-                $mail->setFrom('support@247tutors.com', '247 Tutors');
-                $mail->isHTML(true);
-                $mail->Subject = "Complaint Request Processing";
-                $mail->Body = $view;
-                $mail->AddEmbeddedImage($imagePath, 'logo');
-                $mail->AltBody = '';
-                $mail->addAddress($student->email, $student->first_name . ' ' . $student->last_name);
-                $mail->isHTML(true);
-                $mail->msgHTML($view);
-                $mail->send();
+                    // student
+                    $view = view('pages.mails.ComplaintProcessingStudent', $data)->render();
+                    $mail = new PHPMailer(true);
+                    $mail->CharSet = 'UTF-8';
+                    $mail->setFrom('support@247tutors.com', '247 Tutors');
+                    $mail->isHTML(true);
+                    $mail->Subject = "Complaint Request Processing";
+                    $mail->Body = $view;
+                    $mail->AddEmbeddedImage($imagePath, 'logo');
+                    $mail->AltBody = '';
+                    $mail->addAddress($student->email, $student->first_name . ' ' . $student->last_name);
+                    $mail->isHTML(true);
+                    $mail->msgHTML($view);
+                    $mail->send();
+                if($complaint->type == 'organization'){
+
+                    $organization = User::find($complaint->booking_id);
+                    $data = [
+                        'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
+                        'student' => $student->first_name . ' ' . $student->last_name,
+                        'tutor' => $organization->first_name . ' ' . $organization->last_name,
+                    ];
+                    // organization
+                    $view = view('pages.mails.ComplaintProcessingOrg', $data)->render();
+                    $mail = new PHPMailer(true);
+                    $mail->CharSet = 'UTF-8';
+                    $mail->setFrom('support@247tutors.com', '247 Tutors');
+                    $mail->isHTML(true);
+                    $mail->Subject = "Complaint Request Processing";
+                    $mail->Body = $view;
+                    $mail->AddEmbeddedImage($imagePath, 'logo');
+                    $mail->AltBody = '';
+                    $mail->addAddress($organization->email, $organization->first_name . ' ' . $organization->last_name);
+                    $mail->isHTML(true);
+                    $mail->msgHTML($view);
+                    $mail->send();
+
+                }else if($complaint->type == 'website' || $complaint->type == 'admin'){
+
+
+                    $admin = User::where('role_id',1)->first();
+                    $data = [
+                        'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
+                        'student' => $student->first_name . ' ' . $student->last_name,
+                        'tutor' => $admin->first_name . ' ' . $admin->last_name,
+                    ];
+                    // website/admin
+                    $view = view('pages.mails.ComplaintProcessingAdmin', $data)->render();
+                    $mail = new PHPMailer(true);
+                    $mail->CharSet = 'UTF-8';
+                    $mail->setFrom('support@247tutors.com', '247 Tutors');
+                    $mail->isHTML(true);
+                    $mail->Subject = "Complaint Request Processing";
+                    $mail->Body = $view;
+                    $mail->AddEmbeddedImage($imagePath, 'logo');
+                    $mail->AltBody = '';
+                    $mail->addAddress($admin->email, $admin->first_name . ' ' . $admin->last_name);
+                    $mail->isHTML(true);
+                    $mail->msgHTML($view);
+                    $mail->send();
+
+
+                }
             }
-        } else {
+        } else if($request->status == 'Completed') {
 
 
             $Booking = Booking::where('uuid', $complaint->booking_id)->first();
@@ -558,25 +607,76 @@ class ComplaintController extends Controller
                 $mail->send();
             } else {
 
-                $data = [
-                    'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
-                    'student' => $student->first_name . ' ' . $student->last_name,
-                ];
+                    $data = [
+                        'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
+                        'student' => $student->first_name . ' ' . $student->last_name,
+                    ];
 
-                // student
-                $view = view('pages.mails.ComplaintProcessingStudent', $data)->render();
-                $mail = new PHPMailer(true);
-                $mail->CharSet = 'UTF-8';
-                $mail->setFrom('support@247tutors.com', '247 Tutors');
-                $mail->isHTML(true);
-                $mail->Subject = "Complaint Request Processing";
-                $mail->Body = $view;
-                $mail->AddEmbeddedImage($imagePath, 'logo');
-                $mail->AltBody = '';
-                $mail->addAddress($student->email, $student->first_name . ' ' . $student->last_name);
-                $mail->isHTML(true);
-                $mail->msgHTML($view);
-                $mail->send();
+                    // student
+                    $view = view('pages.mails.ComplaintCompleteStudent', $data)->render();
+                    $mail = new PHPMailer(true);
+                    $mail->CharSet = 'UTF-8';
+                    $mail->setFrom('support@247tutors.com', '247 Tutors');
+                    $mail->isHTML(true);
+                    $mail->Subject = "Complaint Request Completed";
+                    $mail->Body = $view;
+                    $mail->AddEmbeddedImage($imagePath, 'logo');
+                    $mail->AltBody = '';
+                    $mail->addAddress($student->email, $student->first_name . ' ' . $student->last_name);
+                    $mail->isHTML(true);
+                    $mail->msgHTML($view);
+                    $mail->send();
+                    if($complaint->type == 'organization'){
+
+                    $organization = User::find($complaint->booking_id);
+                    $data = [
+                        'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
+                        'student' => $student->first_name . ' ' . $student->last_name,
+                        'tutor' => $organization->first_name . ' ' . $organization->last_name,
+                    ];
+                    // organization
+                    $view = view('pages.mails.ComplaintCompleteOrg', $data)->render();
+                    $mail = new PHPMailer(true);
+                    $mail->CharSet = 'UTF-8';
+                    $mail->setFrom('support@247tutors.com', '247 Tutors');
+                    $mail->isHTML(true);
+                    $mail->Subject = "Complaint Request Completed";
+                    $mail->Body = $view;
+                    $mail->AddEmbeddedImage($imagePath, 'logo');
+                    $mail->AltBody = '';
+                    $mail->addAddress($organization->email, $organization->first_name . ' ' . $organization->last_name);
+                    $mail->isHTML(true);
+                    $mail->msgHTML($view);
+                    $mail->send();
+
+                }else if($complaint->type == 'website' || $complaint->type == 'admin'){
+
+
+                    $admin = User::where('role_id',1)->first();
+                    $data = [
+                        'tutorMessage' => 'Your Complaint Has Successfully Has ' . $request->status,
+                        'student' => $student->first_name . ' ' . $student->last_name,
+                        'tutor' => $admin->first_name . ' ' . $admin->last_name,
+                    ];
+                    // website/admin
+                    $view = view('pages.mails.ComplaintCompleteAdmin', $data)->render();
+                    $mail = new PHPMailer(true);
+                    $mail->CharSet = 'UTF-8';
+                    $mail->setFrom('support@247tutors.com', '247 Tutors');
+                    $mail->isHTML(true);
+                    $mail->Subject = "Complaint Request Completed";
+                    $mail->Body = $view;
+                    $mail->AddEmbeddedImage($imagePath, 'logo');
+                    $mail->AltBody = '';
+                    $mail->addAddress($admin->email, $admin->first_name . ' ' . $admin->last_name);
+                    $mail->isHTML(true);
+                    $mail->msgHTML($view);
+                    $mail->send();
+
+
+                }
+
+
             }
         }
         $complaint->status = $request->status;

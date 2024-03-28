@@ -410,6 +410,7 @@ Route::group(['middleware' => 'auth'], function () {
         Route::get('delete/newsletter/{id}', [FrontendController::class, 'DeleteNewsletter']);
 
         Route::get('/parents', [UserController::class, 'parent']);
+        Route::get('/ParentProfile/{id}', [UserController::class, 'ParentProfile']);
         Route::get('/organizations', [UserController::class, 'organization']);
         Route::get('/updateorgnization/{status}/{id}', [UserController::class, 'updateorgnization']);
         Route::get('/verify_tutor', [UserController::class, 'verification']);
